@@ -31,10 +31,10 @@ const RightSidebar = () => {
       </Link>
 
 
-      {/* <SidebarTags/> */}
+      <SidebarTags/>
       {/* <SidebarRelatedPosts/> */}
       {/* <SidebarOnThisPage/> */}
-      <SidebarSocialMedia/>
+      {/* <SidebarSocialMedia/> */}
 
     </div>
 
