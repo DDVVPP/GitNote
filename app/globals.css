@@ -87,4 +87,8 @@
   .caption {
     @apply text-[10px] leading-[12.1px] font-normal;
   }
+
+  .primary-gradient {
+    background: linear-gradient(90deg, rgb(67, 183, 254), rgb(79, 72, 230));
+  }
 }
