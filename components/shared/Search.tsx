@@ -10,14 +10,14 @@ export default function Search() {
   }
 
   return (
-    <div className="relative flex flex-1 items-center">
+    <div className="bg-black-700 flex h-8 items-center gap-2 rounded-md px-2">
       <Image
         src={searchIcon}
         alt="Search Icon"
-        className='ml-3 absolute pointer-events-none'
+        className='pointer-events-none'
       />
       <input
-        className="w-full rounded-md py-[9px] pl-10 text-sm placeholder:text-paragraph-4-medium placeholder:text-white-500 bg-black-700 focus:outline-none"
+        className="placeholder:paragraph-4-medium placeholder:text-white-500 bg-black-700 w-full rounded-md text-sm focus:outline-none"
         placeholder="Search..."
         onChange={(e) => {
           handleSearch(e.target.value);
@@ -26,7 +26,7 @@ export default function Search() {
       <Image
         src={shortcutIcon}
         alt="Shortcut Icon"
-        className='pointer-events-none flex -ml-8'
+        className='pointer-events-none'
       />
     </div>
   );
