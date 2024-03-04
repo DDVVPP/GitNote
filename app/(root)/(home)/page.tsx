@@ -7,7 +7,7 @@ export default function Home() {
     <div>
       <h1 className='display-1-bold text-primary-800'>Home Test!</h1>
 
-      <Link href='/posts'>
+      <Link href='/posts' className="flex flex-col">
         <Posts/>
       </Link>
 
