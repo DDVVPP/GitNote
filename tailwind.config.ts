@@ -17,7 +17,6 @@ const config: Config = {
         primary: {
           500: '#42BBFF',
           800: '#0C3247',
-          900: '#42BBFF1A'
         },
         black: {
           600: '#2E3757',
@@ -32,12 +31,10 @@ const config: Config = {
         },
         purple: {
           500: '#9542FF',
-          900: '#9542FF1A'
         },
         green: {
           400: '#68D1BF',
-          500: '#42FF77',
-          900: '#42FF771A'
+          500: '#42FF77'
         }
       },
     },
