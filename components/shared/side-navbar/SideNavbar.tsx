@@ -16,7 +16,7 @@ import NavSection from './NavSection';
 const SideNavbar = () => {
 
   return (
-    <nav className='custom-scrollbar bg-black-800 flex-2 sticky left-0 top-0 z-20 flex h-screen flex-col overflow-y-auto p-6 pt-36 lg:left-0 lg:w-60'>
+    <nav className='custom-scrollbar bg-black-800 flex-2 sticky left-0 top-0 z-20 flex h-screen flex-col overflow-y-auto p-8 pt-20 lg:left-0 lg:w-60'>
         <div className='border-white-500 flex flex-col justify-start space-y-12 border-b'>
           <div className='flex flex-row items-center space-x-2'>
             <Image
