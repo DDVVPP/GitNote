@@ -16,7 +16,7 @@
   }
 }
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,10 +24,67 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+@layer base {
+  body {
+    @apply bg-black-900 text-white-100
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .display-1-bold {
+    @apply text-[32px] leading-[40px] font-bold;
+  }
+  .display-2-bold {
+    @apply text-[24px] leading-[32px] font-bold;
+  }
+
+  .heading-1-medium {
+    @apply text-[20px] leading-[28px] font-medium;
+  }
+  .heading-2-medium {
+    @apply text-[16px] leading-[24px] font-medium;
+  }
+
+  .paragraph-1-bold {
+    @apply text-[18px] leading-[28px] font-bold;
+  }
+  .paragraph-2-bold {
+    @apply text-[16px] leading-[24px] font-bold;
+  }
+  .paragraph-3-bold {
+    @apply text-[14px] leading-[20px] font-bold;
+  }
+
+  .paragraph-1-medium {
+    @apply text-[18px] leading-[28px] font-medium;
+  }
+  .paragraph-3-medium {
+    @apply text-[14px] leading-[20px] font-medium;
+  }
+  .paragraph-4-medium {
+    @apply text-[12px] leading-[16px] font-medium;
+  }
+
+  .paragraph-1-regular {
+    @apply text-[18px] leading-[28px] font-normal;
+  }
+  .paragraph-2-regular {
+    @apply text-[16px] leading-[24px] font-normal;
+  }
+  .paragraph-3-regular {
+    @apply text-[14px] leading-[20px] font-normal;
+  }
+  .paragraph-4-regular {
+    @apply text-[12px] leading-[16px] font-normal;
+  }
+
+  .caption {
+    @apply text-[10px] leading-[12.1px] font-normal;
   }
 }
