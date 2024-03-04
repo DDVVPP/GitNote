@@ -3,8 +3,8 @@ import Posts from "../posts/page";
 
 export default function Home() {
   return (
-    <div>
-      <h1 className='display-1-bold text-primary-800'>Home Test!</h1>
+    <div className='paragraph-3-medium text-white-300 flex flex-col gap-2'>
+      <h1 className='display-2-bold text-white-100'>Recent Posts</h1>
       <Posts/>
     </div>
   );
