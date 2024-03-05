@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import plusCircleBlueIcon from '@/public/plusCircleBlueIcon.svg'
+
+import PlusIcon from '../Icons/PlusIcon';
 
 
 const SidebarRelatedPosts = () => {
@@ -24,12 +24,8 @@ const SidebarRelatedPosts = () => {
 
       <Link href='/posts/create-post'>
         <button className="paragraph-3-medium bg-black-600 flex w-full flex-row items-center justify-center rounded py-3 font-bold text-white">
-          <Image
-          src={plusCircleBlueIcon}
-          alt="Plus Icon"
-          className='mr-2'
-          />
-            Add related post
+          <PlusIcon className='fill-primary-500'/>
+          <span className='ml-2'>Add related post</span>
         </button>
       </Link>
     </div>

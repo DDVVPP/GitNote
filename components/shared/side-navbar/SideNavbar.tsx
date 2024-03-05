@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import gitNoteIcon from '@/public/gitNoteIcon.svg'
-import plusCircleIcon from '@/public/plusCircleIcon.svg'
 import jsmProLogo from '@/public/jsmProLogo.svg'
 import githubOutline from '@/public/githubOutline.svg'
 import logoutIcon from '@/public/logoutIcon.svg'
@@ -12,6 +11,7 @@ import Search from '../Search';
 import Posts from '@/app/(root)/posts/page';
 import QuickLink from '../QuickLink';
 import NavSection from './NavSection';
+import PlusIcon from '../Icons/PlusIcon';
 
 const SideNavbar = () => {
 
@@ -28,12 +28,8 @@ const SideNavbar = () => {
           <div className='space-y-4 pb-12'>
             <Link href='/posts/create-post'>
               <button className="paragraph-4-medium flex w-full flex-row items-center justify-center rounded border border-blue-700 bg-blue-500 py-3 font-bold text-white hover:bg-blue-700">
-                <Image
-                src={plusCircleIcon}
-                alt="Plus Icon"
-                className='mr-2'
-                />
-                Create Post
+                <PlusIcon />
+                <span className='ml-2'>Create Post</span>
               </button>
             </Link>
             <Search />
