@@ -18,7 +18,7 @@ const SideNavbar = () => {
   return (
     <nav className='custom-scrollbar bg-black-800 flex-2 sticky left-0 top-0 z-20 flex h-screen flex-col overflow-y-auto p-8 pt-20 lg:left-0 lg:w-60'>
         <div className='border-white-500 flex flex-col justify-start space-y-12 border-b'>
-          <div className='flex flex-row items-center space-x-2'>
+          <div className='flex items-center space-x-2'>
             <Image
             src={gitNoteIcon}
             alt="Git Note Icon"
@@ -27,10 +27,10 @@ const SideNavbar = () => {
           </div>
           <div className='space-y-4 pb-12'>
             <Link href='/posts/create-post'>
-              <button className="paragraph-4-medium primary-gradient flex w-full flex-row items-center justify-center rounded border border-none py-3 font-bold text-white">
+              <button className="paragraph-4-medium primary-gradient text-white-100 flex w-full items-center justify-center gap-2 rounded border border-none py-2 font-bold">
                 <PlusIcon />
-                <span className='ml-2'>Create Post</span>
-              </button>
+                Create Post
+                </button>
             </Link>
             <Search />
           </div>

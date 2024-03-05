@@ -15,7 +15,7 @@ const RightSidebar = () => {
 
   return (
     <div className='custom-scrollbar bg-black-800 flex-2 sticky right-0 top-0 z-20 flex h-screen flex-col gap-10 overflow-y-auto p-8 pt-20 lg:left-0 lg:w-60'>
-      <Link href="/profile" className='flex flex-row gap-2'>
+      <Link href="/profile" className='flex gap-2'>
         <Image
           src={photo01}
           alt="Profile photo"

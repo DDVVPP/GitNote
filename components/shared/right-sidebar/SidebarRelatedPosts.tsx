@@ -23,9 +23,9 @@ const SidebarRelatedPosts = () => {
           })}
 
       <Link href='/posts/create-post'>
-        <button className="paragraph-3-medium bg-black-600 flex w-full flex-row items-center justify-center rounded py-3 font-bold text-white">
+        <button className="paragraph-3-medium bg-black-600 text-white-100 flex w-full items-center justify-center gap-2 rounded py-2 font-bold">
           <PlusIcon className='fill-primary-500'/>
-          <span className='ml-2'>Add related post</span>
+          Add related post
         </button>
       </Link>
     </div>
