@@ -27,7 +27,7 @@ const SideNavbar = () => {
           </div>
           <div className='space-y-4 pb-12'>
             <Link href='/posts/create-post'>
-              <button className="paragraph-4-medium flex w-full flex-row items-center justify-center rounded border border-blue-700 bg-blue-500 py-3 font-bold text-white hover:bg-blue-700">
+              <button className="paragraph-4-medium primary-gradient flex w-full flex-row items-center justify-center rounded border border-none py-3 font-bold text-white">
                 <PlusIcon />
                 <span className='ml-2'>Create Post</span>
               </button>
