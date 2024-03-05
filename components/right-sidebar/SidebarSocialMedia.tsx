@@ -1,7 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
-import SocialMediaLinks from './SocialMediaLinks';
-import PlusIcon from '../shared/icons/PlusIcon';
+import React from "react";
+import Link from "next/link";
+import SocialMediaLinks from "./SocialMediaLinks";
+import PlusIcon from "../shared/Icons/PlusIcon";
 
 const SidebarSocialMedia = () => {
   return (
