@@ -16,19 +16,9 @@
   }
 }
 
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
-
 @layer base {
   body {
-    @apply bg-black-900 text-white-100
+    @apply bg-black-900 text-white-100;
   }
 }
 
