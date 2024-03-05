@@ -1,11 +1,13 @@
-import Posts from "../posts/page";
-
+import BadgeTest from '@/components/shared/ui/BadgeTest';
+import Posts from '../posts/page';
 
 export default function Home() {
   return (
-    <div className='paragraph-3-medium text-white-300 flex flex-col gap-2'>
-      <h1 className='display-2-bold text-white-100'>Recent Posts</h1>
-      <Posts/>
+    <div className="paragraph-3-medium text-white-300 flex flex-col gap-2">
+      <h1 className="display-2-bold text-white-100">Recent Posts</h1>
+      {/* <Posts/> */}
+
+      <BadgeTest />
     </div>
   );
 }
