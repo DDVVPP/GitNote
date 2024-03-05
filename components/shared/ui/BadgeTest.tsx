@@ -1,4 +1,4 @@
-import Badge from '../ui/Badge';
+import Badge from "../ui/Badge";
 
 const BadgeTest = () => (
   <div className="flex flex-col gap-4">
@@ -33,7 +33,15 @@ const BadgeTest = () => (
     <Badge variant="solid" icon="dot" color="gray" size="medium">
       Badge Green Dot Medium
     </Badge>
-
+    <Badge icon="knowledge" color="green">
+      Knowledge
+    </Badge>
+    <Badge icon="component" color="purple">
+      Component
+    </Badge>
+    <Badge icon="workflow" color="blue">
+      Workflow{" "}
+    </Badge>
     <Badge>Badge All Defaults</Badge>
   </div>
 );

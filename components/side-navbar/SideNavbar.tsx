@@ -1,15 +1,15 @@
-import React from 'react';
-import Image from 'next/image';
-import gitNoteIcon from '@/public/gitNoteIcon.svg';
-import jsmProLogo from '@/public/jsmProLogo.svg';
-import githubOutline from '@/public/githubOutline.svg';
-import logoutIcon from '@/public/logoutIcon.svg';
-import Link from 'next/link';
-import Search from '../shared/Search';
-import Posts from '@/app/(root)/posts/page';
-import QuickLink from './QuickLink';
-import NavSection from './NavSection';
-import PlusIcon from '../shared/icons/PlusIcon';
+import React from "react";
+import Image from "next/image";
+import gitNoteIcon from "@/public/gitNoteIcon.svg";
+import jsmProLogo from "@/public/jsmProLogo.svg";
+import githubOutline from "@/public/githubOutline.svg";
+import logoutIcon from "@/public/logoutIcon.svg";
+import Link from "next/link";
+import Search from "../shared/Search";
+import Posts from "@/app/(root)/posts/page";
+import QuickLink from "./QuickLink";
+import NavSection from "./NavSection";
+import PlusIcon from "../shared/Icons/PlusIcon";
 
 const SideNavbar = () => {
   return (
