@@ -1,5 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
-'use client';
 import React from 'react';
 import Image from 'next/image';
 import gitNoteIcon from '@/public/gitNoteIcon.svg';
@@ -9,7 +7,7 @@ import logoutIcon from '@/public/logoutIcon.svg';
 import Link from 'next/link';
 import Search from '../shared/Search';
 import Posts from '@/app/(root)/posts/page';
-import QuickLink from '../shared/QuickLink';
+import QuickLink from './QuickLink';
 import NavSection from './NavSection';
 import PlusIcon from '../shared/icons/PlusIcon';
 
