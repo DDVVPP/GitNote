@@ -1,7 +1,6 @@
 import { auth } from '@/auth';
 import { signIn, signOut } from '@/lib/actions';
 
-// import BadgeTest from '@/components/shared/ui/BadgeTest';
 import Posts from '../posts/page';
 
 export default async function Home() {
@@ -21,8 +20,6 @@ export default async function Home() {
 
       <h1 className="display-2-bold text-white-100">Recent Posts</h1>
       {session ? <Posts session={session} /> : <div>Eeeee no session</div>}
-
-      {/* <BadgeTest /> */}
     </div>
   );
 }
