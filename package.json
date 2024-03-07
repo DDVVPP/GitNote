@@ -9,17 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.10.2",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-tailwindcss": "^3.14.3",
     "lucide-react": "^0.344.0",
     "next": "14.1.0",
+    "next-auth": "^5.0.0-beta.15",
     "prettier": "^3.2.5",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@auth/prisma-adapter": "^1.5.0",
+    "@prisma/client": "^5.10.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
