@@ -20,7 +20,7 @@ export default async function Home() {
       {session?.user ? <div>Signed In</div> : <div>No user...</div>}
 
       <h1 className="display-2-bold text-white-100">Recent Posts</h1>
-      {session ? <Posts session={session} /> : <div>Eee Login Card</div>}
+      {session ? <Posts session={session} /> : <div>Eeeee no session</div>}
 
       {/* <BadgeTest /> */}
     </div>

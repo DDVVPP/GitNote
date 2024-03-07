@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -68,7 +61,7 @@ model Profile {
   contributionGrid  String?
   portfolio         String?
   goals             String[]
-  knowledge         String[]
+  knowledge         Knowledge[]
   techStack         String[]
   socialMedia       Social[]
   availability      Boolean
@@ -83,11 +76,11 @@ model Post {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   title       String
-  category    CategoryName
+  category    Category
   description String
-  content     Content    @relation(fields: [contentId], references: [id])
+  content     String
   user        User       @relation(fields: [userId], references: [id])
-  tag         Tag[]
+  tag         String[]
   resources   Resource[]
   contentId   Int
   userId      String
@@ -102,10 +95,12 @@ model Social {
   profileId Int
 }
 
-model Tag {
-  id    Int    @id @default(autoincrement())
-  name  String
-  posts Post[]
+model Knowledge {
+  id          Int    @id @default(autoincrement())
+  name        String
+  isComplete  Boolean
+  profile     Profile @relation(fields: [profileId], references: [id])
+  profileId   Int
 }
 
 model Resource {
@@ -115,54 +110,13 @@ model Resource {
   posts Post[]
 }
 
-model Content {
-  id    Int    @id @default(autoincrement())
-  text  String?
-  link  String[]
-  image String[]
-  posts Post[]
-}
-
 enum Role {
   USER
   ADMIN
 }
 
-enum CategoryName {
+enum Category {
   WORKFLOW
   COMPONENT
   KNOWLEDGE
 }
-
-// model Category {
-//   id    Int    @id @default(autoincrement())
-//   name  CategoryName
-//   posts Post[]
-// }
-
-// model Location {
-//   id      Int    @id @default(autoincrement())
-//   city    String
-//   country String
-// }
-
-// model Goals {
-//   id      Int    @id @default(autoincrement())
-//   name    String
-//   profile Profile @relation(fields: [profileId], references: [id])
-//   profileId Int
-// }
-
-// model Levels {
-//   id        Int    @id @default(autoincrement())
-//   name      String
-//   profile   Profile @relation(fields: [profileId], references: [id])
-//   profileId Int
-// }
-
-// model Tech {
-//   id        Int    @id @default(autoincrement())
-//   name      String
-//   profile   Profile @relation(fields: [profileId], references: [id])
-//   profileId Int
-// }

@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import LinkedInProvider from 'next-auth/providers/linkedin';
 import TwitterProvider from 'next-auth/providers/twitter';
 
 import { PrismaAdapter } from '@auth/prisma-adapter';
@@ -24,21 +23,17 @@ export const {
     strategy: 'jwt',
   },
   adapter: PrismaAdapter(prisma),
-  pages: {
-    newUser: '/sign-up/onboarding',
-  },
+  // pages: {
+  //   newUser: '/sign-up/onboarding',
+  // },
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
-    }),
-    LinkedInProvider({
-      clientId: process.env.LINKEDIN_CLIENT_ID!,
-      clientSecret: process.env.LINKEDIN_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     TwitterProvider({
       clientId: process.env.TWITTER_CLIENT_ID!,
@@ -56,7 +51,7 @@ export const {
     async session({ session, token }) {
       //will run this also in jwt
       if (token) {
-        session.user.role = token.role;
+        session.user.name = token.role as string;
       }
       return session;
     },
