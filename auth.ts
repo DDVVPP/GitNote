@@ -35,10 +35,10 @@ export const {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    TwitterProvider({
-      clientId: process.env.TWITTER_CLIENT_ID!,
-      clientSecret: process.env.TWITTER_CLIENT_SECRET!,
-    }),
+    // TwitterProvider({
+    //   clientId: process.env.TWITTER_CLIENT_ID!,
+    //   clientSecret: process.env.TWITTER_CLIENT_SECRET!,
+    // }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -51,7 +51,7 @@ export const {
     async session({ session, token }) {
       //will run this also in jwt
       if (token) {
-        session.user.name = token.role as string;
+        session.user.role = token.role as Role;
       }
       return session;
     },
