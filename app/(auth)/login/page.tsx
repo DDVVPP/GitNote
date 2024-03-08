@@ -1,7 +1,17 @@
-const Login = () => {
-  return (
-    <div>Login</div>
-  )
-}
+import { signIn, signOut } from '@/lib/actions';
 
-export default Login
+const Login = () => {
+  const signUp = async () => {
+    'use server';
+    await signIn('github');
+  };
+  return (
+    <div>
+      <form action={signUp}>
+        <button type="submit">Sign In To Github</button>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
