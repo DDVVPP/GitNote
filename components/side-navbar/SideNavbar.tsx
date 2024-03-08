@@ -1,15 +1,17 @@
-import React from "react";
-import Image from "next/image";
-import gitNoteIcon from "@/public/gitNoteIcon.svg";
-import jsmProLogo from "@/public/jsmProLogo.svg";
-import githubOutline from "@/public/githubOutline.svg";
-import logoutIcon from "@/public/logoutIcon.svg";
-import Link from "next/link";
-import Search from "../shared/Search";
-import Posts from "@/app/(root)/posts/page";
-import QuickLink from "./QuickLink";
-import NavSection from "./NavSection";
-import PlusIcon from "../shared/Icons/PlusIcon";
+import React from 'react';
+import { signOut } from '@/lib/actions';
+
+import Image from 'next/image';
+import gitNoteIcon from '@/public/gitNoteIcon.svg';
+import jsmProLogo from '@/public/jsmProLogo.svg';
+import githubOutline from '@/public/githubOutline.svg';
+import logoutIcon from '@/public/logoutIcon.svg';
+import Link from 'next/link';
+import Search from '../shared/Search';
+import Posts from '@/app/(root)/posts/page';
+import QuickLink from './QuickLink';
+import NavSection from './NavSection';
+import PlusIcon from '@/components/shared/icons/PlusIcon';
 
 const SideNavbar = () => {
   return (
@@ -50,10 +52,12 @@ const SideNavbar = () => {
       </NavSection>
 
       <div className="flex space-x-2 pt-40">
-        <Image src={logoutIcon} alt="Logout Icon" />
-        <Link className="paragraph-3-medium text-white-300" href="/logout">
-          Logout
-        </Link>
+        <form action={signOut}>
+          <Image src={logoutIcon} alt="Logout Icon" />
+          <button className="paragraph-3-medium text-white-300" type="submit">
+            Logout
+          </button>
+        </form>
       </div>
     </nav>
   );
