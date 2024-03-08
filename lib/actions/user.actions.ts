@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '@/db'; //prisma db connection
+import { User } from '@prisma/client';
 
 export async function getUser(email: string) {
   try {
@@ -16,22 +17,15 @@ export async function getUser(email: string) {
   }
 }
 
-export async function updateUser(data: {
-  id: string;
-  name: string;
-  email: string;
-}) {
+export async function updateUser(data: Partial<User>) {
   try {
+    console.log('DATA', data);
     if (data) {
       const user = prisma.user.update({
         where: {
           id: data.id,
         },
-        data: {
-          ...data,
-          name: data.name,
-          email: data.email,
-        },
+        data,
       });
       return user;
     }
