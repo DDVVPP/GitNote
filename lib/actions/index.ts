@@ -10,5 +10,8 @@ export async function signIn(provider: 'github' | 'google') {
 }
 
 export async function signOut() {
-  return auth.signOut();
+  return auth.signOut({
+    redirect: true,
+    redirectTo: '/login',
+  });
 }
