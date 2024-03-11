@@ -52,19 +52,19 @@ export const {
       },
       async authorize(credentials, request) {
         //connect db, find user based on credentials, return user info - tells next auth whatever returning is correct user. Fail with return null if not found or wrong password
-        console.log(credentials);
-        // const user = prisma.user.findUnique{
-        //   where:
-        // // }
-        // if (user) {
-        //   return user;
-        // } else {
-        //   return null;
-        // }
-        return {
-          email: 'test@gmail.com',
-          role: 'ADMIN',
-        };
+        const { email } = credentials;
+
+        const user = await prisma.user.findUnique({
+          where: {
+            email: email as string,
+          },
+        });
+
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
       },
     }),
     // TwitterProvider({
