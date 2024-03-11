@@ -35,11 +35,9 @@ const BasicAuthLogin = () => {
           onChange={(event) => setPassword(event?.target.value)}
         />
 
-        <Link href="/posts/create-post">
-          <Button color="blue" onClick={submit}>
-            Login
-          </Button>
-        </Link>
+        <Button color="blue" onClick={submit}>
+          Login
+        </Button>
       </form>
       <div className="text-white-300">
         <Link
