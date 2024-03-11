@@ -14,6 +14,7 @@ const Input = ({
   name,
   placeholder,
   required = true,
+  ...rest
   // register,
 }: InputProps) => {
   return (
@@ -23,13 +24,7 @@ const Input = ({
         type="text"
         name={name}
         placeholder={placeholder}
-        onChange={(event) => {
-          console.log(event.target.value);
-          // setData({
-          //   ...data,
-          //   email: event.target.value,
-          // });
-        }}
+        {...rest}
         className="paragraph-3-regular p-3 bg-black-700"
       />
     </div>
