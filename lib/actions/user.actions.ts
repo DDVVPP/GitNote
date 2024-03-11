@@ -19,7 +19,6 @@ export async function getUser(email: string) {
 
 export async function updateUser(data: Partial<User>) {
   try {
-    console.log('DATA', data);
     if (data) {
       const user = prisma.user.update({
         where: {
