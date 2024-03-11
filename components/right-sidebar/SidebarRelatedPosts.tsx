@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import PlusIcon from '../shared/icons/PlusIcon';
+import Button from '../shared/ui/Button';
 
 const SidebarRelatedPosts = () => {
   // Hardcoded placeholder for actual realated posts
@@ -22,10 +22,9 @@ const SidebarRelatedPosts = () => {
       })}
 
       <Link href="/posts/create-post">
-        <button className="paragraph-3-medium bg-black-600 text-white-100 flex w-full items-center justify-center gap-2 rounded py-2 font-bold">
-          <PlusIcon className="fill-primary-500" />
+        <Button icon="plus" color="gray">
           Add related post
-        </button>
+        </Button>
       </Link>
     </div>
   );
