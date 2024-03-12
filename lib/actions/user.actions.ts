@@ -3,6 +3,20 @@
 import { prisma } from '@/db'; //prisma db connection
 import { User } from '@prisma/client';
 
+export async function createUser(data: Partial<User>) {
+  try {
+    if (data) {
+      const user = await prisma.user.create({
+        data,
+      });
+      return user;
+    }
+  } catch (error) {
+    console.error('Error creating user:', error);
+    throw new Error('An unexpected error occurred while creating user.');
+  }
+}
+
 export async function getUser(email: string) {
   try {
     const user = prisma.user.findUnique({
