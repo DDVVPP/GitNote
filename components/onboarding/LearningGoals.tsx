@@ -1,20 +1,45 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import Button from '@/components/shared/ui/Button';
-import Checkbox from '@/components/shared/ui/Checkbox';
+import Goals from '@/components/shared/Goals';
 import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
+import GoalsField from '../shared/GoalsField';
 
 type Props = {
   setStep: Dispatch<SetStateAction<number>>;
 };
 
+const placeholderGoals = [
+  "Follow Clerk's installation process",
+  'Setup Clerk with Nextjs + Clerk webhook',
+];
+
 const LearningGoals = ({ setStep }: Props) => {
-  const [learningGoals, setLearningGoals] = useState([
-    'goal goal',
-    'complicated learning goal',
-  ]);
+  const [learningGoal, setGoal] = useState('');
+  const [learningGoals, setLearningGoals] = useState(placeholderGoals);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     setLearningGoals(data)
+  //   }
+  // }, [])
+
+  const addGoal = () => {
+    //add to db THEN
+    if (learningGoal.length > 0) {
+      setLearningGoals((learningGoals) => [...learningGoals, learningGoal]);
+    }
+  };
+
+  const removeGoal = (label: string) => {
+    console.log(label);
+    //remove from db THEN
+    setLearningGoals((learningGoals) =>
+      learningGoals.splice(learningGoals.indexOf(label), 1)
+    );
+  };
 
   return (
     <>
@@ -26,19 +51,15 @@ const LearningGoals = ({ setStep }: Props) => {
             Learning goals
           </p>
           {learningGoals.length > 0 ? (
-            learningGoals.map((goal) => <Checkbox label={goal} />)
+            learningGoals.map((goal) => (
+              <Goals label={goal} removeGoal={removeGoal} />
+            ))
           ) : (
-            <Checkbox placeholder="Enter a learning goal" />
+            <GoalsField placeholder="Enter a learning goal" setGoal={setGoal} />
           )}
-          <Checkbox placeholder="Enter a learning goal" />
+          <GoalsField placeholder="Enter a learning goal" setGoal={setGoal} />
         </div>
-        <Button
-          color="darkGray"
-          icon="plus"
-          onClick={() => {
-            console.log('add goal checkbox');
-          }}
-        >
+        <Button color="darkGray" icon="plus" onClick={addGoal}>
           Add goal checkbox
         </Button>
       </form>
