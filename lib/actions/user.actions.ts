@@ -2,6 +2,35 @@
 
 import { prisma } from '@/db'; //prisma db connection
 import { User } from '@prisma/client';
+import bcryptjs from 'bcryptjs';
+import { redirect } from 'next/navigation';
+import { isRedirectError } from 'next/dist/client/components/redirect';
+
+export async function createUser(data: Partial<User>) {
+  try {
+    console.log('DATA>>>>>>', data);
+    if (data) {
+      const { password } = data;
+      const hashedPassword = bcryptjs.hashSync(password as string, 10);
+      console.log('HASHED PASSWORD >>>>>', hashedPassword);
+      const user = await prisma.user.create({
+        data: {
+          ...data,
+          password: hashedPassword,
+        },
+      });
+      console.log('USER>>>>', user);
+      redirect('/login');
+      return user;
+    }
+  } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+    console.error('Error creating user:', error);
+    throw new Error('An unexpected error occurred while creating user.');
+  }
+}
 
 export async function getUser(email: string) {
   try {
@@ -19,7 +48,6 @@ export async function getUser(email: string) {
 
 export async function updateUser(data: Partial<User>) {
   try {
-    console.log('DATA', data);
     if (data) {
       const user = prisma.user.update({
         where: {

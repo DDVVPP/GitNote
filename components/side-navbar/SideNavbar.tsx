@@ -11,7 +11,7 @@ import Search from '../shared/Search';
 import Posts from '@/app/(root)/posts/page';
 import QuickLink from './QuickLink';
 import NavSection from './NavSection';
-import PlusIcon from '@/components/shared/icons/PlusIcon';
+import Button from '../shared/ui/Button';
 
 const SideNavbar = () => {
   return (
@@ -25,10 +25,9 @@ const SideNavbar = () => {
         </div>
         <div className="space-y-4 pb-12">
           <Link href="/posts/create-post">
-            <button className="paragraph-4-medium primary-gradient text-white-100 flex w-full items-center justify-center gap-2 rounded border border-none py-2 font-bold">
-              <PlusIcon />
+            <Button icon="plus" color="gradient">
               Create Post
-            </button>
+            </Button>
           </Link>
           <Search />
         </div>

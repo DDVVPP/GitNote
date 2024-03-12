@@ -1,15 +1,13 @@
-import { signIn, signOut } from '@/lib/actions';
+import BasicAuthLogin from '@/components/BasicAuthLogin';
+import ProviderLogins from '@/components/ProviderLogins';
 
 const Login = () => {
-  const signUp = async () => {
-    'use server';
-    await signIn('github');
-  };
   return (
-    <div>
-      <form action={signUp}>
-        <button type="submit">Sign In To Github</button>
-      </form>
+    <div className="flex flex-col justify-center w-1/3">
+      <BasicAuthLogin />
+      <div className="mt-5">
+        <ProviderLogins />
+      </div>
     </div>
   );
 };
