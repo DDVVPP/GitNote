@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 // import TwitterProvider from 'next-auth/providers/twitter';
@@ -59,20 +59,23 @@ export const {
             email: email as string,
           },
         });
+        return { email: 'email', role: 'USER' };
 
-        if (user) {
-          const passwordCheck = await bcrypt.compare(
-            credentialsPassword as string,
-            user.password as string
-          );
-          if (passwordCheck) {
-            return user;
-          } else {
-            throw new Error('Invalid password');
-          }
-        } else {
-          return null;
-        }
+        // if (user) {
+        //   console.log('USER IN AUTH.TS >>>>>>>', user);
+        //   const passwordCheck = await bcryptjs.compare(
+        //     credentialsPassword as string,
+        //     user.password as string
+        //   );
+        //   if (passwordCheck) {
+        //     console.log('PASSWORD CHECK>>>>>>', passwordCheck);
+        //     return { email: user.email, role: user.role };
+        //   } else {
+        //     throw new Error('Invalid password');
+        //   }
+        // } else {
+        //   return null;
+        // }
       },
     }),
     // TwitterProvider({
