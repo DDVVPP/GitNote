@@ -51,7 +51,6 @@ export const {
         },
       },
       async authorize(credentials, request) {
-        //connect db, find user based on credentials, return user info - tells next auth whatever returning is correct user. Fail with return null if not found or wrong password
         const { email } = credentials;
 
         const user = await prisma.user.findUnique({

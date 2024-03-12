@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           GitNote
         </h1>
       </div>
-      <div className="flex min-h-screen">{children}</div>
+      <div className="flex min-h-screen w-full justify-center">{children}</div>
     </main>
   );
 };

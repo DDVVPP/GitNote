@@ -20,7 +20,7 @@ export default async function Home() {
       </div>
       <div className="text-white-300 flex flex-col mt-4 gap-4">
         <h3 className="display-2-bold text-white-100">Recent Posts</h3>
-        {session && <Posts user={user} />}
+        {/* {session && <Posts user={user} />} */}
       </div>
     </>
   );

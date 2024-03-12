@@ -31,9 +31,9 @@ const CreateAccount = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center space-y-8">
-      <h1 className="display-2-bold">Create an Account</h1>
-      <form action={handleSubmit} className="space-y-4">
+    <div>
+      <h1 className="display-2-bold pb-5">Create an Account</h1>
+      <form action={handleSubmit} className="mb-5">
         <Input
           label="Full Name"
           name="name"
@@ -73,7 +73,6 @@ const CreateAccount = () => {
           }
           value={data.password}
         />
-
         <Button color="blue" type="submit">
           Create an account
         </Button>
