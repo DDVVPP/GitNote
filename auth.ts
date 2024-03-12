@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth';
+import bcrypt from 'bcrypt';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 // import TwitterProvider from 'next-auth/providers/twitter';
@@ -51,7 +52,7 @@ export const {
         },
       },
       async authorize(credentials, request) {
-        const { email } = credentials;
+        const { email, password: credentialsPassword } = credentials;
 
         const user = await prisma.user.findUnique({
           where: {
@@ -60,7 +61,15 @@ export const {
         });
 
         if (user) {
-          return user;
+          const passwordCheck = await bcrypt.compare(
+            credentialsPassword as string,
+            user.password as string
+          );
+          if (passwordCheck) {
+            return user;
+          } else {
+            throw new Error('Invalid password');
+          }
         } else {
           return null;
         }

@@ -2,12 +2,20 @@
 
 import { prisma } from '@/db'; //prisma db connection
 import { User } from '@prisma/client';
+import bcrypt from 'bcrypt';
 
 export async function createUser(data: Partial<User>) {
   try {
+    console.log('DATA>>>>>>', data);
     if (data) {
+      const { password } = data;
+      const hashedPassword = bcrypt.hashSync(password as string, 10);
+
       const user = await prisma.user.create({
-        data,
+        data: {
+          password: hashedPassword,
+          ...data,
+        },
       });
       return user;
     }
