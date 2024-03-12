@@ -1,18 +1,20 @@
-import { auth } from '@/auth';
-import { NextResponse } from 'next/server';
+export { default } from 'next-auth/middleware';
 
-export default auth((req) => {
-  const { role } = req.auth?.user || {};
-  const { pathname } = req.nextUrl;
+// import { auth } from '@/auth';
+// import { NextResponse } from 'next/server';
 
-  if (pathname === '/' && !role) {
-    return NextResponse.redirect(`${req.nextUrl.origin}/login`);
-  }
-  if (pathname === '/admin' && role !== 'ADMIN') {
-    return NextResponse.redirect(`${req.nextUrl.origin}/`);
-  }
-});
+// export default auth((req) => {
+//   const { role } = req.auth?.user || {};
+//   const { pathname } = req.nextUrl;
 
-export const config = {
-  matcher: ['/', '/admin'],
-};
+//   if (pathname === '/' && !role) {
+//     return NextResponse.redirect(`${req.nextUrl.origin}/login`);
+//   }
+//   if (pathname === '/admin' && role !== 'ADMIN') {
+//     return NextResponse.redirect(`${req.nextUrl.origin}/`);
+//   }
+// });
+
+// export const config = {
+//   matcher: ['/', '/admin'],
+// };
