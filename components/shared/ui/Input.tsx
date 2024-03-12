@@ -1,5 +1,4 @@
-import { Path, useForm, UseFormRegister, SubmitHandler } from 'react-hook-form';
-import { IFormValues } from '@/components/onboarding/CreateAccount';
+// import { Path, useForm, UseFormRegister, SubmitHandler } from 'react-hook-form';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -25,7 +24,7 @@ const Input = ({
         name={name}
         placeholder={placeholder}
         {...rest}
-        className="paragraph-3-regular p-3 bg-black-700"
+        className="paragraph-3-regular p-3 bg-black-700 border-none"
       />
     </div>
   );
