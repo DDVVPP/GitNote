@@ -50,13 +50,10 @@ const LearningGoals = ({ setStep }: Props) => {
           <p className="paragraph-3-regular text-white-300 mb-1">
             Learning goals
           </p>
-          {learningGoals.length > 0 ? (
+          {learningGoals.length > 0 &&
             learningGoals.map((goal) => (
               <Goals label={goal} removeGoal={removeGoal} />
-            ))
-          ) : (
-            <GoalsField placeholder="Enter a learning goal" setGoal={setGoal} />
-          )}
+            ))}
           <GoalsField placeholder="Enter a learning goal" setGoal={setGoal} />
         </div>
         <Button color="darkGray" icon="plus" onClick={addGoal}>
