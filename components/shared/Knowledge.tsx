@@ -7,7 +7,7 @@ import Button from './ui/Button';
 interface KnowledgeProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   placeholder?: string;
-  removeLevel: (label: string) => {};
+  removeLevel: (label: string) => void;
 }
 
 const Knowledge = ({ label, removeLevel }: KnowledgeProps) => {

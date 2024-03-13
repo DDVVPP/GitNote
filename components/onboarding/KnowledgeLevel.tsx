@@ -20,7 +20,7 @@ const KnowledgeLevel = ({ setStep }: Props) => {
   const [knowledgeLevels, setKnowledgeLevels] = useState(
     placeholderKnowledgeList
   );
-  const [techStack, setTechStack] = useState([]);
+  const [techStack, setTechStack] = useState('');
 
   // useEffect(() => {
   //   if (data) {
@@ -80,7 +80,7 @@ const KnowledgeLevel = ({ setStep }: Props) => {
       <Button
         color="blue"
         onClick={() => {
-          setStep(3);
+          setStep(4);
           //also needs to update tech stack in db
         }}
       >

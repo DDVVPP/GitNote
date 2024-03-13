@@ -5,7 +5,7 @@ import Button from './ui/Button';
 interface GoalsProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   placeholder?: string;
-  removeGoal: (label: string) => {};
+  removeGoal: (label: string) => void;
 }
 
 const Goals = ({ label, removeGoal, ...rest }: GoalsProps) => {

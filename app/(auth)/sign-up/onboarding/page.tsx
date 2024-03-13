@@ -1,5 +1,7 @@
 'use client';
 
+import { redirect } from 'next/navigation';
+
 import BasicInformation from '@/components/onboarding/BasicInformation';
 import LearningGoals from '@/components/onboarding/LearningGoals';
 import KnowledgeLevel from '@/components/onboarding/KnowledgeLevel';
@@ -33,6 +35,8 @@ const Onboarding = () => {
             <Availability setStep={setStep} />;
           </div>
         );
+      case 5:
+        return redirect('/');
     }
   };
 
