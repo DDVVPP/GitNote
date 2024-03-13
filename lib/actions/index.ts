@@ -1,9 +1,8 @@
 'use server';
+import { signIn, signOut } from 'next-auth/react';
 
-import * as auth from '@/auth';
-
-export async function signIn(provider: 'github' | 'google') {
-  return auth.signIn(provider, {
+export async function providerSignIn(provider: 'github' | 'google') {
+  return signIn(provider, {
     redirect: true,
     redirectTo: '/',
   });
@@ -16,7 +15,7 @@ export async function credentialsSignIn({
   email: string;
   password: string;
 }) {
-  return auth.signIn('credentials', {
+  return signIn('credentials', {
     email,
     password,
     redirect: true,
@@ -24,9 +23,8 @@ export async function credentialsSignIn({
   });
 }
 
-export async function signOut() {
-  return auth.signOut({
+export async function providerSignOut() {
+  return signOut({
     redirect: true,
-    redirectTo: '/login',
   });
 }

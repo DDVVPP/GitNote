@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions, getServerSession } from 'next-auth';
 import bcryptjs from 'bcryptjs';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
@@ -14,17 +14,14 @@ declare module 'next-auth' {
   }
 }
 
-export const {
-  handlers: { GET, POST },
-  auth,
-  signIn,
-  signOut,
-} = NextAuth({
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
   },
+  secret: process.env.NEXTAUTH_SECRET!,
   adapter: PrismaAdapter(prisma),
   pages: {
+    signIn: '/login',
     newUser: '/sign-up/onboarding',
   },
   providers: [
@@ -53,12 +50,12 @@ export const {
       async authorize(credentials, request) {
         const { email, password: credentialsPassword } = credentials;
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: email as string,
-          },
-        });
-        return { email: 'email', role: 'USER' };
+        return { email: 'email@email.com', role: 'USER', id: '23' };
+        // const user = await prisma.user.findUnique({
+        //   where: {
+        //     email: email as string,
+        //   },
+        // });
 
         // if (user) {
         //   console.log('USER IN AUTH.TS >>>>>>>', user);
@@ -98,4 +95,6 @@ export const {
       return session;
     },
   },
-});
+};
+
+export const auth = async () => await getServerSession(authOptions);

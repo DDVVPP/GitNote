@@ -1,27 +1,23 @@
-import { signIn } from '@/lib/actions';
-import Button from './shared/ui/Button';
+'use client';
 
-const submit = async (formData: FormData) => {
-  'use server';
-  const provider = formData.get('provider') as 'google' | 'github';
-  await signIn(provider);
-};
+import { signIn } from 'next-auth/react';
+import Button from './shared/ui/Button';
 
 const ProviderLogins = () => {
   return (
     <>
-      <form action={submit} className="flex space-y-4 flex-col">
+      <section className="flex space-y-4 flex-col">
         <input type="hidden" name="provider" value="google" />
-        <Button icon="github" color="darkGray">
+        <Button icon="github" color="darkGray" onClick={() => signIn('github')}>
           Sign In To Github
         </Button>
-      </form>
-      <form action={submit} className="flex space-y-4 flex-col">
+      </section>
+      <section className="flex space-y-4 flex-col">
         <input type="hidden" name="provider" value="google" />
-        <Button icon="google" color="darkGray">
+        <Button icon="google" color="darkGray" onClick={() => signIn('google')}>
           Sign In To Google
         </Button>
-      </form>
+      </section>
     </>
   );
 };

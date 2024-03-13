@@ -1,6 +1,6 @@
+'use client';
 import React from 'react';
-import { signOut } from '@/lib/actions';
-
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import gitNoteIcon from '@/public/gitNoteIcon.svg';
 import jsmProLogo from '@/public/jsmProLogo.svg';
@@ -12,6 +12,7 @@ import Posts from '@/app/(root)/posts/page';
 import QuickLink from './QuickLink';
 import NavSection from './NavSection';
 import Button from '../shared/ui/Button';
+import { providerSignOut } from '@/lib/actions';
 
 const SideNavbar = () => {
   return (
@@ -51,12 +52,10 @@ const SideNavbar = () => {
       </NavSection>
 
       <div className="flex space-x-2 pt-40">
-        <form action={signOut}>
-          <Image src={logoutIcon} alt="Logout Icon" />
-          <button className="paragraph-3-medium text-white-300" type="submit">
-            Logout
-          </button>
-        </form>
+        <Image src={logoutIcon} alt="Logout Icon" />
+        <button className="paragraph-3-medium text-white-300" onClick={signOut}>
+          Logout
+        </button>
       </div>
     </nav>
   );

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import Input from '@/components/shared/ui/Input';
 import Button from '@/components/shared/ui/Button';
-import { credentialsSignIn } from '@/lib/actions';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 
 const BasicAuthLogin = () => {
@@ -12,9 +12,13 @@ const BasicAuthLogin = () => {
   const [password, setPassword] = useState('');
 
   const submit = async () => {
-    await credentialsSignIn({ email, password });
+    await signIn('credentials', {
+      email,
+      password,
+      redirect: true,
+      callbackUrl: '/',
+    });
   };
-
   return (
     <div>
       <h1 className="display-2-bold pb-5">Login</h1>
