@@ -58,17 +58,14 @@ export const {
             email: email as string,
           },
         });
-        // return { email: 'email', role: 'USER' };
 
         if (user) {
-          console.log('USER IN AUTH.TS >>>>>>>', user);
           const passwordCheck = await bcryptjs.compare(
             credentialsPassword as string,
             user.password as string
           );
           if (passwordCheck) {
-            console.log('PASSWORD CHECK>>>>>>', passwordCheck);
-            return { email: user.email, role: user.role };
+            return user;
           } else {
             throw new Error('Invalid password');
           }
