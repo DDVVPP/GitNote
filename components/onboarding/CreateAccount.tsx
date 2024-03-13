@@ -6,6 +6,7 @@ import { createUser } from '@/lib/actions/user.actions';
 import Input from '../shared/ui/Input';
 import Link from 'next/link';
 import Button from '../shared/ui/Button';
+import { redirect } from 'next/navigation';
 
 // export interface IFormValues {
 //   'Full Name': string;
@@ -25,9 +26,21 @@ const CreateAccount = () => {
       ...data,
     });
     if (data) {
-      console.log('DATA', data);
       createUser(data);
     }
+
+    // try {
+    //   setData({
+    //     ...data,
+    //   });
+    //   if (data) {
+    //     await createUser(data);
+    //   }
+    // } catch (error) {
+    //   console.error('Error creating user');
+    // } finally {
+    //   redirect('/onboarding');
+    // }
   };
 
   return (

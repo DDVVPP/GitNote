@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 import bcryptjs from 'bcryptjs';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-// import TwitterProvider from 'next-auth/providers/twitter';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { PrismaAdapter } from '@auth/prisma-adapter';
@@ -59,29 +58,25 @@ export const {
             email: email as string,
           },
         });
-        return { email: 'email', role: 'USER' };
+        // return { email: 'email', role: 'USER' };
 
-        // if (user) {
-        //   console.log('USER IN AUTH.TS >>>>>>>', user);
-        //   const passwordCheck = await bcryptjs.compare(
-        //     credentialsPassword as string,
-        //     user.password as string
-        //   );
-        //   if (passwordCheck) {
-        //     console.log('PASSWORD CHECK>>>>>>', passwordCheck);
-        //     return { email: user.email, role: user.role };
-        //   } else {
-        //     throw new Error('Invalid password');
-        //   }
-        // } else {
-        //   return null;
-        // }
+        if (user) {
+          console.log('USER IN AUTH.TS >>>>>>>', user);
+          const passwordCheck = await bcryptjs.compare(
+            credentialsPassword as string,
+            user.password as string
+          );
+          if (passwordCheck) {
+            console.log('PASSWORD CHECK>>>>>>', passwordCheck);
+            return { email: user.email, role: user.role };
+          } else {
+            throw new Error('Invalid password');
+          }
+        } else {
+          return null;
+        }
       },
     }),
-    // TwitterProvider({
-    //   clientId: process.env.TWITTER_CLIENT_ID!,
-    //   clientSecret: process.env.TWITTER_CLIENT_SECRET!,
-    // }),
   ],
   callbacks: {
     async jwt({ token, user }) {

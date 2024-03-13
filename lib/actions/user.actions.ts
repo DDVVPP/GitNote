@@ -20,7 +20,7 @@ export async function createUser(data: Partial<User>) {
         },
       });
       console.log('USER>>>>', user);
-      redirect('/login');
+      // redirect('/login');
       return user;
     }
   } catch (error) {

@@ -18,7 +18,7 @@ const BasicAuthLogin = () => {
   return (
     <div>
       <h1 className="display-2-bold pb-5">Login</h1>
-      <form className="mb-5">
+      <section className="mb-5">
         <Input
           label="Email"
           name="email"
@@ -38,7 +38,7 @@ const BasicAuthLogin = () => {
         <Button color="blue" onClick={submit}>
           Login
         </Button>
-      </form>
+      </section>
       <div className="text-white-300">
         <Link
           href="/sign-up"
