@@ -28,19 +28,7 @@ const CreateAccount = () => {
     if (data) {
       createUser(data);
     }
-
-    // try {
-    //   setData({
-    //     ...data,
-    //   });
-    //   if (data) {
-    //     await createUser(data);
-    //   }
-    // } catch (error) {
-    //   console.error('Error creating user');
-    // } finally {
-    //   redirect('/onboarding');
-    // }
+    redirect('/sign-up/onboarding');
   };
 
   return (
