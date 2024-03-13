@@ -19,7 +19,9 @@
     "next-auth": "^5.0.0-beta.15",
     "prettier": "^3.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@auth/prisma-adapter": "^1.5.0",

@@ -31,6 +31,7 @@ const BasicAuthLogin = () => {
           label="Password"
           name="password"
           placeholder="Enter your password"
+          type="password"
           value={password}
           onChange={(event) => setPassword(event?.target.value)}
         />

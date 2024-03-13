@@ -7,7 +7,6 @@ import bcryptjs from 'bcryptjs';
 export async function createUser(data: Partial<User>) {
   try {
     if (data) {
-      console.log('DATA>>>>', data);
       const { password } = data;
       const hashedPassword = bcryptjs.hashSync(password as string, 10);
 
@@ -21,9 +20,9 @@ export async function createUser(data: Partial<User>) {
     }
   } catch (error) {
     console.error('Error creating user:', error);
-    return 'An unexpected error occurred while creating user.';
+    return { error: 'An unexpected error occurred while creating user.' };
   }
-  return 'An unexpected error occurred while creating user.';
+  return { error: 'An unexpected error occurred while creating user.' };
 }
 
 export async function getUser(email: string) {
