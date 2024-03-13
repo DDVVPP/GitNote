@@ -2,10 +2,12 @@
 // import { Path, useForm, UseFormRegister, SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { redirect } from 'next/navigation';
+import toast from 'react-hot-toast';
 import { createUser } from '@/lib/actions/user.actions';
 
 import Input from '../shared/ui/Input';
 import Button from '../shared/ui/Button';
+import { signIn } from 'next-auth/react';
 
 // export interface IFormValues {
 //   'Full Name': string;
@@ -20,14 +22,21 @@ const CreateAccount = () => {
   });
 
   // const { handlesubmit } = useForm<IFormValues>();
-  const submit = () => {
-    setData({
-      ...data,
-    });
+  const submit = async () => {
     if (data) {
-      createUser(data);
+      const { user, error } = await createUser(data);
+      if (error) {
+        console.log(error);
+        toast.error(error);
+      } else {
+        await signIn('credentials', {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        });
+        redirect('/sign-up/onboarding');
+      }
     }
-    redirect('/sign-up/onboarding');
   };
 
   return (
@@ -64,6 +73,7 @@ const CreateAccount = () => {
           label="Password"
           name="password"
           placeholder="Enter your password"
+          type="password"
           value={data.password}
           onChange={(event) =>
             setData({
