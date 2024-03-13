@@ -1,8 +1,6 @@
 import PlusIcon from '@/components/shared/icons/PlusIcon';
 import GoogleIcon from '@/components/shared/icons/GoogleIcon';
 import GithubIcon from '@/components/shared/icons/GithubIcon';
-import github from '@/public/providers/github.svg';
-import google from 'next-auth/providers/google';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: 'plus' | 'github' | 'google';
@@ -10,11 +8,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const colorClassMap = {
-  blue: 'bg-primary-500 text-black-900',
-  gray: 'bg-gray-600 text-white-100',
-  darkGray: 'bg-black-700 text-white-100',
-  gradient: 'text-white-100 primary-gradient',
-  default: 'bg-black-700 text-white-300',
+  blue: 'bg-primary-500 text-black-900 paragraph-3-bold ',
+  gray: 'bg-black-600 text-white-100 paragraph-3-medium',
+  darkGray: 'bg-black-700 text-white-300 paragraph-3-medium',
+  gradient: 'text-white-100 primary-gradient paragraph-4-medium',
+  default: 'bg-black-700 text-white-300 paragraph-3-medium',
 };
 
 const iconMap = {
@@ -24,8 +22,7 @@ const iconMap = {
   default: null,
 };
 
-const baseclass =
-  'paragraph-4-medium flex w-full items-center justify-center gap-2 rounded border border-none py-2 font-bold';
+const baseclass = 'flex w-full items-center justify-center gap-2 rounded py-2';
 
 const Button = ({ children, icon, color, onClick }: ButtonProps) => {
   const colorClass = colorClassMap[color || 'default'];

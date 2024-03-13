@@ -3,6 +3,7 @@
 import * as auth from '@/auth';
 
 export async function signIn(provider: 'github' | 'google') {
+  console.log('PROVIDER', provider);
   return auth.signIn(provider, {
     redirect: true,
     redirectTo: '/',

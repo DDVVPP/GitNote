@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
+import bcryptjs from 'bcryptjs';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-// import TwitterProvider from 'next-auth/providers/twitter';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import { PrismaAdapter } from '@auth/prisma-adapter';
@@ -51,7 +51,7 @@ export const {
         },
       },
       async authorize(credentials, request) {
-        const { email } = credentials;
+        const { email, password: credentialsPassword } = credentials;
 
         const user = await prisma.user.findUnique({
           where: {
@@ -60,16 +60,20 @@ export const {
         });
 
         if (user) {
-          return user;
+          const passwordCheck = await bcryptjs.compare(
+            credentialsPassword as string,
+            user.password as string
+          );
+          if (passwordCheck) {
+            return user;
+          } else {
+            throw new Error('Invalid password');
+          }
         } else {
           return null;
         }
       },
     }),
-    // TwitterProvider({
-    //   clientId: process.env.TWITTER_CLIENT_ID!,
-    //   clientSecret: process.env.TWITTER_CLIENT_SECRET!,
-    // }),
   ],
   callbacks: {
     async jwt({ token, user }) {
