@@ -10,13 +10,13 @@ const submit = async (formData: FormData) => {
 const ProviderLogins = () => {
   return (
     <>
-      <form action={submit} className="flex space-y-4 flex-col">
+      <form action={submit} className="mb-4">
         <input type="hidden" name="provider" value="google" />
         <Button icon="github" color="darkGray">
           Sign In To Github
         </Button>
       </form>
-      <form action={submit} className="flex space-y-4 flex-col">
+      <form action={submit}>
         <input type="hidden" name="provider" value="google" />
         <Button icon="google" color="darkGray">
           Sign In To Google

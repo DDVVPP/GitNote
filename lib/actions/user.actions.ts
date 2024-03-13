@@ -1,29 +1,24 @@
 'use server';
 
-import { prisma } from '@/db'; //prisma db connection
+import { prisma } from '@/db';
 import { User } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
-import { redirect } from 'next/navigation';
-import { isRedirectError } from 'next/dist/client/components/redirect';
 
 export async function createUser(data: Partial<User>) {
   try {
     if (data) {
       const { password } = data;
       const hashedPassword = bcryptjs.hashSync(password as string, 10);
+
       const user = await prisma.user.create({
         data: {
           ...data,
           password: hashedPassword,
         },
       });
-      // redirect('/login');
       return user;
     }
   } catch (error) {
-    if (isRedirectError(error)) {
-      throw error;
-    }
     console.error('Error creating user:', error);
     throw new Error('An unexpected error occurred while creating user.');
   }
