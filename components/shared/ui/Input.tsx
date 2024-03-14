@@ -1,5 +1,3 @@
-// import { Path, useForm, UseFormRegister, SubmitHandler } from 'react-hook-form';
-// import { IFormValues } from '@/components/onboarding/CreateAccount';
 import { forwardRef } from 'react';
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
