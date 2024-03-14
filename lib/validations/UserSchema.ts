@@ -1,16 +1,22 @@
 import { z } from 'zod';
 
-export type IUserSchema = z.infer<typeof UserSchema>;
-// export type IUserSchemaPartial = Partial<typeof UserSchema>
-// export const UserSchema = z.object({
-//   name: z.string().min(1),
-//   email: z.string().email(),
-//   password: z.string().min(4),
-//   image: z.string(),
-//   location: z.string(),
-// });
-
 export const UserSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(4),
+  name: z.string().min(1),
+  email: z.string().email('Invalid email format'),
+  password: z
+    .string()
+    .min(4, { message: 'Password must contain at least 4 characters' }),
+  image: z.string(),
+  location: z.string(),
 });
+export type IUserSchema = z.infer<typeof UserSchema>;
+
+export const UserLoginSchema = UserSchema.pick({ email: true, password: true });
+export type IUserLoginSchema = z.infer<typeof UserLoginSchema>;
+
+export const UserSignUpSchema = UserSchema.pick({
+  name: true,
+  email: true,
+  password: true,
+});
+export type IUserSignUpSchema = z.infer<typeof UserSignUpSchema>;
