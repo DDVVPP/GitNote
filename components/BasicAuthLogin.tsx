@@ -27,14 +27,15 @@ const BasicAuthLogin = () => {
       // if (error instanceof z.ZodError) {
       //   setZodErrors(error.flatten());
       // }
-
       return;
     }
-
-    const { email, password } = data;
-    const { error } = await credentialsSignIn({ email, password });
-    if (error) {
-      toast.error(error);
+    try {
+      const { email, password } = data;
+      await credentialsSignIn({ email, password });
+    } catch (error) {
+      if (error) {
+        toast.error('Invalid user');
+      }
     }
   };
 
