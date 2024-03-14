@@ -28,7 +28,7 @@
 
 @layer base {
   body {
-    @apply bg-black-900 text-white-100
+    @apply bg-black-900 text-white-100;
   }
 }
 
@@ -36,7 +36,9 @@
   .text-balance {
     text-wrap: balance;
   }
-
+  .heading-1-bold {
+    @apply text-[51.14px] leading-[40.91px] font-bold;
+  }
   .display-1-bold {
     @apply text-[32px] leading-[40px] font-bold;
   }

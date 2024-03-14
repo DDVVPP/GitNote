@@ -1,0 +1,53 @@
+import PlusIcon from '@/components/shared/icons/PlusIcon';
+import GoogleIcon from '@/components/shared/icons/GoogleIcon';
+import GithubIcon from '@/components/shared/icons/GithubIcon';
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  icon?: 'plus' | 'github' | 'google';
+  color?: 'blue' | 'gray' | 'darkGray' | 'gradient';
+}
+
+const colorClassMap = {
+  blue: 'bg-primary-500 text-black-900 paragraph-3-bold ',
+  gray: 'bg-black-600 text-white-100 paragraph-3-medium',
+  darkGray: 'bg-black-700 text-white-300 paragraph-3-medium',
+  gradient: 'text-white-100 primary-gradient paragraph-4-medium',
+  default: 'bg-black-700 text-white-300 paragraph-3-medium',
+};
+
+const iconMap = {
+  plus: PlusIcon,
+  github: GithubIcon,
+  google: GoogleIcon,
+  default: null,
+};
+
+const baseclass = 'flex w-full items-center justify-center gap-2 rounded py-2';
+
+const Button = ({ children, icon, color, onClick }: ButtonProps) => {
+  const colorClass = colorClassMap[color || 'default'];
+  const IconComponent = iconMap[icon || 'default'];
+  const iconColorClass = (() => {
+    switch (color) {
+      case 'blue':
+        return 'fill-white-100';
+      case 'gradient':
+        return 'fill-white-100';
+      case 'gray':
+        return 'fill-primary-500';
+      case 'darkGray':
+        return 'fill-primary-500';
+    }
+  })();
+
+  return (
+    <button className={`${colorClass} ${baseclass}`} onClick={onClick}>
+      {IconComponent && (
+        <IconComponent className={icon === 'plus' ? iconColorClass : ''} />
+      )}
+      {children}
+    </button>
+  );
+};
+
+export default Button;

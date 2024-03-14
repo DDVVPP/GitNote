@@ -1,7 +1,29 @@
 'use server';
 
-import { prisma } from '@/db'; //prisma db connection
+import { prisma } from '@/db';
 import { User } from '@prisma/client';
+import bcryptjs from 'bcryptjs';
+
+export async function createUser(data: Partial<User>) {
+  try {
+    if (data) {
+      const { password } = data;
+      const hashedPassword = bcryptjs.hashSync(password as string, 10);
+
+      const user = await prisma.user.create({
+        data: {
+          ...data,
+          password: hashedPassword,
+        },
+      });
+      return { user, error: null };
+    }
+  } catch (error) {
+    console.error('Error creating user:', error);
+    return { error: 'An unexpected error occurred while creating user.' };
+  }
+  return { error: 'An unexpected error occurred while creating user.' };
+}
 
 export async function getUser(email: string) {
   try {
@@ -19,7 +41,6 @@ export async function getUser(email: string) {
 
 export async function updateUser(data: Partial<User>) {
   try {
-    console.log('DATA', data);
     if (data) {
       const user = prisma.user.update({
         where: {
