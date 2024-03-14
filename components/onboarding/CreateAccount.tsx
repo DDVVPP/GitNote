@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 // import { z } from 'zod';
 
 import { createUser } from '@/lib/actions/user.actions';
-import { userSchema } from '@/lib/validations/userSchema';
+import { UserSchema } from '@/lib/validations/UserSchema';
 
 import Input from '../shared/ui/Input';
 import Button from '../shared/ui/Button';
@@ -22,7 +22,7 @@ const CreateAccount = () => {
 
   const submit = async () => {
     try {
-      const partialUserSchema = userSchema.partial();
+      const partialUserSchema = UserSchema.partial();
       partialUserSchema.parse(data);
     } catch (error) {
       console.log('zodErrors', error);
