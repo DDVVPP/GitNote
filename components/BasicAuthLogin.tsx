@@ -2,17 +2,40 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
+// import { z } from 'zod';
+
 import { credentialsSignIn } from '@/lib/actions';
+import { userSchema } from '@/lib/validations/userSchema';
 
 import Input from '@/components/shared/ui/Input';
 import Button from '@/components/shared/ui/Button';
 
 const BasicAuthLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+  });
+  // const [zodErrors, setZodErrors] = useState({});
 
   const handleSubmit = async () => {
-    await credentialsSignIn({ email, password });
+    try {
+      const partialUserSchema = userSchema.partial();
+      partialUserSchema.parse(data);
+    } catch (error) {
+      console.log('zodErrors', error);
+      // if (error instanceof z.ZodError) {
+      //   setZodErrors(error.flatten());
+      // }
+
+      return;
+    }
+
+    const { email, password } = data;
+    const { error } = await credentialsSignIn({ email, password });
+    if (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -23,8 +46,13 @@ const BasicAuthLogin = () => {
           label="Email"
           name="email"
           placeholder="Enter your full name"
-          value={email}
-          onChange={(event) => setEmail(event?.target.value)}
+          value={data.email}
+          onChange={(event) =>
+            setData({
+              ...data,
+              email: event.target.value,
+            })
+          }
         />
 
         <Input
@@ -32,8 +60,13 @@ const BasicAuthLogin = () => {
           name="password"
           placeholder="Enter your password"
           type="password"
-          value={password}
-          onChange={(event) => setPassword(event?.target.value)}
+          value={data.password}
+          onChange={(event) =>
+            setData({
+              ...data,
+              password: event.target.value,
+            })
+          }
         />
 
         <Button color="blue" onClick={handleSubmit}>
