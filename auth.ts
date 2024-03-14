@@ -11,6 +11,7 @@ import { Role } from '@prisma/client';
 declare module 'next-auth' {
   interface User {
     role: Role;
+    onboardingStatus: number | null;
   }
 }
 
@@ -80,6 +81,7 @@ export const {
       //everytime read or write to the token
       if (user) {
         token.role = user.role;
+        token.onboardingStatus = user.onboardingStatus;
       }
       return token; //this token will get passed to session
     },
@@ -87,6 +89,7 @@ export const {
       //will run this also in jwt
       if (token) {
         session.user.role = token.role as Role;
+        session.user.onboardingStatus = token.onboardingStatus as number;
       }
       return session;
     },

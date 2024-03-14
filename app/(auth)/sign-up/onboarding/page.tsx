@@ -10,7 +10,8 @@ import Availability from '@/components/onboarding/Availability';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 
-const Onboarding = () => {
+const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
+  const startingStep = searchParams.step ?? 0;
   const [step, setStep] = useState(1);
 
   const renderStep = () => {
@@ -40,7 +41,12 @@ const Onboarding = () => {
     }
   };
 
-  return <div className="flex flex-col justify-center">{renderStep()}</div>;
+  return (
+    <div className="flex flex-col justify-center">
+      {renderStep()}
+      {startingStep}
+    </div>
+  );
 };
 
 export default Onboarding;
