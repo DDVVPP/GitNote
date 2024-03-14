@@ -1,16 +1,16 @@
 'use client';
-// import { Path, useForm, UseFormRegister, SubmitHandler } from 'react-hook-form';
+
 import { useState } from 'react';
 import { redirect } from 'next/navigation';
+import toast from 'react-hot-toast';
+// import { z } from 'zod';
+
 import { createUser } from '@/lib/actions/user.actions';
+import { userSchema } from '@/lib/validations/userSchema';
 
 import Input from '../shared/ui/Input';
 import Button from '../shared/ui/Button';
-
-// export interface IFormValues {
-//   'Full Name': string;
-//   Email: string;
-// }
+import { signIn } from 'next-auth/react';
 
 const CreateAccount = () => {
   const [data, setData] = useState({
@@ -18,16 +18,32 @@ const CreateAccount = () => {
     email: '',
     password: '',
   });
+  // const [zodErrors, setZodErrors] = useState({});
 
-  // const { handlesubmit } = useForm<IFormValues>();
-  const submit = () => {
-    setData({
-      ...data,
-    });
-    if (data) {
-      createUser(data);
+  const submit = async () => {
+    try {
+      const partialUserSchema = userSchema.partial();
+      partialUserSchema.parse(data);
+    } catch (error) {
+      console.log('zodErrors', error);
+      // if (error instanceof z.ZodError) {
+      //   setZodErrors(error.flatten());
+      // }
+
+      return;
     }
-    redirect('/sign-up/onboarding');
+
+    const { error } = await createUser(data);
+    if (error) {
+      toast.error(error);
+    } else {
+      await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+      redirect('/sign-up/onboarding');
+    }
   };
 
   return (
@@ -64,6 +80,7 @@ const CreateAccount = () => {
           label="Password"
           name="password"
           placeholder="Enter your password"
+          type="password"
           value={data.password}
           onChange={(event) =>
             setData({

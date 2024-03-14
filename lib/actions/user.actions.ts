@@ -16,12 +16,13 @@ export async function createUser(data: Partial<User>) {
           password: hashedPassword,
         },
       });
-      return user;
+      return { user, error: null };
     }
   } catch (error) {
     console.error('Error creating user:', error);
-    throw new Error('An unexpected error occurred while creating user.');
+    return { error: 'An unexpected error occurred while creating user.' };
   }
+  return { error: 'An unexpected error occurred while creating user.' };
 }
 
 export async function getUser(email: string) {
