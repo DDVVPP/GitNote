@@ -3,48 +3,40 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import { z, ZodError } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { credentialsSignIn } from '@/lib/actions';
-import { IUserSchema, UserSchema } from '@/lib/validations/UserSchema';
+import {
+  IUserLoginSchema,
+  UserLoginSchema,
+} from '@/lib/validations/UserSchema';
 
 import Input from '@/components/shared/ui/Input';
 import Button from '@/components/shared/ui/Button';
 
 const BasicAuthLogin = () => {
-  const { register, handleSubmit, formState } = useForm<IUserSchema>({
+  const { register, handleSubmit, formState } = useForm<IUserLoginSchema>({
     defaultValues: {
       email: '',
       password: '',
     },
-    resolver: zodResolver(UserSchema),
+    resolver: zodResolver(UserLoginSchema),
   });
 
   useEffect(() => {
     console.log('formStateErrors', formState.errors);
   }, [formState.errors]);
-  // const [zodErrors, setZodErrors] = useState({});
 
-  const onSubmit: SubmitHandler<IUserSchema> = (data) => {
-    console.log('data in onSubmit', data);
-    // try {
-    //   const partialUserSchema = UserSchema.partial();
-    //   partialUserSchema.parse(data);
-
-    //   const { email, password } = data;
-    //   await credentialsSignIn({ email, password });
-    // } catch (error) {
-    //   if (error instanceof ZodError) {
-    //     console.log('zodErrors', error);
-    //     // these errors come from zod
-    //     // show the user the messages in the form
-    //   } else {
-    //     toast.error('Invalid user');
-    //   }
-    //   return;
-    // }
+  const onSubmit: SubmitHandler<IUserLoginSchema> = async (data) => {
+    try {
+      UserLoginSchema.parse(data);
+      const { email, password } = data;
+      await credentialsSignIn({ email, password });
+    } catch (error) {
+      toast.error('Invalid user');
+      return;
+    }
   };
 
   return (
@@ -56,6 +48,7 @@ const BasicAuthLogin = () => {
           id="email"
           placeholder="Enter your full name"
           {...register('email')}
+          errors={formState.errors.email?.message}
         />
 
         <Input
@@ -64,6 +57,7 @@ const BasicAuthLogin = () => {
           placeholder="Enter your password"
           {...register('password')}
           type="password"
+          errors={formState.errors.password?.message}
         />
 
         <Button type="submit" color="blue">
