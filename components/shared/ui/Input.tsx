@@ -3,14 +3,14 @@
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  name: string;
+  id: string;
   placeholder: string;
   required?: boolean;
 }
 
 const Input = ({
   label,
-  name,
+  id,
   placeholder,
   required = true,
   ...rest
@@ -21,7 +21,7 @@ const Input = ({
       <input
         className="paragraph-3-regular p-3 bg-black-700"
         type="text"
-        name={name}
+        id={id}
         placeholder={placeholder}
         {...rest}
       />

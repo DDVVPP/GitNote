@@ -24,7 +24,7 @@ const iconMap = {
 
 const baseclass = 'flex w-full items-center justify-center gap-2 rounded py-2';
 
-const Button = ({ children, icon, color, onClick }: ButtonProps) => {
+const Button = ({ children, icon, color, onClick, ...rest }: ButtonProps) => {
   const colorClass = colorClassMap[color || 'default'];
   const IconComponent = iconMap[icon || 'default'];
   const iconColorClass = (() => {
@@ -41,7 +41,11 @@ const Button = ({ children, icon, color, onClick }: ButtonProps) => {
   })();
 
   return (
-    <button className={`${colorClass} ${baseclass}`} onClick={onClick}>
+    <button
+      className={`${colorClass} ${baseclass}`}
+      onClick={onClick}
+      {...rest}
+    >
       {IconComponent && (
         <IconComponent className={icon === 'plus' ? iconColorClass : ''} />
       )}
