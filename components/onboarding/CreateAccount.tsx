@@ -1,93 +1,72 @@
 'use client';
 
-import { useState } from 'react';
-import { redirect } from 'next/navigation';
 import toast from 'react-hot-toast';
-// import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { createUser } from '@/lib/actions/user.actions';
-import { UserSchema } from '@/lib/validations/UserSchema';
+import {
+  IUserSignUpSchema,
+  UserSignUpSchema,
+} from '@/lib/validations/UserSchema';
 
 import Input from '../shared/ui/Input';
 import Button from '../shared/ui/Button';
-import { signIn } from 'next-auth/react';
+import { credentialsSignIn } from '@/lib/actions';
 
 const CreateAccount = () => {
-  const [data, setData] = useState({
-    name: '',
-    email: '',
-    password: '',
+  const { register, handleSubmit, formState } = useForm<IUserSignUpSchema>({
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+    resolver: zodResolver(UserSignUpSchema),
   });
-  // const [zodErrors, setZodErrors] = useState({});
 
-  const submit = async () => {
-    try {
-      const partialUserSchema = UserSchema.partial();
-      partialUserSchema.parse(data);
-    } catch (error) {
-      console.log('zodErrors', error);
-      // if (error instanceof z.ZodError) {
-      //   setZodErrors(error.flatten());
-      // }
-
-      return;
-    }
-
+  const onSubmit: SubmitHandler<IUserSignUpSchema> = async (data) => {
+    UserSignUpSchema.parse(data);
     const { error } = await createUser(data);
     if (error) {
       toast.error(error);
     } else {
-      await signIn('credentials', {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
-      redirect('/sign-up/onboarding');
+      try {
+        const { email, password } = data;
+        await credentialsSignIn({ email, password });
+      } catch (error) {
+        toast.error('Invalid user');
+        return;
+      }
     }
   };
 
   return (
     <>
       <h1 className="display-2-bold pb-5">Create an Account</h1>
-      <form action={submit} className="mb-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
         <Input
           label="Full Name"
-          name="name"
+          id="name"
           placeholder="Enter your full name"
-          value={data.name}
-          onChange={(event) =>
-            setData({
-              ...data,
-              name: event.target.value,
-            })
-          }
+          {...register('name')}
+          errors={formState.errors.name?.message}
         />
 
         <Input
           label="Email"
-          name="email"
+          id="email"
           placeholder="Enter your email"
-          value={data.email}
-          onChange={(event) =>
-            setData({
-              ...data,
-              email: event.target.value,
-            })
-          }
+          {...register('email')}
+          errors={formState.errors.email?.message}
         />
 
         <Input
           label="Password"
-          name="password"
+          id="password"
           placeholder="Enter your password"
+          {...register('password')}
           type="password"
-          value={data.password}
-          onChange={(event) =>
-            setData({
-              ...data,
-              password: event.target.value,
-            })
-          }
+          errors={formState.errors.password?.message}
         />
         <Button color="blue" type="submit">
           Create an account

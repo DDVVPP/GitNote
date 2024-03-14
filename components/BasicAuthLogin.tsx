@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,10 +22,6 @@ const BasicAuthLogin = () => {
     },
     resolver: zodResolver(UserLoginSchema),
   });
-
-  useEffect(() => {
-    console.log('formStateErrors', formState.errors);
-  }, [formState.errors]);
 
   const onSubmit: SubmitHandler<IUserLoginSchema> = async (data) => {
     try {
