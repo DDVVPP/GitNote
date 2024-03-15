@@ -45,9 +45,16 @@ model User {
   onboardingStatus  Int?
   portfolio         String?
   role              Role     @default(USER)
+  contributionGrid  String?
+  goals             String[]
+  knowledge         Knowledge[]
+  techStack         String[]
+  socialMedia       Social[]
+  availability      Boolean
+  startDate         DateTime
+  endDate           DateTime
   accounts          Account[]
   sessions          Session[]
-  profile           Profile?
   posts             Post[]
 }
 
@@ -57,20 +64,6 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model Profile {
-  id                Int         @id @default(autoincrement())
-  contributionGrid  String?
-  goals             String[]
-  knowledge         Knowledge[]
-  techStack         String[]
-  socialMedia       Social[]
-  availability      Boolean
-  startDate         DateTime
-  endDate           DateTime
-  user              User        @relation(fields: [userId], references: [id])
-  userId            String      @unique
 }
 
 model Post {
@@ -93,16 +86,16 @@ model Social {
   id        Int    @id @default(autoincrement())
   username  String
   type      String
-  profile   Profile @relation(fields: [profileId], references: [id])
-  profileId Int
+  user      User @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 model Knowledge {
   id          Int    @id @default(autoincrement())
   name        String
   isComplete  Boolean
-  profile     Profile @relation(fields: [profileId], references: [id])
-  profileId   Int
+  user        User @relation(fields: [userId], references: [id])
+  userId      String
 }
 
 model Resource {
