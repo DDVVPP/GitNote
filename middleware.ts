@@ -2,7 +2,7 @@ import { auth } from '@/auth';
 import { NextResponse } from 'next/server';
 
 export default auth((req) => {
-  const { role } = req.auth?.user || {};
+  const { role, onboardingStatus } = req.auth?.user || {};
   const { pathname } = req.nextUrl;
 
   if (pathname === '/' && !role) {
@@ -10,6 +10,14 @@ export default auth((req) => {
   }
   if (pathname === '/admin' && role !== 'ADMIN') {
     return NextResponse.redirect(`${req.nextUrl.origin}/`);
+  }
+  if (!onboardingStatus) {
+    return NextResponse.redirect(`${req.nextUrl.origin}/sign-up/onboarding`);
+  }
+  if (onboardingStatus < 4) {
+    return NextResponse.redirect(
+      `${req.nextUrl.origin}/sign-up/onboarding?step=${onboardingStatus}`
+    );
   }
 });
 

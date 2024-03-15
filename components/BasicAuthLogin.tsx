@@ -1,38 +1,35 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import { z, ZodError } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import { credentialsSignIn } from '@/lib/actions';
-import { userSchema } from '@/lib/validations/userSchema';
+import {
+  IUserLoginSchema,
+  UserLoginSchema,
+} from '@/lib/validations/UserSchema';
 
 import Input from '@/components/shared/ui/Input';
 import Button from '@/components/shared/ui/Button';
 
 const BasicAuthLogin = () => {
-  const [data, setData] = useState({
-    email: '',
-    password: '',
+  const { register, handleSubmit, formState } = useForm<IUserLoginSchema>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: zodResolver(UserLoginSchema),
   });
-  // const [zodErrors, setZodErrors] = useState({});
 
-  const handleSubmit = async () => {
+  const onSubmit: SubmitHandler<IUserLoginSchema> = async (data) => {
     try {
-      const partialUserSchema = userSchema.partial();
-      partialUserSchema.parse(data);
-
+      UserLoginSchema.parse(data);
       const { email, password } = data;
       await credentialsSignIn({ email, password });
     } catch (error) {
-      if (error instanceof ZodError) {
-        console.log('zodErrors', error);
-        // these errors come from zod
-        // show the user the messages in the form
-      } else {
-        toast.error('Invalid user');
-      }
+      toast.error('Invalid user');
       return;
     }
   };
@@ -40,38 +37,28 @@ const BasicAuthLogin = () => {
   return (
     <>
       <h1 className="display-2-bold mb-5">Login</h1>
-      <section className="mb-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
         <Input
           label="Email"
-          name="email"
+          id="email"
           placeholder="Enter your full name"
-          value={data.email}
-          onChange={(event) =>
-            setData({
-              ...data,
-              email: event.target.value,
-            })
-          }
+          {...register('email')}
+          errors={formState.errors.email?.message}
         />
 
         <Input
           label="Password"
-          name="password"
+          id="password"
           placeholder="Enter your password"
+          {...register('password')}
           type="password"
-          value={data.password}
-          onChange={(event) =>
-            setData({
-              ...data,
-              password: event.target.value,
-            })
-          }
+          errors={formState.errors.password?.message}
         />
 
-        <Button color="blue" onClick={handleSubmit}>
+        <Button type="submit" color="blue">
           Login
         </Button>
-      </section>
+      </form>
       <section className="text-white-300">
         <Link
           href="/sign-up"
