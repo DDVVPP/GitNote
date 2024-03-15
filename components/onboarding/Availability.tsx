@@ -11,7 +11,7 @@ type Props = {
   setStep: Dispatch<SetStateAction<number>>;
 };
 
-const Availability = ({ setStep }: Props) => {
+const Availability = () => {
   // const handleSubmit = () => {
   //   //submit info to db and reroute to home
   //   redirect('/');
@@ -37,7 +37,8 @@ const Availability = ({ setStep }: Props) => {
       <Button
         color="blue"
         onClick={() => {
-          setStep(5);
+          {
+          }
         }}
       >
         Submit

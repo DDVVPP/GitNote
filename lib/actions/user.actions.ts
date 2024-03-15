@@ -48,12 +48,13 @@ export async function updateUser(data: Partial<User>) {
         },
         data,
       });
-      return user;
+      return { user, error: null };
     }
   } catch (error) {
     console.error('Error updating user:', error);
-    throw new Error('An unexpected error occurred while updating user.');
+    return { error: 'An unexpected error occurred while updating user.' };
   }
+  return { error: 'An unexpected error occurred while updating user.' };
 }
 
 export async function deleteUser(id: string) {

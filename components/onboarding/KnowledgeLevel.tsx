@@ -15,7 +15,7 @@ const placeholderKnowledgeList = [
   'Setup Clerk with Nextjs + Clerk webhook',
 ];
 
-const KnowledgeLevel = ({ setStep }: Props) => {
+const KnowledgeLevel = () => {
   const [knowledgeLevel, setKnowledgeLevel] = useState('');
   const [knowledgeLevels, setKnowledgeLevels] = useState(
     placeholderKnowledgeList
@@ -80,7 +80,8 @@ const KnowledgeLevel = ({ setStep }: Props) => {
       <Button
         color="blue"
         onClick={() => {
-          setStep(4);
+          {
+          }
           //also needs to update tech stack in db
         }}
       >
