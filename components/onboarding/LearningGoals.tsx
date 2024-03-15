@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '@/components/shared/ui/Button';
 import Goals from '@/components/shared/Goals';
@@ -39,7 +39,6 @@ const LearningGoals = () => {
 
   return (
     <>
-      <OnboardingStepDots />
       <h1 className="display-2-bold pb-5">Add your learning goals</h1>
       <form>
         <div className="mb-3">

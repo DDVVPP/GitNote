@@ -10,6 +10,7 @@ import Availability from '@/components/onboarding/Availability';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Button from '@/components/shared/ui/Button';
+import OnboardingStepDots from '@/components/shared/ui/OnboardingStepsVisual';
 
 const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
   // const startingStep = searchParams.step ?? 0;
@@ -49,6 +50,7 @@ const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
 
   return (
     <div className="flex flex-col justify-center">
+      <OnboardingStepDots />
       {renderStep()}
       <Button color="blue" onClick={() => setStep((prevStep) => prevStep + 1)}>
         Next

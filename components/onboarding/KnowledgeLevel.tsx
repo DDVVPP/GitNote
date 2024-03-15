@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Button from '../shared/ui/Button';
-import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
 import Knowledge from '../shared/Knowledge';
 import KnowledgeField from '../shared/KnowledgeField';
 import Input from '../shared/ui/Input';
@@ -45,7 +44,6 @@ const KnowledgeLevel = () => {
 
   return (
     <>
-      <OnboardingStepDots />
       <h1 className="display-2-bold pb-5">Add your knowledge level</h1>
       <form>
         <div className="mb-3">

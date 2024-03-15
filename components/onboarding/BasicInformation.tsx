@@ -2,12 +2,10 @@ import Link from 'next/link';
 import { Image, UploadCloud } from 'lucide-react';
 
 import Input from '@/components/shared/ui/Input';
-import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
 
 const BasicInformation = () => {
   return (
     <>
-      <OnboardingStepDots />
       <h1 className="display-2-bold pb-5">Basic Information</h1>
       <form>
         <div className="flex space-x-2 items-center mb-5">
