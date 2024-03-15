@@ -9,6 +9,7 @@ import Availability from '@/components/onboarding/Availability';
 
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import Button from '@/components/shared/ui/Button';
 
 const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
   // const startingStep = searchParams.step ?? 0;
@@ -19,26 +20,26 @@ const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
       case 1:
         return (
           <div className="space-y-4">
-            <BasicInformation setStep={setStep} />
+            <BasicInformation />
           </div>
         );
 
       case 2:
         return (
           <div className="space-y-4">
-            <LearningGoals setStep={setStep} />
+            <LearningGoals />
           </div>
         );
       case 3:
         return (
           <div className="space-y-4">
-            <KnowledgeLevel setStep={setStep} />
+            <KnowledgeLevel />
           </div>
         );
       case 4:
         return (
           <div className="space-y-4">
-            <Availability setStep={setStep} />
+            <Availability />
           </div>
         );
       case 5:
@@ -46,7 +47,14 @@ const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
     }
   };
 
-  return <div className="flex flex-col justify-center">{renderStep()}</div>;
+  return (
+    <div className="flex flex-col justify-center">
+      {renderStep()}
+      <Button color="blue" onClick={() => setStep((prevStep) => prevStep + 1)}>
+        Next
+      </Button>
+    </div>
+  );
 };
 
 export default Onboarding;

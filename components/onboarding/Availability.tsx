@@ -11,11 +11,7 @@ type Props = {
   setStep: Dispatch<SetStateAction<number>>;
 };
 
-const Availability = ({ setStep }: Props) => {
-  // const handleSubmit = () => {
-  //   //submit info to db and reroute to home
-  //   redirect('/');
-  // };
+const Availability = () => {
   return (
     <>
       <OnboardingStepDots />
@@ -34,14 +30,6 @@ const Availability = ({ setStep }: Props) => {
         <Datepicker label="Start Date & Time" />
         <Datepicker label="End Date & Time" />
       </section>
-      <Button
-        color="blue"
-        onClick={() => {
-          setStep(5);
-        }}
-      >
-        Submit
-      </Button>
     </>
   );
 };

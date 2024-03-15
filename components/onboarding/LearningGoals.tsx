@@ -7,16 +7,12 @@ import Goals from '@/components/shared/Goals';
 import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
 import GoalsField from '../shared/GoalsField';
 
-type Props = {
-  setStep: Dispatch<SetStateAction<number>>;
-};
-
 const placeholderGoals = [
   "Follow Clerk's installation process",
   'Setup Clerk with Nextjs + Clerk webhook',
 ];
 
-const LearningGoals = ({ setStep }: Props) => {
+const LearningGoals = () => {
   const [learningGoal, setGoal] = useState('');
   const [learningGoals, setLearningGoals] = useState(placeholderGoals);
 
@@ -60,9 +56,6 @@ const LearningGoals = ({ setStep }: Props) => {
           Add goal checkbox
         </Button>
       </form>
-      <Button color="blue" onClick={() => setStep(3)}>
-        Next
-      </Button>
     </>
   );
 };

@@ -1,19 +1,10 @@
-'use client';
-
-import { Dispatch, SetStateAction } from 'react';
 import Link from 'next/link';
 import { Image, UploadCloud } from 'lucide-react';
-// import Image from 'next/image';
 
 import Input from '@/components/shared/ui/Input';
-import Button from '../shared/ui/Button';
 import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
 
-type Props = {
-  setStep: Dispatch<SetStateAction<number>>;
-};
-
-const BasicInformation = ({ setStep }: Props) => {
+const BasicInformation = () => {
   return (
     <>
       <OnboardingStepDots />
@@ -41,9 +32,6 @@ const BasicInformation = ({ setStep }: Props) => {
           placeholder="https://jsmastery.pro"
         />
       </form>
-      <Button color="blue" onClick={() => setStep(2)}>
-        Next
-      </Button>
     </>
   );
 };

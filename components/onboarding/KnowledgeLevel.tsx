@@ -1,21 +1,18 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '../shared/ui/Button';
 import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
 import Knowledge from '../shared/Knowledge';
 import KnowledgeField from '../shared/KnowledgeField';
 import Input from '../shared/ui/Input';
 
-type Props = {
-  setStep: Dispatch<SetStateAction<number>>;
-};
 const placeholderKnowledgeList = [
   "Follow Clerk's installation process",
   'Setup Clerk with Nextjs + Clerk webhook',
 ];
 
-const KnowledgeLevel = ({ setStep }: Props) => {
+const KnowledgeLevel = () => {
   const [knowledgeLevel, setKnowledgeLevel] = useState('');
   const [knowledgeLevels, setKnowledgeLevels] = useState(
     placeholderKnowledgeList
@@ -77,15 +74,6 @@ const KnowledgeLevel = ({ setStep }: Props) => {
           onChange={(event) => setTechStack(event?.target.value)}
         />
       </form>
-      <Button
-        color="blue"
-        onClick={() => {
-          setStep(4);
-          //also needs to update tech stack in db
-        }}
-      >
-        Next
-      </Button>
     </>
   );
 };
