@@ -43,6 +43,7 @@ model User {
   image             String?
   location          String?
   onboardingStatus  Int?
+  portfolio         String?
   role              Role     @default(USER)
   accounts          Account[]
   sessions          Session[]
@@ -61,7 +62,6 @@ model VerificationToken {
 model Profile {
   id                Int         @id @default(autoincrement())
   contributionGrid  String?
-  portfolio         String?
   goals             String[]
   knowledge         Knowledge[]
   techStack         String[]
