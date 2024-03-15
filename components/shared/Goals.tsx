@@ -1,4 +1,3 @@
-// import { Path, useForm, UseFormRegister, SubmitHandler } from 'react-hook-form';
 import { X } from 'lucide-react';
 import Button from './ui/Button';
 

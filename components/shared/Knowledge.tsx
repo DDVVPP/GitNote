@@ -1,4 +1,3 @@
-// import { Path, useForm, UseFormRegister, SubmitHandler } from 'react-hook-form';
 import Image from 'next/image';
 
 import { X, CheckSquare } from 'lucide-react';
