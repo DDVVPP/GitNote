@@ -33,11 +33,11 @@ const BasicInformation = ({ setStep }: Props) => {
             </Link>
           </div>
         </div>
-        <Input label="Name" name="name" placeholder="Enter your full name" />
+        <Input label="Name" id="name" placeholder="Enter your full name" />
 
         <Input
           label="Portfolio"
-          name="portfolio"
+          id="portfolio"
           placeholder="https://jsmastery.pro"
         />
       </form>

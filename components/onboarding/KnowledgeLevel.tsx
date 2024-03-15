@@ -71,7 +71,7 @@ const KnowledgeLevel = ({ setStep }: Props) => {
       <form>
         <Input
           label="Tech Stack"
-          name="techStack"
+          id="techStack"
           placeholder="Enter tech"
           value={techStack}
           onChange={(event) => setTechStack(event?.target.value)}

@@ -11,29 +11,34 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
-  const startingStep = searchParams.step ?? 0;
+  // const startingStep = searchParams.step ?? 0;
   const [step, setStep] = useState(1);
 
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <BasicInformation setStep={setStep} />;
+        return (
+          <div className="space-y-4">
+            <BasicInformation setStep={setStep} />
+          </div>
+        );
+
       case 2:
         return (
           <div className="space-y-4">
-            <LearningGoals setStep={setStep} />;
+            <LearningGoals setStep={setStep} />
           </div>
         );
       case 3:
         return (
           <div className="space-y-4">
-            <KnowledgeLevel setStep={setStep} />;
+            <KnowledgeLevel setStep={setStep} />
           </div>
         );
       case 4:
         return (
           <div className="space-y-4">
-            <Availability setStep={setStep} />;
+            <Availability setStep={setStep} />
           </div>
         );
       case 5:
@@ -41,12 +46,7 @@ const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
     }
   };
 
-  return (
-    <div className="flex flex-col justify-center">
-      {renderStep()}
-      {startingStep}
-    </div>
-  );
+  return <div className="flex flex-col justify-center">{renderStep()}</div>;
 };
 
 export default Onboarding;
