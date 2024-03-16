@@ -13,7 +13,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className=" text-white-300 mb-5 flex flex-col">
         <label className="paragraph-3-medium mb-2">{label}</label>
         <input
-          className="paragraph-3-regular p-3 bg-black-700"
+          className="paragraph-3-regular p-3 bg-black-700 border-none rounded-md"
           type="text"
           id={id}
           placeholder={placeholder}

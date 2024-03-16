@@ -1,47 +1,117 @@
 'use client';
 
-import { redirect } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
+import React, { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import BasicInformation from '@/components/onboarding/BasicInformation';
 import LearningGoals from '@/components/onboarding/LearningGoals';
 import KnowledgeLevel from '@/components/onboarding/KnowledgeLevel';
 import Availability from '@/components/onboarding/Availability';
 
-import React, { useEffect } from 'react';
-import { useState } from 'react';
 import Button from '@/components/shared/ui/Button';
 import OnboardingStepDots from '@/components/shared/ui/OnboardingStepsVisual';
+import {
+  IOnboardingSchema,
+  OnboardingSchema,
+} from '@/lib/validations/UserSchema';
+import { updateUser } from '@/lib/actions/user.actions';
 
-const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
-  // const startingStep = searchParams.step ?? 0;
-  const [step, setStep] = useState(1);
+const Onboarding = () => {
+  const searchParams = useSearchParams();
+  const stepFromParams = parseInt(searchParams.get('step') ?? '', 10);
+  const [step, setStep] = useState(stepFromParams);
+
+  const { register, handleSubmit, formState, trigger } =
+    useForm<IOnboardingSchema>({
+      defaultValues: {
+        name: '',
+        image: '',
+        onboardingStatus: step,
+        location: '',
+        portfolio: '',
+        goals: [],
+        knowledgeLevel: [],
+        techStack: [],
+        availability: false,
+        startDate: new Date(),
+        endDate: new Date(),
+      },
+      resolver: zodResolver(OnboardingSchema),
+    });
+
+  const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
+    let fields = [] as Partial<keyof IOnboardingSchema>[];
+
+    switch (step) {
+      case 1:
+        fields = ['name', 'portfolio'];
+        break;
+      case 2:
+        fields = ['goals'];
+        break;
+      case 3:
+        fields = ['knowledgeLevel', 'techStack'];
+        break;
+      case 4:
+        fields = ['availability', 'startDate', 'endDate'];
+        break;
+    }
+    const allFieldsValid = await validateSomeFields(fields);
+    console.log('all fields valid', allFieldsValid);
+    if (allFieldsValid) {
+      try {
+        const filteredData = Object.keys(data).filter((key) =>
+          fields.includes(key as keyof IOnboardingSchema)
+        );
+        const dataToSend = filteredData.reduce((acc, cur) => {
+          return { ...acc, [cur]: data[cur], onboardingStatus: step + 1 };
+        }, {});
+        updateUser(dataToSend);
+      } catch (error) {
+        toast.error('Unable to update user');
+      } finally {
+        setStep((prevStep) => prevStep + 1);
+      }
+    }
+  };
+
+  const validateSomeFields = async (fields: string[]) => {
+    console.log('in validate some fields', fields);
+    const isValid = await Promise.all(fields.map((field) => trigger(field)));
+    const allFieldsValid = isValid.every((field) => field === true);
+
+    return allFieldsValid;
+  };
 
   const renderStep = () => {
     switch (step) {
       case 1:
         return (
-          <div className="space-y-4">
-            <BasicInformation />
-          </div>
+          <section>
+            <BasicInformation register={register} formState={formState} />
+          </section>
         );
 
       case 2:
         return (
-          <div className="space-y-4">
-            <LearningGoals />
-          </div>
+          <section>
+            <LearningGoals register={register} formState={formState} />
+          </section>
         );
       case 3:
         return (
-          <div className="space-y-4">
+          <section>
             <KnowledgeLevel />
-          </div>
+          </section>
         );
       case 4:
         return (
-          <div className="space-y-4">
+          <section>
             <Availability />
-          </div>
+          </section>
         );
       case 5:
         return redirect('/');
@@ -50,11 +120,13 @@ const Onboarding = ({ searchParams }: { searchParams: { step: string } }) => {
 
   return (
     <div className="flex flex-col justify-center">
-      <OnboardingStepDots />
-      {renderStep()}
-      <Button color="blue" onClick={() => setStep((prevStep) => prevStep + 1)}>
-        Next
-      </Button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <OnboardingStepDots />
+        {renderStep()}
+        <Button color="blue" type="submit">
+          Next
+        </Button>
+      </form>
     </div>
   );
 };

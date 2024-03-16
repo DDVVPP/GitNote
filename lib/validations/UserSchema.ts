@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+const urlMatch =
+  /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+
 export type IUserSchema = z.infer<typeof UserSchema>;
 export const UserSchema = z.object({
   name: z
@@ -12,7 +15,16 @@ export const UserSchema = z.object({
   image: z.string().optional(),
   location: z.string(),
   onboardingStatus: z.number(),
-  portfolio: z.string().optional(),
+  portfolio: z.string().refine((value) => {
+    if (!value) return true;
+    return urlMatch.test(value);
+  }),
+  goals: z.string().array(),
+  knowledgeLevel: z.string().array(),
+  techStack: z.string().array(),
+  availability: z.boolean(),
+  startDate: z.date(),
+  endDate: z.date(),
 });
 //-------------------------------
 
@@ -28,11 +40,9 @@ export const UserSignUpSchema = UserSchema.pick({
 });
 //-------------------------------
 
-export type IUserBasicInfoSchema = z.infer<typeof UserBasicInfoSchema>;
-export const UserBasicInfoSchema = UserSchema.pick({
-  name: true,
-  image: true,
-  onboardingStatus: true,
-  portfolio: true,
+export type IOnboardingSchema = z.infer<typeof OnboardingSchema>;
+export const OnboardingSchema = UserSchema.omit({
+  email: true,
+  password: true,
 });
 //-------------------------------

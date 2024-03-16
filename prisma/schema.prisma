@@ -50,9 +50,9 @@ model User {
   knowledge         Knowledge[]
   techStack         String[]
   socialMedia       Social[]
-  availability      Boolean
-  startDate         DateTime
-  endDate           DateTime
+  availability      Boolean?
+  startDate         DateTime?
+  endDate           DateTime?
   accounts          Account[]
   sessions          Session[]
   posts             Post[]

@@ -1,5 +1,6 @@
 'use server';
 
+import { auth } from '@/auth';
 import { prisma } from '@/db';
 import { User } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
@@ -40,11 +41,15 @@ export async function getUser(email: string) {
 }
 
 export async function updateUser(data: Partial<User>) {
+  const session = await auth();
+  const email = session && session.user?.email;
+  if (!email) return;
+
   try {
     if (data) {
       const user = prisma.user.update({
         where: {
-          id: data.id,
+          email,
         },
         data,
       });
