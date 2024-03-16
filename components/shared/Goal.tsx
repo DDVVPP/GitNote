@@ -4,10 +4,16 @@ import Button from './ui/Button';
 interface GoalsProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   placeholder?: string;
+  isChecked: boolean;
   removeGoal: (label: string) => void;
 }
 
-const Goals = ({ label, removeGoal, ...rest }: GoalsProps) => {
+const Goal = ({
+  label,
+  removeGoal,
+  isChecked = false,
+  ...rest
+}: GoalsProps) => {
   return (
     <div className="bg-black-700 p-3 mb-2 flex  justify-between items-center align-middle">
       <div className="space-x-2">
@@ -27,4 +33,4 @@ const Goals = ({ label, removeGoal, ...rest }: GoalsProps) => {
   );
 };
 
-export default Goals;
+export default Goal;
