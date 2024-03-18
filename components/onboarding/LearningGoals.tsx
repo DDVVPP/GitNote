@@ -20,8 +20,10 @@ const LearningGoals = ({
 }) => {
   const [learningGoalText, setLearningGoalText] = useState('');
   const [learningGoals, setLearningGoals] = useState<Array<Goals>>();
-
+  console.log('learninggoals', learningGoals);
+  console.log('formstate', formState);
   const updateCheckStatus = (index: number) => {
+    console.log('index', index);
     if (learningGoals) {
       setLearningGoals(
         learningGoals?.map((goal, currIdx) => {
@@ -70,9 +72,9 @@ const LearningGoals = ({
           learningGoals.map((goal, index) => (
             <Goal
               key={goal.name}
-              label={goal.name}
               removeGoal={removeGoal}
               onChange={() => updateCheckStatus(index)}
+              label={goal.name}
             />
           ))}
 
@@ -83,9 +85,11 @@ const LearningGoals = ({
           value={learningGoalText}
         />
       </section>
-      <Button color="darkGray" icon="plus" onClick={addGoal}>
-        Add goal checkbox
-      </Button>
+      <div className="mb-4">
+        <Button color="darkGray" icon="plus" onClick={addGoal}>
+          Add goal checkbox
+        </Button>
+      </div>
     </>
   );
 };
