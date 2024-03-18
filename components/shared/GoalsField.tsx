@@ -1,5 +1,4 @@
 import { X } from 'lucide-react';
-import Button from './ui/Button';
 import { Dispatch, SetStateAction } from 'react';
 
 interface GoalsField extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -12,9 +11,8 @@ interface GoalsField extends React.InputHTMLAttributes<HTMLInputElement> {
 const GoalsField = ({
   label,
   placeholder,
-  setLearningGoalText,
   learningGoalText,
-
+  setLearningGoalText,
   ...rest
 }: GoalsField) => {
   return (

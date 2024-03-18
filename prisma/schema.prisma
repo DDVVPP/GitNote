@@ -46,8 +46,8 @@ model User {
   portfolio         String?
   role              Role     @default(USER)
   contributionGrid  String?
-  goals             String[]
-  knowledge         Knowledge[]
+  goals             Goals[]
+  knowledge         String[]
   techStack         String[]
   socialMedia       Social[]
   availability      Boolean?
@@ -89,7 +89,13 @@ model Social {
   user      User @relation(fields: [userId], references: [id])
   userId    String
 }
-
+model Goals {
+  id          Int    @id @default(autoincrement())
+  name        String
+  isComplete  Boolean
+  user        User @relation(fields: [userId], references: [id])
+  userId      String
+}
 model Knowledge {
   id          Int    @id @default(autoincrement())
   name        String

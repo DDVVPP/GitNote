@@ -19,7 +19,12 @@ export const UserSchema = z.object({
     if (!value) return true;
     return urlMatch.test(value);
   }),
-  goals: z.string().array(),
+  goals: z.array(
+    z.object({
+      name: z.string(),
+      isComplete: z.boolean(),
+    })
+  ),
   knowledgeLevel: z.string().array(),
   techStack: z.string().array(),
   availability: z.boolean(),
