@@ -1,16 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '@/components/shared/ui/Button';
 import Goal from '@/components/shared/Goal';
-import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
 import GoalsField from '../shared/GoalsField';
 
-const placeholderGoals = [
-  "Follow Clerk's installation process",
-  'Setup Clerk with Nextjs + Clerk webhook',
-];
+type Goals = {
+  name: string;
+  isChecked: boolean;
+};
 
 const LearningGoals = ({
   register,
@@ -20,20 +19,43 @@ const LearningGoals = ({
   formState: any;
 }) => {
   const [learningGoalText, setLearningGoalText] = useState('');
-  const [learningGoals, setLearningGoal] = useState(Array<string>);
-  const [isChecked, setIsChecked] = useState(false);
-  console.log('isChecked', isChecked);
+  const [learningGoals, setLearningGoals] = useState<Array<Goals>>();
+
+  const updateCheckStatus = (index: number) => {
+    if (learningGoals) {
+      setLearningGoals(
+        learningGoals?.map((goal, currIdx) => {
+          return currIdx === index
+            ? { ...goal, isChecked: !goal.isChecked }
+            : goal;
+        })
+      );
+    }
+  };
+
   const addGoal = () => {
     if (learningGoalText.length > 0) {
-      setLearningGoal((goals) => [...goals, learningGoalText]);
+      learningGoals
+        ? setLearningGoals((currGoals) => {
+            return (
+              currGoals && [
+                ...currGoals,
+                { name: learningGoalText, isChecked: false },
+              ]
+            );
+          })
+        : setLearningGoals([{ name: learningGoalText, isChecked: false }]);
     }
     setLearningGoalText('');
   };
 
   const removeGoal = (label: string) => {
-    setLearningGoal((learningGoals) =>
-      learningGoals.splice(learningGoals.indexOf(label), 1)
-    );
+    const filteredArray =
+      learningGoals &&
+      learningGoals.filter((goal) => {
+        return goal.name !== label;
+      });
+    setLearningGoals(filteredArray);
   };
 
   return (
@@ -44,16 +66,13 @@ const LearningGoals = ({
         <p className="paragraph-3-regular text-white-300 mb-1">
           Learning goals
         </p>
-        {learningGoals.length > 0 &&
-          learningGoals.map((goal) => (
+        {learningGoals &&
+          learningGoals.map((goal, index) => (
             <Goal
-              label={goal}
+              key={goal.name}
+              label={goal.name}
               removeGoal={removeGoal}
-              key={goal}
-              onChange={(e) => {
-                e.target.checked ? setIsChecked(true) : setIsChecked(false);
-              }}
-              isChecked={isChecked}
+              onChange={() => updateCheckStatus(index)}
             />
           ))}
 
