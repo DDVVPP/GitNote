@@ -44,7 +44,7 @@ export async function updateUser(data: Partial<User>) {
   const session = await auth();
   const email = session && session.user?.email;
   if (!email) return;
-
+  console.log('DATA', data);
   try {
     if (data) {
       const user = prisma.user.update({

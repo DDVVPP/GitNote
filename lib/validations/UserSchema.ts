@@ -12,7 +12,8 @@ export const UserSchema = z.object({
   password: z
     .string()
     .min(4, { message: 'Password must contain at least 4 characters' }),
-  image: z.string().optional(),
+  // image: z.instanceof(FileList),
+  image: z.any(),
   location: z.string(),
   onboardingStatus: z.number(),
   portfolio: z.string().refine((value) => {

@@ -1,5 +1,6 @@
-import Link from 'next/link';
-import { Image, UploadCloud } from 'lucide-react';
+import { useState } from 'react';
+import { Image as LandscapeIcon, UploadCloud } from 'lucide-react';
+import Image from 'next/image';
 
 import Input from '@/components/shared/ui/Input';
 
@@ -10,23 +11,48 @@ const BasicInformation = ({
   register: any;
   formState: any;
 }) => {
+  const [image, setImage] = useState('');
+  // console.log('formstate', formState);
+  // console.log('image', image);
+
+  const handleImageUpload = (event: React.ChangeEvent) => {
+    //Broken down for typescript
+    const target = event.target as HTMLInputElement;
+    const file = target.files && target.files[0];
+    setImage(URL.createObjectURL(file as Blob | MediaSource));
+  };
+
   return (
     <>
       <h1 className="display-2-bold pb-5">Basic Information</h1>
-      {/* <div className="flex space-x-2 items-center mb-5">
-        <div className="bg-black-700 p-7">
-          <Image stroke="rgba(173, 179, 204, 1)" size={18} />
-        </div>
+      <section className="flex space-x-2 items-center mb-5">
+        {image ? (
+          <Image src={image} alt="profileImage" width={120} height={120} />
+        ) : (
+          <div className="bg-black-700 p-7">
+            <LandscapeIcon stroke="rgba(173, 179, 204, 1)" size={18} />
+          </div>
+        )}
+
         <div className="bg-black-700 p-1.5 flex space-x-2 items-center">
           <UploadCloud stroke="rgba(173, 179, 204, 1)" size={18} />
-          <Link
-            href="/"
-            className="paragraph-3-medium  bg-black-700 text-white-300 flex justify-center"
+          <label
+            htmlFor="image"
+            className="paragraph-3-medium cursor-pointer bg-black-700 text-white-300 flex justify-center"
           >
-            Update Profile Photo
-          </Link>
+            Upload Profile Photo
+            <input
+              type="file"
+              id="image"
+              // onChange={handleImageUpload}
+              className="hidden"
+              {...register('image')}
+              // errors={formState.errors.image?.message}
+            />
+          </label>
         </div>
-      </div> */}
+      </section>
+
       <Input
         label="Name"
         id="name"

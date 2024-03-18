@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import Button from './ui/Button';
+import { forwardRef } from 'react';
 
 interface GoalsProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -7,13 +7,19 @@ interface GoalsProps extends React.InputHTMLAttributes<HTMLInputElement> {
   removeGoal: (label: string) => void;
 }
 
-const Goal = ({ label, removeGoal, ...rest }: GoalsProps) => {
+const Goal = forwardRef<HTMLInputElement, GoalsProps>(function Goal(
+  { label, value, removeGoal, ...rest },
+  ref
+) {
   return (
     <div className="bg-black-700 p-3 mb-2 flex  justify-between items-center align-middle">
-      <label className={'paragraph-3-regular  text-white-100'}>
+      <label className={'paragraph-3-regular  text-white-100'} htmlFor="goals">
         <input
           type="checkbox"
           className="appearance-none border border-white-500 h-3 w-3 bg-black-700 rounded-sm cursor-pointer text-green-400 mr-2"
+          id="goals"
+          value={value}
+          ref={ref}
           {...rest}
         />
         <span>{label}</span>
@@ -26,6 +32,6 @@ const Goal = ({ label, removeGoal, ...rest }: GoalsProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default Goal;
