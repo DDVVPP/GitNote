@@ -62,9 +62,8 @@ const Onboarding = () => {
     control,
   });
 
-  const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
+  const validateFields = async () => {
     let fields = [] as Partial<keyof IOnboardingSchema>[];
-    console.log('DATA IN ONSUBMIT', data);
 
     switch (step) {
       case 1:
@@ -80,27 +79,14 @@ const Onboarding = () => {
         fields = ['availability', 'startDate', 'endDate'];
         break;
     }
+
     const allFieldsValid = await validateSomeFields(fields);
     console.log('all fields valid', allFieldsValid);
-    if (allFieldsValid) {
-      try {
-        const filteredData = Object.keys(data).filter((key) =>
-          fields.includes(key as keyof IOnboardingSchema)
-        );
-        const dataToSend = filteredData.reduce((acc, cur) => {
-          return {
-            ...acc,
-            [cur]: data[cur],
-            onboardingStatus: step + 1,
-          };
-        }, {});
 
-        updateUser(dataToSend);
-      } catch (error) {
-        toast.error('Unable to update user');
-      } finally {
-        setStep((prevStep) => prevStep + 1);
-      }
+    if (allFieldsValid) {
+      setStep((prevStep) => prevStep + 1);
+
+      //update user with onboarding step
     }
   };
 
@@ -109,6 +95,26 @@ const Onboarding = () => {
     const allFieldsValid = isValid.every((field) => field === true);
 
     return allFieldsValid;
+  };
+
+  const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
+    try {
+      console.log('data in onSubmit>>>', data);
+      // const filteredData = Object.keys(data).filter((key) =>
+      //   fields.includes(key as keyof IOnboardingSchema)
+      // );
+      // const dataToSend = filteredData.reduce((acc, cur) => {
+      //   return {
+      //     ...acc,
+      //     [cur]: data[cur],
+      //     onboardingStatus: step + 1,
+      //   };
+      // }, {});
+
+      // updateUser(dataToSend);
+    } catch (error) {
+      toast.error('Unable to update user');
+    }
   };
 
   const renderStep = () => {
@@ -132,8 +138,6 @@ const Onboarding = () => {
               fieldsArray={fieldsArray}
               append={append}
               remove={remove}
-              control={control}
-              setValue={setValue}
             />
           </section>
         );
@@ -159,9 +163,15 @@ const Onboarding = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <OnboardingStepDots />
         {renderStep()}
-        <Button color="blue" type="submit">
-          Next
-        </Button>
+        {step === 4 ? (
+          <Button color="blue" type="submit">
+            Submit
+          </Button>
+        ) : (
+          <Button color="blue" type="button" onClick={validateFields}>
+            Next
+          </Button>
+        )}
       </form>
     </div>
   );

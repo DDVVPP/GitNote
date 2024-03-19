@@ -1,47 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 
 import Button from '@/components/shared/ui/Button';
-import Goal from '@/components/shared/Goal';
-import GoalsField from '../shared/GoalsField';
-
-type Goals = {
-  name: string;
-  isChecked: boolean;
-};
 
 const LearningGoals = ({
   register,
   fieldsArray,
   append,
   remove,
-  control,
-  setValue,
 }: {
   register: any;
   fieldsArray: any;
   append: any;
   remove: any;
-  control: any;
-  setValue: any;
 }) => {
-  const [learningGoalText, setLearningGoalText] = useState('');
-  const [checked, setIsChecked] = useState(false);
-
-  const updateCheckStatus = (index: number) => {
-    //Brandon, is this weird?
-    setIsChecked((currStatus) => !currStatus);
-    setValue(`goals.${index}.isComplete`, !checked);
-  };
-
   const addGoal = () => {
-    append({ name: learningGoalText, isComplete: false });
-    setLearningGoalText('');
+    append({ name: '', isComplete: false });
   };
 
-  console.log('fieldsArray', fieldsArray);
   return (
     <>
       <h1 className="display-2-bold pb-5">Add your learning goals</h1>
@@ -53,19 +30,31 @@ const LearningGoals = ({
 
         {fieldsArray.map((field: { name: string }, index: number) => {
           return (
-            <Goal
-              field={field}
-              index={index}
-              remove={remove}
-              updateCheckStatus={updateCheckStatus}
-              // {...register(`goals.${index}.isComplete`)}
-            />
+            <div
+              className="bg-black-700 py-1 px-3 mb-2 flex  justify-between items-center"
+              key={field.name}
+            >
+              <input
+                type="checkbox"
+                className="appearance-none border border-white-500 h-3 w-3 bg-white-500 rounded-sm text-green-400"
+                {...register(`goals.${index}.isComplete`)}
+              />
+              <input
+                className="paragraph-3-regular text-white-100 placeholder:paragraph-3-regular placeholder:text-white-300 bg-black-700 w-full rounded-md focus:outline-none border-none pl-0 ml-2"
+                placeholder="Enter a learning goal"
+                {...register(`goals.${index}.name`)}
+                type="text"
+              />
+              <button>
+                <X
+                  className="text-white-500"
+                  size={16}
+                  onClick={() => remove(index)}
+                />
+              </button>
+            </div>
           );
         })}
-        <GoalsField
-          learningGoalText={learningGoalText}
-          setLearningGoalText={setLearningGoalText}
-        />
       </section>
       <div className="mb-4">
         <Button color="darkGray" icon="plus" onClick={addGoal}>
