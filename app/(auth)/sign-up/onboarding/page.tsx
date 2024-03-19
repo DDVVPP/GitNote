@@ -1,5 +1,4 @@
 'use client';
-
 import { redirect, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -49,11 +48,10 @@ const Onboarding = () => {
     resolver: zodResolver(OnboardingSchema),
   });
 
-  // const watchAllFields = watch();
-  // useEffect(() => {
-  //   console.log('watchAllFields', watchAllFields);
-  //   console.log('watchallfields...', watchAllFields.imageURL);
-  // }, [watchAllFields]);
+  const watchAllFields = watch();
+  useEffect(() => {
+    console.log('watchAllFields', watchAllFields);
+  }, [watchAllFields]);
 
   const {
     fields: fieldsArray,
@@ -66,7 +64,7 @@ const Onboarding = () => {
 
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
     let fields = [] as Partial<keyof IOnboardingSchema>[];
-    // console.log('DATA IN ONSUBMIT', data);
+    console.log('DATA IN ONSUBMIT', data);
 
     switch (step) {
       case 1:
@@ -97,8 +95,6 @@ const Onboarding = () => {
           };
         }, {});
 
-        // console.log('DATATOSEND', dataToSend);
-
         updateUser(dataToSend);
       } catch (error) {
         toast.error('Unable to update user');
@@ -109,7 +105,6 @@ const Onboarding = () => {
   };
 
   const validateSomeFields = async (fields: string[]) => {
-    console.log('in validate some fields', fields);
     const isValid = await Promise.all(fields.map((field) => trigger(field)));
     const allFieldsValid = isValid.every((field) => field === true);
 
@@ -134,11 +129,11 @@ const Onboarding = () => {
           <section>
             <LearningGoals
               register={register}
-              formState={formState}
               fieldsArray={fieldsArray}
               append={append}
               remove={remove}
               control={control}
+              setValue={setValue}
             />
           </section>
         );
