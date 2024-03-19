@@ -1,7 +1,7 @@
 'use client';
 
 import { redirect, useSearchParams } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm, useFieldArray } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -24,23 +24,36 @@ const Onboarding = () => {
   const stepFromParams = parseInt(searchParams.get('step') ?? '1', 10);
   const [step, setStep] = useState(stepFromParams);
 
-  const { register, handleSubmit, formState, trigger, control } =
-    useForm<IOnboardingSchema>({
-      defaultValues: {
-        name: '',
-        image: '',
-        onboardingStatus: step,
-        location: '',
-        portfolio: '',
-        goals: [{ name: '', isComplete: false }],
-        knowledgeLevel: [],
-        techStack: [],
-        availability: false,
-        startDate: new Date(),
-        endDate: new Date(),
-      },
-      resolver: zodResolver(OnboardingSchema),
-    });
+  const {
+    register,
+    handleSubmit,
+    formState,
+    trigger,
+    control,
+    watch,
+    setValue,
+  } = useForm<IOnboardingSchema>({
+    defaultValues: {
+      name: '',
+      imageURL: '',
+      onboardingStatus: step,
+      location: '',
+      portfolio: '',
+      goals: [{ name: '', isComplete: false }],
+      knowledgeLevel: [],
+      techStack: [],
+      availability: false,
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+    resolver: zodResolver(OnboardingSchema),
+  });
+
+  // const watchAllFields = watch();
+  // useEffect(() => {
+  //   console.log('watchAllFields', watchAllFields);
+  //   console.log('watchallfields...', watchAllFields.imageURL);
+  // }, [watchAllFields]);
 
   const {
     fields: fieldsArray,
@@ -50,15 +63,14 @@ const Onboarding = () => {
     name: 'goals',
     control,
   });
-  console.log('formstate', formState);
+
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
     let fields = [] as Partial<keyof IOnboardingSchema>[];
-    console.log('DATA IN ONSUBMIT', data);
-    console.log('data.filelist', typeof data.image[0].name);
+    // console.log('DATA IN ONSUBMIT', data);
 
     switch (step) {
       case 1:
-        fields = ['name', 'portfolio', 'image'];
+        fields = ['name', 'portfolio', 'imageURL'];
         break;
       case 2:
         fields = ['goals'];
@@ -78,12 +90,15 @@ const Onboarding = () => {
           fields.includes(key as keyof IOnboardingSchema)
         );
         const dataToSend = filteredData.reduce((acc, cur) => {
-          return { ...acc, [cur]: data[cur], onboardingStatus: step + 1 };
+          return {
+            ...acc,
+            [cur]: data[cur],
+            onboardingStatus: step + 1,
+          };
         }, {});
-        console.log('DATATOSEND', dataToSend);
-        if (data.image) {
-          dataToSend.image = data.image[0].name;
-        }
+
+        // console.log('DATATOSEND', dataToSend);
+
         updateUser(dataToSend);
       } catch (error) {
         toast.error('Unable to update user');
@@ -106,7 +121,11 @@ const Onboarding = () => {
       case 1:
         return (
           <section>
-            <BasicInformation register={register} formState={formState} />
+            <BasicInformation
+              register={register}
+              formState={formState}
+              setValue={setValue}
+            />
           </section>
         );
 

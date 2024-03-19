@@ -3,23 +3,31 @@ import { Image as LandscapeIcon, UploadCloud } from 'lucide-react';
 import Image from 'next/image';
 
 import Input from '@/components/shared/ui/Input';
+import { UploadFile } from '@/lib/actions/s3.actions';
 
 const BasicInformation = ({
   register,
   formState,
+  setValue,
 }: {
   register: any;
   formState: any;
+  setValue: any;
 }) => {
   const [image, setImage] = useState('');
-  // console.log('formstate', formState);
-  // console.log('image', image);
 
-  const handleImageUpload = (event: React.ChangeEvent) => {
+  const handleImageUpload = async (event: React.ChangeEvent) => {
     //Broken down for typescript
     const target = event.target as HTMLInputElement;
     const file = target.files && target.files[0];
+    const formData = new FormData();
+
+    if (!file) return;
+    formData.append('file', file);
+    const url = await UploadFile(formData);
+
     setImage(URL.createObjectURL(file as Blob | MediaSource));
+    setValue('imageURL', url);
   };
 
   return (
@@ -44,10 +52,8 @@ const BasicInformation = ({
             <input
               type="file"
               id="image"
-              // onChange={handleImageUpload}
+              onChange={handleImageUpload}
               className="hidden"
-              {...register('image')}
-              // errors={formState.errors.image?.message}
             />
           </label>
         </div>

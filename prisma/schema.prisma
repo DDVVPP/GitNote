@@ -40,7 +40,7 @@ model User {
   email             String?   @unique
   emailVerified     DateTime?
   password          String?
-  image             String?
+  imageURL          String?
   location          String?
   onboardingStatus  Int?
   portfolio         String?
@@ -90,13 +90,6 @@ model Social {
   userId    String
 }
 model Goals {
-  id          Int    @id @default(autoincrement())
-  name        String
-  isComplete  Boolean
-  user        User @relation(fields: [userId], references: [id])
-  userId      String
-}
-model Knowledge {
   id          Int    @id @default(autoincrement())
   name        String
   isComplete  Boolean
