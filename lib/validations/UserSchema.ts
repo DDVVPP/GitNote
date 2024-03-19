@@ -26,7 +26,7 @@ export const UserSchema = z.object({
     })
   ),
   knowledgeLevel: z.string().array(),
-  techStack: z.string().array(),
+  techStack: z.string(),
   availability: z.boolean(),
   startDate: z.date(),
   endDate: z.date(),

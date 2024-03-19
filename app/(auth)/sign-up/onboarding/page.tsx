@@ -40,7 +40,7 @@ const Onboarding = () => {
       portfolio: '',
       goals: [{ name: '', isComplete: false }],
       knowledgeLevel: [],
-      techStack: [],
+      techStack: '',
       availability: false,
       startDate: new Date(),
       endDate: new Date(),
@@ -144,7 +144,12 @@ const Onboarding = () => {
       case 3:
         return (
           <section>
-            <KnowledgeLevel />
+            <KnowledgeLevel
+              register={register}
+              fieldsArray={fieldsArray}
+              append={append}
+              remove={remove}
+            />
           </section>
         );
       case 4:
