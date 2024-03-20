@@ -139,7 +139,11 @@ const Onboarding = () => {
       case 3:
         return (
           <section>
-            <KnowledgeLevel register={register} control={control} />
+            <KnowledgeLevel
+              register={register}
+              formState={formState}
+              control={control}
+            />
           </section>
         );
       case 4:

@@ -47,8 +47,8 @@ model User {
   role              Role     @default(USER)
   contributionGrid  String?
   goals             Goals[]
-  knowledge         String[]
-  techStack         String[]
+  knowledgeLevel    String[]
+  techStack         String?
   socialMedia       Social[]
   availability      Boolean?
   startDate         DateTime?
