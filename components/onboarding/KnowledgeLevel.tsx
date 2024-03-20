@@ -1,20 +1,26 @@
 'use client';
 
+import { useFieldArray } from 'react-hook-form';
 import Button from '../shared/ui/Button';
 import Input from '../shared/ui/Input';
 import { CheckSquare, X } from 'lucide-react';
 
 const KnowledgeLevel = ({
   register,
-  fieldsArray,
-  append,
-  remove,
+  control,
 }: {
   register: any;
-  fieldsArray: any;
-  append: any;
-  remove: any;
+  control: any;
 }) => {
+  const {
+    fields: fieldsArray,
+    append,
+    remove,
+  } = useFieldArray({
+    name: 'knowledgeLevel',
+    control,
+  });
+
   return (
     <>
       <h1 className="display-2-bold pb-5">Add your knowledge level</h1>
@@ -24,13 +30,16 @@ const KnowledgeLevel = ({
             Knowledge Level
           </p>
 
-          {fieldsArray.map((field: { name: string }, index: number) => {
+          {fieldsArray.map((field, index) => {
             return (
-              <div className="bg-black-700 py-1 px-3 mb-2 flex  justify-between items-center">
+              <div
+                className="bg-black-700 py-1 px-3 mb-2 flex  justify-between items-center"
+                key={field.id}
+              >
                 <div className="space-x-2 flex items-center">
                   <CheckSquare className="text-primary-500" size={16} />
                   <label className={'paragraph-3-regular  text-white-100'}>
-                    {field.name}
+                    {field}
                   </label>
                 </div>
                 <input

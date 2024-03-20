@@ -22,15 +22,16 @@ const Onboarding = () => {
   const searchParams = useSearchParams();
   const stepFromParams = parseInt(searchParams.get('step') ?? '1', 10);
   const [step, setStep] = useState(stepFromParams);
+  let fields = [] as Partial<keyof IOnboardingSchema>[];
 
   const {
     register,
     handleSubmit,
     formState,
     trigger,
-    control,
     watch,
     setValue,
+    control,
   } = useForm<IOnboardingSchema>({
     defaultValues: {
       name: '',
@@ -38,7 +39,7 @@ const Onboarding = () => {
       onboardingStatus: step,
       location: '',
       portfolio: '',
-      goals: [{ name: '', isComplete: false }],
+      goals: [],
       knowledgeLevel: [],
       techStack: '',
       availability: false,
@@ -48,23 +49,34 @@ const Onboarding = () => {
     resolver: zodResolver(OnboardingSchema),
   });
 
-  const watchAllFields = watch();
+  const formData = watch();
   useEffect(() => {
-    console.log('watchAllFields', watchAllFields);
-  }, [watchAllFields]);
+    console.log('formData', formData);
+  }, [formData]);
 
-  const {
-    fields: fieldsArray,
-    append,
-    remove,
-  } = useFieldArray({
-    name: 'goals',
-    control,
-  });
+  const filterData = (data: IOnboardingSchema) => {
+    const filteredData = Object.keys(data).filter((key) =>
+      fields.includes(key as keyof IOnboardingSchema)
+    );
+    const dataToSend = filteredData.reduce((acc, cur) => {
+      return {
+        ...acc,
+        [cur]: data[cur],
+        onboardingStatus: step + 1,
+      };
+    }, {});
+
+    return dataToSend;
+  };
+
+  const validateSpecificFields = async () => {
+    const isValid = await Promise.all(fields.map((field) => trigger(field)));
+    const allFieldsValid = isValid.every((field) => field === true);
+
+    return allFieldsValid;
+  };
 
   const validateFields = async () => {
-    let fields = [] as Partial<keyof IOnboardingSchema>[];
-
     switch (step) {
       case 1:
         fields = ['name', 'portfolio', 'imageURL'];
@@ -79,39 +91,23 @@ const Onboarding = () => {
         fields = ['availability', 'startDate', 'endDate'];
         break;
     }
-
-    const allFieldsValid = await validateSomeFields(fields);
-    console.log('all fields valid', allFieldsValid);
-
+    const allFieldsValid = await validateSpecificFields();
     if (allFieldsValid) {
-      setStep((prevStep) => prevStep + 1);
-
-      //update user with onboarding step
+      try {
+        const dataToSend = filterData(formData);
+        updateUser(dataToSend);
+      } catch (error) {
+        toast.error('Unable to update user');
+      } finally {
+        setStep((prevStep) => prevStep + 1);
+      }
     }
-  };
-
-  const validateSomeFields = async (fields: string[]) => {
-    const isValid = await Promise.all(fields.map((field) => trigger(field)));
-    const allFieldsValid = isValid.every((field) => field === true);
-
-    return allFieldsValid;
   };
 
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
     try {
-      console.log('data in onSubmit>>>', data);
-      // const filteredData = Object.keys(data).filter((key) =>
-      //   fields.includes(key as keyof IOnboardingSchema)
-      // );
-      // const dataToSend = filteredData.reduce((acc, cur) => {
-      //   return {
-      //     ...acc,
-      //     [cur]: data[cur],
-      //     onboardingStatus: step + 1,
-      //   };
-      // }, {});
-
-      // updateUser(dataToSend);
+      const dataToSend = filterData(data);
+      updateUser(dataToSend);
     } catch (error) {
       toast.error('Unable to update user');
     }
@@ -135,27 +131,21 @@ const Onboarding = () => {
           <section>
             <LearningGoals
               register={register}
-              fieldsArray={fieldsArray}
-              append={append}
-              remove={remove}
+              formState={formState}
+              control={control}
             />
           </section>
         );
       case 3:
         return (
           <section>
-            <KnowledgeLevel
-              register={register}
-              fieldsArray={fieldsArray}
-              append={append}
-              remove={remove}
-            />
+            <KnowledgeLevel register={register} control={control} />
           </section>
         );
       case 4:
         return (
           <section>
-            <Availability />
+            <Availability register={register} />
           </section>
         );
       case 5:
