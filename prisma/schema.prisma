@@ -48,7 +48,7 @@ model User {
   contributionGrid  String?
   goals             Goals[]
   knowledgeLevel    String[]
-  techStack         String?
+  techStack         String[]
   socialMedia       Social[]
   availability      Boolean?
   startDate         DateTime?

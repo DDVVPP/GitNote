@@ -2,7 +2,7 @@
 import { redirect, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SubmitHandler, useForm, useFieldArray } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import BasicInformation from '@/components/onboarding/BasicInformation';
@@ -17,6 +17,7 @@ import {
   OnboardingSchema,
 } from '@/lib/validations/UserSchema';
 import { updateUser } from '@/lib/actions/user.actions';
+// import TechStack from '@/components/onboarding/TechStack';
 
 const Onboarding = () => {
   const searchParams = useSearchParams();
@@ -41,7 +42,7 @@ const Onboarding = () => {
       portfolio: '',
       goals: [],
       knowledgeLevel: [],
-      techStack: '',
+      techStack: [],
       availability: false,
       startDate: new Date(),
       endDate: new Date(),
@@ -55,9 +56,11 @@ const Onboarding = () => {
   }, [formData]);
 
   const filterData = (data: IOnboardingSchema) => {
+    console.log('data in filter', data);
     const filteredData = Object.keys(data).filter((key) =>
       fields.includes(key as keyof IOnboardingSchema)
     );
+    console.log('filteredData', filteredData);
     const dataToSend = filteredData.reduce((acc, cur) => {
       return {
         ...acc,
@@ -65,7 +68,7 @@ const Onboarding = () => {
         onboardingStatus: step + 1,
       };
     }, {});
-
+    console.log('dataToSend', dataToSend);
     return dataToSend;
   };
 
@@ -105,9 +108,9 @@ const Onboarding = () => {
   };
 
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
+    console.log('data in onSubmit', data);
     try {
-      const dataToSend = filterData(data);
-      updateUser(dataToSend);
+      updateUser(data);
     } catch (error) {
       toast.error('Unable to update user');
     }
@@ -143,13 +146,21 @@ const Onboarding = () => {
               register={register}
               formState={formState}
               control={control}
+              watch={watch}
+              setValue={setValue}
             />
+            {/* <TechStack register={register} watch={watch} setValue={setValue} /> */}
           </section>
         );
       case 4:
         return (
           <section>
-            <Availability register={register} />
+            <Availability
+              register={register}
+              control={control}
+              formState={formState}
+              watch={watch}
+            />
           </section>
         );
       case 5:

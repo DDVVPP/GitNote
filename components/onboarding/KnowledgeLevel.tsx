@@ -1,18 +1,23 @@
 'use client';
 
 import { useFieldArray } from 'react-hook-form';
-import Button from '../shared/ui/Button';
-import Input from '../shared/ui/Input';
 import { CheckSquare, X } from 'lucide-react';
+
+import Button from '../shared/ui/Button';
+import TechStack from './TechStack';
 
 const KnowledgeLevel = ({
   register,
   formState,
   control,
+  watch,
+  setValue,
 }: {
   register: any;
   formState: any;
   control: any;
+  watch: any;
+  setValue: any;
 }) => {
   const {
     fields: fieldsArray,
@@ -22,6 +27,7 @@ const KnowledgeLevel = ({
     name: 'knowledgeLevel',
     control,
   });
+
   return (
     <>
       <h1 className="display-2-bold pb-5">Add your knowledge level</h1>
@@ -57,7 +63,7 @@ const KnowledgeLevel = ({
                 <div className="mb-4 mt-(-2) ">
                   {formState.errors.knowledgeLevel && (
                     <span className="text-error-500 paragraph-3-regular mt-2">
-                      {formState.errors.knowledgeLevel[index].message}
+                      {formState.errors.knowledgeLevel[index]?.message}
                     </span>
                   )}
                 </div>
@@ -71,14 +77,8 @@ const KnowledgeLevel = ({
           </Button>
         </div>
       </section>
-      <section>
-        <Input
-          label="Tech Stack"
-          id="techStack"
-          placeholder="Enter tech"
-          {...register('techStack')}
-        />
-      </section>
+
+      <TechStack register={register} watch={watch} setValue={setValue} />
     </>
   );
 };
