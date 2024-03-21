@@ -34,14 +34,14 @@ const TechStack = ({
 
   const handleClick = (item: string) => {
     const techStackStateClone = techStackState;
-    techStackStateClone.push(item);
+    Array.isArray(techStackStateClone) && techStackStateClone.push(item);
     setValue('techStack', techStackStateClone);
   };
 
   const handleDelete = (item: string) => {
     const techStackStateClone = techStackState;
     const filteredTechStack = techStackStateClone.filter(
-      (tech: string) => !tech.includes(item)
+      (techName: string) => !techName.includes(item)
     );
     setValue('techStack', filteredTechStack);
   };
@@ -61,15 +61,18 @@ const TechStack = ({
 
         {techStackState.length > 0 && (
           <div className="flex bg-black-700 space-x-2 mt-0.5 mb-4 rounded-md p-4">
-            {techStackState.map((tech) => {
+            {techStackState.map((techName: string) => {
               return (
-                <div className="flex bg-black-600 items-center rounded-md p-2 space-x-6 ">
-                  {tech}{' '}
+                <div
+                  className="flex bg-black-600 items-center rounded-md p-2 space-x-6"
+                  key={techName}
+                >
+                  {techName}{' '}
                   <button>
                     <X
                       className="text-white-500"
                       size={16}
-                      onClick={() => handleDelete(tech)}
+                      onClick={() => handleDelete(techName)}
                     />
                   </button>
                 </div>

@@ -1,7 +1,7 @@
 export const techStack = [
-  'node',
-  'react',
-  'next',
+  'nodejs',
+  'reactjs',
+  'nextjs',
   'javascript',
   'typescript',
   'tailwind',
