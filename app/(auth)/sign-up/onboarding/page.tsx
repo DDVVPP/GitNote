@@ -24,7 +24,7 @@ const Onboarding = () => {
   const stepFromParams = parseInt(searchParams.get('step') ?? '1', 10);
   const [step, setStep] = useState(stepFromParams);
   let fields = [] as Partial<keyof IOnboardingSchema>[];
-
+  console.log('step', step);
   const {
     register,
     handleSubmit,
@@ -52,15 +52,14 @@ const Onboarding = () => {
 
   const formData = watch();
   useEffect(() => {
-    console.log('formData', formData);
+    console.log('formData USE-EFFECT PAGE.TSX', formData);
   }, [formData]);
 
   const filterData = (data: IOnboardingSchema) => {
-    console.log('data in filter', data);
     const filteredData = Object.keys(data).filter((key) =>
       fields.includes(key as keyof IOnboardingSchema)
     );
-    console.log('filteredData', filteredData);
+    console.log('STEP1: filteredData', filteredData);
     const dataToSend = filteredData.reduce((acc, cur) => {
       return {
         ...acc,
@@ -68,7 +67,7 @@ const Onboarding = () => {
         onboardingStatus: step + 1,
       };
     }, {});
-    console.log('dataToSend', dataToSend);
+    console.log('STEP1: dataToSend', dataToSend);
     return dataToSend;
   };
 
@@ -98,6 +97,7 @@ const Onboarding = () => {
     if (allFieldsValid) {
       try {
         const dataToSend = filterData(formData);
+        console.log('STEP 2: dataToSend', dataToSend);
         updateUser(dataToSend);
       } catch (error) {
         toast.error('Unable to update user');
@@ -108,7 +108,7 @@ const Onboarding = () => {
   };
 
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
-    console.log('data in onSubmit', data);
+    console.log('FINAL STEP: data in onSubmit', data);
     try {
       updateUser(data);
     } catch (error) {
@@ -169,20 +169,22 @@ const Onboarding = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <OnboardingStepDots />
-        {renderStep()}
-        {step === 4 ? (
-          <Button color="blue" type="submit">
-            Submit
-          </Button>
-        ) : (
-          <Button color="blue" type="button" onClick={validateFields}>
-            Next
-          </Button>
-        )}
-      </form>
+    <div className="flex flex-col justify-center ">
+      <div className="bg-black-800 p-6">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <OnboardingStepDots step={step} />
+          {renderStep()}
+          {step === 4 ? (
+            <Button color="blue" type="submit">
+              Submit
+            </Button>
+          ) : (
+            <Button color="blue" type="button" onClick={validateFields}>
+              Next
+            </Button>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
