@@ -33,7 +33,7 @@ const TechStack = ({
   }, [techSearchItems]);
 
   const handleClick = (item: string) => {
-    const techStackStateClone = techStackState;
+    const techStackStateClone = techStackState ?? [];
     Array.isArray(techStackStateClone) && techStackStateClone.push(item);
     setValue('techStack', techStackStateClone);
   };

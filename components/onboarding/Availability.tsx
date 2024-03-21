@@ -17,7 +17,6 @@ const Availability = ({
 }) => {
   const availability = watch('availability');
 
-  console.log('availability watch', availability);
   return (
     <>
       <h1 className="display-2-bold mb-4">Schedule & Availability</h1>
@@ -32,7 +31,7 @@ const Availability = ({
         </label>
       </section>
       {availability && (
-        <section className="flex mt-2 justify-between display-none mb-4 space-x-4">
+        <section className="flex mt-2 justify-between display-none mb-4">
           <div className="flex flex-col space-y-2">
             <span className="paragraph-3-regular  text-white-300">
               Start Date & Time

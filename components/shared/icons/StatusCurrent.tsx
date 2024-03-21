@@ -8,7 +8,7 @@ export default function StatusCurrent() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g filter="url(#filter0_d_307_13297)">
-        <g clip-path="url(#clip0_307_13297)">
+        <g clipPath="url(#clip0_307_13297)">
           <rect x="4" y="4" width="32" height="32" rx="5" fill="#2E3757" />
           <rect x="4" y="4" width="32" height="32" rx="12" fill="#42BBFF" />
           <circle cx="20" cy="20" r="4" fill="#1D2032" />
@@ -22,9 +22,9 @@ export default function StatusCurrent() {
           width="40"
           height="40"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

@@ -36,7 +36,7 @@ const Onboarding = () => {
   } = useForm<IOnboardingSchema>({
     defaultValues: {
       name: '',
-      imageURL: '',
+      image: '',
       onboardingStatus: step,
       location: '',
       portfolio: '',
@@ -81,7 +81,7 @@ const Onboarding = () => {
   const validateFields = async () => {
     switch (step) {
       case 1:
-        fields = ['name', 'portfolio', 'imageURL'];
+        fields = ['name', 'portfolio', 'image'];
         break;
       case 2:
         fields = ['goals'];

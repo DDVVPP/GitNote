@@ -27,7 +27,7 @@ const BasicInformation = ({
     const url = await UploadFile(formData);
 
     setImage(URL.createObjectURL(file as Blob | MediaSource));
-    setValue('imageURL', url);
+    setValue('image', url);
   };
 
   return (

@@ -7,8 +7,8 @@ export default function StatusIncomplete() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_307_13317)">
-        <g clip-path="url(#clip1_307_13317)">
+      <g clipPath="url(#clip0_307_13317)">
+        <g clipPath="url(#clip1_307_13317)">
           <rect width="32" height="32" rx="5" fill="#2E3757" />
           <circle cx="16" cy="16" r="4" fill="#1D2032" />
         </g>
