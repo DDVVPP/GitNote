@@ -47,6 +47,32 @@ const Onboarding = ({ user }: { user: User }) => {
   const { watch, handleSubmit, trigger } = useFormHelpers;
   const formData = watch();
 
+  const stepData: {
+    [key: number]: {
+      component: JSX.Element;
+      fields: Partial<keyof IOnboardingSchema>[];
+    };
+  } = {
+    1: {
+      component: (
+        <BasicInformation useFormHelpers={useFormHelpers} formData={formData} />
+      ),
+      fields: ['name', 'portfolio', 'image'],
+    },
+    2: {
+      component: <LearningGoals useFormHelpers={useFormHelpers} />,
+      fields: ['goals'],
+    },
+    3: {
+      component: <KnowledgeLevel useFormHelpers={useFormHelpers} />,
+      fields: ['knowledgeLevel', 'techStack'],
+    },
+    4: {
+      component: <Availability useFormHelpers={useFormHelpers} />,
+      fields: ['availability', 'startDate', 'endDate'],
+    },
+  };
+
   const filterData = (data: IOnboardingSchema) => {
     const filteredData = Object.keys(data).filter((key) =>
       fields.includes(key as keyof IOnboardingSchema)
@@ -54,7 +80,7 @@ const Onboarding = ({ user }: { user: User }) => {
     const dataToSend = filteredData.reduce((acc, cur) => {
       return {
         ...acc,
-        [cur]: data[cur],
+        [cur]: data[cur as keyof IOnboardingSchema],
         onboardingStatus: step + 1,
       };
     }, {});
@@ -62,27 +88,13 @@ const Onboarding = ({ user }: { user: User }) => {
   };
 
   const validateSpecificFields = async () => {
+    let fields = stepData[step].fields;
     const isValid = await Promise.all(fields.map((field) => trigger(field)));
     const allFieldsValid = isValid.every((field) => field === true);
     return allFieldsValid;
   };
 
   const validateFields = async () => {
-    switch (step) {
-      case 1:
-        fields = ['name', 'portfolio', 'image'];
-        break;
-      case 2:
-        fields = ['goals'];
-        break;
-      case 3:
-        fields = ['knowledgeLevel', 'techStack'];
-        break;
-      case 4:
-        fields = ['availability', 'startDate', 'endDate'];
-        break;
-    }
-
     const allFieldsValid = await validateSpecificFields();
     if (allFieldsValid) {
       try {
@@ -106,45 +118,12 @@ const Onboarding = ({ user }: { user: User }) => {
     }
   };
 
-  const renderStep = () => {
-    switch (step) {
-      case 1:
-        return (
-          <section>
-            <BasicInformation
-              useFormHelpers={useFormHelpers}
-              formData={formData}
-            />
-          </section>
-        );
-
-      case 2:
-        return (
-          <section>
-            <LearningGoals useFormHelpers={useFormHelpers} />
-          </section>
-        );
-      case 3:
-        return (
-          <section>
-            <KnowledgeLevel useFormHelpers={useFormHelpers} />
-          </section>
-        );
-      case 4:
-        return (
-          <section>
-            <Availability useFormHelpers={useFormHelpers} />
-          </section>
-        );
-    }
-  };
-
   return (
     <div className="flex flex-col justify-center ">
       <div className="bg-black-800 p-6">
         <form onSubmit={handleSubmit(onSubmit)}>
           <OnboardingVisualStepper step={step} />
-          {renderStep()}
+          <section>{stepData[step].component}</section>
           {step === 4 ? (
             <Button color="blue" type="submit">
               Submit

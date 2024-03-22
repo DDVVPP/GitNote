@@ -1,64 +1,51 @@
+import React from 'react';
 import StatusComplete from '../shared/icons/StatusComplete';
 import StatusCurrent from '../shared/icons/StatusCurrent';
 import StatusIncomplete from '../shared/icons/StatusIncomplete';
 
-const OnboardingVisualStepper = ({ step }: { step: number }) => {
-  const renderSteps = () => {
-    const RepeatedPatternIncomplete = (number: number) =>
-      Array(number).fill(
-        <>
-          <div className="border border-black-600 w-28"></div>
-          <StatusIncomplete />
-        </>
-      );
+const RenderStepPosition = ({ step }: { step: number }) => {
+  const totalSteps = 4;
 
-    const RepeatedPatternComplete = (number: number) =>
-      Array(number).fill(
-        <>
-          <StatusComplete />
-          <div className="border border-primary-500 w-28"></div>
-        </>
-      );
+  const renderStep = (index: number) => {
+    const isCurrentStep = index === step;
+    const isPreviousStep = index < step;
 
-    switch (step) {
-      case 1:
-        return (
-          <section className="flex items-center">
-            <StatusCurrent />
-            <div className="border border-primary-500 w-28"></div>
-            <StatusIncomplete />
-            {RepeatedPatternIncomplete(2)}
-          </section>
-        );
-      case 2:
-        return (
-          <section className="flex items-center">
-            <StatusComplete />
-            <div className="border border-primary-500 w-28"></div>
-            <StatusCurrent />
-            {RepeatedPatternIncomplete(2)}
-          </section>
-        );
-      case 3:
-        return (
-          <section className="flex items-center">
-            {RepeatedPatternComplete(2)}
-            <StatusCurrent />
-            <div className="border border-black-600 w-28"></div>
-            <StatusIncomplete />
-          </section>
-        );
-      case 4:
-        return (
-          <section className="flex items-center">
-            {RepeatedPatternComplete(3)}
-            <StatusCurrent />
-          </section>
-        );
-    }
+    const statusComponent = isCurrentStep ? (
+      <StatusCurrent />
+    ) : isPreviousStep ? (
+      <StatusComplete />
+    ) : (
+      <StatusIncomplete />
+    );
+
+    const borderColor =
+      isPreviousStep || isCurrentStep
+        ? 'border-primary-500'
+        : 'border-black-600';
+
+    return (
+      <React.Fragment key={index}>
+        {statusComponent}
+        {index < totalSteps && (
+          <div className={`border ${borderColor} w-28`}></div>
+        )}
+      </React.Fragment>
+    );
   };
 
-  return <div className=" flex justify-center mb-5">{renderSteps()}</div>;
+  return (
+    <section className="flex items-center">
+      {[...Array(totalSteps)].map((_, index) => renderStep(index + 1))}
+    </section>
+  );
+};
+
+const OnboardingVisualStepper = ({ step }: { step: number }) => {
+  return (
+    <div className=" flex justify-center mb-5">
+      {<RenderStepPosition step={step} />}
+    </div>
+  );
 };
 
 export default OnboardingVisualStepper;

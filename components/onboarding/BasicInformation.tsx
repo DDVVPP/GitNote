@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 import { UploadFile } from '@/lib/actions/s3.actions';
 import Input from '@/components/shared/ui/Input';
+import { Controller } from 'react-hook-form';
 
 const BasicInformation = ({
   useFormHelpers,
@@ -13,7 +14,7 @@ const BasicInformation = ({
   useFormHelpers: any;
   formData: any;
 }) => {
-  const { register, formState, setValue } = useFormHelpers;
+  const { register, formState, setValue, trigger, control } = useFormHelpers;
   const [image, setImage] = useState(formData?.image ?? '');
 
   const handleImageUpload = async (event: React.ChangeEvent) => {
@@ -66,25 +67,46 @@ const BasicInformation = ({
         errors={formState.errors.portfolio?.message}
       />
 
-      {/* <Controller
+      <Controller
         control={control}
         name="name"
-        render={({ field, formState: { errors } }) => (
+        render={({
+          field: { name, onChange, ...rest },
+          formState: { errors },
+        }) => (
           <Input
             label="Name"
-            id={field.name}
+            id={name}
+            {...rest}
+            onChange={(event) => {
+              onChange(event);
+              trigger(name);
+            }}
             placeholder="Enter your full name"
             errors={errors.name?.message as string}
           />
         )}
-      /> */}
+      />
 
-      <Input
-        label="Portfolio"
-        id="portfolio"
-        placeholder="https://jsmastery.pro"
-        {...register('portfolio')}
-        errors={formState.errors.portfolio?.message}
+      <Controller
+        control={control}
+        name="portfolio"
+        render={({
+          field: { name, onChange, ...rest },
+          formState: { errors },
+        }) => (
+          <Input
+            label="Portfolio"
+            id={name}
+            {...rest}
+            onChange={(event) => {
+              onChange(event);
+              trigger(name);
+            }}
+            placeholder="https://jsmastery.pro"
+            errors={errors.portfolio?.message as string}
+          />
+        )}
       />
     </>
   );
