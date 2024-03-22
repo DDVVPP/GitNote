@@ -1,25 +1,20 @@
 import { useState } from 'react';
 import { Image as LandscapeIcon, UploadCloud } from 'lucide-react';
 import Image from 'next/image';
+// import { Controller } from 'react-hook-form';
 
-import Input from '@/components/shared/ui/Input';
 import { UploadFile } from '@/lib/actions/s3.actions';
-import { Controller } from 'react-hook-form';
+import Input from '@/components/shared/ui/Input';
 
 const BasicInformation = ({
-  register,
-  control,
-  formState,
+  useFormHelpers,
   formData,
-  setValue,
 }: {
-  register: any;
-  control: any;
-  formState: any;
+  useFormHelpers: any;
   formData: any;
-  setValue: any;
 }) => {
-  const [image, setImage] = useState(formData.image ?? '');
+  const { register, formState, setValue } = useFormHelpers;
+  const [image, setImage] = useState(formData?.image ?? '');
 
   const handleImageUpload = async (event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;

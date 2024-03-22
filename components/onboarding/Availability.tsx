@@ -1,25 +1,17 @@
 'use client';
 
 import ReactDatePicker from 'react-datepicker';
-import { Controller } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Controller } from 'react-hook-form';
 
-const Availability = ({
-  register,
-  control,
-  formState,
-  watch,
-}: {
-  register: any;
-  control: any;
-  formState: any;
-  watch: any;
-}) => {
-  const availability = watch('availability');
+const Availability = ({ useFormHelpers }: { useFormHelpers: any }) => {
+  const { register, control, watch } = useFormHelpers;
+  const availabilityValue = watch('availability');
 
   return (
     <>
       <h1 className="display-2-bold mb-4">Schedule & Availability</h1>
+
       <section className="space-x-2 pb-2">
         <input
           type="checkbox"
@@ -30,7 +22,8 @@ const Availability = ({
           Are you available for a new project?
         </label>
       </section>
-      {availability && (
+
+      {availabilityValue && (
         <section className="flex mt-2 justify-between display-none mb-4">
           <div className="flex flex-col space-y-2">
             <span className="paragraph-3-regular  text-white-300">

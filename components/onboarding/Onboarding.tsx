@@ -1,6 +1,6 @@
 'use client';
 import { useSearchParams, useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -17,25 +17,18 @@ import BasicInformation from '@/components/onboarding/BasicInformation';
 import LearningGoals from '@/components/onboarding/LearningGoals';
 import KnowledgeLevel from '@/components/onboarding/KnowledgeLevel';
 import Availability from '@/components/onboarding/Availability';
-import OnboardingStepDots from '@/components/shared/ui/OnboardingStepsVisual';
+import OnboardingVisualStepper from '@/components/onboarding/OnboardingVisualStepper';
 import Button from '@/components/shared/ui/Button';
 
 const Onboarding = ({ user }: { user: User }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const stepFromParams = parseInt(searchParams.get('step') ?? '1', 10);
+
   const [step, setStep] = useState(stepFromParams);
   let fields = [] as Partial<keyof IOnboardingSchema>[];
 
-  const {
-    register,
-    handleSubmit,
-    formState,
-    trigger,
-    watch,
-    setValue,
-    control,
-  } = useForm<IOnboardingSchema>({
+  const useFormHelpers = useForm<IOnboardingSchema>({
     defaultValues: {
       name: user?.name ?? '',
       image: user?.image ?? '',
@@ -51,16 +44,13 @@ const Onboarding = ({ user }: { user: User }) => {
     resolver: zodResolver(OnboardingSchema),
   });
 
+  const { watch, handleSubmit, trigger } = useFormHelpers;
   const formData = watch();
-  useEffect(() => {
-    console.log('formData USE-EFFECT PAGE.TSX', formData);
-  }, [formData]);
 
   const filterData = (data: IOnboardingSchema) => {
     const filteredData = Object.keys(data).filter((key) =>
       fields.includes(key as keyof IOnboardingSchema)
     );
-    console.log('STEP1: filteredData', filteredData);
     const dataToSend = filteredData.reduce((acc, cur) => {
       return {
         ...acc,
@@ -68,14 +58,12 @@ const Onboarding = ({ user }: { user: User }) => {
         onboardingStatus: step + 1,
       };
     }, {});
-    console.log('STEP1: dataToSend', dataToSend);
     return dataToSend;
   };
 
   const validateSpecificFields = async () => {
     const isValid = await Promise.all(fields.map((field) => trigger(field)));
     const allFieldsValid = isValid.every((field) => field === true);
-
     return allFieldsValid;
   };
 
@@ -94,12 +82,11 @@ const Onboarding = ({ user }: { user: User }) => {
         fields = ['availability', 'startDate', 'endDate'];
         break;
     }
+
     const allFieldsValid = await validateSpecificFields();
     if (allFieldsValid) {
       try {
         const dataToSend = filterData(formData);
-        console.log('STEP 2: dataToSend', dataToSend);
-
         await updateUser(dataToSend);
       } catch (error) {
         toast.error('Unable to update user');
@@ -110,7 +97,6 @@ const Onboarding = ({ user }: { user: User }) => {
   };
 
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
-    console.log('FINAL STEP: data in onSubmit', data);
     try {
       await updateUser(data);
       await revalidateSession();
@@ -126,11 +112,8 @@ const Onboarding = ({ user }: { user: User }) => {
         return (
           <section>
             <BasicInformation
-              register={register}
-              control={control}
-              formState={formState}
+              useFormHelpers={useFormHelpers}
               formData={formData}
-              setValue={setValue}
             />
           </section>
         );
@@ -138,35 +121,19 @@ const Onboarding = ({ user }: { user: User }) => {
       case 2:
         return (
           <section>
-            <LearningGoals
-              register={register}
-              formState={formState}
-              control={control}
-              watch={watch}
-            />
+            <LearningGoals useFormHelpers={useFormHelpers} />
           </section>
         );
       case 3:
         return (
           <section>
-            <KnowledgeLevel
-              register={register}
-              formState={formState}
-              control={control}
-              watch={watch}
-              setValue={setValue}
-            />
+            <KnowledgeLevel useFormHelpers={useFormHelpers} />
           </section>
         );
       case 4:
         return (
           <section>
-            <Availability
-              register={register}
-              control={control}
-              formState={formState}
-              watch={watch}
-            />
+            <Availability useFormHelpers={useFormHelpers} />
           </section>
         );
     }
@@ -176,7 +143,7 @@ const Onboarding = ({ user }: { user: User }) => {
     <div className="flex flex-col justify-center ">
       <div className="bg-black-800 p-6">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <OnboardingStepDots step={step} />
+          <OnboardingVisualStepper step={step} />
           {renderStep()}
           {step === 4 ? (
             <Button color="blue" type="submit">

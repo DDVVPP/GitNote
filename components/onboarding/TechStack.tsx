@@ -17,8 +17,6 @@ const TechStack = ({
   const [techSearchItems, setTechSearchItems] = useState('');
   const [techSearchResults, setTechSearchResult] = useState<string[]>();
   const techStackState = watch('techStack');
-  console.log('techSearchItems', techSearchItems);
-  console.log('techStackState', techStackState);
 
   useEffect(() => {
     if (techSearchItems.length < 1) {
@@ -47,7 +45,7 @@ const TechStack = ({
   };
 
   return (
-    <section>
+    <>
       <div className=" text-white-300 mb-5 flex flex-col">
         <label className="paragraph-3-medium mb-2">Tech Stack</label>
         <input
@@ -80,8 +78,8 @@ const TechStack = ({
           </div>
         )}
       </div>
-      {techSearchResults && (
-        <div className="bg-black-700 flex flex-col -mt-6 p-2 rounded-md mb-5 text-white-300 inline">
+      {techSearchResults && techSearchResults.length > 0 && (
+        <div className="bg-black-700 flex flex-col -mt-6 p-2 rounded-md mb-5 text-white-300">
           {techSearchResults?.map((techSearchResult) => {
             if (techStackState.includes(techSearchResult)) return null;
             return (
@@ -95,7 +93,7 @@ const TechStack = ({
           })}
         </div>
       )}
-    </section>
+    </>
   );
 };
 

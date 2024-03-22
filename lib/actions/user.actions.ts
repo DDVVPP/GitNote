@@ -44,7 +44,6 @@ export async function updateUser(data: Partial<User & { goals?: any }>) {
   const session = await auth();
   const email = session && session.user?.email;
   if (!email) return;
-  console.log('DATA', data);
 
   if (data && data.goals) {
     data.goals = {

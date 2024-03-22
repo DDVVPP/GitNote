@@ -6,24 +6,9 @@ import { CheckSquare, X } from 'lucide-react';
 import Button from '../shared/ui/Button';
 import TechStack from './TechStack';
 
-const KnowledgeLevel = ({
-  register,
-  formState,
-  control,
-  watch,
-  setValue,
-}: {
-  register: any;
-  formState: any;
-  control: any;
-  watch: any;
-  setValue: any;
-}) => {
-  const {
-    fields: fieldsArray,
-    append,
-    remove,
-  } = useFieldArray({
+const KnowledgeLevel = ({ useFormHelpers }: { useFormHelpers: any }) => {
+  const { register, formState, control, watch, setValue } = useFormHelpers;
+  const { fields, append, remove } = useFieldArray({
     name: 'knowledgeLevel',
     control,
   });
@@ -31,15 +16,16 @@ const KnowledgeLevel = ({
   return (
     <>
       <h1 className="display-2-bold pb-5">Add your knowledge level</h1>
+
       <section>
         <div className="mb-3">
           <p className="paragraph-3-regular text-white-300 mb-1">
             Knowledge Level
           </p>
 
-          {fieldsArray.map((field, index) => {
+          {fields.map((field, index) => {
             return (
-              <section>
+              <>
                 <div
                   className="bg-black-700 py-1 px-3 mb-2 flex  justify-between items-center"
                   key={field.id}
@@ -60,6 +46,7 @@ const KnowledgeLevel = ({
                     />
                   </button>
                 </div>
+
                 <div className="mb-4 mt-(-2) ">
                   {formState.errors.knowledgeLevel && (
                     <span className="text-error-500 paragraph-3-regular mt-2">
@@ -67,10 +54,11 @@ const KnowledgeLevel = ({
                     </span>
                   )}
                 </div>
-              </section>
+              </>
             );
           })}
         </div>
+
         <div className="mb-4">
           <Button color="darkGray" icon="plus" onClick={() => append('')}>
             Add knowledge checkmark
