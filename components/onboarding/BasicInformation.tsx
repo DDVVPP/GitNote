@@ -4,27 +4,31 @@ import Image from 'next/image';
 
 import Input from '@/components/shared/ui/Input';
 import { UploadFile } from '@/lib/actions/s3.actions';
+import { Controller } from 'react-hook-form';
 
 const BasicInformation = ({
   register,
+  control,
   formState,
+  formData,
   setValue,
 }: {
   register: any;
+  control: any;
   formState: any;
+  formData: any;
   setValue: any;
 }) => {
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(formData.image ?? '');
 
   const handleImageUpload = async (event: React.ChangeEvent) => {
-    //Broken down for typescript
     const target = event.target as HTMLInputElement;
     const file = target.files && target.files[0];
-    const formData = new FormData();
+    const newFormData = new FormData();
 
     if (!file) return;
-    formData.append('file', file);
-    const url = await UploadFile(formData);
+    newFormData.append('file', file);
+    const url = await UploadFile(newFormData);
 
     setImage(URL.createObjectURL(file as Blob | MediaSource));
     setValue('image', url);
@@ -64,8 +68,21 @@ const BasicInformation = ({
         id="name"
         placeholder="Enter your full name"
         {...register('name')}
-        errors={formState.errors.name?.message}
+        errors={formState.errors.portfolio?.message}
       />
+
+      {/* <Controller
+        control={control}
+        name="name"
+        render={({ field, formState: { errors } }) => (
+          <Input
+            label="Name"
+            id={field.name}
+            placeholder="Enter your full name"
+            errors={errors.name?.message as string}
+          />
+        )}
+      /> */}
 
       <Input
         label="Portfolio"
