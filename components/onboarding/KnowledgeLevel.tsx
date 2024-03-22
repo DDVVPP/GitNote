@@ -1,93 +1,71 @@
-'use client';
+"use client";
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import Button from '../shared/ui/Button';
-import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
-import Knowledge from '../shared/Knowledge';
-import KnowledgeField from '../shared/KnowledgeField';
-import Input from '../shared/ui/Input';
+import { useFieldArray } from "react-hook-form";
+import { CheckSquare, X } from "lucide-react";
 
-type Props = {
-  setStep: Dispatch<SetStateAction<number>>;
-};
-const placeholderKnowledgeList = [
-  "Follow Clerk's installation process",
-  'Setup Clerk with Nextjs + Clerk webhook',
-];
+import Button from "../shared/ui/Button";
+import TechStack from "./TechStack";
 
-const KnowledgeLevel = () => {
-  const [knowledgeLevel, setKnowledgeLevel] = useState('');
-  const [knowledgeLevels, setKnowledgeLevels] = useState(
-    placeholderKnowledgeList
-  );
-  const [techStack, setTechStack] = useState('');
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setKnowledgeLevels(data)
-  //   }
-  // }, [])
-
-  const addLevel = () => {
-    //add to db THEN
-    if (knowledgeLevel.length > 0) {
-      setKnowledgeLevels((knowledgeLevels) => [
-        ...knowledgeLevels,
-        knowledgeLevel,
-      ]);
-    }
-  };
-
-  const removeLevel = (label: string) => {
-    console.log(label);
-    //remove from db THEN
-    setKnowledgeLevels((knowledgeLevels) =>
-      knowledgeLevels.splice(knowledgeLevels.indexOf(label), 1)
-    );
-  };
+const KnowledgeLevel = ({ useFormHelpers }: { useFormHelpers: any }) => {
+  const { register, formState, control, watch, setValue } = useFormHelpers;
+  const { fields, append, remove } = useFieldArray({
+    name: "knowledgeLevel",
+    control,
+  });
 
   return (
-    <>
-      <OnboardingStepDots />
-      <h1 className="display-2-bold pb-5">Add your knowledge level</h1>
-      <form>
-        <div className="mb-3">
-          <p className="paragraph-3-regular text-white-300 mb-1">
-            Knowledge Level
-          </p>
-          {knowledgeLevels.length > 0 &&
-            knowledgeLevels.map((goal) => (
-              <Knowledge label={goal} removeLevel={removeLevel} />
-            ))}
-          <KnowledgeField
-            placeholder="Enter a knowledge level"
-            setKnowledgeLevel={setKnowledgeLevel}
-          />
+    <div>
+      <h1 className="display-2-bold mb-5">Add your knowledge level</h1>
+
+      <section>
+        <div>
+          <p className="paragraph-3-regular text-white-300">Knowledge Level</p>
+
+          {fields.map((field, index) => {
+            return (
+              <>
+                <div
+                  className="bg-black-700 mb-2 mt-2 flex items-center justify-between px-3 py-1"
+                  key={field.id}
+                >
+                  <div className="flex items-center space-x-2">
+                    <CheckSquare className="text-primary-500" size={16} />
+                  </div>
+                  <input
+                    className="paragraph-3-regular text-white-100 placeholder:paragraph-3-regular placeholder:text-white-300 bg-black-700 ml-2 w-full rounded-md border-none pl-1 focus:outline-none"
+                    placeholder="Enter a knowledge level"
+                    {...register(`knowledgeLevel.${index}`)}
+                  />
+                  <button>
+                    <X
+                      className="text-white-500"
+                      size={16}
+                      onClick={() => remove(index)}
+                    />
+                  </button>
+                </div>
+
+                <div>
+                  {formState.errors.knowledgeLevel && (
+                    <span className="text-error-500 paragraph-3-regular mt-2">
+                      {formState.errors.knowledgeLevel[index]?.message}
+                    </span>
+                  )}
+                </div>
+              </>
+            );
+          })}
         </div>
-        <Button color="darkGray" icon="plus" onClick={addLevel}>
-          Add knowledge checkmark
-        </Button>
-      </form>
-      <form>
-        <Input
-          label="Tech Stack"
-          id="techStack"
-          placeholder="Enter tech"
-          value={techStack}
-          onChange={(event) => setTechStack(event?.target.value)}
-        />
-      </form>
-      <Button
-        color="blue"
-        onClick={() => {
-          {
-          }
-          //also needs to update tech stack in db
-        }}
-      >
-        Next
-      </Button>
-    </>
+
+        <div className="mt-2">
+          <Button color="darkGray" icon="plus" onClick={() => append("")}>
+            Add knowledge checkmark
+          </Button>
+        </div>
+      </section>
+
+      <TechStack watch={watch} setValue={setValue} />
+    </div>
   );
 };
 
