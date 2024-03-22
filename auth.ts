@@ -86,7 +86,6 @@ export const {
         token.onboardingStatus = user.onboardingStatus;
       }
       if (trigger === 'update') {
-        console.log('update jwt');
         token.onboardingStatus = 5;
       }
       return token; //this token will get passed to session
