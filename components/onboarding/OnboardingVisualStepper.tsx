@@ -34,7 +34,7 @@ const RenderStepPosition = ({ step }: { step: number }) => {
   };
 
   return (
-    <section className="flex items-center">
+    <section className="flex items-center w-full">
       {[...Array(totalSteps)].map((_, index) => renderStep(index + 1))}
     </section>
   );
@@ -42,7 +42,7 @@ const RenderStepPosition = ({ step }: { step: number }) => {
 
 const OnboardingVisualStepper = ({ step }: { step: number }) => {
   return (
-    <div className=" flex justify-center mb-5">
+    <div className="flex justify-center mb-5">
       {<RenderStepPosition step={step} />}
     </div>
   );

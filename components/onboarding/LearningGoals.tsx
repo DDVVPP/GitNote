@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useFieldArray } from 'react-hook-form';
-import { X } from 'lucide-react';
+import { useFieldArray } from "react-hook-form";
+import { X } from "lucide-react";
 
-import Button from '@/components/shared/ui/Button';
+import Button from "@/components/shared/ui/Button";
 
 const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
   const { register, formState, control, watch } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
-    name: 'goals',
+    name: "goals",
     control,
   });
 
@@ -17,7 +17,7 @@ const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
       <h1 className="display-2-bold pb-5">Add your learning goals</h1>
 
       <section className="mb-3">
-        <p className="paragraph-3-regular text-white-300 mb-1">
+        <p className="paragraph-3-regular text-white-300 mb-2">
           Learning goals
         </p>
 
@@ -26,18 +26,18 @@ const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
           return (
             <>
               <div
-                className="bg-black-700 py-1 px-3 mb-2 flex justify-between items-center"
+                className="bg-black-700 mb-2 flex items-center justify-between px-3 py-1"
                 key={field.id}
               >
                 <input
                   type="checkbox"
                   disabled={!goalNameValue}
-                  className="appearance-none border border-white-500 h-3 w-3 bg-white-500 rounded-sm text-green-400"
+                  className="border-white-500 bg-white-500 h-3 w-3 appearance-none rounded-sm border text-green-400"
                   {...register(`goals.${index}.isComplete`)}
                 />
                 <input
                   type="text"
-                  className="paragraph-3-regular text-white-100 placeholder:paragraph-3-regular placeholder:text-white-300 bg-black-700 w-full rounded-md focus:outline-none border-none pl-0 ml-2"
+                  className="paragraph-3-regular text-white-100 placeholder:paragraph-3-regular placeholder:text-white-300 bg-black-700 ml-2 w-full rounded-md border-none pl-1 focus:outline-none"
                   placeholder="Enter a learning goal"
                   {...register(`goals.${index}.name`)}
                 />
@@ -50,10 +50,10 @@ const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
                 </button>
               </div>
 
-              <div className="mb-4 mt-(-2) ">
+              <div>
                 {formState.errors.goals &&
                   formState.errors.goals[index]?.name.message && (
-                    <span className="text-error-500 paragraph-3-regular mt-2">
+                    <span className="text-error-500 paragraph-3-regular">
                       {formState.errors.goals[index].name.message}
                     </span>
                   )}
@@ -67,7 +67,7 @@ const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
         <Button
           color="darkGray"
           icon="plus"
-          onClick={() => append({ name: '', isComplete: false })}
+          onClick={() => append({ name: "", isComplete: false })}
         >
           Add goal checkbox
         </Button>

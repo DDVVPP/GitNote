@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Image as LandscapeIcon, UploadCloud } from 'lucide-react';
-import Image from 'next/image';
+import { useState } from "react";
+import { Image as LandscapeIcon, UploadCloud } from "lucide-react";
+import Image from "next/image";
 // import { Controller } from 'react-hook-form';
 
-import { UploadFile } from '@/lib/actions/s3.actions';
-import Input from '@/components/shared/ui/Input';
-import { Controller } from 'react-hook-form';
+import { UploadFile } from "@/lib/actions/s3.actions";
+import Input from "@/components/shared/ui/Input";
+import { Controller } from "react-hook-form";
 
 const BasicInformation = ({
   useFormHelpers,
@@ -14,8 +14,8 @@ const BasicInformation = ({
   useFormHelpers: any;
   formData: any;
 }) => {
-  const { register, formState, setValue, trigger, control } = useFormHelpers;
-  const [image, setImage] = useState(formData?.image ?? '');
+  const { setValue, trigger, control } = useFormHelpers;
+  const [image, setImage] = useState(formData?.image ?? "");
 
   const handleImageUpload = async (event: React.ChangeEvent) => {
     const target = event.target as HTMLInputElement;
@@ -23,17 +23,18 @@ const BasicInformation = ({
     const newFormData = new FormData();
 
     if (!file) return;
-    newFormData.append('file', file);
+    newFormData.append("file", file);
     const url = await UploadFile(newFormData);
 
     setImage(URL.createObjectURL(file as Blob | MediaSource));
-    setValue('image', url);
+    setValue("image", url);
   };
 
   return (
-    <>
-      <h1 className="display-2-bold pb-5">Basic Information</h1>
-      <section className="flex space-x-2 items-center mb-5">
+    <div className="space-y-5">
+      <h1 className="display-2-bold">Basic Information</h1>
+
+      <div className="flex items-center space-x-2">
         {image ? (
           <Image src={image} alt="profileImage" width={120} height={120} />
         ) : (
@@ -42,11 +43,11 @@ const BasicInformation = ({
           </div>
         )}
 
-        <div className="bg-black-700 p-1.5 flex space-x-2 items-center">
+        <div className="bg-black-700 flex items-center space-x-2 p-1.5">
           <UploadCloud stroke="rgba(173, 179, 204, 1)" size={18} />
           <label
             htmlFor="image"
-            className="paragraph-3-medium cursor-pointer bg-black-700 text-white-300 flex justify-center"
+            className="paragraph-3-medium bg-black-700 text-white-300 flex cursor-pointer justify-center"
           >
             Upload Profile Photo
             <input
@@ -57,15 +58,7 @@ const BasicInformation = ({
             />
           </label>
         </div>
-      </section>
-
-      <Input
-        label="Name"
-        id="name"
-        placeholder="Enter your full name"
-        {...register('name')}
-        errors={formState.errors.portfolio?.message}
-      />
+      </div>
 
       <Controller
         control={control}
@@ -108,7 +101,7 @@ const BasicInformation = ({
           />
         )}
       />
-    </>
+    </div>
   );
 };
 

@@ -1,39 +1,39 @@
-'use client';
-import { useSearchParams, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
+"use client";
+import { useSearchParams, useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-import { User } from '@prisma/client';
-import { updateUser } from '@/lib/actions/user.actions';
-import revalidateSession from '@/lib/actions/auth.actions';
+import { User } from "@prisma/client";
+import { updateUser } from "@/lib/actions/user.actions";
+import revalidateSession from "@/lib/actions/auth.actions";
 import {
   IOnboardingSchema,
   OnboardingSchema,
-} from '@/lib/validations/UserSchema';
+} from "@/lib/validations/UserSchema";
 
-import BasicInformation from '@/components/onboarding/BasicInformation';
-import LearningGoals from '@/components/onboarding/LearningGoals';
-import KnowledgeLevel from '@/components/onboarding/KnowledgeLevel';
-import Availability from '@/components/onboarding/Availability';
-import OnboardingVisualStepper from '@/components/onboarding/OnboardingVisualStepper';
-import Button from '@/components/shared/ui/Button';
+import BasicInformation from "@/components/onboarding/BasicInformation";
+import LearningGoals from "@/components/onboarding/LearningGoals";
+import KnowledgeLevel from "@/components/onboarding/KnowledgeLevel";
+import Availability from "@/components/onboarding/Availability";
+import OnboardingVisualStepper from "@/components/onboarding/OnboardingVisualStepper";
+import Button from "@/components/shared/ui/Button";
 
 const Onboarding = ({ user }: { user: User }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const stepFromParams = parseInt(searchParams.get('step') ?? '1', 10);
+  const stepFromParams = parseInt(searchParams.get("step") ?? "1", 10);
 
   const [step, setStep] = useState(stepFromParams);
   let fields = [] as Partial<keyof IOnboardingSchema>[];
 
   const useFormHelpers = useForm<IOnboardingSchema>({
     defaultValues: {
-      name: user?.name ?? '',
-      image: user?.image ?? '',
-      location: '',
-      portfolio: '',
+      name: user?.name ?? "",
+      image: user?.image ?? "",
+      location: "",
+      portfolio: "",
       goals: [],
       knowledgeLevel: [],
       techStack: [],
@@ -57,19 +57,19 @@ const Onboarding = ({ user }: { user: User }) => {
       component: (
         <BasicInformation useFormHelpers={useFormHelpers} formData={formData} />
       ),
-      fields: ['name', 'portfolio', 'image'],
+      fields: ["name", "portfolio", "image"],
     },
     2: {
       component: <LearningGoals useFormHelpers={useFormHelpers} />,
-      fields: ['goals'],
+      fields: ["goals"],
     },
     3: {
       component: <KnowledgeLevel useFormHelpers={useFormHelpers} />,
-      fields: ['knowledgeLevel', 'techStack'],
+      fields: ["knowledgeLevel", "techStack"],
     },
     4: {
       component: <Availability useFormHelpers={useFormHelpers} />,
-      fields: ['availability', 'startDate', 'endDate'],
+      fields: ["availability", "startDate", "endDate"],
     },
   };
 
@@ -101,7 +101,7 @@ const Onboarding = ({ user }: { user: User }) => {
         const dataToSend = filterData(formData);
         await updateUser(dataToSend);
       } catch (error) {
-        toast.error('Unable to update user');
+        toast.error("Unable to update user");
       } finally {
         setStep((prevStep) => prevStep + 1);
       }
@@ -112,27 +112,29 @@ const Onboarding = ({ user }: { user: User }) => {
     try {
       await updateUser(data);
       await revalidateSession();
-      router.push('/');
+      router.push("/");
     } catch (error) {
-      toast.error('Unable to update user');
+      toast.error("Unable to update user");
     }
   };
 
   return (
-    <div className="flex flex-col justify-center ">
+    <div className="flex w-2/5 flex-col justify-center">
       <div className="bg-black-800 p-6">
         <form onSubmit={handleSubmit(onSubmit)}>
           <OnboardingVisualStepper step={step} />
-          <section>{stepData[step].component}</section>
-          {step === 4 ? (
-            <Button color="blue" type="submit">
-              Submit
-            </Button>
-          ) : (
-            <Button color="blue" type="button" onClick={validateFields}>
-              Next
-            </Button>
-          )}
+          <div>{stepData[step].component}</div>
+          <div className="mt-5">
+            {step === 4 ? (
+              <Button color="blue" type="submit">
+                Submit
+              </Button>
+            ) : (
+              <Button color="blue" type="button" onClick={validateFields}>
+                Next
+              </Button>
+            )}
+          </div>
         </form>
       </div>
     </div>

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { X } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 
-import { techStack } from '@/lib/constants/techStack';
+import { techStack } from "@/lib/constants/techStack";
 
 const TechStack = ({
   register,
@@ -14,9 +14,9 @@ const TechStack = ({
   watch: any;
   setValue: any;
 }) => {
-  const [techSearchItems, setTechSearchItems] = useState('');
+  const [techSearchItems, setTechSearchItems] = useState("");
   const [techSearchResults, setTechSearchResult] = useState<string[]>();
-  const techStackState = watch('techStack');
+  const techStackState = watch("techStack");
 
   useEffect(() => {
     if (techSearchItems.length < 1) {
@@ -33,7 +33,7 @@ const TechStack = ({
   const handleClick = (item: string) => {
     const techStackStateClone = techStackState ?? [];
     Array.isArray(techStackStateClone) && techStackStateClone.push(item);
-    setValue('techStack', techStackStateClone);
+    setValue("techStack", techStackStateClone);
   };
 
   const handleDelete = (item: string) => {
@@ -41,15 +41,15 @@ const TechStack = ({
     const filteredTechStack = techStackStateClone.filter(
       (techName: string) => !techName.includes(item)
     );
-    setValue('techStack', filteredTechStack);
+    setValue("techStack", filteredTechStack);
   };
 
   return (
     <>
-      <div className=" text-white-300 mb-5 flex flex-col">
+      <div className=" text-white-300 mb-5 mt-5 flex flex-col">
         <label className="paragraph-3-medium mb-2">Tech Stack</label>
         <input
-          className="paragraph-3-regular p-3 bg-black-700 border-none rounded-md"
+          className="paragraph-3-regular bg-black-700 rounded-md border-none p-3"
           type="text"
           placeholder="Enter tech"
           onChange={(e) => setTechSearchItems(e.target.value)}
@@ -57,14 +57,14 @@ const TechStack = ({
         />
 
         {techStackState.length > 0 && (
-          <div className="flex bg-black-700 space-x-2 mt-0.5 mb-4 rounded-md p-4">
+          <div className="bg-black-700 mb-4 mt-0.5 flex space-x-2 rounded-md p-4">
             {techStackState.map((techName: string) => {
               return (
                 <div
-                  className="flex bg-black-600 items-center rounded-md p-2 space-x-6"
+                  className="bg-black-600 flex items-center space-x-6 rounded-md p-2"
                   key={techName}
                 >
-                  {techName}{' '}
+                  {techName}{" "}
                   <button>
                     <X
                       className="text-white-500"
@@ -79,12 +79,12 @@ const TechStack = ({
         )}
       </div>
       {techSearchResults && techSearchResults.length > 0 && (
-        <div className="bg-black-700 flex flex-col -mt-6 p-2 rounded-md mb-5 text-white-300">
+        <div className="bg-black-700 text-white-300 -mt-6 mb-5 flex flex-col rounded-md p-2">
           {techSearchResults?.map((techSearchResult) => {
             if (techStackState.includes(techSearchResult)) return null;
             return (
               <span
-                className="paragraph-3-regular cursor-pointer bg-black-600 rounded-md p-2 m-1"
+                className="paragraph-3-regular bg-black-600 m-1 cursor-pointer rounded-md p-2"
                 onClick={() => handleClick(techSearchResult)}
               >
                 {techSearchResult}
