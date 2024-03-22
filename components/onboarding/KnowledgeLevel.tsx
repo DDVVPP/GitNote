@@ -17,7 +17,7 @@ const KnowledgeLevel = ({ useFormHelpers }: { useFormHelpers: any }) => {
     <div>
       <h1 className="display-2-bold mb-5">Add your knowledge level</h1>
 
-      <section clasName="mb-4">
+      <section>
         <div>
           <p className="paragraph-3-regular text-white-300">Knowledge Level</p>
 

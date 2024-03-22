@@ -5,15 +5,7 @@ import { X } from "lucide-react";
 
 import { techStack } from "@/lib/constants/techStack";
 
-const TechStack = ({
-  register,
-  watch,
-  setValue,
-}: {
-  register: any;
-  watch: any;
-  setValue: any;
-}) => {
+const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
   const [techSearchItems, setTechSearchItems] = useState("");
   const [techSearchResults, setTechSearchResult] = useState<string[]>();
   const techStackState = watch("techStack");
