@@ -1,5 +1,5 @@
 'use client';
-import { redirect, useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -9,22 +9,23 @@ import BasicInformation from '@/components/onboarding/BasicInformation';
 import LearningGoals from '@/components/onboarding/LearningGoals';
 import KnowledgeLevel from '@/components/onboarding/KnowledgeLevel';
 import Availability from '@/components/onboarding/Availability';
+import OnboardingStepDots from '@/components/shared/ui/OnboardingStepsVisual';
 
 import Button from '@/components/shared/ui/Button';
-import OnboardingStepDots from '@/components/shared/ui/OnboardingStepsVisual';
 import {
   IOnboardingSchema,
   OnboardingSchema,
 } from '@/lib/validations/UserSchema';
 import { updateUser } from '@/lib/actions/user.actions';
-// import TechStack from '@/components/onboarding/TechStack';
+import revalidateSession from '@/lib/actions/auth.actions';
 
 const Onboarding = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const stepFromParams = parseInt(searchParams.get('step') ?? '1', 10);
   const [step, setStep] = useState(stepFromParams);
   let fields = [] as Partial<keyof IOnboardingSchema>[];
-  console.log('step', step);
+
   const {
     register,
     handleSubmit,
@@ -37,7 +38,6 @@ const Onboarding = () => {
     defaultValues: {
       name: '',
       image: '',
-      onboardingStatus: step,
       location: '',
       portfolio: '',
       goals: [],
@@ -98,7 +98,8 @@ const Onboarding = () => {
       try {
         const dataToSend = filterData(formData);
         console.log('STEP 2: dataToSend', dataToSend);
-        updateUser(dataToSend);
+
+        await updateUser(dataToSend);
       } catch (error) {
         toast.error('Unable to update user');
       } finally {
@@ -110,7 +111,9 @@ const Onboarding = () => {
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
     console.log('FINAL STEP: data in onSubmit', data);
     try {
-      updateUser(data);
+      await updateUser(data);
+      await revalidateSession();
+      router.push('/');
     } catch (error) {
       toast.error('Unable to update user');
     }
@@ -136,6 +139,7 @@ const Onboarding = () => {
               register={register}
               formState={formState}
               control={control}
+              watch={watch}
             />
           </section>
         );
@@ -149,7 +153,6 @@ const Onboarding = () => {
               watch={watch}
               setValue={setValue}
             />
-            {/* <TechStack register={register} watch={watch} setValue={setValue} /> */}
           </section>
         );
       case 4:
@@ -163,8 +166,6 @@ const Onboarding = () => {
             />
           </section>
         );
-      case 5:
-        return redirect('/');
     }
   };
 
