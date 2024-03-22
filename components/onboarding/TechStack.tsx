@@ -54,7 +54,6 @@ const TechStack = ({
           className="paragraph-3-regular p-3 bg-black-700 border-none rounded-md"
           type="text"
           placeholder="Enter tech"
-          {...register('techStack')}
           onChange={(e) => setTechSearchItems(e.target.value)}
           value={techSearchItems}
         />

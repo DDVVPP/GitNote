@@ -78,11 +78,16 @@ export const {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       //everytime read or write to the token
+
       if (user) {
         token.role = user.role;
         token.onboardingStatus = user.onboardingStatus;
+      }
+      if (trigger === 'update') {
+        console.log('update jwt');
+        token.onboardingStatus = 5;
       }
       return token; //this token will get passed to session
     },

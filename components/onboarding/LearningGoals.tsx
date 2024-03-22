@@ -9,10 +9,12 @@ const LearningGoals = ({
   register,
   formState,
   control,
+  watch,
 }: {
   register: any;
   formState: any;
   control: any;
+  watch: any;
 }) => {
   const {
     fields: fieldsArray,
@@ -23,7 +25,6 @@ const LearningGoals = ({
     control,
   });
 
-  // console.log('formstate.errors', formState.errors.goals);
   return (
     <>
       <h1 className="display-2-bold pb-5">Add your learning goals</h1>
@@ -34,6 +35,7 @@ const LearningGoals = ({
         </p>
 
         {fieldsArray.map((field, index) => {
+          const nameValue = watch(`goals.${index}.name`);
           return (
             <section>
               <div
@@ -42,9 +44,11 @@ const LearningGoals = ({
               >
                 <input
                   type="checkbox"
+                  disabled={!nameValue}
                   className="appearance-none border border-white-500 h-3 w-3 bg-white-500 rounded-sm text-green-400"
                   {...register(`goals.${index}.isComplete`)}
                 />
+                {nameValue}
                 <input
                   type="text"
                   className="paragraph-3-regular text-white-100 placeholder:paragraph-3-regular placeholder:text-white-300 bg-black-700 w-full rounded-md focus:outline-none border-none pl-0 ml-2"

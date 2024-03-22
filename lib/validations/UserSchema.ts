@@ -14,7 +14,6 @@ export const UserSchema = z.object({
     .min(4, { message: 'Password must contain at least 4 characters' }),
   image: z.string(),
   location: z.string(),
-  onboardingStatus: z.number(),
   portfolio: z.string().refine((value) => {
     if (!value) return true;
     return urlMatch.test(value);
