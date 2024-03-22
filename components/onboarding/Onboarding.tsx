@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 import { User } from "@prisma/client";
 import { updateUser } from "@/lib/actions/user.actions";
@@ -44,7 +45,12 @@ const Onboarding = ({ user }: { user: User }) => {
     resolver: zodResolver(OnboardingSchema),
   });
 
-  const { watch, handleSubmit, trigger } = useFormHelpers;
+  const {
+    watch,
+    handleSubmit,
+    trigger,
+    formState: { isSubmitted },
+  } = useFormHelpers;
   const formData = watch();
 
   const stepData: {
@@ -127,7 +133,7 @@ const Onboarding = ({ user }: { user: User }) => {
           <div className="mt-5">
             {step === 4 ? (
               <Button color="blue" type="submit">
-                Submit
+                {isSubmitted ? <Loader2 className="animate-spin" /> : "Submit"}
               </Button>
             ) : (
               <Button color="blue" type="button" onClick={validateFields}>
