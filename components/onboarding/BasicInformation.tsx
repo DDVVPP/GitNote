@@ -1,50 +1,107 @@
-'use client';
+import { useState } from "react";
+import { Image as LandscapeIcon, UploadCloud } from "lucide-react";
+import Image from "next/image";
+// import { Controller } from 'react-hook-form';
 
-import { Dispatch, SetStateAction } from 'react';
-import Link from 'next/link';
-import { Image, UploadCloud } from 'lucide-react';
-// import Image from 'next/image';
+import { UploadFile } from "@/lib/actions/s3.actions";
+import Input from "@/components/shared/ui/Input";
+import { Controller } from "react-hook-form";
 
-import Input from '@/components/shared/ui/Input';
-import Button from '../shared/ui/Button';
-import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
+const BasicInformation = ({
+  useFormHelpers,
+  formData,
+}: {
+  useFormHelpers: any;
+  formData: any;
+}) => {
+  const { setValue, trigger, control } = useFormHelpers;
+  const [image, setImage] = useState(formData?.image ?? "");
 
-type Props = {
-  setStep: Dispatch<SetStateAction<number>>;
-};
+  const handleImageUpload = async (event: React.ChangeEvent) => {
+    const target = event.target as HTMLInputElement;
+    const file = target.files && target.files[0];
+    const newFormData = new FormData();
 
-const BasicInformation = ({ setStep }: Props) => {
+    if (!file) return;
+    newFormData.append("file", file);
+    const url = await UploadFile(newFormData);
+
+    setImage(URL.createObjectURL(file as Blob | MediaSource));
+    setValue("image", url);
+  };
+
   return (
-    <>
-      <OnboardingStepDots />
-      <h1 className="display-2-bold pb-5">Basic Information</h1>
-      <form>
-        <div className="flex space-x-2 items-center mb-5">
-          <div className="bg-black-700 p-7">
-            <Image stroke="rgba(173, 179, 204, 1)" size={18} />
-          </div>
-          <div className="bg-black-700 p-1.5 flex space-x-2 items-center">
-            <UploadCloud stroke="rgba(173, 179, 204, 1)" size={18} />
-            <Link
-              href="/"
-              className="paragraph-3-medium  bg-black-700 text-white-300 flex justify-center"
-            >
-              Update Profile Photo
-            </Link>
-          </div>
-        </div>
-        <Input label="Name" id="name" placeholder="Enter your full name" />
+    <div className="space-y-5">
+      <h1 className="display-2-bold">Basic Information</h1>
 
-        <Input
-          label="Portfolio"
-          id="portfolio"
-          placeholder="https://jsmastery.pro"
-        />
-      </form>
-      <Button color="blue" onClick={() => setStep(2)}>
-        Next
-      </Button>
-    </>
+      <div className="flex items-center space-x-2">
+        {image ? (
+          <Image src={image} alt="profileImage" width={120} height={120} />
+        ) : (
+          <div className="bg-black-700 p-7">
+            <LandscapeIcon stroke="rgba(173, 179, 204, 1)" size={18} />
+          </div>
+        )}
+
+        <div className="bg-black-700 flex items-center space-x-2 p-1.5">
+          <UploadCloud stroke="rgba(173, 179, 204, 1)" size={18} />
+          <label
+            htmlFor="image"
+            className="paragraph-3-medium bg-black-700 text-white-300 flex cursor-pointer justify-center"
+          >
+            Upload Profile Photo
+            <input
+              type="file"
+              id="image"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+          </label>
+        </div>
+      </div>
+
+      <Controller
+        control={control}
+        name="name"
+        render={({
+          field: { name, onChange, ...rest },
+          formState: { errors },
+        }) => (
+          <Input
+            label="Name"
+            id={name}
+            {...rest}
+            onChange={(event) => {
+              onChange(event);
+              trigger(name);
+            }}
+            placeholder="Enter your full name"
+            errors={errors.name?.message as string}
+          />
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="portfolio"
+        render={({
+          field: { name, onChange, ...rest },
+          formState: { errors },
+        }) => (
+          <Input
+            label="Portfolio"
+            id={name}
+            {...rest}
+            onChange={(event) => {
+              onChange(event);
+              trigger(name);
+            }}
+            placeholder="https://jsmastery.pro"
+            errors={errors.portfolio?.message as string}
+          />
+        )}
+      />
+    </div>
   );
 };
 

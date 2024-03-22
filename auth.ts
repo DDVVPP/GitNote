@@ -20,6 +20,7 @@ export const {
   auth,
   signIn,
   signOut,
+  unstable_update,
 } = NextAuth({
   session: {
     strategy: 'jwt',
@@ -77,11 +78,15 @@ export const {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       //everytime read or write to the token
+
       if (user) {
         token.role = user.role;
         token.onboardingStatus = user.onboardingStatus;
+      }
+      if (trigger === 'update') {
+        token.onboardingStatus = 5;
       }
       return token; //this token will get passed to session
     },

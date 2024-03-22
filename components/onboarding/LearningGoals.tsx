@@ -1,68 +1,77 @@
-'use client';
+"use client";
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useFieldArray } from "react-hook-form";
+import { X } from "lucide-react";
 
-import Button from '@/components/shared/ui/Button';
-import Goals from '@/components/shared/Goals';
-import OnboardingStepDots from '../shared/ui/OnboardingStepsVisual';
-import GoalsField from '../shared/GoalsField';
+import Button from "@/components/shared/ui/Button";
 
-type Props = {
-  setStep: Dispatch<SetStateAction<number>>;
-};
-
-const placeholderGoals = [
-  "Follow Clerk's installation process",
-  'Setup Clerk with Nextjs + Clerk webhook',
-];
-
-const LearningGoals = ({ setStep }: Props) => {
-  const [learningGoal, setGoal] = useState('');
-  const [learningGoals, setLearningGoals] = useState(placeholderGoals);
-
-  // useEffect(() => {
-  //   if (data) {
-  //     setLearningGoals(data)
-  //   }
-  // }, [])
-
-  const addGoal = () => {
-    //add to db THEN
-    if (learningGoal.length > 0) {
-      setLearningGoals((learningGoals) => [...learningGoals, learningGoal]);
-    }
-  };
-
-  const removeGoal = (label: string) => {
-    console.log(label);
-    //remove from db THEN
-    setLearningGoals((learningGoals) =>
-      learningGoals.splice(learningGoals.indexOf(label), 1)
-    );
-  };
+const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
+  const { register, formState, control, watch } = useFormHelpers;
+  const { fields, append, remove } = useFieldArray({
+    name: "goals",
+    control,
+  });
 
   return (
     <>
-      <OnboardingStepDots />
       <h1 className="display-2-bold pb-5">Add your learning goals</h1>
-      <form>
-        <div className="mb-3">
-          <p className="paragraph-3-regular text-white-300 mb-1">
-            Learning goals
-          </p>
-          {learningGoals.length > 0 &&
-            learningGoals.map((goal) => (
-              <Goals label={goal} removeGoal={removeGoal} />
-            ))}
-          <GoalsField placeholder="Enter a learning goal" setGoal={setGoal} />
-        </div>
-        <Button color="darkGray" icon="plus" onClick={addGoal}>
+
+      <section className="mb-3">
+        <p className="paragraph-3-regular text-white-300 mb-2">
+          Learning goals
+        </p>
+
+        {fields.map((field, index) => {
+          const goalNameValue = watch(`goals.${index}.name`);
+          return (
+            <>
+              <div
+                className="bg-black-700 mb-2 flex items-center justify-between px-3 py-1"
+                key={field.id}
+              >
+                <input
+                  type="checkbox"
+                  disabled={!goalNameValue}
+                  className="border-white-500 bg-white-500 h-3 w-3 appearance-none rounded-sm border text-green-400"
+                  {...register(`goals.${index}.isComplete`)}
+                />
+                <input
+                  type="text"
+                  className="paragraph-3-regular text-white-100 placeholder:paragraph-3-regular placeholder:text-white-300 bg-black-700 ml-2 w-full rounded-md border-none pl-1 focus:outline-none"
+                  placeholder="Enter a learning goal"
+                  {...register(`goals.${index}.name`)}
+                />
+                <button>
+                  <X
+                    className="text-white-500"
+                    size={16}
+                    onClick={() => remove(index)}
+                  />
+                </button>
+              </div>
+
+              <div>
+                {formState.errors.goals &&
+                  formState.errors.goals[index]?.name.message && (
+                    <span className="text-error-500 paragraph-3-regular">
+                      {formState.errors.goals[index].name.message}
+                    </span>
+                  )}
+              </div>
+            </>
+          );
+        })}
+      </section>
+
+      <section className="mb-4">
+        <Button
+          color="darkGray"
+          icon="plus"
+          onClick={() => append({ name: "", isComplete: false })}
+        >
           Add goal checkbox
         </Button>
-      </form>
-      <Button color="blue" onClick={() => setStep(3)}>
-        Next
-      </Button>
+      </section>
     </>
   );
 };
