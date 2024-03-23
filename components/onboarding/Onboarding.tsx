@@ -116,7 +116,8 @@ const Onboarding = ({ user }: { user: User }) => {
 
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
     try {
-      await updateUser(data);
+      const updatedData = { ...data, onboardingStatus: step + 1 };
+      await updateUser(updatedData);
       await revalidateSession();
       router.push("/");
     } catch (error) {

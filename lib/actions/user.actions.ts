@@ -28,15 +28,18 @@ export async function createUser(data: Partial<User>) {
 
 export async function getUser(email: string) {
   try {
-    const user = prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         email,
       },
+      include: {
+        goals: true,
+      },
     });
-    return user;
+    return { user, error: null };
   } catch (error) {
     console.error("Error finding user:", error);
-    throw new Error("User not found!");
+    return { error: "User not found!" };
   }
 }
 

@@ -90,7 +90,7 @@ const BasicInformation = ({
       {isEditProfile && (
         <Controller
           control={control}
-          name="portfolio"
+          name="email"
           render={({
             field: { name, onChange, ...rest },
             formState: { errors },

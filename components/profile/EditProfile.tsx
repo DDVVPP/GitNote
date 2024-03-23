@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 import revalidateSession from "@/lib/actions/auth.actions";
 import { updateUser } from "@/lib/actions/user.actions";
-import { User } from "@prisma/client";
+import { Goals, User } from "@prisma/client";
 import { IProfileSchema, ProfileSchema } from "@/lib/validations/UserSchema";
 
 import BasicInformation from "../onboarding/BasicInformation";
@@ -19,7 +19,7 @@ import KnowledgeLevel from "../onboarding/KnowledgeLevel";
 import Availability from "../onboarding/Availability";
 import Button from "../shared/ui/Button";
 
-const EditProfile = ({ user }: { user: User }) => {
+const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
   const useFormHelpers = useForm<IProfileSchema>({
     defaultValues: {
       name: user?.name ?? "",
@@ -55,9 +55,9 @@ const EditProfile = ({ user }: { user: User }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="pb-10">
+      <h1 className="display-2-bold mb-5">Edit Profile</h1>
       <div className="space-y-14">
-        <h1 className="display-2-bold">Edit Profile</h1>
         <section>
           <BasicInformation
             useFormHelpers={useFormHelpers}
