@@ -36,7 +36,7 @@ export async function getUser(email: string) {
         goals: true,
       },
     });
-    return { user, error: null };
+    return user;
   } catch (error) {
     console.error("Error finding user:", error);
     return { error: "User not found!" };
