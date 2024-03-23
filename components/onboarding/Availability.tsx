@@ -4,14 +4,26 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from "react-hook-form";
 
-const Availability = ({ useFormHelpers }: { useFormHelpers: any }) => {
+const Availability = ({
+  useFormHelpers,
+  isEditProfile = false,
+}: {
+  useFormHelpers: any;
+  isEditProfile?: boolean;
+}) => {
   const { register, control, watch } = useFormHelpers;
   const availabilityValue = watch("availability");
   const textColor = availabilityValue ? "text-white-300" : "text-white-500";
 
   return (
     <div>
-      <h1 className="display-2-bold mb-5">Schedule & Availability</h1>
+      {isEditProfile ? (
+        <h3 className="paragraph-3-medium text-white-500 mb-5">
+          SCHEDULE & AVAILABILITY
+        </h3>
+      ) : (
+        <h1 className="display-2-bold mb-5">Schedule & Availability</h1>
+      )}
 
       <section className="space-x-2 pb-2">
         <input

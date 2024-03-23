@@ -1,13 +1,14 @@
-import React from "react";
-import Link from "next/link";
+import { auth } from "@/auth";
+import EditProfile from "@/components/profile/EditProfile";
+import { getUser } from "@/lib/actions/user.actions";
+import { User } from "@prisma/client";
 
-const EditProfile = () => {
-  return (
-    <>
-      <h1>Edit Profile</h1>
-      <Link href="/profile/edit/update-socials">Update social link</Link>
-    </>
-  );
+const EditProfileWrapper = async () => {
+  const session = await auth();
+  const userEmail = session && (await session.user?.email);
+  const user = userEmail && (await getUser(userEmail));
+
+  return <EditProfile user={user as User} />;
 };
 
-export default EditProfile;
+export default EditProfileWrapper;

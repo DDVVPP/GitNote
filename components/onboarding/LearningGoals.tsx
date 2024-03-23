@@ -5,7 +5,13 @@ import { X } from "lucide-react";
 
 import Button from "@/components/shared/ui/Button";
 
-const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
+const LearningGoals = ({
+  useFormHelpers,
+  isEditProfile = false,
+}: {
+  useFormHelpers: any;
+  isEditProfile?: boolean;
+}) => {
   const { register, formState, control, watch } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
     name: "goals",
@@ -14,9 +20,16 @@ const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
 
   return (
     <>
-      <h1 className="display-2-bold pb-5">Add your learning goals</h1>
+      {!isEditProfile && (
+        <h1 className="display-2-bold pb-5">Add your learning goals</h1>
+      )}
 
       <section className="mb-3">
+        {isEditProfile && (
+          <h3 className="paragraph-3-medium text-white-500 mb-5">
+            LEARNING GOALS
+          </h3>
+        )}
         <p className="paragraph-3-regular text-white-300 mb-2">
           Learning goals
         </p>

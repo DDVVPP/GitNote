@@ -6,7 +6,13 @@ import { CheckSquare, X } from "lucide-react";
 import Button from "../shared/ui/Button";
 import TechStack from "./TechStack";
 
-const KnowledgeLevel = ({ useFormHelpers }: { useFormHelpers: any }) => {
+const KnowledgeLevel = ({
+  useFormHelpers,
+  isEditProfile = false,
+}: {
+  useFormHelpers: any;
+  isEditProfile?: boolean;
+}) => {
   const { register, formState, control, watch, setValue } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
     name: "knowledgeLevel",
@@ -15,10 +21,17 @@ const KnowledgeLevel = ({ useFormHelpers }: { useFormHelpers: any }) => {
 
   return (
     <div>
-      <h1 className="display-2-bold mb-5">Add your knowledge level</h1>
+      {!isEditProfile && (
+        <h1 className="display-2-bold mb-5">Add your knowledge level</h1>
+      )}
 
       <section>
         <div>
+          {isEditProfile && (
+            <h3 className="paragraph-3-medium text-white-500 mb-5">
+              KNOWLEDGE LEVEL
+            </h3>
+          )}
           <p className="paragraph-3-regular text-white-300">Knowledge Level</p>
 
           {fields.map((field, index) => {
