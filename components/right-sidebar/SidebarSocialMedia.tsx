@@ -1,12 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
-import SocialMediaLinks from './SocialMediaLinks';
-import Button from '../shared/ui/Button';
+import React from "react";
+import Link from "next/link";
+import SocialMediaLinks from "./SocialMediaLinks";
+import Button from "../shared/ui/Button";
 
 const SidebarSocialMedia = () => {
   return (
     <div className="flex flex-col gap-4">
-      <Link href="/profile/edit-profile/update-socials">
+      <Link href="/profile/edit/update-socials">
         <Button icon="plus" color="gray">
           Add a new link
         </Button>
