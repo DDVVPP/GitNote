@@ -1,11 +1,11 @@
-import BasicAuthLogin from '@/components/BasicAuthLogin';
-import ProviderLogins from '@/components/ProviderLogins';
+import BasicAuthLogin from "@/components/BasicAuthLogin";
+import ProviderLogins from "@/components/ProviderLogins";
 
 const Login = () => {
   return (
-    <div className="flex flex-col justify-center w-1/3">
+    <div className="flex w-1/3 flex-col justify-center">
       <BasicAuthLogin />
-      <section className="mt-5">
+      <section>
         <ProviderLogins />
       </section>
     </div>

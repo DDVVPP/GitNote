@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-import { credentialsSignIn } from '@/lib/actions';
+import { credentialsSignIn } from "@/lib/actions";
 import {
   IUserLoginSchema,
   UserLoginSchema,
-} from '@/lib/validations/UserSchema';
+} from "@/lib/validations/UserSchema";
 
-import Input from '@/components/shared/ui/Input';
-import Button from '@/components/shared/ui/Button';
+import Input from "@/components/shared/ui/Input";
+import Button from "@/components/shared/ui/Button";
 
 const BasicAuthLogin = () => {
   const { register, handleSubmit, formState } = useForm<IUserLoginSchema>({
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     resolver: zodResolver(UserLoginSchema),
   });
@@ -29,7 +29,7 @@ const BasicAuthLogin = () => {
       const { email, password } = data;
       await credentialsSignIn({ email, password });
     } catch (error) {
-      toast.error('Invalid user');
+      toast.error("Invalid user");
       return;
     }
   };
@@ -42,7 +42,7 @@ const BasicAuthLogin = () => {
           label="Email"
           id="email"
           placeholder="Enter your full name"
-          {...register('email')}
+          {...register("email")}
           errors={formState.errors.email?.message}
         />
 
@@ -50,7 +50,7 @@ const BasicAuthLogin = () => {
           label="Password"
           id="password"
           placeholder="Enter your password"
-          {...register('password')}
+          {...register("password")}
           type="password"
           errors={formState.errors.password?.message}
         />
@@ -62,11 +62,16 @@ const BasicAuthLogin = () => {
       <section className="text-white-300">
         <Link
           href="/sign-up"
-          className="paragraph-3-medium underline underline-offset-2  flex justify-center"
+          className="paragraph-3-medium flex justify-center  underline underline-offset-2"
         >
           I don't have an account
         </Link>
-        <p className="mt-5 paragraph-4-regular  flex justify-center">or</p>
+        <div className="inline-flex w-full items-center justify-center">
+          <hr className="dark:bg-black-700 my-8 h-px w-full  border-0" />
+          <span className="paragraph-4-regular dark:bg-black-900 absolute left-1/2  -translate-x-1/2  px-3">
+            or
+          </span>
+        </div>
       </section>
     </>
   );
