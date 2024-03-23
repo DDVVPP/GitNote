@@ -52,3 +52,9 @@ export const OnboardingSchema = UserSchema.omit({
   password: true,
 });
 //-------------------------------
+
+export type IProfileSchema = z.infer<typeof ProfileSchema>;
+export const ProfileSchema = UserSchema.omit({
+  password: true,
+});
+//-------------------------------

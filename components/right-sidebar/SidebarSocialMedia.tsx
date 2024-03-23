@@ -8,7 +8,7 @@ const SidebarSocialMedia = () => {
     <div className="flex flex-col gap-4">
       <Link href="/profile/edit/update-socials">
         <Button icon="plus" color="gray">
-          Add a new link
+          Update social link
         </Button>
       </Link>
 
