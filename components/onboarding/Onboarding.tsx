@@ -49,7 +49,7 @@ const Onboarding = ({ user }: { user: User }) => {
     watch,
     handleSubmit,
     trigger,
-    formState: { isSubmitted },
+    formState: { isSubmitting },
   } = useFormHelpers;
   const formData = watch();
 
@@ -134,7 +134,7 @@ const Onboarding = ({ user }: { user: User }) => {
           <div className="mt-5">
             {step === 4 ? (
               <Button color="blue" type="submit">
-                {isSubmitted ? <Loader2 className="animate-spin" /> : "Submit"}
+                {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
               </Button>
             ) : (
               <Button color="blue" type="button" onClick={validateFields}>

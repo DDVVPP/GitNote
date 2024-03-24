@@ -5,10 +5,8 @@ import { Loader2 } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import router from "next/router";
 import toast from "react-hot-toast";
 
-import revalidateSession from "@/lib/actions/auth.actions";
 import { updateUser } from "@/lib/actions/user.actions";
 import { Goals, User } from "@prisma/client";
 import { IProfileSchema, ProfileSchema } from "@/lib/validations/UserSchema";
@@ -20,6 +18,7 @@ import Availability from "../onboarding/Availability";
 import Button from "../shared/ui/Button";
 
 const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
+  console.log("user.image", user.image);
   const useFormHelpers = useForm<IProfileSchema>({
     defaultValues: {
       name: user?.name ?? "",
@@ -40,16 +39,18 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
   const {
     watch,
     handleSubmit,
-    formState: { isSubmitted },
+    formState: { errors, isSubmitting },
   } = useFormHelpers;
   const formData = watch();
 
   const onSubmit: SubmitHandler<IProfileSchema> = async (data) => {
+    console.log("errors", errors);
+    console.log("data", data);
     try {
       await updateUser(data);
-      await revalidateSession();
-      router.push("/");
+      // router.push("/");
     } catch (error) {
+      console.log("error in catch", error);
       toast.error("Unable to update user");
     }
   };
@@ -76,7 +77,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
         </section>
 
         <Button color="blue" type="submit">
-          {isSubmitted ? <Loader2 className="animate-spin" /> : "Submit"}
+          {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
         </Button>
       </div>
     </form>
