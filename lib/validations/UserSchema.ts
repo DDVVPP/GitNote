@@ -20,6 +20,7 @@ export const UserSchema = z.object({
   }),
   goals: z.array(
     z.object({
+      id: z.number().optional(),
       name: z
         .string()
         .min(1, { message: "Goal must contain at least 1 character" }),
