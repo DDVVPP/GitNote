@@ -29,7 +29,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
       portfolio: user?.portfolio ?? "",
       goals: user?.goals ?? [],
       knowledgeLevel: user?.knowledgeLevel ?? [],
-      techStack: user?.knowledgeLevel ?? [],
+      techStack: user?.techStack ?? [],
       availability: user?.availability ?? false,
       startDate: user?.startDate ?? new Date(),
       endDate: user?.endDate ?? new Date(),
