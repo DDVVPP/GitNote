@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 import { updateUser } from "@/lib/actions/user.actions";
@@ -18,7 +19,7 @@ import Availability from "../onboarding/Availability";
 import Button from "../shared/ui/Button";
 
 const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
-  console.log("user.image", user.image);
+  const router = useRouter();
   const useFormHelpers = useForm<IProfileSchema>({
     defaultValues: {
       name: user?.name ?? "",
@@ -44,11 +45,9 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
   const formData = watch();
 
   const onSubmit: SubmitHandler<IProfileSchema> = async (data) => {
-    console.log("errors", errors);
-    console.log("data", data);
     try {
       await updateUser(data);
-      // router.push("/");
+      router.push("/profile");
     } catch (error) {
       console.log("error in catch", error);
       toast.error("Unable to update user");
