@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { CheckSquare, X } from "lucide-react";
 
@@ -36,11 +37,8 @@ const KnowledgeLevel = ({
 
           {fields.map((field, index) => {
             return (
-              <>
-                <div
-                  className="bg-black-700 mb-2 mt-2 flex items-center justify-between px-3 py-1"
-                  key={field.id}
-                >
+              <React.Fragment key={field.id}>
+                <div className="bg-black-700 mb-2 mt-2 flex items-center justify-between px-3 py-1">
                   <div className="flex items-center space-x-2">
                     <CheckSquare className="text-primary-500" size={16} />
                   </div>
@@ -65,7 +63,7 @@ const KnowledgeLevel = ({
                     </span>
                   )}
                 </div>
-              </>
+              </React.Fragment>
             );
           })}
         </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { X } from "lucide-react";
 
@@ -37,11 +38,8 @@ const LearningGoals = ({
         {fields.map((field, index) => {
           const goalNameValue = watch(`goals.${index}.name`);
           return (
-            <>
-              <div
-                className="bg-black-700 mb-2 flex items-center justify-between px-3 py-1"
-                key={field.id}
-              >
+            <React.Fragment key={field.id}>
+              <div className="bg-black-700 mb-2 flex items-center justify-between px-3 py-1">
                 <input
                   type="checkbox"
                   disabled={!goalNameValue}
@@ -65,13 +63,13 @@ const LearningGoals = ({
 
               <div>
                 {formState.errors.goals &&
-                  formState.errors.goals[index]?.name.message && (
+                  formState.errors.goals[index]?.name?.message && (
                     <span className="text-error-500 paragraph-3-regular">
                       {formState.errors.goals[index].name.message}
                     </span>
                   )}
               </div>
-            </>
+            </React.Fragment>
           );
         })}
       </section>
