@@ -37,8 +37,8 @@ const Availability = ({
       </section>
 
       {
-        <section className="display-none mb-4 mt-2 flex flex-wrap justify-between ">
-          <div className="mb-2 flex flex-col space-y-2">
+        <section className="display-none mb-4 mt-2 flex  w-full flex-wrap justify-between gap-4">
+          <div className="mb-2 flex min-w-fit flex-1 flex-col space-y-2 ">
             <span className={`paragraph-3-regular  ${textColor}`}>
               Start Date & Time
             </span>
@@ -47,7 +47,7 @@ const Availability = ({
               name="startDate"
               render={({ field }) => (
                 <ReactDatePicker
-                  className={`${textColor} bg-black-700 paragraph-3-regular border-none py-4 pl-4 pr-1`}
+                  className={`${textColor} bg-black-700 paragraph-3-regular flex w-full  border-none py-4 pl-4 pr-1`}
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
                   showTimeSelect
@@ -64,7 +64,7 @@ const Availability = ({
             </span>
           </div>
 
-          <div className="flex flex-col space-y-2">
+          <div className="flex min-w-fit flex-1 flex-col space-y-2">
             <span className={`paragraph-3-regular ${textColor}`}>
               End Date & Time
             </span>
@@ -73,7 +73,7 @@ const Availability = ({
               name="endDate"
               render={({ field }) => (
                 <ReactDatePicker
-                  className={`${textColor} bg-black-700 paragraph-3-regular border-none py-4 pl-4 pr-1`}
+                  className={`${textColor} bg-black-700 paragraph-3-regular  w-full border-none py-4 pl-4 pr-1`}
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
                   showTimeSelect
