@@ -7,7 +7,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <main>
       <div className="flex min-h-screen justify-start">
         <LeftNavbar />
-        <section className="flex min-h-screen flex-1 flex-col pt-20 max-md:pb-14 sm:px-14">
+        <section className="flex min-h-screen flex-1 flex-col pt-20 max-md:pb-14 sm:px-8">
           <div className="mx-auto w-full max-w-5xl">{children}</div>
         </section>
         <RightSidebar />
