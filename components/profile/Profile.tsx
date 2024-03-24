@@ -2,7 +2,12 @@
 
 import React from "react";
 import Link from "next/link";
-import { CheckSquare, Image as LandscapeIcon } from "lucide-react";
+import {
+  CheckSquare,
+  Image as LandscapeIcon,
+  UserCheck,
+  Clock,
+} from "lucide-react";
 import Image from "next/image";
 import { format as formatDate } from "date-fns";
 
@@ -74,10 +79,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             goals.map((goal) => {
               console.log(goals);
               return (
-                <div
-                  key={goal.id}
-                  className="mb-1 mt-1 flex items-center gap-2"
-                >
+                <div key={goal.id} className="my-1 flex items-center gap-2">
                   <input
                     type="checkbox"
                     checked={goal.isComplete}
@@ -114,7 +116,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           {knowledgeLevel ? (
             knowledgeLevel.map((level) => {
               return (
-                <div key={level} className="mb-1 mt-1 flex items-center gap-2">
+                <div key={level} className="my-1 flex items-center gap-2">
                   {" "}
                   <CheckSquare className="text-primary-500" size={16} />
                   <p className="text-white-300 paragraph-2-regular">{level}</p>
@@ -131,12 +133,18 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <h3 className="paragraph-1-bold">Schedule & Availability</h3>
           {availability ? (
             <>
-              <p className="text-white-300 paragraph-2-regular">
-                Available for a new project
-              </p>
-              <p className="text-white-300 paragraph-2-regular">
-                Available from {start} to {end}
-              </p>
+              <div className="my-1 flex items-center gap-2">
+                <UserCheck className="text-green-400" size={16} />
+                <p className="text-white-300 paragraph-2-regular">
+                  Available for a new project
+                </p>
+              </div>
+              <div className="my-1 flex items-center gap-2">
+                <Clock className="text-green-400" size={16} />
+                <p className="text-white-300 paragraph-2-regular">
+                  Available from {start} to {end}
+                </p>
+              </div>
             </>
           ) : (
             <p className="text-white-300 paragraph-2-regular">
