@@ -12,10 +12,10 @@ import { updateUser } from "@/lib/actions/user.actions";
 import { Goals, User } from "@prisma/client";
 import { IProfileSchema, ProfileSchema } from "@/lib/validations/UserSchema";
 
-import BasicInformation from "../onboarding/BasicInformation";
-import LearningGoals from "../onboarding/LearningGoals";
-import KnowledgeLevel from "../onboarding/KnowledgeLevel";
-import Availability from "../onboarding/Availability";
+import BasicInformation from "./BasicInformation";
+import LearningGoals from "./LearningGoals";
+import KnowledgeLevel from "./KnowledgeLevel";
+import Availability from "./Availability";
 import Button from "../shared/ui/Button";
 
 const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
