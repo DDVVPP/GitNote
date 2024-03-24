@@ -73,7 +73,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
       </header>
 
       <section>
-        <div className="my-20 flex flex-col">
+        <div className="mt-20 flex flex-col">
           <h3 className="paragraph-1-bold">Learning Goals</h3>
           {goals ? (
             goals.map((goal) => {
@@ -82,6 +82,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
                 <div key={goal.id} className="my-1 flex items-center gap-2">
                   <input
                     type="checkbox"
+                    disabled
                     checked={goal.isComplete}
                     className="border-white-500 bg-white-500 h-3 w-3 appearance-none rounded-sm border text-green-400"
                   />
@@ -94,8 +95,10 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           ) : (
             <p className="text-white-300 paragraph-2-regular">No goals added</p>
           )}
+          <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
         </div>
-        <div className="my-20 flex flex-col">
+
+        <div className="flex flex-col">
           <h3 className="paragraph-1-bold">Technology Stack</h3>
           <div className="flex gap-2">
             {techStack ? (
@@ -110,8 +113,10 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
               </p>
             )}
           </div>
+          <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
         </div>
-        <div className="my-20 flex flex-col">
+
+        <div className=" flex flex-col">
           <h3 className="paragraph-1-bold">Knowledge Level</h3>
           {knowledgeLevel ? (
             knowledgeLevel.map((level) => {
@@ -128,8 +133,10 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
               No knowledge levels added
             </p>
           )}
+          <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
         </div>
-        <div className="my-20 flex flex-col">
+
+        <div className="mb-20 flex flex-col">
           <h3 className="paragraph-1-bold">Schedule & Availability</h3>
           {availability ? (
             <>
