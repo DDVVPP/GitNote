@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 import { techStack } from "@/lib/constants/techStack";
+import { TechIconType } from "@/types";
 
 type TechStackType = {
-  icon: () => JSX.Element;
+  icon: ({ size, background }: TechIconType) => JSX.Element;
   name: string;
   uiName: string;
 };
@@ -87,13 +88,13 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
         {techStackStateUI && techStackStateUI.length > 0 && (
           <div className="bg-black-700 mb-4 mt-0.5 flex flex-wrap gap-2 rounded-md p-4">
             {techStackStateUI.map((tech) => {
-              const { icon: TechIcon, name, uiName } = tech;
+              const { icon: TechStackIcon, name, uiName } = tech;
               return (
                 <div
                   className="bg-black-600 flex items-center gap-2 rounded-md p-1"
                   key={name}
                 >
-                  {<TechIcon />}
+                  {<TechStackIcon />}
                   <p className="paragraph-3-regular">{uiName} </p>
                   <button>
                     <X
