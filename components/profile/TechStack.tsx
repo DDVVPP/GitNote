@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 import { techStack } from "@/lib/constants/techStack";
+import { TechIconType } from "@/types";
 
 type TechStackType = {
-  icon: () => JSX.Element;
+  icon: ({ size, background }: TechIconType) => JSX.Element;
   name: string;
   uiName: string;
 };
@@ -43,7 +44,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       return techStackItem.name.includes(lowerCaseTechSearchItems);
     });
     setTechSearchResult(techSearchMatchedItems);
-  }, [techSearchItems]);
+  }, [techSearchItems, techStackStateUI]);
 
   const handleClick = (tech: TechStackType) => {
     //add to techStackStateUI
@@ -53,9 +54,9 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       (item) => !item.name.includes(tech.name)
     );
     setTechSearchResult(filteredSearchResults);
-    //update values to submit
-    const updatedTechStackNames = techStackStateUI?.map((item) => item.name);
-    setValue("techStack", updatedTechStackNames);
+    //update values to submit - array of strings instead of array of objects
+    const techStackNames = techStackStateUI?.map((item) => item.name);
+    setValue("techStack", techStackNames);
   };
 
   const handleDelete = (tech: TechStackType) => {
@@ -64,10 +65,9 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       (item) => !item.name.includes(tech.name)
     );
     setTechStackStateUI(filteredTechStack);
-    //add removed item back to techSearchResults
-    techSearchResults?.push(tech);
-    //update values to submit
-    setValue("techStack", filteredTechStack);
+    //update values to submit - array of strings instead of array of objects
+    const techStackNames = filteredTechStack?.map((item) => item.name);
+    setValue("techStack", techStackNames);
   };
 
   return (
@@ -85,13 +85,13 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
         {techStackStateUI && techStackStateUI.length > 0 && (
           <div className="bg-black-700 mb-4 mt-0.5 flex flex-wrap gap-2 rounded-md p-4">
             {techStackStateUI.map((tech) => {
-              const { icon: TechIcon, name, uiName } = tech;
+              const { icon: TechStackIcon, name, uiName } = tech;
               return (
                 <div
                   className="bg-black-600 flex items-center gap-2 rounded-md p-1"
                   key={name}
                 >
-                  {<TechIcon />}
+                  {<TechStackIcon />}
                   <p className="paragraph-3-regular">{uiName} </p>
                   <button>
                     <X
