@@ -117,13 +117,13 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
         <div className="flex flex-col">
           <h3 className="paragraph-1-bold mb-2">Technology Stack</h3>
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             {techStackStateUI && techStackStateUI.length > 0 ? (
               techStackStateUI.map((tech) => {
                 const { icon: TechStackIcon, name, link } = tech;
                 return (
                   <a href={link} target="_blank" key={name}>
-                    {<TechStackIcon size={8} />}
+                    <TechStackIcon size={28} />
                   </a>
                 );
               })
