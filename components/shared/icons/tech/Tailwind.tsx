@@ -1,10 +1,13 @@
 import { TechIconType } from "@/types";
 
-const TailwindCSS = ({ size = 6, background = true }: TechIconType) => {
-  const backgroundStyle = background && "bg-black-700 rounded border-none p-1";
+const TailwindCSS = ({ size = 24, background = true }: TechIconType) => {
+  const backgroundStyle = background && "bg-black-700 rounded border-none";
 
   return (
-    <div className={`${backgroundStyle} flex h-${size} w-${size}`}>
+    <div
+      className={`${backgroundStyle} flex p-1`}
+      style={{ width: `${size}px`, height: `${size}px` }}
+    >
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 40">
         <g clipPath="url(#prefix__clip0)">
           <path
