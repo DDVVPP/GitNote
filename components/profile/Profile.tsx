@@ -101,7 +101,6 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <h3 className="paragraph-1-bold">Learning Goals</h3>
           {goals ? (
             goals.map((goal) => {
-              console.log(goals);
               return (
                 <div key={goal.id} className="my-1 flex items-center gap-2">
                   <input

@@ -17,9 +17,6 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
   const techStackState = watch("techStack");
   const [techStackStateUI, setTechStackStateUI] = useState<TechStackType[]>();
 
-  console.log("techStackState", techStackState);
-  console.log("techStackStateUI", techStackStateUI);
-
   //return techStack items ([{icon:..., name:..., uiName:...}, {icon:..., name:..., uiName:...}]) that match with techStackState items (['', '']) to have access to uiName and icon props.
   useEffect(() => {
     const matchedItemsForUI = () => {
