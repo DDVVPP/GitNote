@@ -7,7 +7,10 @@ const StyledComponentsIcon = ({
   const backgroundStyle = background && "bg-black-700 rounded border-none";
 
   return (
-    <div className={`${backgroundStyle} h-${size} w-${size} p-1`}>
+    <div
+      className={`${backgroundStyle} flex p-1`}
+      style={{ width: `${size}px`, height: `${size}px` }}
+    >
       <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
         <path
           d="m18.05 29.6c.042-.095.148-.161.225-.241 1.175-1.232 2.36-2.453 3.519-3.7a3.2 3.2 0 0 0 1.014-2.659 5.925 5.925 0 0 0 -.143-.624c-.316.3-.61.573-.906.848-.46.428-.918.858-1.382 1.281a1.931 1.931 0 0 1 -2.148.419 1.973 1.973 0 0 1 -1.29-1.75 1.04 1.04 0 0 0 -.043-.146c-.353.3-.691.576-1.026.86l-6.963 5.9c-.048.041-.1.092-.145.132h9.283l-.014-.009c-.05-.035-.024-.219.019-.311z"

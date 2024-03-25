@@ -1,10 +1,13 @@
 import { TechIconType } from "@/types";
 
-const ReactJS = ({ size = 6, background = true }: TechIconType) => {
+const ReactJS = ({ size = 24, background = true }: TechIconType) => {
   const backgroundStyle = background && "bg-black-700 rounded border-none";
 
   return (
-    <div className={`${backgroundStyle} flex h-${size} w-${size} p-1`}>
+    <div
+      className={`${backgroundStyle} flex`}
+      style={{ width: `${size}px`, height: `${size}px p-1` }}
+    >
       <svg
         preserveAspectRatio="xMidYMid"
         viewBox="0 0 280 228"

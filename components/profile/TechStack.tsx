@@ -94,7 +94,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
                   className="bg-black-600 flex items-center gap-2 rounded-md p-1"
                   key={name}
                 >
-                  {<TechStackIcon />}
+                  <TechStackIcon size={24} />
                   <p className="paragraph-3-regular">{uiName} </p>
                   <button>
                     <X
@@ -120,7 +120,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
                 className="paragraph-3-regular bg-black-600 m-1 flex cursor-pointer items-center gap-2 rounded-md p-1"
                 onClick={() => handleClick(techSearchResult)}
               >
-                {<ItemIcon />}
+                {<ItemIcon size={24} />}
                 <p>{uiName}</p>
               </div>
             );

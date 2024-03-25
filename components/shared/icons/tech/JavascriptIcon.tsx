@@ -1,10 +1,13 @@
 import { TechIconType } from "@/types";
 
-const JavascriptIcon = ({ size = 7, background = false }: TechIconType) => {
+const JavascriptIcon = ({ size = 24, background = false }: TechIconType) => {
   const backgroundStyle = background && "bg-black-700 rounded border-none";
 
   return (
-    <div className={`${backgroundStyle} flex h-${size} w-${size} p-1`}>
+    <div
+      className={`${backgroundStyle} flex p-0.5`}
+      style={{ width: `${size}px`, height: `${size}px` }}
+    >
       <svg
         preserveAspectRatio="xMidYMid"
         viewBox="0 0 256 256"
