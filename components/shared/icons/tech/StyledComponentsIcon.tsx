@@ -1,7 +1,7 @@
 import { TechIconType } from "@/types";
 
 const StyledComponentsIcon = ({
-  size = 6,
+  size = 24,
   background = true,
 }: TechIconType) => {
   const backgroundStyle = background && "bg-black-700 rounded border-none";

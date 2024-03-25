@@ -1,6 +1,6 @@
 import { TechIconType } from "@/types";
 
-const TailwindCSS = ({ size = 6, background = true }: TechIconType) => {
+const TailwindCSS = ({ size = 24, background = true }: TechIconType) => {
   const backgroundStyle = background && "bg-black-700 rounded border-none";
 
   return (
