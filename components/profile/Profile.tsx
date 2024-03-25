@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   CheckSquare,
@@ -15,6 +15,14 @@ import { User, Goals } from "@prisma/client";
 import QuickLink from "../left-navbar/QuickLink";
 import linkIcon from "@/public/linkIcon.svg";
 import Button from "../shared/ui/Button";
+import { techStack } from "@/lib/constants/techStack";
+
+type TechStackType = {
+  icon: () => JSX.Element;
+  name: string;
+  uiName: string;
+  link: string;
+};
 
 const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
   const {
@@ -22,16 +30,32 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
     image,
     portfolio,
     goals,
-    techStack,
+    techStack: techStackUser,
     knowledgeLevel,
     availability,
     startDate,
     endDate,
   } = user;
 
+  const [techStackStateUI, setTechStackStateUI] = useState<TechStackType[]>();
+
   const start =
     startDate && formatDate(new Date(startDate), "MMMM dd, yyyy - p");
   const end = endDate && formatDate(new Date(endDate), "MMMM dd, yyyy - p");
+
+  useEffect(() => {
+    const matchedItemsForUI = () => {
+      const techStackStateClone = techStackUser ?? [];
+
+      const matchedTech = techStack.map((item) => ({
+        ...item,
+        is: techStackStateClone.includes(item.name),
+      }));
+      const newTechStackState = matchedTech.filter((item) => item.is);
+      setTechStackStateUI(newTechStackState);
+    };
+    matchedItemsForUI();
+  }, []);
 
   return (
     <>
@@ -99,12 +123,20 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
         </div>
 
         <div className="flex flex-col">
-          <h3 className="paragraph-1-bold">Technology Stack</h3>
+          <h3 className="paragraph-1-bold mb-2">Technology Stack</h3>
           <div className="flex gap-2">
-            {techStack ? (
-              techStack.map((tech) => {
+            {techStackStateUI && techStackStateUI.length > 0 ? (
+              techStackStateUI.map((tech) => {
+                const { icon: TechIcon, name, link } = tech;
                 return (
-                  <p className="text-white-300 paragraph-2-regular">{tech}</p>
+                  <a href={link} target="_blank">
+                    <div
+                      className="bg-black-600 flex items-center gap-2 rounded-md p-1"
+                      key={name}
+                    >
+                      {<TechIcon />}
+                    </div>
+                  </a>
                 );
               })
             ) : (
