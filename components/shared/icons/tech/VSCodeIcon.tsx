@@ -1,10 +1,11 @@
 import { TechIconType } from "@/types";
 
 const VSCodeIcon = ({ size = 6, background = true }: TechIconType) => {
-  const backgroundStyle = background && "bg-black-700 rounded border-none";
+  const backgroundStyle =
+    background && "bg-black-700 rounded border-none p-0.5";
 
   return (
-    <div className={`${backgroundStyle} flex h-${size} w-${size} p-1`}>
+    <div className={`${backgroundStyle} flex h-${size} w-${size}`}>
       <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
         <path
           d="m29.01 5.03-5.766-2.776a1.742 1.742 0 0 0 -1.989.338l-18.875 17.208a1.166 1.166 0 0 0 -.08 1.647c.025.027.05.053.077.077l1.541 1.4a1.165 1.165 0 0 0 1.489.066l22.735-17.24a1.158 1.158 0 0 1 1.858.922v-.067a1.748 1.748 0 0 0 -.99-1.575z"

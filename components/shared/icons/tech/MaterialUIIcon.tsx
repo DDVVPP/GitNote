@@ -1,10 +1,10 @@
 import { TechIconType } from "@/types";
 
 const MaterialUIIcon = ({ size = 6, background = true }: TechIconType) => {
-  const backgroundStyle = background && "bg-black-700 rounded border-none";
+  const backgroundStyle = background && "bg-black-700 rounded border-none p-1";
 
   return (
-    <div className={`${backgroundStyle} flex h-${size} w-${size} p-1`}>
+    <div className={`${backgroundStyle} flex h-${size} w-${size}`}>
       <svg
         preserveAspectRatio="xMidYMid"
         viewBox="0 0 256 204"

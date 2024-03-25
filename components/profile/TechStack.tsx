@@ -4,13 +4,7 @@ import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 import { techStack } from "@/lib/constants/techStack";
-import { TechIconType } from "@/types";
-
-type TechStackType = {
-  icon: ({ size, background }: TechIconType) => JSX.Element;
-  name: string;
-  uiName: string;
-};
+import { TechStackType } from "@/types";
 
 const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
   const [techSearchItems, setTechSearchItems] = useState("");

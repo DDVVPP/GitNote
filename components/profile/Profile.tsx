@@ -16,13 +16,7 @@ import QuickLink from "../left-navbar/QuickLink";
 import linkIcon from "@/public/linkIcon.svg";
 import Button from "../shared/ui/Button";
 import { techStack } from "@/lib/constants/techStack";
-
-type TechStackType = {
-  icon: () => JSX.Element;
-  name: string;
-  uiName: string;
-  link: string;
-};
+import { TechStackType } from "@/types";
 
 const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
   const {
@@ -123,18 +117,13 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
         <div className="flex flex-col">
           <h3 className="paragraph-1-bold mb-2">Technology Stack</h3>
-          <div className="flex gap-2">
+          <div className="flex gap-4">
             {techStackStateUI && techStackStateUI.length > 0 ? (
               techStackStateUI.map((tech) => {
-                const { icon: TechIcon, name, link } = tech;
+                const { icon: TechStackIcon, name, link } = tech;
                 return (
-                  <a href={link} target="_blank">
-                    <div
-                      className="bg-black-600 flex items-center gap-2 rounded-md p-1"
-                      key={name}
-                    >
-                      {<TechIcon />}
-                    </div>
+                  <a href={link} target="_blank" key={name}>
+                    {<TechStackIcon size={8} />}
                   </a>
                 );
               })
