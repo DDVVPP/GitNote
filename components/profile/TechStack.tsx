@@ -46,7 +46,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       return techStackItem.name.includes(lowerCaseTechSearchItems);
     });
     setTechSearchResult(techSearchMatchedItems);
-  }, [techSearchItems]);
+  }, [techSearchItems, techStackStateUI]);
 
   const handleClick = (tech: TechStackType) => {
     //add to techStackStateUI
@@ -56,9 +56,9 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       (item) => !item.name.includes(tech.name)
     );
     setTechSearchResult(filteredSearchResults);
-    //update values to submit
-    const updatedTechStackNames = techStackStateUI?.map((item) => item.name);
-    setValue("techStack", updatedTechStackNames);
+    //update values to submit - array of strings instead of array of objects
+    const techStackNames = techStackStateUI?.map((item) => item.name);
+    setValue("techStack", techStackNames);
   };
 
   const handleDelete = (tech: TechStackType) => {
@@ -67,10 +67,9 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       (item) => !item.name.includes(tech.name)
     );
     setTechStackStateUI(filteredTechStack);
-    //add removed item back to techSearchResults
-    techSearchResults?.push(tech);
-    //update values to submit
-    setValue("techStack", filteredTechStack);
+    //update values to submit - array of strings instead of array of objects
+    const techStackNames = filteredTechStack?.map((item) => item.name);
+    setValue("techStack", techStackNames);
   };
 
   return (
