@@ -14,7 +14,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "**.git-note.s3.us-west-1.amazonaws.com/**",
+        hostname: "git-note.s3.us-west-1.amazonaws.com/**",
         port: "",
       },
     ],
