@@ -27,7 +27,11 @@ export async function createUser(data: Partial<User>) {
   return { error: "An unexpected error occurred while creating user." };
 }
 
-async function _getUser(email: string) {
+async function _getUser() {
+  const session = await auth();
+  const email = session && (await session.user?.email);
+  if (!email) return { error: "User not found!" };
+
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -50,8 +54,8 @@ export const getUser = unstable_cache(_getUser, ["getUser"], {
 
 export async function updateUser(data: Partial<User & { goals?: any }>) {
   const session = await auth();
-  const email = session && session.user?.email;
-  if (!email) return;
+  const email = session && (await session.user?.email);
+  if (!email) return { error: "User not found!" };
 
   if (data && data.goals) {
     data.goals = {
