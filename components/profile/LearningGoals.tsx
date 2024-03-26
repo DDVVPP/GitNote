@@ -1,11 +1,18 @@
 "use client";
 
+import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { X } from "lucide-react";
 
 import Button from "@/components/shared/ui/Button";
 
-const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
+const LearningGoals = ({
+  useFormHelpers,
+  isEditProfile = false,
+}: {
+  useFormHelpers: any;
+  isEditProfile?: boolean;
+}) => {
   const { register, formState, control, watch } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
     name: "goals",
@@ -14,9 +21,16 @@ const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
 
   return (
     <>
-      <h1 className="display-2-bold pb-5">Add your learning goals</h1>
+      {!isEditProfile && (
+        <h1 className="display-2-bold pb-5">Add your learning goals</h1>
+      )}
 
       <section className="mb-3">
+        {isEditProfile && (
+          <h3 className="paragraph-3-medium text-white-500 mb-5">
+            LEARNING GOALS
+          </h3>
+        )}
         <p className="paragraph-3-regular text-white-300 mb-2">
           Learning goals
         </p>
@@ -24,11 +38,8 @@ const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
         {fields.map((field, index) => {
           const goalNameValue = watch(`goals.${index}.name`);
           return (
-            <>
-              <div
-                className="bg-black-700 mb-2 flex items-center justify-between px-3 py-1"
-                key={field.id}
-              >
+            <React.Fragment key={field.id}>
+              <div className="bg-black-700 mb-2 flex items-center justify-between px-3 py-1">
                 <input
                   type="checkbox"
                   disabled={!goalNameValue}
@@ -52,20 +63,20 @@ const LearningGoals = ({ useFormHelpers }: { useFormHelpers: any }) => {
 
               <div>
                 {formState.errors.goals &&
-                  formState.errors.goals[index]?.name.message && (
+                  formState.errors.goals[index]?.name?.message && (
                     <span className="text-error-500 paragraph-3-regular">
                       {formState.errors.goals[index].name.message}
                     </span>
                   )}
               </div>
-            </>
+            </React.Fragment>
           );
         })}
       </section>
 
       <section className="mb-4">
         <Button
-          color="darkGray"
+          color="gray"
           icon="plus"
           onClick={() => append({ name: "", isComplete: false })}
         >

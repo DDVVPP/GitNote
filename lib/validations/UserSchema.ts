@@ -20,6 +20,7 @@ export const UserSchema = z.object({
   }),
   goals: z.array(
     z.object({
+      id: z.number().optional(),
       name: z
         .string()
         .min(1, { message: "Goal must contain at least 1 character" }),
@@ -49,6 +50,12 @@ export const UserSignUpSchema = UserSchema.pick({
 export type IOnboardingSchema = z.infer<typeof OnboardingSchema>;
 export const OnboardingSchema = UserSchema.omit({
   email: true,
+  password: true,
+});
+//-------------------------------
+
+export type IProfileSchema = z.infer<typeof ProfileSchema>;
+export const ProfileSchema = UserSchema.omit({
   password: true,
 });
 //-------------------------------

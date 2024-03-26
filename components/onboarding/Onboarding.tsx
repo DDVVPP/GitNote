@@ -14,10 +14,10 @@ import {
   OnboardingSchema,
 } from "@/lib/validations/UserSchema";
 
-import BasicInformation from "@/components/onboarding/BasicInformation";
-import LearningGoals from "@/components/onboarding/LearningGoals";
-import KnowledgeLevel from "@/components/onboarding/KnowledgeLevel";
-import Availability from "@/components/onboarding/Availability";
+import BasicInformation from "@/components/profile/BasicInformation";
+import LearningGoals from "@/components/profile/LearningGoals";
+import KnowledgeLevel from "@/components/profile/KnowledgeLevel";
+import Availability from "@/components/profile/Availability";
 import OnboardingVisualStepper from "@/components/onboarding/OnboardingVisualStepper";
 import Button from "@/components/shared/ui/Button";
 
@@ -49,7 +49,7 @@ const Onboarding = ({ user }: { user: User }) => {
     watch,
     handleSubmit,
     trigger,
-    formState: { isSubmitted },
+    formState: { isSubmitting },
   } = useFormHelpers;
   const formData = watch();
 
@@ -116,7 +116,8 @@ const Onboarding = ({ user }: { user: User }) => {
 
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
     try {
-      await updateUser(data);
+      const updatedData = { ...data, onboardingStatus: step + 1 };
+      await updateUser(updatedData);
       await revalidateSession();
       router.push("/");
     } catch (error) {
@@ -133,7 +134,7 @@ const Onboarding = ({ user }: { user: User }) => {
           <div className="mt-5">
             {step === 4 ? (
               <Button color="blue" type="submit">
-                {isSubmitted ? <Loader2 className="animate-spin" /> : "Submit"}
+                {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
               </Button>
             ) : (
               <Button color="blue" type="button" onClick={validateFields}>

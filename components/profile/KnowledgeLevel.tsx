@@ -1,12 +1,19 @@
 "use client";
 
+import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { CheckSquare, X } from "lucide-react";
 
 import Button from "../shared/ui/Button";
 import TechStack from "./TechStack";
 
-const KnowledgeLevel = ({ useFormHelpers }: { useFormHelpers: any }) => {
+const KnowledgeLevel = ({
+  useFormHelpers,
+  isEditProfile = false,
+}: {
+  useFormHelpers: any;
+  isEditProfile?: boolean;
+}) => {
   const { register, formState, control, watch, setValue } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
     name: "knowledgeLevel",
@@ -15,19 +22,23 @@ const KnowledgeLevel = ({ useFormHelpers }: { useFormHelpers: any }) => {
 
   return (
     <div>
-      <h1 className="display-2-bold mb-5">Add your knowledge level</h1>
+      {!isEditProfile && (
+        <h1 className="display-2-bold mb-5">Add your knowledge level</h1>
+      )}
 
       <section>
         <div>
+          {isEditProfile && (
+            <h3 className="paragraph-3-medium text-white-500 mb-5">
+              KNOWLEDGE LEVEL
+            </h3>
+          )}
           <p className="paragraph-3-regular text-white-300">Knowledge Level</p>
 
           {fields.map((field, index) => {
             return (
-              <>
-                <div
-                  className="bg-black-700 mb-2 mt-2 flex items-center justify-between px-3 py-1"
-                  key={field.id}
-                >
+              <React.Fragment key={field.id}>
+                <div className="bg-black-700 mb-2 mt-2 flex items-center justify-between px-3 py-1">
                   <div className="flex items-center space-x-2">
                     <CheckSquare className="text-primary-500" size={16} />
                   </div>
@@ -52,13 +63,13 @@ const KnowledgeLevel = ({ useFormHelpers }: { useFormHelpers: any }) => {
                     </span>
                   )}
                 </div>
-              </>
+              </React.Fragment>
             );
           })}
         </div>
 
         <div className="mt-2">
-          <Button color="darkGray" icon="plus" onClick={() => append("")}>
+          <Button color="gray" icon="plus" onClick={() => append("")}>
             Add knowledge checkmark
           </Button>
         </div>

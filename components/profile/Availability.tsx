@@ -4,14 +4,26 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from "react-hook-form";
 
-const Availability = ({ useFormHelpers }: { useFormHelpers: any }) => {
+const Availability = ({
+  useFormHelpers,
+  isEditProfile = false,
+}: {
+  useFormHelpers: any;
+  isEditProfile?: boolean;
+}) => {
   const { register, control, watch } = useFormHelpers;
   const availabilityValue = watch("availability");
   const textColor = availabilityValue ? "text-white-300" : "text-white-500";
 
   return (
     <div>
-      <h1 className="display-2-bold mb-5">Schedule & Availability</h1>
+      {isEditProfile ? (
+        <h3 className="paragraph-3-medium text-white-500 mb-5">
+          SCHEDULE & AVAILABILITY
+        </h3>
+      ) : (
+        <h1 className="display-2-bold mb-5">Schedule & Availability</h1>
+      )}
 
       <section className="space-x-2 pb-2">
         <input
@@ -25,8 +37,8 @@ const Availability = ({ useFormHelpers }: { useFormHelpers: any }) => {
       </section>
 
       {
-        <section className="display-none mb-4 mt-2 flex flex-wrap justify-between ">
-          <div className="mb-2 flex flex-col space-y-2">
+        <section className="display-none mb-4 mt-2 flex  w-full flex-wrap justify-between gap-4">
+          <div className="mb-2 flex min-w-fit flex-1 flex-col space-y-2 ">
             <span className={`paragraph-3-regular  ${textColor}`}>
               Start Date & Time
             </span>
@@ -35,7 +47,7 @@ const Availability = ({ useFormHelpers }: { useFormHelpers: any }) => {
               name="startDate"
               render={({ field }) => (
                 <ReactDatePicker
-                  className={`${textColor} bg-black-700 paragraph-3-regular border-none py-4 pl-4 pr-1`}
+                  className={`${textColor} bg-black-700 paragraph-3-regular flex w-full  border-none py-4 pl-4 pr-1`}
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
                   showTimeSelect
@@ -52,7 +64,7 @@ const Availability = ({ useFormHelpers }: { useFormHelpers: any }) => {
             </span>
           </div>
 
-          <div className="flex flex-col space-y-2">
+          <div className="flex min-w-fit flex-1 flex-col space-y-2">
             <span className={`paragraph-3-regular ${textColor}`}>
               End Date & Time
             </span>
@@ -61,7 +73,7 @@ const Availability = ({ useFormHelpers }: { useFormHelpers: any }) => {
               name="endDate"
               render={({ field }) => (
                 <ReactDatePicker
-                  className={`${textColor} bg-black-700 paragraph-3-regular border-none py-4 pl-4 pr-1`}
+                  className={`${textColor} bg-black-700 paragraph-3-regular  w-full border-none py-4 pl-4 pr-1`}
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
                   showTimeSelect

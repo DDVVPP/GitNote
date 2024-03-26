@@ -1,16 +1,17 @@
-import React from 'react'
-import Link from 'next/link'
+import React from "react";
 
-const Profile = () => {
+import { User } from "@prisma/client";
+import { getUser } from "@/lib/actions/user.actions";
+import Profile from "@/components/profile/Profile";
+
+const ProfileWrapper = async () => {
+  const user = (await getUser()) as User;
+
   return (
     <>
-    <h1>Profile</h1>
-    <Link href="/profile/edit-profile">
-      Edit Profile
-    </Link>
+      <Profile user={user} />
     </>
+  );
+};
 
-  )
-}
-
-export default Profile
+export default ProfileWrapper;

@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Image as LandscapeIcon, UploadCloud } from "lucide-react";
 import Image from "next/image";
-// import { Controller } from 'react-hook-form';
+import { Controller } from "react-hook-form";
 
 import { UploadFile } from "@/lib/actions/s3.actions";
 import Input from "@/components/shared/ui/Input";
-import { Controller } from "react-hook-form";
 
 const BasicInformation = ({
   useFormHelpers,
   formData,
+  isEditProfile = false,
 }: {
   useFormHelpers: any;
   formData: any;
+  isEditProfile?: boolean;
 }) => {
   const { setValue, trigger, control } = useFormHelpers;
   const [image, setImage] = useState(formData?.image ?? "");
@@ -32,9 +33,13 @@ const BasicInformation = ({
 
   return (
     <div className="space-y-5">
-      <h1 className="display-2-bold">Basic Information</h1>
+      {isEditProfile ? (
+        <h3 className="paragraph-3-medium text-white-500">BASIC INFORMATION</h3>
+      ) : (
+        <h1 className="display-2-bold">Basic Information</h1>
+      )}
 
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-6">
         {image ? (
           <Image src={image} alt="profileImage" width={120} height={120} />
         ) : (
@@ -80,6 +85,29 @@ const BasicInformation = ({
           />
         )}
       />
+
+      {isEditProfile && (
+        <Controller
+          control={control}
+          name="email"
+          render={({
+            field: { name, onChange, ...rest },
+            formState: { errors },
+          }) => (
+            <Input
+              label="Email"
+              id={name}
+              {...rest}
+              onChange={(event) => {
+                onChange(event);
+                trigger(name);
+              }}
+              placeholder="Enter your email"
+              errors={errors.email?.message as string}
+            />
+          )}
+        />
+      )}
 
       <Controller
         control={control}

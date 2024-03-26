@@ -5,7 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DB_URL")
-  directUrl = env("DIRECTURL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Account {
@@ -45,13 +45,14 @@ model User {
   location          String?
   onboardingStatus  Int?
   portfolio         String?
-  role              Role     @default(USER)
+  role              Role      @default(USER)
   contributionGrid  String?
   goals             Goals[]
   knowledgeLevel    String[]
   techStack         String[]
   socialMedia       Social[]
   availability      Boolean?
+  createdAt         DateTime  @default(now())
   startDate         DateTime?
   endDate           DateTime?
   accounts          Account[]
