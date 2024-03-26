@@ -28,8 +28,12 @@ const RightSidebar = ({ user }: { user: User }) => {
         )}
 
         <div className="flex flex-col">
-          <p className="paragraph-3-medium">{user.name}</p>
-          <p className="text-white-300 paragraph-4-regular">{user.email}</p>
+          <p className="paragraph-3-medium">
+            {user.name ?? '"(oops! Missing name)"'}
+          </p>
+          <p className="text-white-300 paragraph-4-regular">
+            {user.email ?? "(oops! Missing email)"}
+          </p>
         </div>
       </Link>
 

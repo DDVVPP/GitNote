@@ -25,7 +25,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
     image,
     portfolio,
     goals,
-    techStack: techStackUser,
+    techStack: techStackFromUser,
     knowledgeLevel,
     availability,
     createdAt,
@@ -43,7 +43,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
   useEffect(() => {
     const matchedItemsForUI = () => {
-      const techStackStateClone = techStackUser ?? [];
+      const techStackStateClone = techStackFromUser ?? [];
 
       const matchedTech = techStackList.map((item) => ({
         ...item,
@@ -70,7 +70,9 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
         <div className="space-between flex w-full justify-between">
           <div className="flex flex-col">
-            <h1 className="display-2-bold text-white-100">{name ?? ""}</h1>
+            <h1 className="display-2-bold text-white-100">
+              {name ?? "(oops! Missing name)"}
+            </h1>
             <div className="paragraph-3-regular flex gap-4">
               {portfolio && (
                 <div className="text-primary-500 flex items-center gap-1">
@@ -185,7 +187,8 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
               <div className="my-1 flex items-center gap-2">
                 <Clock className="text-green-400" size={16} />
                 <p className="text-white-300 paragraph-2-regular">
-                  Available from {start} to {end}
+                  Available from {start ?? "(oops! Missing start date)"} to{" "}
+                  {end ?? "(oops! Missing end date)"}
                 </p>
               </div>
             </>
