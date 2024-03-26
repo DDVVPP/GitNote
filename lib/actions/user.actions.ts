@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/db";
 import { User, Goals } from "@prisma/client";
 import bcryptjs from "bcryptjs";
+import { revalidateTag, unstable_cache } from "next/cache";
 
 export async function createUser(data: Partial<User>) {
   try {
@@ -26,7 +27,7 @@ export async function createUser(data: Partial<User>) {
   return { error: "An unexpected error occurred while creating user." };
 }
 
-export async function getUser(email: string) {
+async function _getUser(email: string) {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -42,6 +43,10 @@ export async function getUser(email: string) {
     return { error: "User not found!" };
   }
 }
+
+export const getUser = unstable_cache(_getUser, ["getUser"], {
+  tags: ["userData"],
+});
 
 export async function updateUser(data: Partial<User & { goals?: any }>) {
   const session = await auth();
@@ -68,7 +73,7 @@ export async function updateUser(data: Partial<User & { goals?: any }>) {
 
   try {
     if (data) {
-      const user = prisma.user.update({
+      const user = await prisma.user.update({
         where: {
           email,
         },
@@ -77,6 +82,7 @@ export async function updateUser(data: Partial<User & { goals?: any }>) {
           goals: true,
         },
       });
+      revalidateTag("userData");
       return { user, error: null };
     }
   } catch (error) {
