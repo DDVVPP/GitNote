@@ -15,7 +15,6 @@ import Image from "next/image";
 import { format as formatDate } from "date-fns";
 
 import { User, Goals } from "@prisma/client";
-import QuickLink from "../left-navbar/QuickLink";
 import Button from "../shared/ui/Button";
 import { techStack } from "@/lib/constants/techStack";
 import { TechStackType } from "@/types";
