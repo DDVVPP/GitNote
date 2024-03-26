@@ -16,7 +16,7 @@ import { format as formatDate } from "date-fns";
 
 import { User, Goals } from "@prisma/client";
 import Button from "../shared/ui/Button";
-import { techStack } from "@/lib/constants/techStack";
+import { techStackList } from "@/lib/constants/techStackList";
 import { TechStackType } from "@/types";
 
 const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
@@ -45,7 +45,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
     const matchedItemsForUI = () => {
       const techStackStateClone = techStackUser ?? [];
 
-      const matchedTech = techStack.map((item) => ({
+      const matchedTech = techStackList.map((item) => ({
         ...item,
         is: techStackStateClone.includes(item.name),
       }));

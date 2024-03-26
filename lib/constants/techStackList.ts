@@ -8,7 +8,7 @@ import TailwindCSS from "@/components/shared/icons/tech/Tailwind";
 import TypescriptIcon from "@/components/shared/icons/tech/TypescriptIcon";
 import VSCodeIcon from "@/components/shared/icons/tech/VSCodeIcon";
 
-export const techStack = [
+export const techStackList = [
   {
     icon: NodeJSIcon,
     name: "nodejs",

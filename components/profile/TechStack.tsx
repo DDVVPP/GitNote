@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
-import { techStack } from "@/lib/constants/techStack";
+import { techStackList } from "@/lib/constants/techStackList";
 import { TechStackType } from "@/types";
 
 const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
@@ -17,7 +17,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
     const matchedItemsForUI = () => {
       const techStackStateClone = techStackState ?? [];
 
-      const matchedTech = techStack.map((item) => ({
+      const matchedTech = techStackList.map((item) => ({
         ...item,
         is: techStackStateClone.includes(item.name),
       }));
@@ -34,7 +34,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       return;
     }
     const lowerCaseTechSearchItems = techSearchItems.toLowerCase();
-    const techSearchMatchedItems = techStack.filter((techStackItem) => {
+    const techSearchMatchedItems = techStackList.filter((techStackItem) => {
       return techStackItem.name.includes(lowerCaseTechSearchItems);
     });
     setTechSearchResult(techSearchMatchedItems);
