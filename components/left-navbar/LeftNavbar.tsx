@@ -52,10 +52,13 @@ const LeftNavbar = () => {
         </NavSection>
       </div>
 
-      <div className="mb-5 flex space-x-2">
+      <div className="mb-5 flex">
         <form action={signOut}>
-          <Image src={logoutIcon} alt="Logout Icon" />
-          <button className="paragraph-3-medium text-white-300" type="submit">
+          <button
+            className="paragraph-3-medium text-white-300 flex gap-2"
+            type="submit"
+          >
+            <Image src={logoutIcon} alt="Logout Icon" />
             Logout
           </button>
         </form>
