@@ -104,7 +104,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       {techSearchResults && techSearchResults.length > 0 && (
         <div className="bg-black-700 text-white-300 -mt-6 mb-5 flex flex-col rounded-md p-2">
           {techSearchResults?.map((techSearchResult) => {
-            if (techStackState.includes(techSearchResult)) return null;
+            if (techStackState.includes(techSearchResult.name)) return null;
             const { icon: ItemIcon, uiName } = techSearchResult;
             return (
               <div
