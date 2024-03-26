@@ -98,7 +98,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
           <div>
             <Link href="/profile/edit">
-              <Button icon="plus" color="gray">
+              <Button icon="plus" color="darkGrayBlueText">
                 Edit Profile
               </Button>
             </Link>

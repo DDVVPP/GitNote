@@ -4,13 +4,19 @@ import GithubIcon from "@/components/shared/icons/GithubIcon";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: "plus" | "github" | "google";
-  color?: "blue" | "gray" | "darkGray" | "gradient";
+  color?:
+    | "blue"
+    | "gray"
+    | "darkGrayBlueText"
+    | "darkGrayWhiteText"
+    | "gradient";
 }
 
 const colorClassMap = {
   blue: "bg-primary-500 text-black-900 paragraph-3-bold ",
   gray: "bg-black-600 text-white-100 paragraph-3-medium",
-  darkGray: "bg-black-700 text-white-300 paragraph-3-medium",
+  darkGrayWhiteText: "bg-black-700 text-white-300 paragraph-3-medium",
+  darkGrayBlueText: "bg-black-700 text-primary-500 paragraph-3-medium",
   gradient: "text-white-100 primary-gradient paragraph-4-medium",
   default: "bg-black-700 text-white-300 paragraph-3-medium",
 };
@@ -22,7 +28,7 @@ const iconMap = {
   default: null,
 };
 
-const baseclass = "flex w-full items-center justify-center gap-2 rounded p-2";
+const baseclass = "flex w-full items-center justify-center gap-2 rounded p-3";
 
 const Button = ({ children, icon, color, onClick, ...rest }: ButtonProps) => {
   const colorClass = colorClassMap[color || "default"];
@@ -35,7 +41,9 @@ const Button = ({ children, icon, color, onClick, ...rest }: ButtonProps) => {
         return "fill-white-100";
       case "gray":
         return "fill-primary-500";
-      case "darkGray":
+      case "darkGrayWhiteText":
+        return "fill-primary-500";
+      case "darkGrayBlueText":
         return "fill-primary-500";
     }
   })();

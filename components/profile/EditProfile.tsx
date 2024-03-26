@@ -76,7 +76,11 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
         </section>
 
         <Button color="blue" type="submit">
-          {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
+          {isSubmitting ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            "Update Profile"
+          )}
         </Button>
       </div>
     </form>

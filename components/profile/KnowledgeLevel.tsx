@@ -69,7 +69,7 @@ const KnowledgeLevel = ({
         </div>
 
         <div className="mt-2">
-          <Button color="darkGray" icon="plus" onClick={() => append("")}>
+          <Button color="gray" icon="plus" onClick={() => append("")}>
             Add knowledge checkmark
           </Button>
         </div>

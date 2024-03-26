@@ -76,7 +76,7 @@ const LearningGoals = ({
 
       <section className="mb-4">
         <Button
-          color="darkGray"
+          color="gray"
           icon="plus"
           onClick={() => append({ name: "", isComplete: false })}
         >
