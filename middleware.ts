@@ -32,5 +32,7 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/", "/admin"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|login|sign-up|sign-up/onboarding).*)",
+  ],
 };
