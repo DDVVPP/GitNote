@@ -7,13 +7,15 @@ import {
   Image as LandscapeIcon,
   UserCheck,
   Clock,
+  Calendar,
+  MapPin,
+  Link as LinkIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { format as formatDate } from "date-fns";
 
 import { User, Goals } from "@prisma/client";
 import QuickLink from "../left-navbar/QuickLink";
-import linkIcon from "@/public/linkIcon.svg";
 import Button from "../shared/ui/Button";
 import { techStack } from "@/lib/constants/techStack";
 import { TechStackType } from "@/types";
@@ -27,12 +29,15 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
     techStack: techStackUser,
     knowledgeLevel,
     availability,
+    createdAt,
     startDate,
     endDate,
+    location,
   } = user;
 
   const [techStackStateUI, setTechStackStateUI] = useState<TechStackType[]>();
 
+  const created = createdAt && formatDate(new Date(createdAt), "MMMM dd, yyyy");
   const start =
     startDate && formatDate(new Date(startDate), "MMMM dd, yyyy - p");
   const end = endDate && formatDate(new Date(endDate), "MMMM dd, yyyy - p");
@@ -67,16 +72,28 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
         <div className="space-between flex w-full justify-between">
           <div className="flex flex-col">
             <h1 className="display-2-bold text-white-100">{name ?? ""}</h1>
-            <div className="paragraph-3-regular flex gap-2">
+            <div className="paragraph-3-regular flex gap-4">
               {portfolio && (
-                <QuickLink
-                  icon={linkIcon}
-                  href={portfolio}
-                  name="JSM Courses"
-                />
+                <div className="text-primary-500 flex items-center gap-1">
+                  <LinkIcon size={16} className="text-black-600" />
+                  <a target="_blank" href={portfolio}>
+                    {portfolio}
+                  </a>
+                </div>
               )}
-              <p className="text-white-300">Zagreb, Croatia</p>
-              <p className="text-white-300">Joined some date</p>
+              {location && (
+                <div className="text-primary-500 flex items-center gap-1">
+                  <MapPin size={16} className="text-black-600" />
+                  <p className="text-white-300">{location}</p>
+                </div>
+              )}
+
+              {created && (
+                <div className="text-primary-500 flex items-center gap-1">
+                  <Calendar size={16} className="text-black-600" />
+                  <p className="text-white-300">Joined {created}</p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -93,7 +110,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
       <section>
         <div className="mt-20 flex flex-col">
           <h3 className="paragraph-1-bold">Learning Goals</h3>
-          {goals ? (
+          {goals && goals?.length > 0 ? (
             goals.map((goal) => {
               return (
                 <div key={goal.id} className="my-1 flex items-center gap-2">
@@ -116,13 +133,13 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
         </div>
 
         <div className="flex flex-col">
-          <h3 className="paragraph-1-bold mb-2">Technology Stack</h3>
+          <h3 className="paragraph-1-bold">Technology Stack</h3>
           <div className="flex gap-3">
             {techStackStateUI && techStackStateUI.length > 0 ? (
               techStackStateUI.map((tech) => {
                 const { icon: TechStackIcon, name, link } = tech;
                 return (
-                  <a href={link} target="_blank" key={name}>
+                  <a href={link} target="_blank" key={name} className="mt-2">
                     <TechStackIcon size={28} />
                   </a>
                 );
@@ -138,7 +155,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
         <div className=" flex flex-col">
           <h3 className="paragraph-1-bold">Knowledge Level</h3>
-          {knowledgeLevel ? (
+          {knowledgeLevel && knowledgeLevel.length > 0 ? (
             knowledgeLevel.map((level) => {
               return (
                 <div key={level} className="my-1 flex items-center gap-2">

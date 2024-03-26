@@ -31,8 +31,8 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
       knowledgeLevel: user?.knowledgeLevel ?? [],
       techStack: user?.techStack ?? [],
       availability: user?.availability ?? false,
-      startDate: user?.startDate ?? new Date(),
-      endDate: user?.endDate ?? new Date(),
+      startDate: new Date(user?.startDate as Date),
+      endDate: new Date(user?.endDate as Date),
     },
     resolver: zodResolver(ProfileSchema),
   });
