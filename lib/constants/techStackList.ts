@@ -5,7 +5,7 @@ import {
   NodeJSIcon,
   ReactJSIcon,
   StyledComponentsIcon,
-  TailwindCSS,
+  TailwindCSSIcon,
   TypescriptIcon,
   VSCodeIcon,
 } from "@/components/shared/icons/tech";
@@ -42,7 +42,7 @@ export const techStackList = [
     link: "https://www.typescriptlang.org/",
   },
   {
-    icon: TailwindCSS,
+    icon: TailwindCSSIcon,
     name: "tailwind",
     uiName: "Tawilwind CSS",
     link: "https://tailwindcss.com/",
