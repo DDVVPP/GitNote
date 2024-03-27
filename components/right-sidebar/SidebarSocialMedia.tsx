@@ -20,7 +20,7 @@ const SidebarSocialMedia = ({
         Social Media Links
       </h3>
 
-      <SocialMediaLinks />
+      <SocialMediaLinks user={user} />
 
       {open && (
         <div
