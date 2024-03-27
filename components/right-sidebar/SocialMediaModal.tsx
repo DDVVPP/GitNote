@@ -64,7 +64,7 @@ const SocialMediaModal = ({
               key={type}
               className="flex items-center justify-center gap-2 py-2"
             >
-              <Icon />
+              <Icon size={34} />
               <Controller
                 control={control}
                 name={`socialMedia.${index}.username`}
