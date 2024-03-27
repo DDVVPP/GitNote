@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SocialMediaLinks from "./SocialMediaLinks";
 import Button from "../shared/ui/Button";
-import Modal from "../shared/Modal";
+import SocialMediaModal from "./SocialMediaModal";
 import { User, Social } from "@prisma/client";
 
 const SidebarSocialMedia = ({
@@ -30,7 +30,7 @@ const SidebarSocialMedia = ({
           aria-modal="true"
         >
           <div className="fixed inset-0 flex items-center justify-center bg-opacity-75 backdrop-blur transition-opacity">
-            <Modal user={user} onClose={() => setOpen(false)} />
+            <SocialMediaModal user={user} onClose={() => setOpen(false)} />
           </div>
         </div>
       )}

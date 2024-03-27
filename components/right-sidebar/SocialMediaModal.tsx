@@ -1,12 +1,7 @@
 "use client";
 
 import { Loader2, X } from "lucide-react";
-import {
-  SubmitHandler,
-  useFieldArray,
-  useForm,
-  Controller,
-} from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -17,11 +12,11 @@ import {
   SocialMediaSchema,
 } from "@/lib/validations/UserSchema";
 import { Social, User } from "@prisma/client";
-import Input from "./ui/Input";
+import Input from "../shared/ui/Input";
 import { socialMediaIconList } from "@/lib/constants/socialMediaList";
-import Button from "./ui/Button";
+import Button from "../shared/ui/Button";
 
-const Modal = ({
+const SocialMediaModal = ({
   user,
   onClose,
 }: {
@@ -34,8 +29,6 @@ const Modal = ({
     },
     resolver: zodResolver(SocialMediaSchema),
   });
-
-  console.log("user in modal", user);
 
   const {
     formState: { isSubmitting },
@@ -124,4 +117,4 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default SocialMediaModal;
