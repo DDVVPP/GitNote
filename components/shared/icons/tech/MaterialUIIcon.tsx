@@ -1,11 +1,12 @@
 import IconWrapper from "../IconWrapper";
 
-const MaterialUIIcon = () => {
+const MaterialUIIcon = (props: any) => {
   return (
     <svg
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 204"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="m0 110.848v-110.848l96 55.424v36.9493333l-64-36.9493333v73.898667z"

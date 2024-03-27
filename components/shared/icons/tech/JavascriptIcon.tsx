@@ -1,11 +1,12 @@
 import IconWrapper from "../IconWrapper";
 
-const JavascriptIcon = () => {
+const JavascriptIcon = (props: any) => {
   return (
     <svg
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 256"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path d="m0 0h256v256h-256z" fill="#f7df1e" />
       <path d="m67.311746 213.932292 19.590908-11.856051c3.7794539 6.701105 7.2175746 12.370896 15.464432 12.370896 7.905117 0 12.88899-3.092318 12.88899-15.120254v-81.798096h24.057499v82.13821c0 24.917333-14.605816 36.258946-35.915175 36.258946-19.2451048 0-30.4164571-9.96734-36.0870603-21.995683" />
@@ -14,4 +15,7 @@ const JavascriptIcon = () => {
   );
 };
 
-export default IconWrapper(JavascriptIcon, "bg-none", "p-0.5");
+export default IconWrapper(JavascriptIcon, {
+  backgroundStyle: "bg-none",
+  padding: "p-0.5",
+});

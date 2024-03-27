@@ -1,8 +1,8 @@
 import IconWrapper from "../IconWrapper";
 
-const LinkedInIcon = () => {
+const LinkedInIcon = (props: any) => {
   return (
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         d="m0 0h24v24h-24z"
         fill="#fff"
@@ -18,4 +18,7 @@ const LinkedInIcon = () => {
   );
 };
 
-export default IconWrapper(LinkedInIcon, "bg-none", "", "fill-white-500");
+export default IconWrapper(LinkedInIcon, {
+  backgroundStyle: "bg-none",
+  strokeOrFill: "fill-white-500",
+});

@@ -1,8 +1,13 @@
 import IconWrapper from "../IconWrapper";
 
-const TailwindCSSIcon = () => {
+const TailwindCSSIcon = (props: any) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 54 40">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 54 40"
+      {...props}
+    >
       <g clipPath="url(#prefix__clip0)">
         <path
           fill="#38bdf8"
