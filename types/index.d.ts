@@ -11,3 +11,8 @@ export type TechStackType = {
   uiName: string;
   link?: string;
 };
+
+export type SocialMediaIconType = {
+  size?: number;
+  className?: string;
+};

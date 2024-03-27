@@ -1,0 +1,9 @@
+export { default as JavascriptIcon } from './JavascriptIcon';
+export { default as MaterialUIIcon } from './MaterialUIIcon';
+export { default as NextJS } from './NextJS';
+export { default as NodeJSIcon } from './NodeJS';
+export { default as ReactJS } from './ReactJS';
+export { default as StyledComponentsIcon } from './StyledComponentsIcon';
+export { default as TailwindCSS } from './Tailwind';
+export { default as TypescriptIcon } from './TypescriptIcon';
+export { default as VSCodeIcon } from './VSCodeIcon';

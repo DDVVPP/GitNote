@@ -1,12 +1,14 @@
-import JavascriptIcon from "@/components/shared/icons/tech/JavascriptIcon";
-import MaterialUIIcon from "@/components/shared/icons/tech/MaterialUIIcon";
-import NextJS from "@/components/shared/icons/tech/NextJS";
-import NodeJSIcon from "@/components/shared/icons/tech/NodeJS";
-import ReactJS from "@/components/shared/icons/tech/ReactJS";
-import StyledComponentsIcon from "@/components/shared/icons/tech/StyledComponentsIcon";
-import TailwindCSS from "@/components/shared/icons/tech/Tailwind";
-import TypescriptIcon from "@/components/shared/icons/tech/TypescriptIcon";
-import VSCodeIcon from "@/components/shared/icons/tech/VSCodeIcon";
+import {
+  JavascriptIcon,
+  MaterialUIIcon,
+  NextJSIcon,
+  NodeJSIcon,
+  ReactJSIcon,
+  StyledComponentsIcon,
+  TailwindCSS,
+  TypescriptIcon,
+  VSCodeIcon,
+} from "@/components/shared/icons/tech";
 
 export const techStackList = [
   {
@@ -16,13 +18,13 @@ export const techStackList = [
     link: "https://nodejs.org/",
   },
   {
-    icon: ReactJS,
+    icon: ReactJSIcon,
     name: "reactjs",
     uiName: "React.js",
     link: "https://react.dev/",
   },
   {
-    icon: NextJS,
+    icon: NextJSIcon,
     name: "nextjs",
     uiName: "Next.js",
     link: "https://nextjs.org/",
