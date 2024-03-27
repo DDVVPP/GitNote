@@ -27,6 +27,13 @@ export const UserSchema = z.object({
       isComplete: z.boolean(),
     })
   ),
+  socialMedia: z.array(
+    z.object({
+      id: z.number().optional(),
+      username: z.string().optional(),
+      type: z.string().optional(),
+    })
+  ),
   knowledgeLevel: z.string().min(1).array(),
   techStack: z.string().array(),
   availability: z.boolean(),
@@ -51,11 +58,18 @@ export type IOnboardingSchema = z.infer<typeof OnboardingSchema>;
 export const OnboardingSchema = UserSchema.omit({
   email: true,
   password: true,
+  socialMedia: true,
 });
 //-------------------------------
 
 export type IProfileSchema = z.infer<typeof ProfileSchema>;
 export const ProfileSchema = UserSchema.omit({
   password: true,
+  socialMedia: true,
+});
+//-------------------------------s
+export type ISocialMediaSchema = z.infer<typeof SocialMediaSchema>;
+export const SocialMediaSchema = UserSchema.pick({
+  socialMedia: true,
 });
 //-------------------------------
