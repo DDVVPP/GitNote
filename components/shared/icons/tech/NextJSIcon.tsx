@@ -1,6 +1,6 @@
 import { TechIconType } from "@/types";
 
-const NextJS = ({ size = 24, background = false }: TechIconType) => {
+const NextJSIcon = ({ size = 24, background = false }: TechIconType) => {
   const backgroundStyle = background && "bg-black-700 rounded border-none";
 
   return (
@@ -15,4 +15,4 @@ const NextJS = ({ size = 24, background = false }: TechIconType) => {
   );
 };
 
-export default NextJS;
+export default NextJSIcon;

@@ -1,6 +1,6 @@
 import { TechIconType } from "@/types";
 
-const ReactJS = ({ size = 24, background = true }: TechIconType) => {
+const ReactJSIcon = ({ size = 24, background = true }: TechIconType) => {
   const backgroundStyle = background && "bg-black-700 rounded border-none";
 
   return (
@@ -22,4 +22,4 @@ const ReactJS = ({ size = 24, background = true }: TechIconType) => {
   );
 };
 
-export default ReactJS;
+export default ReactJSIcon;
