@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Loader2, X } from "lucide-react";
 import {
   SubmitHandler,
@@ -28,6 +29,37 @@ const SocialMediaModal = ({
   user: User & { socialMedia?: Social[] };
   onClose: () => void;
 }) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    console.log("ref", ref);
+    const handleOutSideClick = (event: MouseEvent) => {
+      if (!ref.current?.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    window.addEventListener("mousedown", handleOutSideClick);
+
+    return () => {
+      window.removeEventListener("mousedown", handleOutSideClick);
+    };
+  }, [ref]);
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleEsc);
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
+
   const useFormHelpers = useForm<ISocialMediaSchema>({
     defaultValues: {
       socialMedia: user.socialMedia ?? [],
@@ -58,7 +90,7 @@ const SocialMediaModal = ({
   };
 
   return (
-    <div className="bg-black-800 flex rounded-md p-12">
+    <div className="bg-black-800 flex rounded-md p-12" ref={ref}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <div className="text-white-100 mb-4 flex items-center justify-between">
           <h1 className="display-1-bold">Social Media Links</h1>
