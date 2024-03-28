@@ -8,7 +8,7 @@ import { Image as LandscapeIcon } from "lucide-react";
 // import SidebarRelatedPosts from "./SidebarRelatedPosts";
 // import SidebarOnThisPage from "./SidebarOnThisPage";
 import SidebarSocialMedia from "./SidebarSocialMedia";
-import { User } from "next-auth";
+import { User } from "@prisma/client";
 
 const RightSidebar = ({ user }: { user: User }) => {
   return (
@@ -40,7 +40,7 @@ const RightSidebar = ({ user }: { user: User }) => {
       {/* <SidebarTags /> */}
       {/* <SidebarRelatedPosts /> */}
       {/* <SidebarOnThisPage /> */}
-      <SidebarSocialMedia />
+      <SidebarSocialMedia user={user} />
     </div>
   );
 };
