@@ -117,12 +117,3 @@ enum Category {
   COMPONENT
   KNOWLEDGE
 }
-
-enum SocialMediaType {
-  GITHUB
-  LINKEDIN
-  TWITTER
-  INSTAGRAM
-  FACEBOOK
-  DRIBBLE
-}
