@@ -37,7 +37,7 @@ const BasicAuthLogin = () => {
   return (
     <>
       <h1 className="display-2-bold mb-5">Login</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="mb-5 space-y-5">
         <Input
           label="Email"
           id="email"

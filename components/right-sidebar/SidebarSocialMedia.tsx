@@ -29,7 +29,7 @@ const SidebarSocialMedia = ({
             const { icon: Icon } = filtered[0];
 
             return (
-              <div className="flex items-center justify-center">
+              <div key={social.id} className="flex items-center justify-center">
                 <Icon size={30} />
                 <a
                   target="_blank"
