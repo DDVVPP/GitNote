@@ -32,7 +32,6 @@ const SocialMediaModal = ({
   const ref = useRef(null);
 
   useEffect(() => {
-    console.log("ref", ref);
     const handleOutSideClick = (event: MouseEvent) => {
       if (!ref.current?.contains(event.target)) {
         onClose();
@@ -74,15 +73,11 @@ const SocialMediaModal = ({
     handleSubmit,
     register,
   } = useFormHelpers;
-  console.log("errors", errors);
 
   const onSubmit: SubmitHandler<Partial<IUserSchema>> = async (data) => {
-    console.log("data", data);
-
     try {
       await updateUser(data);
     } catch (error) {
-      console.log("error in catch", error);
       toast.error("Unable to update user");
     } finally {
       onClose();
