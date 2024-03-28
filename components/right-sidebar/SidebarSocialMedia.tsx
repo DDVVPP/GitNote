@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
+
 import Button from "../shared/ui/Button";
 import SocialMediaModal from "./SocialMediaModal";
 import { User, Social } from "@prisma/client";
@@ -48,18 +50,18 @@ const SidebarSocialMedia = ({
         )}
       </div>
 
-      {open && (
-        <div
-          className="relative z-10"
-          aria-labelledby="modal-title"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="fixed inset-0 flex items-center justify-center bg-opacity-75 backdrop-blur transition-opacity">
+      {open &&
+        createPortal(
+          <div
+            aria-labelledby="social-media-modal"
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 backdrop-blur transition-opacity"
+          >
             <SocialMediaModal user={user} onClose={() => setOpen(false)} />
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };
