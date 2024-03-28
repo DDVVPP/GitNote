@@ -94,10 +94,12 @@ export async function updateUser(
         update: {
           username: socialMedia.username,
           type: socialMedia.type,
+          link: socialMedia.link,
         },
         create: {
           username: socialMedia.username,
           type: socialMedia.type,
+          link: socialMedia.link,
         },
       })),
     };

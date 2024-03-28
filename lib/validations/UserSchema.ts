@@ -30,7 +30,25 @@ export const UserSchema = z.object({
   socialMedia: z.array(
     z.object({
       id: z.number().optional(),
-      username: z.string().optional(),
+      username: z
+        .string()
+        .refine(
+          (value) => {
+            if (!value) return true;
+            return value.length > 1;
+          },
+          {
+            message: "Username must contain at least 1 character",
+          }
+        )
+        .optional(),
+      link: z
+        .string()
+        .refine((value) => {
+          if (!value) return true;
+          return urlMatch.test(value);
+        })
+        .optional(),
       type: z.string().optional(),
     })
   ),

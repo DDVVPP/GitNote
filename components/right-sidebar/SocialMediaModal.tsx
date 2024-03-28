@@ -1,7 +1,12 @@
 "use client";
 
 import { Loader2, X } from "lucide-react";
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import {
+  SubmitHandler,
+  useForm,
+  Controller,
+  FieldError,
+} from "react-hook-form";
 import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -31,11 +36,13 @@ const SocialMediaModal = ({
   });
 
   const {
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
     control,
     trigger,
     handleSubmit,
+    register,
   } = useFormHelpers;
+  console.log("errors", errors);
 
   const onSubmit: SubmitHandler<Partial<IUserSchema>> = async (data) => {
     console.log("data", data);
@@ -51,8 +58,8 @@ const SocialMediaModal = ({
   };
 
   return (
-    <div className="bg-black-800 z-50 flex flex-col rounded p-12 shadow-md">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="bg-black-800 flex rounded-md  p-12">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <div className="text-white-100 mb-4 flex items-center justify-between">
           <h1 className="display-1-bold">Social Media Links</h1>
           <X onClick={onClose} cursor="pointer" />
@@ -60,10 +67,7 @@ const SocialMediaModal = ({
         {socialMediaIconList.map((icon, index) => {
           const { icon: Icon, type } = icon;
           return (
-            <div
-              key={type}
-              className="flex items-center justify-center gap-2 py-2"
-            >
+            <div key={type} className="flex justify-center gap-2 py-2">
               <Icon size={34} />
               <Controller
                 control={control}
@@ -78,6 +82,11 @@ const SocialMediaModal = ({
                         trigger(name);
                       }}
                       placeholder="Username"
+                      errors={
+                        errors.socialMedia &&
+                        (errors.socialMedia[index]?.username
+                          ?.message as FieldError & string)
+                      }
                     />
                   </div>
                 )}
@@ -85,21 +94,36 @@ const SocialMediaModal = ({
 
               <Controller
                 control={control}
-                name={`socialMedia.${index}.type`}
+                name={`socialMedia.${index}.link`}
                 render={({ field: { name, onChange, ...rest } }) => (
                   <div className="-mb-5">
                     <Input
-                      id={type}
+                      id="link"
                       {...rest}
                       onChange={(event) => {
                         onChange(event);
                         trigger(name);
                       }}
                       placeholder="Social Link"
+                      errors={
+                        errors.socialMedia &&
+                        (errors.socialMedia[index]?.link
+                          ?.message as FieldError & string)
+                      }
                     />
                   </div>
                 )}
               />
+
+              <div className="-mb-5">
+                <Input
+                  id={type}
+                  value={type}
+                  {...register(`socialMedia.${index}.type`)}
+                  placeholder=""
+                  hidden
+                />
+              </div>
             </div>
           );
         })}
