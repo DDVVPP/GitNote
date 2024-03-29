@@ -2,6 +2,7 @@
 
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Calendar } from "lucide-react";
 import { Controller } from "react-hook-form";
 
 const Availability = ({
@@ -46,17 +47,23 @@ const Availability = ({
               control={control}
               name="startDate"
               render={({ field }) => (
-                <ReactDatePicker
-                  className={`${textColor} bg-black-700 paragraph-3-regular flex w-full  border-none py-4 pl-4 pr-1`}
-                  onChange={(e) => field.onChange(e)}
-                  selected={field.value}
-                  showTimeSelect
-                  timeFormat="HH:mm"
-                  timeIntervals={15}
-                  timeCaption="time"
-                  dateFormat="MM/dd/yyyy h:mm aa"
-                  disabled={!availabilityValue}
-                />
+                <>
+                  <ReactDatePicker
+                    className={`${textColor} react-datepicker__view-calendar-icon paragraph-3-regular h-11 w-full border-none bg-transparent !px-0`}
+                    onChange={(e) => field.onChange(e)}
+                    selected={field.value}
+                    showTimeSelect
+                    timeFormat="h:mm aa"
+                    timeIntervals={15}
+                    timeCaption="time"
+                    dateFormat="MM/dd/yyyy h:mm aa"
+                    disabled={!availabilityValue}
+                    showIcon
+                    icon={
+                      <Calendar className="stroke-white-500 !relative !pl-4" />
+                    }
+                  />
+                </>
               )}
             />
             <span className="paragraph-4-regular text-white-500">
@@ -73,15 +80,19 @@ const Availability = ({
               name="endDate"
               render={({ field }) => (
                 <ReactDatePicker
-                  className={`${textColor} bg-black-700 paragraph-3-regular  w-full border-none py-4 pl-4 pr-1`}
+                  className={`${textColor} react-datepicker__view-calendar-icon paragraph-3-regular h-11 w-full border-none bg-transparent !px-0`}
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
                   showTimeSelect
-                  timeFormat="HH:mm"
+                  timeFormat="h:mm aa"
                   timeIntervals={15}
                   timeCaption="time"
                   dateFormat="MM/dd/yyyy h:mm aa"
                   disabled={!availabilityValue}
+                  showIcon
+                  icon={
+                    <Calendar className="stroke-white-500 !relative !pl-4" />
+                  }
                 />
               )}
             />
