@@ -48,7 +48,7 @@ const Availability = ({
               name="startDate"
               render={({ field }) => (
                 <ReactDatePicker
-                  className={`${textColor} react-datepicker__view-calendar-icon paragraph-3-regular h-11 w-full border-none bg-transparent !px-0`}
+                  className={`${textColor} paragraph-3-regular h-11 w-full border-none bg-transparent !px-0`}
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
                   showTimeSelect
@@ -78,7 +78,7 @@ const Availability = ({
               name="endDate"
               render={({ field }) => (
                 <ReactDatePicker
-                  className={`${textColor} react-datepicker__view-calendar-icon paragraph-3-regular h-11 w-full border-none bg-transparent !px-0`}
+                  className={`${textColor} paragraph-3-regular h-11 w-full border-none bg-transparent !px-0`}
                   onChange={(e) => field.onChange(e)}
                   selected={field.value}
                   showTimeSelect

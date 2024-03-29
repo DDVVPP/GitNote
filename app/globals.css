@@ -93,8 +93,8 @@
   .primary-gradient {
     background: linear-gradient(90deg, rgb(67, 183, 254), rgb(79, 72, 230));
   }
+}
 
-  .react-datepicker__view-calendar-icon {
-    @apply bg-black-700 !flex items-center rounded;
-  }
+.react-datepicker__view-calendar-icon {
+  @apply bg-black-700 !flex items-center rounded;
 }
