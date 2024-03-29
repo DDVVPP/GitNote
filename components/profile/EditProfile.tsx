@@ -40,7 +40,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
   const {
     watch,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useFormHelpers;
   const formData = watch();
 

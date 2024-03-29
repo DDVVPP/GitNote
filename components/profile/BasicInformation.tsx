@@ -32,7 +32,7 @@ const BasicInformation = ({
   };
 
   return (
-    <div className="space-y-5">
+    <section className="space-y-5">
       {isEditProfile ? (
         <h3 className="paragraph-3-medium text-white-500">BASIC INFORMATION</h3>
       ) : (
@@ -129,7 +129,7 @@ const BasicInformation = ({
           />
         )}
       />
-    </div>
+    </section>
   );
 };
 

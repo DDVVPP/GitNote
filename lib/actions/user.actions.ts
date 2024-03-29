@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { prisma } from "@/db";
-import { User, Goals } from "@prisma/client";
+import { User, Goals, Social } from "@prisma/client";
 import bcryptjs from "bcryptjs";
 import { revalidateTag, unstable_cache } from "next/cache";
 
@@ -39,6 +39,7 @@ async function _getUser() {
       },
       include: {
         goals: true,
+        socialMedia: true,
       },
     });
     return user;
@@ -52,7 +53,9 @@ export const getUser = unstable_cache(_getUser, ["getUser"], {
   tags: ["userData"],
 });
 
-export async function updateUser(data: Partial<User & { goals?: any }>) {
+export async function updateUser(
+  data: Partial<User & { goals?: any } & { socialMedia?: any }>
+) {
   const session = await auth();
   const email = session && (await session.user?.email);
   if (!email) return { error: "User not found!" };
@@ -75,6 +78,39 @@ export async function updateUser(data: Partial<User & { goals?: any }>) {
     };
   }
 
+  if (data && data.socialMedia) {
+    const filteredData =
+      data.socialMedia &&
+      data.socialMedia.filter((social: { username: string; type: string }) => {
+        if (social.username && social.type)
+          return social.username.length > 0 && social.type.length > 0;
+      });
+    const emptyUsernames = data.socialMedia.filter((social: Social) => {
+      return social.username === "";
+    });
+
+    data.socialMedia = {
+      upsert: filteredData.map((socialMedia: Social) => ({
+        where: {
+          id: socialMedia.id || -1,
+        },
+        update: {
+          username: socialMedia.username,
+          type: socialMedia.type,
+          link: socialMedia.link,
+        },
+        create: {
+          username: socialMedia.username,
+          type: socialMedia.type,
+          link: socialMedia.link,
+        },
+      })),
+      deleteMany: emptyUsernames.map((socialMedia: Social) => ({
+        id: socialMedia.id,
+      })),
+    };
+  }
+
   try {
     if (data) {
       const user = await prisma.user.update({
@@ -84,6 +120,7 @@ export async function updateUser(data: Partial<User & { goals?: any }>) {
         data,
         include: {
           goals: true,
+          socialMedia: true,
         },
       });
       revalidateTag("userData");
