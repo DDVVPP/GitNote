@@ -1,4 +1,4 @@
-import EditProfile from "@/components/profile/EditProfile";
+import { EditProfile } from "@/components/profile";
 import { getUser } from "@/lib/actions/user.actions";
 import { User } from "@prisma/client";
 

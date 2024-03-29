@@ -14,12 +14,14 @@ import {
   OnboardingSchema,
 } from "@/lib/validations/UserSchema";
 
-import BasicInformation from "@/components/profile/BasicInformation";
-import LearningGoals from "@/components/profile/LearningGoals";
-import KnowledgeLevel from "@/components/profile/KnowledgeLevel";
-import Availability from "@/components/profile/Availability";
+import {
+  BasicInformation,
+  LearningGoals,
+  KnowledgeLevel,
+  Availability,
+} from "@/components/profile";
 import OnboardingVisualStepper from "@/components/onboarding/OnboardingVisualStepper";
-import Button from "@/components/shared/ui/Button";
+import { Button } from "@/components/shared/ui";
 
 const Onboarding = ({ user }: { user: User }) => {
   const router = useRouter();
