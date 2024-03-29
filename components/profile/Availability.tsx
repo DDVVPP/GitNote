@@ -47,23 +47,21 @@ const Availability = ({
               control={control}
               name="startDate"
               render={({ field }) => (
-                <>
-                  <ReactDatePicker
-                    className={`${textColor} react-datepicker__view-calendar-icon paragraph-3-regular h-11 w-full border-none bg-transparent !px-0`}
-                    onChange={(e) => field.onChange(e)}
-                    selected={field.value}
-                    showTimeSelect
-                    timeFormat="h:mm aa"
-                    timeIntervals={15}
-                    timeCaption="time"
-                    dateFormat="MM/dd/yyyy h:mm aa"
-                    disabled={!availabilityValue}
-                    showIcon
-                    icon={
-                      <Calendar className="stroke-white-500 !relative !pl-4" />
-                    }
-                  />
-                </>
+                <ReactDatePicker
+                  className={`${textColor} react-datepicker__view-calendar-icon paragraph-3-regular h-11 w-full border-none bg-transparent !px-0`}
+                  onChange={(e) => field.onChange(e)}
+                  selected={field.value}
+                  showTimeSelect
+                  timeFormat="h:mm aa"
+                  timeIntervals={15}
+                  timeCaption="time"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                  disabled={!availabilityValue}
+                  showIcon
+                  icon={
+                    <Calendar className="stroke-white-500 !relative !pl-4" />
+                  }
+                />
               )}
             />
             <span className="paragraph-4-regular text-white-500">

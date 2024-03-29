@@ -22,7 +22,7 @@ const SidebarSocialMedia = ({
         Social Media Links
       </h3>
 
-      <div className="flex gap-2">
+      <div className="mr-1 flex flex-col">
         {user.socialMedia ? (
           user.socialMedia.map((social) => {
             const filtered = socialMediaIconList.filter(
@@ -31,16 +31,21 @@ const SidebarSocialMedia = ({
             const { icon: Icon } = filtered[0];
 
             return (
-              <div key={social.id} className="flex items-center justify-center">
-                <Icon size={30} />
-                <a
-                  target="_blank"
-                  href={social.link}
-                  className="text-white-300 paragraph-2-regular"
+              social.username && (
+                <div
+                  key={social.id}
+                  className="flex flex-wrap items-center justify-start"
                 >
-                  @{social.username}
-                </a>
-              </div>
+                  <Icon size={30} />
+                  <a
+                    target="_blank"
+                    href={social.link ?? "No link found"}
+                    className="text-white-300 paragraph-2-regular"
+                  >
+                    @{social.username}
+                  </a>
+                </div>
+              )
             );
           })
         ) : (

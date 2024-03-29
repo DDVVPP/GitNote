@@ -86,9 +86,9 @@ model Post {
 
 model Social {
   id        Int    @id @default(autoincrement())
-  username  String
-  type      String
-  link      String
+  username  String?
+  type      String?
+  link      String?
   user      User @relation(fields: [userId], references: [id])
   userId    String
 }

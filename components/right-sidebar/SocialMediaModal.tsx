@@ -29,11 +29,10 @@ const SocialMediaModal = ({
   user: User & { socialMedia?: Social[] };
   onClose: () => void;
 }) => {
-  const ref = useRef(null);
-
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleOutSideClick = (event: MouseEvent) => {
-      if (!ref.current?.contains(event.target)) {
+      if (!ref.current?.contains(event.target as Node)) {
         onClose();
       }
     };
@@ -59,9 +58,24 @@ const SocialMediaModal = ({
     };
   }, []);
 
+  const userSocials = new Array(socialMediaIconList.length);
+  socialMediaIconList.forEach((icon, index) => {
+    const { type } = icon;
+    const matchedData = user.socialMedia?.find(
+      (social) => social.type === type
+    );
+
+    userSocials[index] = matchedData ?? {
+      type,
+      username: "",
+      link: "",
+      id: -1,
+    };
+  });
+
   const useFormHelpers = useForm<ISocialMediaSchema>({
     defaultValues: {
-      socialMedia: user.socialMedia ?? [],
+      socialMedia: userSocials,
     },
     resolver: zodResolver(SocialMediaSchema),
   });

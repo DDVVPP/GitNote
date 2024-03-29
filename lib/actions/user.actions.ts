@@ -85,6 +85,9 @@ export async function updateUser(
         if (social.username && social.type)
           return social.username.length > 0 && social.type.length > 0;
       });
+    const emptyUsernames = data.socialMedia.filter((social: Social) => {
+      return social.username === "";
+    });
 
     data.socialMedia = {
       upsert: filteredData.map((socialMedia: Social) => ({
@@ -101,6 +104,9 @@ export async function updateUser(
           type: socialMedia.type,
           link: socialMedia.link,
         },
+      })),
+      deleteMany: emptyUsernames.map((socialMedia: Social) => ({
+        id: socialMedia.id,
       })),
     };
   }
