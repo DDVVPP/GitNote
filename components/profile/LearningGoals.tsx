@@ -4,7 +4,7 @@ import React from "react";
 import { useFieldArray } from "react-hook-form";
 import { X } from "lucide-react";
 
-import Button from "@/components/shared/ui/Button";
+import { Button } from "@/components/shared/ui";
 
 const LearningGoals = ({
   useFormHelpers,

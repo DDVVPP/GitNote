@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Controller } from "react-hook-form";
 
 import { UploadFile } from "@/lib/actions/s3.actions";
-import Input from "@/components/shared/ui/Input";
+import { Input } from "@/components/shared/ui";
 
 const BasicInformation = ({
   useFormHelpers,

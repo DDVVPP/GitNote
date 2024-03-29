@@ -11,8 +11,7 @@ import {
   UserLoginSchema,
 } from "@/lib/validations/UserSchema";
 
-import Input from "@/components/shared/ui/Input";
-import Button from "@/components/shared/ui/Button";
+import { Input, Button } from "@/components/shared/ui";
 
 const BasicAuthLogin = () => {
   const { register, handleSubmit, formState } = useForm<IUserLoginSchema>({
