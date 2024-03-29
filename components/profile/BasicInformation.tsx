@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { Image as LandscapeIcon, UploadCloud } from "lucide-react";
 import Image from "next/image";
