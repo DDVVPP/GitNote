@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-const urlMatch =
-  /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+import { urlMatch } from "../utils/constants";
 
 export type IUserSchema = z.infer<typeof UserSchema>;
 export const UserSchema = z.object({
