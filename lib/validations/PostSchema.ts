@@ -13,6 +13,8 @@ export const PostSchema = z.object({
     .string()
     .min(1, { message: "Description must contain at least 20 characters" }),
   codeEditor: z.string().optional(),
+  learnings: z.string().min(1).array(),
+  steps: z.string().min(1).array(),
   content: z.string().optional(),
   tags: z.string().min(1).array(),
   resources: z.array(
@@ -33,3 +35,13 @@ export const PostSchema = z.object({
   ),
 });
 //-------------------------------
+
+// .refine((data) => {
+//   if (data.role === 'teacher' && !data.subject) {
+//     return false;
+//   }
+//   return true
+// }, {
+//   message: 'Teacher must have a subject',
+//   path: ['subject']
+// })

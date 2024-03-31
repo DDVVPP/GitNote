@@ -77,6 +77,8 @@ model Post {
   description String
   codeEditor  String?
   content     String?
+  steps       String[]
+  learnings   String[]
   user        User       @relation(fields: [userId], references: [id])
   tags        String[]
   resources   Resource[]

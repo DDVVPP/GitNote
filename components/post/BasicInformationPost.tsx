@@ -1,16 +1,25 @@
+"use client";
+
+import React from "react";
 import { Controller } from "react-hook-form";
 import { CreateType } from "@prisma/client";
 
 import { Input } from "@/components/shared/ui";
+import Learnings from "./Learnings";
+import CodeEditor from "./CodeEditor";
+import Steps from "./Steps";
 
 const BasicInformationPost = ({
   useFormHelpers,
   register,
+  useFieldArray,
 }: {
   useFormHelpers: any;
   register: any;
+  useFieldArray: any;
 }) => {
-  const { trigger, control } = useFormHelpers;
+  const { trigger, control, watch } = useFormHelpers;
+  const postType = watch("createType");
 
   return (
     <section className="space-y-6">
@@ -100,19 +109,23 @@ const BasicInformationPost = ({
         />
       </div>
 
-      <div className="text-white-300 flex flex-col space-y-2">
-        {/* placeholder */}
-        <div className="paragraph-3-medium flex  rounded-md border-none">
-          <label className="bg-black-700 rounded p-3">Code</label>
-          <label className="bg-black-800 rounded p-3">Preview</label>
-        </div>
-
-        <textarea
-          className="paragraph-3-regular bg-black-700 rounded-md border-none p-3"
-          placeholder=""
-          {...register("codeEditor")}
+      {postType === CreateType.KNOWLEDGE && (
+        <Learnings
+          useFieldArray={useFieldArray}
+          useFormHelpers={useFormHelpers}
+          register={register}
         />
-      </div>
+      )}
+
+      {postType === CreateType.COMPONENT && <CodeEditor register={register} />}
+
+      {postType === CreateType.WORKFLOW && (
+        <Steps
+          useFieldArray={useFieldArray}
+          useFormHelpers={useFormHelpers}
+          register={register}
+        />
+      )}
     </section>
   );
 };
