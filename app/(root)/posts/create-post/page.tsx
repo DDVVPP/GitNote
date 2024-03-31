@@ -57,6 +57,7 @@ const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <BasicInformationPost
             useFormHelpers={useFormHelpers}
             register={register}
+            useFieldArray={useFieldArray}
           />
 
           <Content register={register} />
