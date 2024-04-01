@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { CreateType, Goals, User } from "@prisma/client";
 import { IPostSchema, PostSchema } from "@/lib/validations/PostSchema";
 
+import { createPost } from "@/lib/actions/post.actions";
 import { Button } from "@/components/shared/ui";
 import BasicInformationPost from "@/components/post/BasicInformationPost";
 import Content from "@/components/post/Content";
@@ -22,9 +23,12 @@ const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
     defaultValues: {
       title: "",
       createType: CreateType.COMPONENT,
-      tags: [],
       description: "",
+      codeEditor: "",
       content: "",
+      steps: [],
+      learnings: [],
+      // tags: [],
       resources: [],
     },
     resolver: zodResolver(PostSchema),
@@ -41,7 +45,7 @@ const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
   const onSubmit: SubmitHandler<IPostSchema> = async (data) => {
     try {
-      // await updateUser(data);
+      await createPost(data);
       router.push("/");
     } catch (error) {
       console.log("error in catch", error);

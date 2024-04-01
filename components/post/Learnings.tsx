@@ -34,7 +34,7 @@ const Learnings = ({
               </div>
               <input
                 className="paragraph-3-regular text-white-100 placeholder:paragraph-3-regular placeholder:text-white-300 bg-black-700 ml-2 w-full rounded-md border-none pl-1 focus:outline-none"
-                placeholder="Enter a knowledge level"
+                placeholder="Enter what you've learned"
                 {...register(`learnings.${index}`)}
               />
               <button>

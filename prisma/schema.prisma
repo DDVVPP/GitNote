@@ -79,12 +79,10 @@ model Post {
   content     String?
   steps       String[]
   learnings   String[]
-  user        User       @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userEmail], references: [email])
   tags        String[]
   resources   Resource[]
-  contentId   Int
-  userId      String
-  resourceId  Int
+  userEmail   String
 }
 
 model Social {
@@ -104,10 +102,12 @@ model Goals {
 }
 
 model Resource {
-  id    Int    @id @default(autoincrement())
-  label String?
-  link  String?
-  posts Post[]
+  id          Int    @id @default(autoincrement())
+  label       String?
+  link        String?
+  post        Post @relation(fields: [postId], references: [id])
+  postId      Int
+  // posts Post[]
 }
 
 enum Role {
