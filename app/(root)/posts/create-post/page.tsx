@@ -38,7 +38,7 @@ const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
     register,
     watch,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useFormHelpers;
   const formData = watch();
   const { control } = useFormHelpers;
@@ -69,6 +69,7 @@ const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
             register={register}
             useFieldArray={useFieldArray}
             control={control}
+            errors={errors}
           />
         </section>
 

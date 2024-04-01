@@ -1,3 +1,4 @@
+import React from "react";
 import { X } from "lucide-react";
 
 import { Button } from "../shared";
@@ -6,10 +7,12 @@ const Resources = ({
   useFieldArray,
   register,
   control,
+  errors,
 }: {
   useFieldArray: any;
   register: any;
   control: any;
+  errors: any;
 }) => {
   const { fields, append, remove } = useFieldArray({
     name: "resources",
@@ -26,28 +29,45 @@ const Resources = ({
 
       {fields.map((field: { id: number }, index: number) => {
         return (
-          <div key={field.id} className="flex gap-x-2 ">
-            <input
-              type="text"
-              className="placeholder:text-white-500 paragraph-3-regular bg-black-700 w-full rounded-md border-none p-3 focus:outline-none"
-              placeholder="Label"
-              {...register(`resources.${index}.label`)}
-            />
+          <React.Fragment key={field.id}>
+            <div className="mb-4 flex gap-x-2">
+              <div className="flex w-full flex-col">
+                <input
+                  type="text"
+                  className="placeholder:text-white-500 paragraph-3-regular bg-black-700 w-full rounded-md border-none p-3 focus:outline-none"
+                  placeholder="Label"
+                  {...register(`resources.${index}.label`)}
+                />
 
-            <input
-              type="text"
-              className="placeholder:text-white-500 paragraph-3-regular bg-black-700 w-full rounded-md border-none p-3 focus:outline-none"
-              placeholder="Resource Link"
-              {...register(`resources.${index}.link`)}
-            />
-            <button className="bg-black-700 rounded p-4">
-              <X
-                className="text-white-500"
-                size={16}
-                onClick={() => remove(index)}
-              />
-            </button>
-          </div>
+                {errors.resources &&
+                  errors.resources[index]?.label?.message && (
+                    <span className="text-error-500 paragraph-3-regular">
+                      {errors.resources[index].label.message}
+                    </span>
+                  )}
+              </div>
+              <div className="flex w-full flex-col">
+                <input
+                  type="text"
+                  className="placeholder:text-white-500 paragraph-3-regular bg-black-700 w-full rounded-md border-none p-3 focus:outline-none"
+                  placeholder="Resource Link"
+                  {...register(`resources.${index}.link`)}
+                />
+                {errors.resources && errors.resources[index]?.link?.message && (
+                  <span className="text-error-500 paragraph-3-regular">
+                    {errors.resources[index].link.message}
+                  </span>
+                )}
+              </div>
+              <button className="bg-black-700 h-11 rounded px-3">
+                <X
+                  className="text-white-500"
+                  size={16}
+                  onClick={() => remove(index)}
+                />
+              </button>
+            </div>
+          </React.Fragment>
         );
       })}
 
