@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Controller } from "react-hook-form";
 import { CreateType } from "@prisma/client";
 
@@ -8,6 +8,7 @@ import { Input } from "@/components/shared/ui";
 import Learnings from "./Learnings";
 import CodeEditor from "./CodeEditor";
 import Steps from "./Steps";
+import Tags from "./Tags";
 
 const BasicInformationPost = ({
   useFormHelpers,
@@ -18,9 +19,8 @@ const BasicInformationPost = ({
   register: any;
   useFieldArray: any;
 }) => {
-  const { trigger, control, watch } = useFormHelpers;
+  const { trigger, control, watch, setValue } = useFormHelpers;
   const postType = watch("createType");
-  // const tagsState = watch("tags");
 
   return (
     <section className="space-y-6">
@@ -79,27 +79,7 @@ const BasicInformationPost = ({
         </select>
       </div>
 
-      {/* <Controller
-        control={control}
-        name="tags"
-        render={({
-          field: { name, onChange, ...rest },
-          formState: { errors },
-        }) => (
-          <Input
-            label="Tags"
-            type="search"
-            id="tags"
-            {...rest}
-            onChange={(event) => {
-              onChange(() => setTagSearchItem(event.target.value));
-              trigger(name);
-            }}
-            placeholder="Search tags"
-            errors={errors.tags?.message as string}
-          />
-        )}
-      /> */}
+      <Tags useFormHelpers={useFormHelpers} />
 
       <div className="text-white-300 flex flex-col">
         <label className="paragraph-3-medium mb-2">Description</label>

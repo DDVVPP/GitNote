@@ -17,7 +17,7 @@ export const PostSchema = z
     content: z.string(),
     steps: z.string().min(1).array(),
     learnings: z.string().min(1).array(),
-    // tags: z.string().min(1).array(),
+    tags: z.string().min(1).array(),
     resources: z.array(
       z.object({
         id: z.number().optional(),
