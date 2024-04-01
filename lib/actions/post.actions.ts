@@ -2,14 +2,13 @@
 
 import { auth } from "@/auth";
 import { prisma } from "@/db";
-import { Post, Resource } from "@prisma/client";
+import { Post, Resource, User } from "@prisma/client";
 import { revalidateTag, unstable_cache } from "next/cache";
 
 export async function createPost(data: Partial<Post & { resources?: any }>) {
   const session = await auth();
   const email = session && (await session.user?.email);
   if (!email) return { error: "User not found!" };
-  console.log("email>>>>>", email);
 
   try {
     if (data) {
@@ -22,12 +21,12 @@ export async function createPost(data: Partial<Post & { resources?: any }>) {
               email,
             },
           },
-          resources: data.resources?.map((resource: Resource) => ({
-            create: {
+          resources: {
+            create: data.resources?.map((resource: Resource) => ({
               label: resource.label,
               link: resource.link,
-            },
-          })),
+            })),
+          },
         },
       });
       return { post, error: null };
