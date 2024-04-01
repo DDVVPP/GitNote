@@ -28,7 +28,7 @@ const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
       content: "",
       steps: [],
       learnings: [],
-      // tags: [],
+      tags: [],
       resources: [],
     },
     resolver: zodResolver(PostSchema),
@@ -40,7 +40,6 @@ const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useFormHelpers;
-  const formData = watch();
   const { control } = useFormHelpers;
 
   const onSubmit: SubmitHandler<IPostSchema> = async (data) => {
