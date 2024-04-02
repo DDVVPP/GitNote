@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { CreateType } from "@prisma/client";
 import { createTypeList } from "@/lib/constants/createTypeList";
 import ChevronDown from "../shared/icons/ChevronDown";
 import ChevronUp from "../shared/icons/ChevronUp";
+import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
+import useEscapeHandler from "@/lib/utils/useEscapeHandler";
 
 type CreateTypeListItemType = {
   icon: (props: any) => JSX.Element;
@@ -21,8 +23,13 @@ const CreateTypeSelect = ({
   setValue: any;
   postType: any;
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selection, setSelection] = useState<CreateTypeListItemType>();
+
+  const onClose = () => setIsOpen(false);
+  useOutsideClickHandler(ref, onClose);
+  useEscapeHandler(onClose);
 
   useEffect(() => {
     const initType = createTypeList.filter(
@@ -63,12 +70,15 @@ const CreateTypeSelect = ({
         {isOpen ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
       </button>
       {isOpen && (
-        <div className="paragraph-3-medium bg-black-700 mt-0.5 flex flex-col gap-y-2 rounded p-2">
+        <div
+          ref={ref}
+          className="paragraph-3-medium bg-black-700 mt-0.5 flex flex-col gap-y-2 rounded p-2"
+        >
           {createTypeList.map((createType) => {
             const { icon: Icon, uiName, color } = createType;
             return (
               <ul
-                className={`flex cursor-pointer gap-x-2 ${color}`}
+                className={`flex cursor-pointer gap-x-2 ${color} hover:bg-black-600 p-1 hover:rounded hover:p-1`}
                 onClick={() =>
                   onSelectClick(createType as CreateTypeListItemType)
                 }
