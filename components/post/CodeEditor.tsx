@@ -3,6 +3,8 @@
 import Prism from "prismjs";
 import "prismjs/themes/prism-solarizedlight.css";
 import React, { useEffect, useState } from "react";
+import EyeIcon from "../shared/icons/EyeIcon";
+import CodeIcon from "../shared/icons/CodeIcon";
 
 const CodeEditor = ({
   register,
@@ -31,18 +33,21 @@ const CodeEditor = ({
           type="button"
           className={`${
             isPreview ? "bg-black-800" : "bg-black-700"
-          } rounded p-3`}
+          } flex items-center gap-x-2 rounded p-3`}
           onClick={() => setIsPreview(false)}
         >
+          <CodeIcon size={20} />
           Code
         </button>
+
         <button
           type="button"
           className={`${
             isPreview ? "bg-black-700" : "bg-black-800"
-          } rounded p-3`}
+          } flex items-center gap-x-2 rounded p-3`}
           onClick={() => setIsPreview(true)}
         >
+          <EyeIcon size={20} />
           Preview
         </button>
       </div>
