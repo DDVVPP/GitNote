@@ -22,6 +22,7 @@ const BasicInformationPost = ({
 }) => {
   const { trigger, control, watch, setValue } = useFormHelpers;
   const postType = watch("createType");
+  const codeContent = watch("codeEditor");
 
   return (
     <section className="space-y-6">
@@ -72,7 +73,13 @@ const BasicInformationPost = ({
       )}
 
       {postType === CreateType.COMPONENT && (
-        <CodeEditor register={register} watch={watch} />
+        <Controller
+          control={control}
+          name="codeEditor"
+          render={({ field: { onChange } }) => (
+            <CodeEditor onChange={onChange} codeContent={codeContent} />
+          )}
+        />
       )}
 
       {postType === CreateType.WORKFLOW && (

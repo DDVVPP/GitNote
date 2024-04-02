@@ -7,23 +7,24 @@ import "prismjs/themes/prism-tomorrow.css";
 import EyeIcon from "../shared/icons/EyeIcon";
 import CodeIcon from "../shared/icons/CodeIcon";
 
-const CodeEditor = ({ register, watch }: { register: any; watch: any }) => {
-  const codeContent = watch("codeEditor");
-
+const CodeEditor = ({
+  onChange,
+  codeContent,
+}: {
+  onChange: (value: string) => void;
+  codeContent: string;
+}) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [numberOfEditorLines, setNumberOfEditorLines] = useState(0);
   const [isPreview, setIsPreview] = useState(false);
 
   useEffect(() => {
+    Prism.highlightAll();
     setNumberOfEditorLines(codeContent.split("\n").length);
 
     if (!textAreaRef.current) return;
     textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-  }, [codeContent]);
-
-  useEffect(() => {
-    Prism.highlightAll();
-  }, [isPreview]);
+  }, [codeContent, isPreview]);
 
   return (
     <section className="text-white-300 flex flex-col space-y-2">
@@ -52,22 +53,23 @@ const CodeEditor = ({ register, watch }: { register: any; watch: any }) => {
       </div>
 
       {isPreview ? (
-        <pre className="language-javascript !rounded !bg-[#26272c]">
+        <pre className="language-javascript !rounded !bg-[#21212c]">
           <code>{codeContent}</code>
         </pre>
       ) : (
-        <div className="bg-black-700 relative flex h-96 justify-start overflow-y-auto">
+        <div className="bg-black-700 relative flex h-96 overflow-y-auto">
           <div className="editorLineNumbers absolute left-0 top-0 flex flex-col pt-2">
             {[...Array(numberOfEditorLines)].map((_, idx) => (
               <span>{idx + 1}</span>
             ))}
           </div>
           <textarea
+            id="code-text-area"
+            spellCheck={false}
             ref={textAreaRef}
             className="codeTextArea bg-black-700 no-scrollbar w-full rounded-md border-none pt-2 focus:ring-0"
-            placeholder=""
-            {...register("codeEditor")}
-            id="code-text-area"
+            onChange={(e) => onChange(e.target.value)}
+            value={codeContent}
           />
         </div>
       )}

@@ -100,7 +100,6 @@
     line-height: 1.5;
     font-size: medium;
     resize: none;
-    height: auto;
   }
   .editorLineNumbers {
     font-family: monospace;
@@ -125,10 +124,14 @@
   @apply bg-black-700 !flex items-center rounded;
 }
 
+/* .tox-toolbar__primary {
+  @apply !bg-black-700;
+} */
+
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #1b1e30 #252939;
+  scrollbar-color: #3a3d4f #252939;
 }
 
 /* Chrome, Edge, and Safari */
@@ -142,7 +145,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #1b1e30;
+  background-color: #3a3d4f;
   border-radius: 14px;
   border: 3px solid #252939;
 }
