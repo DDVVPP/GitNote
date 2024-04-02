@@ -10,6 +10,24 @@ const Tags = ({ useFormHelpers }: { useFormHelpers: any }) => {
   const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
+    const onEnter = (event: KeyboardEvent) => {
+      if (event.key === "Enter" && document.activeElement?.id === "tags") {
+        event.preventDefault();
+        const trimmedTags = tagInput
+          .trim()
+          .split("s*")
+          .filter((tag) => tag.length > 0);
+        setTags((prevTags) => [...prevTags, ...trimmedTags]);
+        setTagInput("");
+        setValue("tags", tags);
+      }
+    };
+
+    window.addEventListener("keydown", onEnter);
+    return () => window.removeEventListener("keydown", onEnter);
+  }, [tagInput, tags]);
+
+  useEffect(() => {
     const onBackspace = (event: KeyboardEvent) => {
       if (
         event.key === "Backspace" &&
@@ -41,11 +59,7 @@ const Tags = ({ useFormHelpers }: { useFormHelpers: any }) => {
     }
   }, [tagInput]);
 
-  const handleDelete = (
-    event: React.MouseEvent<SVGSVGElement, MouseEvent>,
-    tag: string
-  ) => {
-    event?.preventDefault();
+  const handleDelete = (tag: string) => {
     const filteredTags = tags.filter((tagToRemove) => tag !== tagToRemove);
     setTags(filteredTags);
     setValue("tags", filteredTags);
@@ -63,11 +77,11 @@ const Tags = ({ useFormHelpers }: { useFormHelpers: any }) => {
                 className="bg-black-600 paragraph-3-medium flex items-center gap-2 rounded-md px-2"
               >
                 {tag}
-                <button>
+                <button type="button">
                   <X
                     className="text-white-500"
                     size={16}
-                    onClick={(event) => handleDelete(event, tag)}
+                    onClick={() => handleDelete(tag)}
                   />
                 </button>
               </span>
