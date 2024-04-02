@@ -5,7 +5,7 @@ import { prisma } from "@/db";
 import { revalidateTag, unstable_cache } from "next/cache";
 import { Post, Resource } from "@prisma/client";
 
-type CreatePostType = Pick<Post, "title" | "description" | "createType"> & {
+type CreatePostType = Omit<Post, "id" | "userEmail"> & {
   resources: Resource[];
 };
 
