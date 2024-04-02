@@ -9,6 +9,7 @@ import Learnings from "./Learnings";
 import CodeEditor from "./CodeEditor";
 import Steps from "./Steps";
 import Tags from "./Tags";
+import CreateTypeSelect from "./CreateTypeSelect";
 
 const BasicInformationPost = ({
   useFormHelpers,
@@ -48,36 +49,7 @@ const BasicInformationPost = ({
           />
         )}
       />
-
-      <div className="paragraph-3-medium text-white-300 flex flex-col">
-        <label className="paragraph-3-medium text-white-300 mb-2 ">
-          Create Type
-        </label>
-        <select
-          id="createType"
-          className="paragraph-3-regular text-white-300 bg-black-700 cursor-pointer rounded-md border-none p-3"
-          {...register("createType")}
-        >
-          <option
-            className="paragraph-3-regular text-white-300"
-            value={CreateType.COMPONENT}
-          >
-            Component
-          </option>
-          <option
-            className="paragraph-3-regular text-white-300"
-            value={CreateType.KNOWLEDGE}
-          >
-            Knowledge
-          </option>
-          <option
-            className="paragraph-3-regular text-white-300"
-            value={CreateType.WORKFLOW}
-          >
-            Workflow
-          </option>
-        </select>
-      </div>
+      <CreateTypeSelect setValue={setValue} postType={postType} />
 
       <Tags useFormHelpers={useFormHelpers} />
 
