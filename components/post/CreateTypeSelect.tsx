@@ -57,23 +57,20 @@ const CreateTypeSelect = ({
   };
 
   return (
-    <div>
+    <div ref={ref}>
       <label className="paragraph-3-medium text-white-300 mb-2 flex flex-col">
         Create Type
       </label>
       <button
         type="button"
         className="bg-black-700 text-white-300 paragraph-3-medium flex w-full items-center justify-between rounded p-3"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen((curr) => !curr)}
       >
         {renderSelection()}
         {isOpen ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
       </button>
       {isOpen && (
-        <div
-          ref={ref}
-          className="paragraph-3-medium bg-black-700 mt-0.5 flex flex-col gap-y-2 rounded p-2"
-        >
+        <div className="paragraph-3-medium bg-black-700 mt-0.5 flex flex-col gap-y-2 rounded p-2">
           {createTypeList.map((createType) => {
             const { icon: Icon, uiName, color } = createType;
             return (

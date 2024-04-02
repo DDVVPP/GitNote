@@ -52,7 +52,7 @@ const CodeEditor = ({ register, watch }: { register: any; watch: any }) => {
       </div>
 
       {isPreview ? (
-        <pre className="language-javascript">
+        <pre className="language-javascript !rounded !bg-[#26272c]">
           <code>{codeContent}</code>
         </pre>
       ) : (
