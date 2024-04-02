@@ -2,17 +2,20 @@
 
 import { auth } from "@/auth";
 import { prisma } from "@/db";
-import { Post, Resource, User } from "@prisma/client";
 import { revalidateTag, unstable_cache } from "next/cache";
+import { Post, Resource } from "@prisma/client";
 
-export async function createPost(data: Partial<Post & { resources?: any }>) {
+type CreatePostType = Pick<Post, "title" | "description" | "createType"> & {
+  resources: Resource[];
+};
+
+export async function createPost(data: CreatePostType) {
   const session = await auth();
   const email = session && (await session.user?.email);
   if (!email) return { error: "User not found!" };
 
   try {
     if (data) {
-      console.log("data>>>>>", data);
       const post = await prisma.post.create({
         data: {
           ...data,
