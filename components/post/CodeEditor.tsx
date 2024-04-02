@@ -1,30 +1,29 @@
 "use client";
 
+import React, { useEffect, useRef, useState } from "react";
 import Prism from "prismjs";
-import "prismjs/themes/prism-solarizedlight.css";
-import React, { useEffect, useState } from "react";
+import "prismjs/themes/prism-tomorrow.css";
+
 import EyeIcon from "../shared/icons/EyeIcon";
 import CodeIcon from "../shared/icons/CodeIcon";
 
-const CodeEditor = ({
-  register,
-  useFormHelpers,
-}: {
-  register: any;
-  useFormHelpers: any;
-}) => {
-  const { trigger, control, watch, setValue } = useFormHelpers;
+const CodeEditor = ({ register, watch }: { register: any; watch: any }) => {
   const codeContent = watch("codeEditor");
 
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [numberOfEditorLines, setNumberOfEditorLines] = useState(0);
   const [isPreview, setIsPreview] = useState(false);
 
   useEffect(() => {
-    Prism.highlightAll();
     setNumberOfEditorLines(codeContent.split("\n").length);
-    const textAreaElement = document.getElementById("code-text-area");
-    textAreaElement.style.height = textAreaElement?.scrollHeight + "px";
+
+    if (!textAreaRef.current) return;
+    textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
   }, [codeContent]);
+
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [isPreview]);
 
   return (
     <section className="text-white-300 flex flex-col space-y-2">
@@ -57,14 +56,15 @@ const CodeEditor = ({
           <code>{codeContent}</code>
         </pre>
       ) : (
-        <div className="bg-black-700 no-scrollbar relative flex justify-start overflow-auto">
-          <span className="editorLineNumbers absolute left-0 top-0 flex flex-col pt-2">
+        <div className="scroller bg-black-700 relative flex h-96 justify-start overflow-y-auto">
+          <div className="editorLineNumbers absolute left-0 top-0 flex flex-col pt-2">
             {[...Array(numberOfEditorLines)].map((_, idx) => (
               <span>{idx + 1}</span>
             ))}
-          </span>
+          </div>
           <textarea
-            className="codeTextArea bg-black-700 no-scrollbar w-full rounded-md border-none pt-2"
+            ref={textAreaRef}
+            className="codeTextArea bg-black-700 no-scrollbar w-full rounded-md border-none pt-2 focus:ring-0"
             placeholder=""
             {...register("codeEditor")}
             id="code-text-area"

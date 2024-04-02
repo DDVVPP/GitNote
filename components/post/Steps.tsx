@@ -14,7 +14,7 @@ const Steps = ({
   register: any;
   useFieldArray: any;
 }) => {
-  const { trigger, control, formState } = useFormHelpers;
+  const { control, formState } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
     name: "steps",
     control,

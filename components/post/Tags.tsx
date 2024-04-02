@@ -3,9 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
-const Tags = ({ useFormHelpers }: { useFormHelpers: any }) => {
-  const { setValue } = useFormHelpers;
-
+const Tags = ({ setValue }: { setValue: any }) => {
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>([]);
 

@@ -14,7 +14,7 @@ const Learnings = ({
   register: any;
   useFieldArray: any;
 }) => {
-  const { trigger, control, formState } = useFormHelpers;
+  const { control, formState } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
     name: "learnings",
     control,

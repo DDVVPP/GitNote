@@ -99,13 +99,17 @@
     font-family: monospace;
     line-height: 1.5;
     font-size: medium;
+    resize: none;
+    height: auto;
   }
   .editorLineNumbers {
     font-family: monospace;
     padding-left: 10px;
     line-height: 1.5;
+    color: #888;
     font-size: medium;
   }
+
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -119,4 +123,26 @@
 
 .react-datepicker__view-calendar-icon {
   @apply bg-black-700 !flex items-center rounded;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1b1e30 #252939;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #252939;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #1b1e30;
+  border-radius: 14px;
+  border: 3px solid #252939;
 }

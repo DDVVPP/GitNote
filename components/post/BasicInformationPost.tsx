@@ -49,9 +49,10 @@ const BasicInformationPost = ({
           />
         )}
       />
+
       <CreateTypeSelect setValue={setValue} postType={postType} />
 
-      <Tags useFormHelpers={useFormHelpers} />
+      <Tags setValue={setValue} />
 
       <div className="text-white-300 flex flex-col">
         <label className="paragraph-3-medium mb-2">Description</label>
@@ -71,7 +72,7 @@ const BasicInformationPost = ({
       )}
 
       {postType === CreateType.COMPONENT && (
-        <CodeEditor register={register} useFormHelpers={useFormHelpers} />
+        <CodeEditor register={register} watch={watch} />
       )}
 
       {postType === CreateType.WORKFLOW && (
