@@ -98,7 +98,9 @@ const BasicInformationPost = ({
         />
       )}
 
-      {postType === CreateType.COMPONENT && <CodeEditor register={register} />}
+      {postType === CreateType.COMPONENT && (
+        <CodeEditor register={register} useFormHelpers={useFormHelpers} />
+      )}
 
       {postType === CreateType.WORKFLOW && (
         <Steps

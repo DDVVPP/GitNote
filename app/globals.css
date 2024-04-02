@@ -93,6 +93,28 @@
   .primary-gradient {
     background: linear-gradient(90deg, rgb(67, 183, 254), rgb(79, 72, 230));
   }
+
+  .codeTextArea {
+    padding-left: 28px;
+    font-family: monospace;
+    line-height: 1.5;
+    font-size: medium;
+  }
+  .editorLineNumbers {
+    font-family: monospace;
+    padding-left: 10px;
+    line-height: 1.5;
+    font-size: medium;
+  }
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
 .react-datepicker__view-calendar-icon {
