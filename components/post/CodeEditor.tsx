@@ -56,7 +56,7 @@ const CodeEditor = ({ register, watch }: { register: any; watch: any }) => {
           <code>{codeContent}</code>
         </pre>
       ) : (
-        <div className="scroller bg-black-700 relative flex h-96 justify-start overflow-y-auto">
+        <div className="bg-black-700 relative flex h-96 justify-start overflow-y-auto">
           <div className="editorLineNumbers absolute left-0 top-0 flex flex-col pt-2">
             {[...Array(numberOfEditorLines)].map((_, idx) => (
               <span>{idx + 1}</span>
