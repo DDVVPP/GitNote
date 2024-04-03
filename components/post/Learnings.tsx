@@ -37,7 +37,7 @@ const Learnings = ({
                 placeholder="Enter what you've learned"
                 {...register(`learnings.${index}`)}
               />
-              <button>
+              <button type="button">
                 <X
                   className="text-white-500"
                   size={16}
@@ -58,7 +58,12 @@ const Learnings = ({
       })}
 
       <div className="mt-2">
-        <Button color="gray" icon="plus" onClick={() => append("")}>
+        <Button
+          type="button"
+          color="gray"
+          icon="plus"
+          onClick={() => append("")}
+        >
           Add checkmark
         </Button>
       </div>

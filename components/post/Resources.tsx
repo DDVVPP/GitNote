@@ -59,7 +59,10 @@ const Resources = ({
                       </span>
                     )}
                 </div>
-                <button className="bg-black-700 h-11 rounded px-3">
+                <button
+                  type="button"
+                  className="bg-black-700 h-11 rounded px-3"
+                >
                   <X
                     className="text-white-500"
                     size={16}
@@ -74,6 +77,7 @@ const Resources = ({
 
       <div className="mt-4">
         <Button
+          type="button"
           color="gray"
           icon="plus"
           onClick={() => append({ label: "", link: "" })}

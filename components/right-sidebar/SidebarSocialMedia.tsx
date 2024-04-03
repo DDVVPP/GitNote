@@ -15,7 +15,12 @@ const SidebarSocialMedia = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <Button icon="plus" color="gray" onClick={() => setOpen(true)}>
+      <Button
+        type="button"
+        icon="plus"
+        color="gray"
+        onClick={() => setOpen(true)}
+      >
         Update social link
       </Button>
       <h3 className="paragraph-2-bold border-white-500 border-b pb-4 pt-4">

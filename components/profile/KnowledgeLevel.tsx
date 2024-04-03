@@ -47,7 +47,7 @@ const KnowledgeLevel = ({
                     placeholder="Enter a knowledge level"
                     {...register(`knowledgeLevel.${index}`)}
                   />
-                  <button>
+                  <button type="button">
                     <X
                       className="text-white-500"
                       size={16}
@@ -69,7 +69,12 @@ const KnowledgeLevel = ({
         </div>
 
         <div className="mt-2">
-          <Button color="gray" icon="plus" onClick={() => append("")}>
+          <Button
+            type="button"
+            color="gray"
+            icon="plus"
+            onClick={() => append("")}
+          >
             Add knowledge checkmark
           </Button>
         </div>

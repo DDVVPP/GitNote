@@ -87,7 +87,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
                 >
                   <TechStackIcon size={24} />
                   <p className="paragraph-3-regular">{uiName} </p>
-                  <button>
+                  <button type="button">
                     <X
                       className="text-white-500"
                       size={16}
