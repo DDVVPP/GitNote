@@ -1,8 +1,8 @@
 import React from "react";
 import { DotIcon, InfoIcon } from "lucide-react";
-import Knowledge from "../Icons/Knowledge";
-import Component from "../Icons/Component";
-import Workflow from "../Icons/Workflow";
+import KnowledgeIcon from "../icons/KnowledgeIcon";
+import ComponentIcon from "../icons/ComponentIcon";
+import WorkflowIcon from "../icons/WorkflowIcon";
 
 interface BadgeProps extends React.PropsWithChildren {
   icon?: "info" | "dot" | "knowledge" | "component" | "workflow";
@@ -46,9 +46,9 @@ const iconSizeClassMap = {
 const IconMap = {
   info: InfoIcon,
   dot: DotIcon,
-  knowledge: Knowledge,
-  component: Component,
-  workflow: Workflow,
+  knowledge: KnowledgeIcon,
+  component: ComponentIcon,
+  workflow: WorkflowIcon,
   default: null,
 };
 
@@ -64,7 +64,9 @@ const Badge = ({ children, icon, color, size, variant }: BadgeProps) => {
 
   return (
     <div
-      className={`${baseclass} ${textSizeClass} ${variant === "outline" ? outlineColorClass : colorClass} ${icon !== "dot" ? "gap-1" : "pr-4"} `}
+      className={`${baseclass} ${textSizeClass} ${
+        variant === "outline" ? outlineColorClass : colorClass
+      } ${icon !== "dot" ? "gap-1" : "pr-4"} `}
     >
       {IconComponent && (
         <IconComponent size={icon === "dot" ? "24px" : iconSizeClass} />

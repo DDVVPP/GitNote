@@ -52,12 +52,8 @@ const LearningGoals = ({
                   placeholder="Enter a learning goal"
                   {...register(`goals.${index}.name`)}
                 />
-                <button>
-                  <X
-                    className="text-white-500"
-                    size={16}
-                    onClick={() => remove(index)}
-                  />
+                <button type="button" onClick={() => remove(index)}>
+                  <X className="text-white-500" size={16} />
                 </button>
               </div>
 
@@ -76,6 +72,7 @@ const LearningGoals = ({
 
       <section className="mb-4">
         <Button
+          type="button"
           color="gray"
           icon="plus"
           onClick={() => append({ name: "", isComplete: false })}

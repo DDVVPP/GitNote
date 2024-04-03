@@ -73,15 +73,16 @@ model Post {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   title       String
-  category    Category
+  createType  CreateType
   description String
-  content     String
-  user        User       @relation(fields: [userId], references: [id])
-  tag         String[]
+  codeEditor  String?
+  content     String?
+  steps       String[]
+  learnings   String[]
+  user        User       @relation(fields: [userEmail], references: [email])
+  tags        String[]
   resources   Resource[]
-  contentId   Int
-  userId      String
-  resourceId  Int
+  userEmail   String
 }
 
 model Social {
@@ -101,10 +102,12 @@ model Goals {
 }
 
 model Resource {
-  id    Int    @id @default(autoincrement())
-  name  String
-  link  String
-  posts Post[]
+  id          Int    @id @default(autoincrement())
+  label       String?
+  link        String?
+  post        Post @relation(fields: [postId], references: [id])
+  postId      Int
+  // posts Post[]
 }
 
 enum Role {
@@ -112,7 +115,7 @@ enum Role {
   ADMIN
 }
 
-enum Category {
+enum CreateType {
   WORKFLOW
   COMPONENT
   KNOWLEDGE

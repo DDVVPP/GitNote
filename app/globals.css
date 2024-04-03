@@ -16,16 +16,6 @@
   }
 }
 
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
-
 @layer base {
   body {
     @apply bg-black-900 text-white-100;
@@ -93,8 +83,90 @@
   .primary-gradient {
     background: linear-gradient(90deg, rgb(67, 183, 254), rgb(79, 72, 230));
   }
+
+  .codeTextArea {
+    @apply resize-none pl-8 font-mono text-sm leading-6;
+  }
+  .editorLineNumbers {
+    @apply pl-4 font-mono font-mono text-sm
+    leading-6 text-slate-500;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3a3d4f #252939;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #252939;
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #3a3d4f;
+  border-radius: 14px;
+  border: 3px solid #252939;
+}
+
+/* React Datepicker */
+
 .react-datepicker__view-calendar-icon {
-  @apply bg-black-700 !flex items-center rounded;
+  background-color: rgb(29 32 50) !important;
+  display: flex !important;
+  align-items: center !important;
+  border-radius: 0.25rem /* 4px */ !important;
+}
+
+/* TinyMCE */
+
+.tox-tinymce {
+  border: none !important;
+}
+.tox-editor-header {
+  background-color: rgb(46 55 87) !important;
+}
+.tox-toolbar__group {
+  padding-left: 0.125rem /* 2px */ !important;
+  padding-right: 0.125rem !important;
+}
+.tox-tbtn {
+  cursor: pointer !important;
+  background-color: transparent !important;
+}
+.tox-tbtn--enabled {
+  background-color: rgb(77, 86, 122) !important;
+}
+.tox-tbtn:hover {
+  background-color: rgb(77, 86, 122) !important;
+}
+
+.tox-tbtn svg {
+  fill: #adb3cc !important;
+}
+.tox-toolbar-overlord {
+  background-color: transparent !important;
+}
+.tox-toolbar__primary {
+  background-color: rgb(46 55 87) !important;
+  margin-left: 0.25rem !important;
+}
+.tox-statusbar {
+  display: none !important;
 }

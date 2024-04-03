@@ -21,6 +21,8 @@ import { Social, User } from "@prisma/client";
 import Input from "../shared/ui/Input";
 import { socialMediaIconList } from "@/lib/constants/socialMediaList";
 import Button from "../shared/ui/Button";
+import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
+import useEscapeHandler from "@/lib/utils/useEscapeHandler";
 
 const SocialMediaModal = ({
   user,
@@ -30,33 +32,8 @@ const SocialMediaModal = ({
   onClose: () => void;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const handleOutSideClick = (event: MouseEvent) => {
-      if (!ref.current?.contains(event.target as Node)) {
-        onClose();
-      }
-    };
-
-    window.addEventListener("mousedown", handleOutSideClick);
-
-    return () => {
-      window.removeEventListener("mousedown", handleOutSideClick);
-    };
-  }, [ref]);
-
-  useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    window.addEventListener("keydown", handleEsc);
-
-    return () => {
-      window.removeEventListener("keydown", handleEsc);
-    };
-  }, []);
+  useOutsideClickHandler(ref, onClose);
+  useEscapeHandler(onClose);
 
   const userSocials = new Array(socialMediaIconList.length);
   socialMediaIconList.forEach((icon, index) => {
