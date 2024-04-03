@@ -8,7 +8,7 @@ const Content = ({ onChange }: { onChange: any }) => {
         apiKey="91tfu23es3ds7f3oxa0tfujm9otbwas6fvtv714eitd41uln"
         init={{
           menubar: false,
-          content_style: `body { background-color: #1D2032; color: #ADB3CC; border: none; } a {color: #11b7ff}`,
+          content_style: `body { background-color: #1D2032; color: #ADB3CC; border: none; } a { color: #11b7ff }`,
           plugins: "lists link image",
           toolbar:
             "bold | italic | underline | blockquote | link | image | checklist | bullist | numlist | align | indent | outdent",
@@ -19,7 +19,6 @@ const Content = ({ onChange }: { onChange: any }) => {
             { value: "Email", title: "Email" },
           ],
         }}
-        initialValue="Welcome to TinyMCE!"
         onEditorChange={(content) => onChange(content)}
       />
     </section>

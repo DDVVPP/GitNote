@@ -30,7 +30,7 @@ const Resources = ({
       {fields.map((field: { id: number }, index: number) => {
         return (
           <React.Fragment key={field.id}>
-            <div className="mb-4 flex gap-x-2">
+            <div className="mb-2 flex gap-x-2">
               <div className="flex w-full flex-col">
                 <input
                   type="text"
@@ -71,7 +71,7 @@ const Resources = ({
         );
       })}
 
-      <div>
+      <div className="mt-4">
         <Button
           color="gray"
           icon="plus"

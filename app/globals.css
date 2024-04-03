@@ -126,36 +126,27 @@
 
 /* TinyMCE */
 
-.tox .tox-tbtn {
-  @apply !cursor-pointer !bg-transparent;
+.tox-tinymce {
+  @apply !border-none;
 }
-
-.tox .tox-tbtn svg {
-  @apply !fill-white-300;
+.tox-editor-header {
+  @apply !bg-black-600;
 }
 .tox .tox-toolbar__group {
   @apply !px-0.5;
 }
-
-.tox .tox-edit-area__iframe {
-  @apply !bg-black-800;
-}
 .tox .tox-toolbar-overlord {
   @apply !bg-none;
 }
-
-.tox-editor-header {
-  @apply !bg-black-600;
-}
-
 .tox-toolbar__primary {
   @apply !bg-black-600;
 }
-
-.tox-tinymce {
-  @apply !border-none;
+.tox .tox-tbtn {
+  @apply !cursor-pointer !bg-transparent;
 }
-
+.tox .tox-tbtn svg {
+  @apply !fill-white-300;
+}
 .tox-statusbar {
   @apply !hidden;
 }
