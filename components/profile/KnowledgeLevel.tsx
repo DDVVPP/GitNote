@@ -47,12 +47,8 @@ const KnowledgeLevel = ({
                     placeholder="Enter a knowledge level"
                     {...register(`knowledgeLevel.${index}`)}
                   />
-                  <button type="button">
-                    <X
-                      className="text-white-500"
-                      size={16}
-                      onClick={() => remove(index)}
-                    />
+                  <button type="button" onClick={() => remove(index)}>
+                    <X className="text-white-500" size={16} />
                   </button>
                 </div>
 

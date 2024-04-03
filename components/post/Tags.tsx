@@ -77,12 +77,8 @@ const Tags = ({ setValue }: { setValue: any }) => {
                 className="bg-black-600 paragraph-3-medium flex items-center gap-2 rounded-md px-2"
               >
                 {tag}
-                <button type="button">
-                  <X
-                    className="text-white-500"
-                    size={16}
-                    onClick={() => handleDelete(tag)}
-                  />
+                <button type="button" onClick={() => handleDelete(tag)}>
+                  <X className="text-white-500" size={16} />
                 </button>
               </span>
             ))}

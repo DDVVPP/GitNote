@@ -37,12 +37,8 @@ const Learnings = ({
                 placeholder="Enter what you've learned"
                 {...register(`learnings.${index}`)}
               />
-              <button type="button">
-                <X
-                  className="text-white-500"
-                  size={16}
-                  onClick={() => remove(index)}
-                />
+              <button type="button" onClick={() => remove(index)}>
+                <X className="text-white-500" size={16} />
               </button>
             </div>
 

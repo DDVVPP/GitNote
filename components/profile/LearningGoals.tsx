@@ -52,12 +52,8 @@ const LearningGoals = ({
                   placeholder="Enter a learning goal"
                   {...register(`goals.${index}.name`)}
                 />
-                <button type="button">
-                  <X
-                    className="text-white-500"
-                    size={16}
-                    onClick={() => remove(index)}
-                  />
+                <button type="button" onClick={() => remove(index)}>
+                  <X className="text-white-500" size={16} />
                 </button>
               </div>
 

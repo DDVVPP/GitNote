@@ -62,12 +62,9 @@ const Resources = ({
                 <button
                   type="button"
                   className="bg-black-700 h-11 rounded px-3"
+                  onClick={() => remove(index)}
                 >
-                  <X
-                    className="text-white-500"
-                    size={16}
-                    onClick={() => remove(index)}
-                  />
+                  <X className="text-white-500" size={16} />
                 </button>
               </div>
             </React.Fragment>
