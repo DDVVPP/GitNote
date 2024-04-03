@@ -90,11 +90,7 @@ const CreatePost = ({ user }: { user: User & { resources?: Resource[] } }) => {
         </section>
 
         <Button color="blue" type="submit">
-          {isSubmitting ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            "Update Profile"
-          )}
+          {isSubmitting ? <Loader2 className="animate-spin" /> : "Create Post"}
         </Button>
       </div>
     </form>

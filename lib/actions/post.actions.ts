@@ -4,15 +4,9 @@ import { auth } from "@/auth";
 import { prisma } from "@/db";
 
 import { Post, Resource } from "@prisma/client";
+import { IPostSchema } from "../validations/PostSchema";
 
-type CreatePostType = Omit<
-  Post,
-  "id" | "userEmail" | "createdAt" | "updatedAt"
-> & {
-  resources: Resource[];
-};
-
-export async function createPost(data: CreatePostType) {
+export async function createPost(data: IPostSchema) {
   const session = await auth();
   const email = session && (await session.user?.email);
   if (!email) return { error: "User not found!" };
@@ -28,7 +22,7 @@ export async function createPost(data: CreatePostType) {
             },
           },
           resources: {
-            create: data.resources?.map((resource: Resource) => ({
+            create: data.resources?.map((resource: Partial<Resource>) => ({
               label: resource.label,
               link: resource.link,
             })),
