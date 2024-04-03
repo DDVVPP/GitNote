@@ -1,10 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Loader2, X } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm, useFieldArray } from "react-hook-form";
+import {
+  SubmitHandler,
+  useForm,
+  useFieldArray,
+  Controller,
+} from "react-hook-form";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -41,6 +46,11 @@ const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
     formState: { isSubmitting, errors },
   } = useFormHelpers;
   const { control } = useFormHelpers;
+  const contentWatch = watch("content");
+
+  useEffect(() => {
+    console.log("contentWatch", contentWatch);
+  }, [contentWatch]);
 
   const onSubmit: SubmitHandler<IPostSchema> = async (data) => {
     try {
@@ -62,8 +72,15 @@ const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
             register={register}
             useFieldArray={useFieldArray}
           />
+          <Controller
+            control={control}
+            name="content"
+            render={({
+              field: { name, onChange, ...rest },
+              formState: { errors },
+            }) => <Content onChange={onChange} />}
+          />
 
-          <Content register={register} />
           <Resources
             register={register}
             useFieldArray={useFieldArray}
