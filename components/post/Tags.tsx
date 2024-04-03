@@ -8,6 +8,10 @@ const Tags = ({ setValue }: { setValue: any }) => {
   const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
+    setValue("tags", tags);
+  }, [tags]);
+
+  useEffect(() => {
     const onEnter = (event: KeyboardEvent) => {
       if (event.key === "Enter" && document.activeElement?.id === "tags") {
         event.preventDefault();
@@ -17,7 +21,6 @@ const Tags = ({ setValue }: { setValue: any }) => {
           .filter((tag) => tag.length > 0);
         setTags((prevTags) => [...prevTags, ...trimmedTags]);
         setTagInput("");
-        setValue("tags", tags);
       }
     };
 
@@ -53,7 +56,6 @@ const Tags = ({ setValue }: { setValue: any }) => {
         .filter((tag) => tag.length > 0);
       setTags((prevTags) => [...prevTags, ...trimmedTags]);
       setTagInput("");
-      setValue("tags", tags);
     }
   }, [tagInput]);
 
