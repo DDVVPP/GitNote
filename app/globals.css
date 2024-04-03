@@ -144,20 +144,28 @@
 }
 .tox-toolbar__group {
   padding-left: 0.125rem /* 2px */ !important;
-  padding-right: 0.125rem /* 2px */ !important;
+  padding-right: 0.125rem !important;
 }
 .tox-tbtn {
   cursor: pointer !important;
   background-color: transparent !important;
 }
+.tox-tbtn--enabled {
+  background-color: rgb(77, 86, 122) !important;
+}
+.tox-tbtn:hover {
+  background-color: rgb(77, 86, 122) !important;
+}
+
 .tox-tbtn svg {
   fill: #adb3cc !important;
 }
 .tox-toolbar-overlord {
-  background-color: none !important;
+  background-color: transparent !important;
 }
 .tox-toolbar__primary {
   background-color: rgb(46 55 87) !important;
+  margin-left: 0.25rem !important;
 }
 .tox-statusbar {
   display: none !important;
