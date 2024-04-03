@@ -53,7 +53,7 @@ const CodeEditor = ({
       </div>
 
       {isPreview ? (
-        <pre className="language-javascript !rounded !bg-[#21212c]">
+        <pre className="language-javascript !h-96 !overflow-y-auto !rounded !bg-[#21212c] !text-[14px]">
           <code>{codeContent}</code>
         </pre>
       ) : (
