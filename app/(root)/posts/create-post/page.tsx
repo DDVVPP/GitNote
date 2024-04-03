@@ -13,7 +13,7 @@ import {
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-import { CreateType, Goals, User } from "@prisma/client";
+import { CreateType, Resource, User } from "@prisma/client";
 import { IPostSchema, PostSchema } from "@/lib/validations/PostSchema";
 
 import { createPost } from "@/lib/actions/post.actions";
@@ -22,7 +22,7 @@ import BasicInformationPost from "@/components/post/BasicInformationPost";
 import Content from "@/components/post/Content";
 import Resources from "@/components/post/Resources";
 
-const CreatePost = ({ user }: { user: User & { goals?: Goals[] } }) => {
+const CreatePost = ({ user }: { user: User & { resources?: Resource[] } }) => {
   const router = useRouter();
   const useFormHelpers = useForm<IPostSchema>({
     defaultValues: {

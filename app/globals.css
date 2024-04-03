@@ -146,20 +146,20 @@
 .tox-editor-header {
   @apply !bg-black-600;
 }
-.tox .tox-toolbar__group {
+.tox-toolbar__group {
   @apply !px-0.5;
 }
-.tox .tox-toolbar-overlord {
+.tox-tbtn {
+  @apply !cursor-pointer !bg-transparent;
+}
+.tox-tbtn svg {
+  @apply !fill-white-300;
+}
+.tox-toolbar-overlord {
   @apply !bg-none;
 }
 .tox-toolbar__primary {
   @apply !bg-black-600;
-}
-.tox .tox-tbtn {
-  @apply !cursor-pointer !bg-transparent;
-}
-.tox .tox-tbtn svg {
-  @apply !fill-white-300;
 }
 .tox-statusbar {
   @apply !hidden;
