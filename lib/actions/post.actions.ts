@@ -1,25 +1,14 @@
 "use server";
 
-import { auth } from "@/auth";
 import { prisma } from "@/db";
 
-import { Post, Resource } from "@prisma/client";
+import { Resource } from "@prisma/client";
 import { IPostSchema } from "../validations/PostSchema";
-
-// const getUserSession = async () => {
-//   const session = await auth();
-//   const email = session && (await session.user?.email);
-//   if (!email) return { error: "User not found!" };
-//   return email;
-// };
+import { getUserSession } from ".";
 
 export async function createPost(data: IPostSchema) {
-  const session = await auth();
-  const email = session && (await session.user?.email);
-  if (!email) return { error: "User not found!" };
-  // const userEmail = await getUserSession();
-
   try {
+    const email = await getUserSession();
     if (data) {
       const post = await prisma.post.create({
         data: {
@@ -46,17 +35,18 @@ export async function createPost(data: IPostSchema) {
   return { error: "An unexpected error occurred while creating post." };
 }
 
-export async function getAllPosts() {
-  const session = await auth();
-  const email = session && (await session.user?.email);
-  if (!email) return { error: "User not found!" };
+export async function getAllPosts(page: string) {
+  const numResultsPerPage = 4;
 
   try {
+    const userEmail = await getUserSession();
     const allPosts = await prisma.post.findMany({
       where: {
-        userEmail: email,
+        userEmail,
       },
       orderBy: [{ createdAt: "desc" }],
+      skip: (Number(page ?? "1") - 1) * numResultsPerPage,
+      take: numResultsPerPage,
     });
 
     return allPosts;
@@ -67,10 +57,6 @@ export async function getAllPosts() {
 }
 
 export async function getPostById(id: string) {
-  const session = await auth();
-  const email = session && (await session.user?.email);
-  if (!email) return { error: "User not found!" };
-
   try {
     const post = await prisma.post.findUnique({
       where: {
@@ -89,14 +75,11 @@ export async function getPostById(id: string) {
 }
 
 export async function findPosts(searchTerm: string) {
-  const session = await auth();
-  const email = session && (await session.user?.email);
-  if (!email) return { error: "User not found!" };
-
   try {
+    const userEmail = await getUserSession();
     const posts = await prisma.post.findMany({
       where: {
-        userEmail: email,
+        userEmail,
         OR: [
           {
             title: {
@@ -119,12 +102,6 @@ export async function findPosts(searchTerm: string) {
           {
             tags: {
               has: searchTerm,
-            },
-          },
-          {
-            createType: {
-              where: searchTerm,
-              mode: "insensitive",
             },
           },
         ],

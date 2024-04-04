@@ -2,17 +2,22 @@ import { getUser } from "@/lib/actions/user.actions";
 import { findPosts, getAllPosts } from "@/lib/actions/post.actions";
 
 import { Post, User } from "@prisma/client";
-import Posts from "../posts/page";
+import Posts from "../../../components/post/Posts";
+import Pagination from "@/components/post/Pagination";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { page: string };
+}) {
   const user = (await getUser()) as User;
-  const allPosts = await getAllPosts();
+  const allPosts = await getAllPosts(searchParams.page ?? "1");
   // const foundPosts = await findPost("tag1");
 
   return (
     <section className="flex flex-col gap-4">
       <h1 className="display-1-bold text-white-100">
-        Hello {user && user.name},
+        Hello {user && user.name} {searchParams.page},
       </h1>
       <p className="paragraph-1-regular text-white-300">
         Time to jot down your latest learnings today!
@@ -27,6 +32,7 @@ export default async function Home() {
           No posts found!
         </h1>
       )}
+      <Pagination />
     </section>
   );
 }
