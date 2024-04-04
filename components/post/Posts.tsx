@@ -11,16 +11,16 @@ import { createTypeList } from "@/lib/constants/createTypeList";
 const Posts = ({ allPosts }: { allPosts: Post[] }) => {
   const [posts, setPosts] = useState(allPosts);
 
-  const handleClick = (createType?: CreateTypeListItemType) => {
-    if (createType) {
-      const filteredPosts: Post[] = allPosts.filter(
-        (post) => post.createType === createType.name
-      );
-      setPosts(filteredPosts);
-    } else {
-      setPosts(allPosts);
-    }
-  };
+  // const handleClick = (createType?: CreateTypeListItemType) => {
+  //   if (createType) {
+  //     const filteredPosts: Post[] = allPosts.filter(
+  //       (post) => post.createType === createType.name
+  //     );
+  //     setPosts(filteredPosts);
+  //   } else {
+  //     setPosts(allPosts);
+  //   }
+  // };
 
   return (
     <section className="mb-6 mt-8 space-y-6">
@@ -29,7 +29,7 @@ const Posts = ({ allPosts }: { allPosts: Post[] }) => {
         <div className="flex flex-wrap gap-x-2">
           {createTypeList.map((createType) => {
             return (
-              <button type="button" onClick={() => handleClick(createType)}>
+              <button type="button">
                 <Badge
                   color={createType.badgeColor}
                   icon={createType.name}
@@ -41,7 +41,7 @@ const Posts = ({ allPosts }: { allPosts: Post[] }) => {
               </button>
             );
           })}
-          <button type="button" onClick={() => handleClick()}>
+          <button type="button">
             <Badge size="medium" hover>
               All Posts
             </Badge>
@@ -50,23 +50,13 @@ const Posts = ({ allPosts }: { allPosts: Post[] }) => {
       </section>
 
       <div className="space-y-4">
-        {posts.map((post) => (
+        {allPosts.map((post) => (
           <section className="bg-black-800 rounded-md">
             <Link key={post.id} href={`/posts/${post.id}`}>
               <PostOverview post={post} />
             </Link>
           </section>
         ))}
-      </div>
-
-      <div className="flex items-center justify-center gap-x-6">
-        <button className="bg-black-700 paragraph-4-medium text-white-100 p-3">
-          Prev
-        </button>
-        <p className="paragraph-3-medium text-white-300">1/19</p>
-        <button className="bg-black-700 paragraph-4-medium text-white-100 p-3 ">
-          Next
-        </button>
       </div>
     </section>
   );

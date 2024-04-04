@@ -8,7 +8,7 @@ import githubOutline from "@/public/githubOutline.svg";
 import logoutIcon from "@/public/logoutIcon.svg";
 import Link from "next/link";
 import Search from "../shared/Search";
-import Posts from "@/app/(root)/posts/page";
+import Posts from "@/components/post/Posts";
 import QuickLink from "./QuickLink";
 import NavSection from "./NavSection";
 import Button from "../shared/ui/Button";
