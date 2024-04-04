@@ -50,7 +50,7 @@ export async function getAllPosts() {
       },
     });
 
-    return { allPosts, error: null };
+    return allPosts;
   } catch (error) {
     console.error("Error returning posts:", error);
     return { error: "An unexpected error occurred while returning posts." };
@@ -67,9 +67,12 @@ export async function getPostById(id: string) {
       where: {
         id: Number(id),
       },
+      include: {
+        resources: true,
+      },
     });
 
-    return { post, error: null };
+    return post;
   } catch (error) {
     console.error("Error returning posts:", error);
     return { error: "An unexpected error occurred while returning posts." };
@@ -113,7 +116,7 @@ export async function findPost(searchTerm: string) {
       },
     });
 
-    return { posts, error: null };
+    return posts;
   } catch (error) {
     console.error("Error returning posts:", error);
     return { error: "An unexpected error occurred while returning posts." };
