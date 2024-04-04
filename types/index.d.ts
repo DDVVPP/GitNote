@@ -9,3 +9,11 @@ export type SocialMediaIconType = {
   size?: number;
   className?: string;
 };
+
+export type CreateTypeListItemType = {
+  icon: (props: any) => JSX.Element;
+  name: CreateType;
+  uiName: string;
+  badgeColor: "blue" | "orange" | "red" | "green" | "gray" | "purple";
+  color: string;
+};

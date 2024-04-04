@@ -5,7 +5,7 @@ import ComponentIcon from "../icons/ComponentIcon";
 import WorkflowIcon from "../icons/WorkflowIcon";
 
 interface BadgeProps extends React.PropsWithChildren {
-  icon?: "info" | "dot" | "knowledge" | "component" | "workflow";
+  icon?: "info" | "dot" | "KNOWLEDGE" | "COMPONENT" | "WORKFLOW";
   color?: "blue" | "orange" | "red" | "green" | "gray" | "purple";
   size?: "small" | "medium";
   variant?: "outline" | "solid";
@@ -46,9 +46,9 @@ const iconSizeClassMap = {
 const IconMap = {
   info: InfoIcon,
   dot: DotIcon,
-  knowledge: KnowledgeIcon,
-  component: ComponentIcon,
-  workflow: WorkflowIcon,
+  KNOWLEDGE: KnowledgeIcon,
+  COMPONENT: ComponentIcon,
+  WORKFLOW: WorkflowIcon,
   default: null,
 };
 
@@ -61,7 +61,7 @@ const Badge = ({ children, icon, color, size, variant }: BadgeProps) => {
   const textSizeClass = textSizeClassMap[size || "default"];
   const iconSizeClass = iconSizeClassMap[size || "default"];
   const IconComponent = IconMap[icon || "default"];
-
+  console.log("icon", icon);
   return (
     <div
       className={`${baseclass} ${textSizeClass} ${
