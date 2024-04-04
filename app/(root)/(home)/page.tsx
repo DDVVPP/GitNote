@@ -3,11 +3,10 @@ import { findPost, getAllPosts } from "@/lib/actions/post.actions";
 
 import { User } from "@prisma/client";
 import Posts from "../posts/page";
-import toast from "react-hot-toast";
 
 export default async function Home() {
   const user = (await getUser()) as User;
-  const { allPosts, error } = await getAllPosts();
+  const allPosts = await getAllPosts();
   // const foundPosts = await findPost("tag1");
 
   return (
@@ -21,14 +20,13 @@ export default async function Home() {
       <div className="bg-black-700 h-52 w-full">
         {/* placeholder for contribution grid */}
       </div>
-      {allPosts && allPosts.length > 0 ? (
+      {allPosts ? (
         <Posts allPosts={allPosts} />
       ) : (
         <h1 className="heading-1-medium  text-white-300 flex justify-center">
           No posts found!
         </h1>
       )}
-      {error && toast.error("Unable to load posts")}
     </section>
   );
 }

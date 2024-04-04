@@ -61,7 +61,7 @@ const Badge = ({ children, icon, color, size, variant }: BadgeProps) => {
   const textSizeClass = textSizeClassMap[size || "default"];
   const iconSizeClass = iconSizeClassMap[size || "default"];
   const IconComponent = IconMap[icon || "default"];
-  console.log("icon", icon);
+
   return (
     <div
       className={`${baseclass} ${textSizeClass} ${
