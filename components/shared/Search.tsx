@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import searchIcon from '@/public/searchIcon.svg'
-import shortcutIcon from '@/public/shortcutIcon.svg'
-import Image from 'next/image';
+import searchIcon from "@/public/searchIcon.svg";
+import shortcutIcon from "@/public/shortcutIcon.svg";
+import Image from "next/image";
 
 export default function Search() {
   function handleSearch(term: string) {
@@ -10,14 +10,14 @@ export default function Search() {
   }
 
   return (
-    <div className="bg-black-700 flex h-8 items-center gap-2 rounded-md px-2">
+    <div className="bg-black-700 flex items-center gap-2 rounded-md px-2">
       <Image
         src={searchIcon}
         alt="Search Icon"
-        className='pointer-events-none'
+        className="pointer-events-none"
       />
       <input
-        className="placeholder:paragraph-4-medium placeholder:text-white-500 bg-black-700 w-full rounded-md text-sm focus:outline-none"
+        className="placeholder:paragraph-4-medium placeholder:text-white-500 bg-black-700 w-full rounded-md border-none text-sm focus:outline-none"
         placeholder="Search..."
         onChange={(e) => {
           handleSearch(e.target.value);
@@ -26,7 +26,7 @@ export default function Search() {
       <Image
         src={shortcutIcon}
         alt="Shortcut Icon"
-        className='pointer-events-none'
+        className="pointer-events-none"
       />
     </div>
   );

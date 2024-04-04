@@ -9,7 +9,7 @@ import Learnings from "./Learnings";
 import CodeEditor from "./CodeEditor";
 import Steps from "./Steps";
 import Tags from "./Tags";
-import CreateTypeSelect from "./CreateTypeSelect";
+import CreateTypeDropdown from "./CreateTypeDropdown";
 
 const BasicInformationPost = ({
   useFormHelpers,
@@ -51,7 +51,7 @@ const BasicInformationPost = ({
         )}
       />
 
-      <CreateTypeSelect setValue={setValue} postType={postType} />
+      <CreateTypeDropdown setValue={setValue} postType={postType} />
 
       <Tags setValue={setValue} />
 
