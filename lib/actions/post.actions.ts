@@ -37,3 +37,87 @@ export async function createPost(data: IPostSchema) {
   }
   return { error: "An unexpected error occurred while creating post." };
 }
+
+export async function getAllPosts() {
+  const session = await auth();
+  const email = session && (await session.user?.email);
+  if (!email) return { error: "User not found!" };
+
+  try {
+    const allPosts = await prisma.post.findMany({
+      where: {
+        userEmail: email,
+      },
+    });
+
+    return { allPosts, error: null };
+  } catch (error) {
+    console.error("Error returning posts:", error);
+    return { error: "An unexpected error occurred while returning posts." };
+  }
+}
+
+export async function getPostById(id: string) {
+  const session = await auth();
+  const email = session && (await session.user?.email);
+  if (!email) return { error: "User not found!" };
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
+
+    return { post, error: null };
+  } catch (error) {
+    console.error("Error returning posts:", error);
+    return { error: "An unexpected error occurred while returning posts." };
+  }
+}
+
+export async function findPost(searchTerm: string) {
+  const session = await auth();
+  const email = session && (await session.user?.email);
+  if (!email) return { error: "User not found!" };
+
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        userEmail: email,
+        OR: [
+          {
+            title: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+          {
+            content: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+          {
+            description: {
+              contains: searchTerm,
+              mode: "insensitive",
+            },
+          },
+          {
+            tags: {
+              has: searchTerm,
+            },
+          },
+        ],
+      },
+    });
+
+    return { posts, error: null };
+  } catch (error) {
+    console.error("Error returning posts:", error);
+    return { error: "An unexpected error occurred while returning posts." };
+  }
+}
+
+//findMany : distinct keyword for unique tags
