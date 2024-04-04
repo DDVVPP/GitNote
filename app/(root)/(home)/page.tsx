@@ -1,5 +1,5 @@
 import { getUser } from "@/lib/actions/user.actions";
-import { findPost, getAllPosts } from "@/lib/actions/post.actions";
+import { findPosts, getAllPosts } from "@/lib/actions/post.actions";
 
 import { Post, User } from "@prisma/client";
 import Posts from "../posts/page";

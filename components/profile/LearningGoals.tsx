@@ -43,7 +43,7 @@ const LearningGoals = ({
                 <input
                   type="checkbox"
                   disabled={!goalNameValue}
-                  className="border-white-500 bg-white-500 h-3 w-3 appearance-none rounded-sm border text-green-400"
+                  className="border-white-500 bg-white-500 h-3 w-3 cursor-pointer appearance-none rounded-sm border text-green-400"
                   {...register(`goals.${index}.isComplete`)}
                 />
                 <input
