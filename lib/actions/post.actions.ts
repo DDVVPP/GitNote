@@ -6,10 +6,18 @@ import { prisma } from "@/db";
 import { Post, Resource } from "@prisma/client";
 import { IPostSchema } from "../validations/PostSchema";
 
+// const getUserSession = async () => {
+//   const session = await auth();
+//   const email = session && (await session.user?.email);
+//   if (!email) return { error: "User not found!" };
+//   return email;
+// };
+
 export async function createPost(data: IPostSchema) {
   const session = await auth();
   const email = session && (await session.user?.email);
   if (!email) return { error: "User not found!" };
+  // const userEmail = await getUserSession();
 
   try {
     if (data) {
@@ -48,6 +56,7 @@ export async function getAllPosts() {
       where: {
         userEmail: email,
       },
+      orderBy: [{ createdAt: "desc" }],
     });
 
     return allPosts;
@@ -79,7 +88,7 @@ export async function getPostById(id: string) {
   }
 }
 
-export async function findPost(searchTerm: string) {
+export async function findPosts(searchTerm: string) {
   const session = await auth();
   const email = session && (await session.user?.email);
   if (!email) return { error: "User not found!" };
@@ -110,6 +119,12 @@ export async function findPost(searchTerm: string) {
           {
             tags: {
               has: searchTerm,
+            },
+          },
+          {
+            createType: {
+              where: searchTerm,
+              mode: "insensitive",
             },
           },
         ],
