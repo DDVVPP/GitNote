@@ -9,6 +9,7 @@ interface BadgeProps extends React.PropsWithChildren {
   color?: "blue" | "orange" | "red" | "green" | "gray" | "purple";
   size?: "small" | "medium";
   variant?: "outline" | "solid";
+  hover?: boolean;
 }
 
 const colorClassMap = {
@@ -55,7 +56,14 @@ const IconMap = {
 const baseclass =
   "flex items-center content-center px-2 py-0.5 rounded-[3px] w-min text-nowrap";
 
-const Badge = ({ children, icon, color, size, variant }: BadgeProps) => {
+const Badge = ({
+  children,
+  icon,
+  color,
+  size,
+  variant,
+  hover = false,
+}: BadgeProps) => {
   const colorClass = colorClassMap[color || "default"];
   const outlineColorClass = outlineColorClassMap[color || "default"];
   const textSizeClass = textSizeClassMap[size || "default"];
@@ -66,7 +74,9 @@ const Badge = ({ children, icon, color, size, variant }: BadgeProps) => {
     <div
       className={`${baseclass} ${textSizeClass} ${
         variant === "outline" ? outlineColorClass : colorClass
-      } ${icon !== "dot" ? "gap-1" : "pr-4"} `}
+      } ${icon !== "dot" ? "gap-1" : "pr-4"} ${
+        hover && "hover:bg-black-600 hover:rounded hover:px-2 hover:py-0.5"
+      }`}
     >
       {IconComponent && (
         <IconComponent size={icon === "dot" ? "24px" : iconSizeClass} />

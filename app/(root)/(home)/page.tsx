@@ -1,7 +1,7 @@
 import { getUser } from "@/lib/actions/user.actions";
 import { findPost, getAllPosts } from "@/lib/actions/post.actions";
 
-import { User } from "@prisma/client";
+import { Post, User } from "@prisma/client";
 import Posts from "../posts/page";
 
 export default async function Home() {
@@ -21,7 +21,7 @@ export default async function Home() {
         {/* placeholder for contribution grid */}
       </div>
       {allPosts ? (
-        <Posts allPosts={allPosts} />
+        <Posts allPosts={allPosts as Post[]} />
       ) : (
         <h1 className="heading-1-medium  text-white-300 flex justify-center">
           No posts found!
