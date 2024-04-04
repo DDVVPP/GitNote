@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { Post } from "@prisma/client";
 import { createTypeList } from "@/lib/constants/createTypeList";
 import { CreateTypeListItemType } from "@/types";
@@ -19,7 +20,7 @@ const PostOverview = ({ post }: { post: Post }) => {
   }, []);
 
   return (
-    <section className="bg-black-800 space-y-4 p-4">
+    <section className="space-y-4 p-4">
       {selection && (
         <Badge color={selection.badgeColor} icon={selection.name} size="medium">
           {selection.uiName}

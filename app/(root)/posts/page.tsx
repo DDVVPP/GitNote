@@ -27,9 +27,13 @@ const Posts = ({ allPosts }: { allPosts: Post[] }) => {
         </div>
       </section>
 
-      <div className="space-y-4 rounded-md">
+      <div className="space-y-4">
         {allPosts.map((post) => (
-          <PostOverview post={post} />
+          <section className="bg-black-800 rounded-md">
+            <Link key={post.id} href={`/posts/${post.id}`}>
+              <PostOverview post={post} />
+            </Link>
+          </section>
         ))}
       </div>
 
