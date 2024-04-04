@@ -1,10 +1,13 @@
 "use client";
 
 import { format as formatDate } from "date-fns";
+import "prismjs/themes/prism-tomorrow.css";
+import { Calendar, Star, Eye, ExternalLink, CheckSquare } from "lucide-react";
+
 import { CreateType, Post, Resource } from "@prisma/client";
 import Badge from "../shared/ui/Badge";
 import { createTypeList } from "@/lib/constants/createTypeList";
-import { Calendar, Star, Eye, ExternalLink, CheckSquare } from "lucide-react";
+import RenderedCodeEditor from "./RenderedCodeEditor";
 
 const PostDetails = ({
   post,
@@ -69,28 +72,53 @@ const PostDetails = ({
 
       {createType === CreateType.COMPONENT && codeEditor && (
         <>
-          <section>{codeEditor}</section>
+          <RenderedCodeEditor codeEditor={codeEditor} />
           <hr className="dark:bg-black-700 h-px w-full border-0" />
         </>
       )}
 
       {createType === CreateType.KNOWLEDGE && learnings && (
-        <>
-          <section>{learnings}</section>
+        <section className="space-y-2">
+          <h1 className="paragraph-1-bold text-white-100">Key Takeaways</h1>
+          {learnings &&
+            learnings.map((item) => {
+              return (
+                <div className="flex items-center space-x-2">
+                  <CheckSquare className="text-green-400" size={16} />
+                  <p className="paragraph-2-regular text-white-300">{item}</p>
+                </div>
+              );
+            })}
+
           <hr className="dark:bg-black-700 h-px w-full border-0" />
-        </>
+        </section>
       )}
 
       {createType === CreateType.WORKFLOW && steps && (
-        <>
-          <section>{steps}</section>
+        <section className="space-y-2">
+          <h1 className="paragraph-1-bold text-white-100">Task Checklist</h1>
+          {steps &&
+            steps.map((step) => {
+              return (
+                <div key={step} className="my-1 flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    className="border-white-500 bg-black-800 checked:border-white-500 h-4.5 w-4.5 cursor-pointer appearance-none rounded-sm border-2 checked:bg-transparent"
+                  />
+                  <p className="text-white-300 paragraph-2-regular">{step}</p>
+                </div>
+              );
+            })}
           <hr className="dark:bg-black-700 h-px w-full border-0" />
-        </>
+        </section>
       )}
 
       {content && (
         <>
-          <section>{content}</section>
+          <div
+            dangerouslySetInnerHTML={{ __html: content }}
+            className="bg-black-800 text-white-300 rounded-lg p-4"
+          />
           <hr className="dark:bg-black-700 h-px w-full border-0" />
         </>
       )}
@@ -100,12 +128,12 @@ const PostDetails = ({
           <p className="paragraph-2-bold text-white-100">Resources & Links</p>
           {resources.map((resource) => {
             return (
-              <div className="text-white-300 paragraph-3-regular mb-3 mt-3 flex items-center gap-x-2">
+              <div className="text-white-300  mb-3 mt-3 flex items-center gap-x-2">
                 <CheckSquare size={16} className="flex text-green-400" />
                 <a
                   target="_blank"
                   href={resource?.link ?? "/"}
-                  className="flex items-center gap-x-2 underline"
+                  className="paragraph-3-regular flex items-center gap-x-2 underline"
                 >
                   {resource?.label ?? "no label"}
                   <ExternalLink size={16} />
