@@ -34,9 +34,7 @@ const LeftNavbar = () => {
           </div>
         </div>
 
-        <NavSection title="POSTS">
-          <Posts />
-        </NavSection>
+        <NavSection title="POSTS">{/* placeholder for posts */}</NavSection>
 
         <NavSection title="QUICK LINKS">
           <QuickLink
