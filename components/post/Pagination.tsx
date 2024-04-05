@@ -1,6 +1,8 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
 
+import urlManager from "@/lib/utils/urlManager";
+
 const Pagination = ({
   hasNextPage,
   numberOfPages,
@@ -10,18 +12,25 @@ const Pagination = ({
 }) => {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") ?? "1";
+  const type = searchParams.get("type");
   const router = useRouter();
 
   const next = () => {
     if (hasNextPage) {
       const nextPage = Number(page) + 1;
-      router.push(`/?page=${nextPage}`);
+      const newParams = urlManager(searchParams.toString(), {
+        page: nextPage.toString(),
+      });
+      router.push(`/?${newParams}`);
     }
   };
 
   const prev = () => {
     const previousPage = Number(page) - 1;
-    router.push(`/?page=${previousPage}`);
+    const newParams = urlManager(searchParams.toString(), {
+      page: previousPage.toString(),
+    });
+    router.push(`/?${newParams}`);
   };
 
   return (

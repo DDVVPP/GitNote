@@ -7,27 +7,30 @@ import { CreateType, Post } from "@prisma/client";
 import Badge from "@/components/shared/ui/Badge";
 import PostOverview from "@/components/post/PostOverview";
 import { createTypeList } from "@/lib/constants/createTypeList";
+import urlManager from "@/lib/utils/urlManager";
 
-const Posts = ({
-  posts,
-}: // postsByType,
-{
-  posts: Post[];
-  // postsByType: Post[];
-}) => {
+const Posts = ({ posts }: { posts: Post[] }) => {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
   const router = useRouter();
   console.log({ type });
   // console.log({ postsByType });
 
-  const handleClick = (postType: CreateType) => {
+  const handleClick = (postType: CreateType | "all") => {
     console.log({ postType });
     // const lowerCasePostType = postType.toString().toLocaleLowerCase();
-    if (type === "all-posts") {
-      router.push(`/?type=all-posts`);
+    if (postType === "all") {
+      const newParams = urlManager(searchParams.toString(), {
+        page: "1",
+        type: "all",
+      });
+      router.push(`/?${newParams}`);
     } else {
-      router.push(`/?type=${postType}`);
+      const newParams = urlManager(searchParams.toString(), {
+        page: "1",
+        type: postType,
+      });
+      router.push(`/?${newParams}`);
     }
   };
 
@@ -54,7 +57,7 @@ const Posts = ({
               </button>
             );
           })}
-          <button type="button" onClick={() => handleClick("all-posts")}>
+          <button type="button" onClick={() => handleClick("all")}>
             <Badge size="medium" hover>
               All Posts
             </Badge>
@@ -63,8 +66,17 @@ const Posts = ({
       </section>
 
       <div className="space-y-4">
-        {/* {type && postsByType && postsByType.length > 0
-          ? postsByType.map((post) => (
+        {posts.map((post) => (
+          <section key={post.id} className="bg-black-800 rounded-md">
+            <Link href={`/posts/${post.id}`}>
+              <PostOverview post={post} />
+            </Link>
+          </section>
+        ))}
+        {/* {type !== "all"
+          ? filteredPosts &&
+            filteredPosts.length > 0 &&
+            filteredPosts.map((post) => (
               <section key={post.id} className="bg-black-800 rounded-md">
                 <Link href={`/posts/${post.id}`}>
                   <PostOverview post={post} />
@@ -78,13 +90,6 @@ const Posts = ({
                 </Link>
               </section>
             ))} */}
-        {posts.map((post) => (
-          <section key={post.id} className="bg-black-800 rounded-md">
-            <Link href={`/posts/${post.id}`}>
-              <PostOverview post={post} />
-            </Link>
-          </section>
-        ))}
       </div>
     </section>
   );
