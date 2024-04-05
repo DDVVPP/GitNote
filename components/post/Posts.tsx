@@ -1,26 +1,35 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 
-import { Post } from "@prisma/client";
-import { CreateTypeListItemType } from "@/types";
+import { CreateType, Post } from "@prisma/client";
 import Badge from "@/components/shared/ui/Badge";
 import PostOverview from "@/components/post/PostOverview";
 import { createTypeList } from "@/lib/constants/createTypeList";
 
-const Posts = ({ allPosts }: { allPosts: Post[] }) => {
-  const [posts, setPosts] = useState(allPosts);
+const Posts = ({
+  posts,
+}: // postsByType,
+{
+  posts: Post[];
+  // postsByType: Post[];
+}) => {
+  const searchParams = useSearchParams();
+  const type = searchParams.get("type");
+  const router = useRouter();
+  console.log({ type });
+  // console.log({ postsByType });
 
-  // const handleClick = (createType?: CreateTypeListItemType) => {
-  //   if (createType) {
-  //     const filteredPosts: Post[] = allPosts.filter(
-  //       (post) => post.createType === createType.name
-  //     );
-  //     setPosts(filteredPosts);
-  //   } else {
-  //     setPosts(allPosts);
-  //   }
-  // };
+  const handleClick = (postType: CreateType) => {
+    console.log({ postType });
+    // const lowerCasePostType = postType.toString().toLocaleLowerCase();
+    if (type === "all-posts") {
+      router.push(`/?type=all-posts`);
+    } else {
+      router.push(`/?type=${postType}`);
+    }
+  };
 
   return (
     <section className="mb-6 mt-8 space-y-6">
@@ -29,7 +38,11 @@ const Posts = ({ allPosts }: { allPosts: Post[] }) => {
         <div className="flex flex-wrap gap-x-2">
           {createTypeList.map((createType) => {
             return (
-              <button type="button">
+              <button
+                type="button"
+                key={createType.name}
+                onClick={() => handleClick(createType.name)}
+              >
                 <Badge
                   color={createType.badgeColor}
                   icon={createType.name}
@@ -41,7 +54,7 @@ const Posts = ({ allPosts }: { allPosts: Post[] }) => {
               </button>
             );
           })}
-          <button type="button">
+          <button type="button" onClick={() => handleClick("all-posts")}>
             <Badge size="medium" hover>
               All Posts
             </Badge>
@@ -50,9 +63,24 @@ const Posts = ({ allPosts }: { allPosts: Post[] }) => {
       </section>
 
       <div className="space-y-4">
-        {allPosts.map((post) => (
-          <section className="bg-black-800 rounded-md">
-            <Link key={post.id} href={`/posts/${post.id}`}>
+        {/* {type && postsByType && postsByType.length > 0
+          ? postsByType.map((post) => (
+              <section key={post.id} className="bg-black-800 rounded-md">
+                <Link href={`/posts/${post.id}`}>
+                  <PostOverview post={post} />
+                </Link>
+              </section>
+            ))
+          : posts.map((post) => (
+              <section key={post.id} className="bg-black-800 rounded-md">
+                <Link href={`/posts/${post.id}`}>
+                  <PostOverview post={post} />
+                </Link>
+              </section>
+            ))} */}
+        {posts.map((post) => (
+          <section key={post.id} className="bg-black-800 rounded-md">
+            <Link href={`/posts/${post.id}`}>
               <PostOverview post={post} />
             </Link>
           </section>

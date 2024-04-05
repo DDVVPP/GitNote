@@ -35,7 +35,13 @@ export async function createPost(data: IPostSchema) {
   return { error: "An unexpected error occurred while creating post." };
 }
 
-export async function getAllPosts(page: string) {
+export async function getAllPosts({
+  page,
+  searchTerm,
+}: {
+  page: string;
+  searchTerm?: CreateType;
+}) {
   const postsToTake = 4;
   let hasNextPage = false;
   try {
@@ -43,6 +49,11 @@ export async function getAllPosts(page: string) {
     const somePosts = await prisma.post.findMany({
       where: {
         userEmail,
+        OR: [
+          {
+            createType: searchTerm as CreateType,
+          },
+        ],
       },
       orderBy: [{ createdAt: "desc" }],
       skip: (Number(page) - 1) * postsToTake,
@@ -57,9 +68,14 @@ export async function getAllPosts(page: string) {
     const allPosts = await prisma.post.findMany({
       where: {
         userEmail,
+        OR: [
+          {
+            createType: searchTerm as CreateType,
+          },
+        ],
       },
     });
-
+    console.log(somePosts);
     const numberOfPages = Math.ceil(allPosts.length / postsToTake);
 
     return { somePosts, hasNextPage, numberOfPages };

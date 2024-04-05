@@ -1,19 +1,26 @@
 import { getUser } from "@/lib/actions/user.actions";
 import { findPosts, getAllPosts } from "@/lib/actions/post.actions";
 
-import { Post, User } from "@prisma/client";
+import { CreateType, Post, User } from "@prisma/client";
 import Posts from "../../../components/post/Posts";
 import Pagination from "@/components/post/Pagination";
 
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { page: string };
+  searchParams: { page: string; type: string };
 }) {
   const user = (await getUser()) as User;
 
-  const posts = await getAllPosts(searchParams.page ?? "1");
+  const posts = await getAllPosts({
+    page: searchParams.page ?? "1",
+    searchTerm: searchParams.type as CreateType,
+  });
   const { somePosts, hasNextPage, numberOfPages } = posts;
+  // const postsByType =
+  //   searchParams.type !== "all-posts" && (await getAllPosts(searchParams.type));
+  // const postsByType =
+  //   searchParams.type !== "all-posts" && (await findPosts(searchParams.type));
 
   return (
     <section className="flex flex-col gap-4">
