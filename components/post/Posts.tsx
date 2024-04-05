@@ -13,12 +13,8 @@ const Posts = ({ posts }: { posts: Post[] }) => {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
   const router = useRouter();
-  console.log({ type });
-  // console.log({ postsByType });
 
   const handleClick = (postType: CreateType | "all") => {
-    console.log({ postType });
-    // const lowerCasePostType = postType.toString().toLocaleLowerCase();
     if (postType === "all") {
       const newParams = urlManager(searchParams.toString(), {
         page: "1",
@@ -73,23 +69,6 @@ const Posts = ({ posts }: { posts: Post[] }) => {
             </Link>
           </section>
         ))}
-        {/* {type !== "all"
-          ? filteredPosts &&
-            filteredPosts.length > 0 &&
-            filteredPosts.map((post) => (
-              <section key={post.id} className="bg-black-800 rounded-md">
-                <Link href={`/posts/${post.id}`}>
-                  <PostOverview post={post} />
-                </Link>
-              </section>
-            ))
-          : posts.map((post) => (
-              <section key={post.id} className="bg-black-800 rounded-md">
-                <Link href={`/posts/${post.id}`}>
-                  <PostOverview post={post} />
-                </Link>
-              </section>
-            ))} */}
       </div>
     </section>
   );
