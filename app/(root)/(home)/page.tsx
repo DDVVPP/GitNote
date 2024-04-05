@@ -11,8 +11,9 @@ export default async function Home({
   searchParams: { page: string };
 }) {
   const user = (await getUser()) as User;
-  const allPosts = await getAllPosts(searchParams.page ?? "1");
-  // const foundPosts = await findPost("tag1");
+
+  const posts = await getAllPosts(searchParams.page ?? "1");
+  const { somePosts, hasNextPage, numberOfPages } = posts;
 
   return (
     <section className="flex flex-col gap-4">
@@ -25,14 +26,17 @@ export default async function Home({
       <div className="bg-black-700 h-52 w-full">
         {/* placeholder for contribution grid */}
       </div>
-      {allPosts ? (
-        <Posts allPosts={allPosts as Post[]} />
+      {somePosts ? (
+        <Posts posts={somePosts as Post[]} />
       ) : (
         <h1 className="heading-1-medium  text-white-300 flex justify-center">
           No posts found!
         </h1>
       )}
-      <Pagination />
+      <Pagination
+        hasNextPage={hasNextPage as boolean}
+        numberOfPages={numberOfPages as number}
+      />
     </section>
   );
 }

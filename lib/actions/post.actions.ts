@@ -2,7 +2,7 @@
 
 import { prisma } from "@/db";
 
-import { Resource } from "@prisma/client";
+import { CreateType, Resource } from "@prisma/client";
 import { IPostSchema } from "../validations/PostSchema";
 import { getUserSession } from ".";
 
@@ -36,20 +36,33 @@ export async function createPost(data: IPostSchema) {
 }
 
 export async function getAllPosts(page: string) {
-  const numResultsPerPage = 4;
-
+  const postsToTake = 4;
+  let hasNextPage = false;
   try {
     const userEmail = await getUserSession();
-    const allPosts = await prisma.post.findMany({
+    const somePosts = await prisma.post.findMany({
       where: {
         userEmail,
       },
       orderBy: [{ createdAt: "desc" }],
-      skip: (Number(page ?? "1") - 1) * numResultsPerPage,
-      take: numResultsPerPage,
+      skip: (Number(page) - 1) * postsToTake,
+      take: postsToTake + 1,
     });
 
-    return allPosts;
+    if (somePosts.length > postsToTake) {
+      somePosts.pop();
+      hasNextPage = true;
+    }
+
+    const allPosts = await prisma.post.findMany({
+      where: {
+        userEmail,
+      },
+    });
+
+    const numberOfPages = Math.ceil(allPosts.length / postsToTake);
+
+    return { somePosts, hasNextPage, numberOfPages };
   } catch (error) {
     console.error("Error returning posts:", error);
     return { error: "An unexpected error occurred while returning posts." };
@@ -74,7 +87,7 @@ export async function getPostById(id: string) {
   }
 }
 
-export async function findPosts(searchTerm: string) {
+export async function findPosts(searchTerm: string | CreateType) {
   try {
     const userEmail = await getUserSession();
     const posts = await prisma.post.findMany({
@@ -103,6 +116,9 @@ export async function findPosts(searchTerm: string) {
             tags: {
               has: searchTerm,
             },
+          },
+          {
+            createType: searchTerm as CreateType,
           },
         ],
       },
