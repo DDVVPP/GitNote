@@ -24,7 +24,11 @@ const PostOverview = ({ post }: { post: Post }) => {
       <h1 className="heading-1-medium">{title}</h1>
       <div className="flex gap-2">
         {post.tags &&
-          post.tags.map((tag) => <Badge size="medium">{tag}</Badge>)}
+          post.tags.map((tag) => (
+            <Badge size="medium" key={tag}>
+              {tag}
+            </Badge>
+          ))}
       </div>
     </section>
   );

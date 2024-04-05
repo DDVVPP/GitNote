@@ -35,13 +35,7 @@ export async function createPost(data: IPostSchema) {
   return { error: "An unexpected error occurred while creating post." };
 }
 
-export async function getAllPosts({
-  page,
-  searchTerm,
-}: {
-  page: string;
-  searchTerm?: CreateType;
-}) {
+export async function getAllPosts({ page }: { page: string }) {
   const postsToTake = 4;
   let hasNextPage = false;
   try {
@@ -49,11 +43,6 @@ export async function getAllPosts({
     const somePosts = await prisma.post.findMany({
       where: {
         userEmail,
-        OR: [
-          {
-            createType: searchTerm as CreateType,
-          },
-        ],
       },
       orderBy: [{ createdAt: "desc" }],
       skip: (Number(page) - 1) * postsToTake,
@@ -68,6 +57,51 @@ export async function getAllPosts({
     const allPosts = await prisma.post.findMany({
       where: {
         userEmail,
+      },
+    });
+
+    const numberOfPages = Math.ceil(allPosts.length / postsToTake);
+
+    return { somePosts, hasNextPage, numberOfPages };
+  } catch (error) {
+    console.error("Error returning posts:", error);
+    return { error: "An unexpected error occurred while returning posts." };
+  }
+}
+
+export async function getFilteredPosts({
+  page,
+  searchTerm,
+}: {
+  page: string;
+  searchTerm?: CreateType;
+}) {
+  const postsToTake = 4;
+  let hasNextPageFiltered = false;
+  try {
+    const userEmail = await getUserSession();
+    const someFilteredPosts = await prisma.post.findMany({
+      where: {
+        userEmail,
+        OR: [
+          {
+            createType: searchTerm as CreateType,
+          },
+        ],
+      },
+      orderBy: [{ createdAt: "desc" }],
+      skip: (Number(page) - 1) * postsToTake,
+      take: postsToTake + 1,
+    });
+
+    if (someFilteredPosts.length > postsToTake) {
+      someFilteredPosts.pop();
+      hasNextPageFiltered = true;
+    }
+
+    const allFilteredPosts = await prisma.post.findMany({
+      where: {
+        userEmail,
         OR: [
           {
             createType: searchTerm as CreateType,
@@ -75,10 +109,12 @@ export async function getAllPosts({
         ],
       },
     });
-    console.log(somePosts);
-    const numberOfPages = Math.ceil(allPosts.length / postsToTake);
 
-    return { somePosts, hasNextPage, numberOfPages };
+    const numberOfPagesFiltered = Math.ceil(
+      allFilteredPosts.length / postsToTake
+    );
+
+    return { someFilteredPosts, hasNextPageFiltered, numberOfPagesFiltered };
   } catch (error) {
     console.error("Error returning posts:", error);
     return { error: "An unexpected error occurred while returning posts." };
