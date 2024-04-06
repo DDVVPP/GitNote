@@ -5,9 +5,26 @@ import { useState, useEffect } from "react";
 import searchIcon from "@/public/searchIcon.svg";
 import shortcutIcon from "@/public/shortcutIcon.svg";
 import Image from "next/image";
+import { useSearchParams, useRouter } from "next/navigation";
+import urlManager from "@/lib/utils/urlManager";
+import { Post } from "@prisma/client";
 
-export default function Search() {
+const Search = ({ posts }: { posts: Post[] }) => {
   const [open, setOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const newParams = urlManager(searchParams.toString(), {
+        page: "1",
+        term: searchTerm,
+      });
+      router.push(`/?${newParams}`);
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [searchTerm]);
 
   // Toggle the menu when ⌘K is pressed
   useEffect(() => {
@@ -53,12 +70,21 @@ export default function Search() {
         label="Global Command Menu"
         className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center backdrop-blur"
       >
-        <div className="bg-black-600 h-96 w-96">
-          <Command.Input />
-          <Command.List>
+        <div className="bg-black-800 flex w-2/3 flex-col">
+          <Command.Input
+            value={searchTerm}
+            onValueChange={setSearchTerm}
+            className="bg-black-700 w-full border-none"
+          />
+          <Command.List className="p-4">
             <Command.Empty>No results found.</Command.Empty>
 
-            <Command.Group heading="Letters">
+            <Command.Group className="paragraph-3-regular text-white-300 space-y-4">
+              {posts &&
+                posts.length > 0 &&
+                posts.map((post) => {
+                  return <Command.Item>{post.title}</Command.Item>;
+                })}
               <Command.Item>a</Command.Item>
               <Command.Item>b</Command.Item>
               <Command.Separator />
@@ -71,4 +97,6 @@ export default function Search() {
       </Command.Dialog>
     </>
   );
-}
+};
+
+export default Search;

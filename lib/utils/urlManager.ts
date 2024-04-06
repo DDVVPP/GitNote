@@ -3,6 +3,7 @@ import queryString from "query-string";
 type SearchParams = {
   page: string;
   type: CreateType | "all";
+  term: string;
 };
 
 const urlManager = (params: string, change: Partial<SearchParams>) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { signOut } from "@/lib/actions";
 
 import Image from "next/image";
@@ -7,13 +7,13 @@ import jsmProLogo from "@/public/jsmProLogo.svg";
 import githubOutline from "@/public/githubOutline.svg";
 import logoutIcon from "@/public/logoutIcon.svg";
 import Link from "next/link";
-import Search from "../shared/Search";
-import Posts from "@/components/post/Posts";
 import QuickLink from "./QuickLink";
 import NavSection from "./NavSection";
 import Button from "../shared/ui/Button";
+import SearchWrapper from "../shared/SearchWrapper";
+import Search from "../shared/Search";
 
-const LeftNavbar = () => {
+const LeftNavbar = async () => {
   return (
     <nav className="bg-black-800 flex-2 sticky left-0 top-0 z-20 flex h-screen w-1/5 flex-col justify-between pl-8 pr-8 pt-20 ">
       <div>
@@ -34,6 +34,7 @@ const LeftNavbar = () => {
               </Button>
             </Link>
             <Search />
+            {/* <SearchWrapper /> */}
           </div>
         </div>
 

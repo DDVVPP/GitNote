@@ -11,7 +11,6 @@ import urlManager from "@/lib/utils/urlManager";
 
 const Posts = ({ posts }: { posts: Post[] }) => {
   const searchParams = useSearchParams();
-  const type = searchParams.get("type");
   const router = useRouter();
 
   const handleClick = (postType: CreateType | "all") => {
@@ -62,13 +61,14 @@ const Posts = ({ posts }: { posts: Post[] }) => {
       </section>
 
       <div className="space-y-4">
-        {posts.map((post) => (
-          <section key={post.id} className="bg-black-800 rounded-md">
-            <Link href={`/posts/${post.id}`}>
-              <PostOverview post={post} />
-            </Link>
-          </section>
-        ))}
+        {posts &&
+          posts.map((post) => (
+            <section key={post.id} className="bg-black-800 rounded-md">
+              <Link href={`/posts/${post.id}`}>
+                <PostOverview post={post} />
+              </Link>
+            </section>
+          ))}
       </div>
     </section>
   );

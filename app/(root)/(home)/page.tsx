@@ -15,7 +15,7 @@ export default async function Home({
   searchParams: { page: string; type: string };
 }) {
   const user = (await getUser()) as User;
-
+  // const foundPosts = await findPosts(searchParams.term ?? "");
   const posts = await getAllPosts({
     page: searchParams.page ?? "1",
   });
@@ -31,7 +31,7 @@ export default async function Home({
   return (
     <section className="flex flex-col gap-4">
       <h1 className="display-1-bold text-white-100">
-        Hello {user && user.name} {searchParams.page},
+        Hello {user && user.name},
       </h1>
       <p className="paragraph-1-regular text-white-300">
         Time to jot down your latest learnings today!

@@ -169,13 +169,13 @@ export async function findPosts(searchTerm: string | CreateType) {
               has: searchTerm,
             },
           },
-          {
-            createType: searchTerm as CreateType,
-          },
+          // {
+          //   createType: searchTerm as CreateType,
+          // },
         ],
       },
     });
-
+    console.log("posts", posts);
     return posts;
   } catch (error) {
     console.error("Error returning posts:", error);
