@@ -56,25 +56,6 @@ export default async function Home({
           />
         </>
       )}
-
-      {/* {someFilteredPosts ? (
-        <Posts posts={someFilteredPosts as Post[]} />
-      ) : (
-        <h1 className="heading-1-medium  text-white-300 flex justify-center">
-          No posts found!
-        </h1>
-      )} */}
-      {/* {somePosts && (searchParams.type === "all" || !searchParams.type) ? (
-        <Pagination
-          hasNextPage={hasNextPage as boolean}
-          numberOfPages={numberOfPages as number}
-        />
-      ) : (
-        <Pagination
-          hasNextPage={hasNextPageFiltered as boolean}
-          numberOfPages={numberOfPagesFiltered as number}
-        />
-      )} */}
     </section>
   );
 }
