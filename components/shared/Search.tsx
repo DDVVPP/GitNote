@@ -8,12 +8,22 @@ import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import urlManager from "@/lib/utils/urlManager";
 import { Post } from "@prisma/client";
+import { findPosts } from "@/lib/actions/post.actions";
 
-const Search = ({ posts }: { posts: Post[] }) => {
+const Search = () => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [posts, setPosts] = useState<Post[]>();
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const posts = await findPosts(searchTerm);
+      if (posts) setPosts(posts as Post[]);
+    };
+    getPosts();
+  }, [searchTerm]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -82,8 +92,12 @@ const Search = ({ posts }: { posts: Post[] }) => {
             <Command.Group className="paragraph-3-regular text-white-300 space-y-4">
               {posts &&
                 posts.length > 0 &&
-                posts.map((post) => {
-                  return <Command.Item>{post.title}</Command.Item>;
+                posts.map((post, idx) => {
+                  return (
+                    <Command.Item className="cursor-pointer">
+                      {post.title}
+                    </Command.Item>
+                  );
                 })}
               <Command.Item>a</Command.Item>
               <Command.Item>b</Command.Item>

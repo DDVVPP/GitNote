@@ -130,9 +130,6 @@ export async function findPosts(searchTerm: string | CreateType) {
               has: searchTerm,
             },
           },
-          // {
-          //   createType: searchTerm as CreateType,
-          // },
         ],
       },
     });
