@@ -1,9 +1,5 @@
 import { getUser } from "@/lib/actions/user.actions";
-import {
-  findPosts,
-  getAllPosts,
-  getFilteredPosts,
-} from "@/lib/actions/post.actions";
+import { getAllPosts } from "@/lib/actions/post.actions";
 
 import { CreateType, Post, User } from "@prisma/client";
 import Posts from "../../../components/post/Posts";
@@ -18,15 +14,9 @@ export default async function Home({
   // const foundPosts = await findPosts(searchParams.term ?? "");
   const posts = await getAllPosts({
     page: searchParams.page ?? "1",
-  });
-  const { somePosts, hasNextPage, numberOfPages } = posts;
-
-  const filteredPosts = await getFilteredPosts({
-    page: searchParams.page ?? "1",
     searchTerm: searchParams.type as CreateType,
   });
-  const { someFilteredPosts, hasNextPageFiltered, numberOfPagesFiltered } =
-    filteredPosts;
+  const { somePosts, hasNextPage, numberOfPages } = posts;
 
   return (
     <section className="flex flex-col gap-4">
@@ -39,20 +29,12 @@ export default async function Home({
       <div className="bg-black-700 h-52 w-full">
         {/* placeholder for contribution grid */}
       </div>
-      {somePosts && (searchParams.type === "all" || !searchParams.type) ? (
+      {somePosts && (
         <>
           <Posts posts={somePosts as Post[]} />
           <Pagination
             hasNextPage={hasNextPage as boolean}
             numberOfPages={numberOfPages as number}
-          />
-        </>
-      ) : (
-        <>
-          <Posts posts={someFilteredPosts as Post[]} />
-          <Pagination
-            hasNextPage={hasNextPageFiltered as boolean}
-            numberOfPages={numberOfPagesFiltered as number}
           />
         </>
       )}
