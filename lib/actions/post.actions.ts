@@ -35,7 +35,13 @@ export async function createPost(data: IPostSchema) {
   return { error: "An unexpected error occurred while creating post." };
 }
 
-export async function getAllPosts({ page }: { page: string }) {
+export async function getAllPosts({
+  page,
+  searchTerm,
+}: {
+  page: string;
+  searchTerm?: string;
+}) {
   const postsToTake = 4;
   let hasNextPage = false;
   try {
@@ -43,6 +49,8 @@ export async function getAllPosts({ page }: { page: string }) {
     const somePosts = await prisma.post.findMany({
       where: {
         userEmail,
+        ...(searchTerm &&
+          searchTerm !== "all" && { createType: searchTerm as CreateType }),
       },
       orderBy: [{ createdAt: "desc" }],
       skip: (Number(page) - 1) * postsToTake,
@@ -54,67 +62,20 @@ export async function getAllPosts({ page }: { page: string }) {
       hasNextPage = true;
     }
 
-    const allPosts = await prisma.post.findMany({
+    const { _count: numberOfResults } = await prisma.post.aggregate({
+      _count: true,
       where: {
         userEmail,
+        ...(searchTerm &&
+          searchTerm !== "all" && { createType: searchTerm as CreateType }),
       },
     });
 
-    const numberOfPages = Math.ceil(allPosts.length / postsToTake);
-
-    return { somePosts, hasNextPage, numberOfPages };
-  } catch (error) {
-    console.error("Error returning posts:", error);
-    return { error: "An unexpected error occurred while returning posts." };
-  }
-}
-
-export async function getFilteredPosts({
-  page,
-  searchTerm,
-}: {
-  page: string;
-  searchTerm?: CreateType;
-}) {
-  const postsToTake = 4;
-  let hasNextPageFiltered = false;
-  try {
-    const userEmail = await getUserSession();
-    const someFilteredPosts = await prisma.post.findMany({
-      where: {
-        userEmail,
-        OR: [
-          {
-            createType: searchTerm as CreateType,
-          },
-        ],
-      },
-      orderBy: [{ createdAt: "desc" }],
-      skip: (Number(page) - 1) * postsToTake,
-      take: postsToTake + 1,
-    });
-
-    if (someFilteredPosts.length > postsToTake) {
-      someFilteredPosts.pop();
-      hasNextPageFiltered = true;
-    }
-
-    const allFilteredPosts = await prisma.post.findMany({
-      where: {
-        userEmail,
-        OR: [
-          {
-            createType: searchTerm as CreateType,
-          },
-        ],
-      },
-    });
-
-    const numberOfPagesFiltered = Math.ceil(
-      allFilteredPosts.length / postsToTake
-    );
-
-    return { someFilteredPosts, hasNextPageFiltered, numberOfPagesFiltered };
+    return {
+      somePosts,
+      hasNextPage,
+      numberOfPages: Math.ceil(numberOfResults / 4) || 1,
+    };
   } catch (error) {
     console.error("Error returning posts:", error);
     return { error: "An unexpected error occurred while returning posts." };
