@@ -133,7 +133,7 @@ export async function findPosts(searchTerm: string | CreateType) {
         ],
       },
     });
-    console.log("posts", posts);
+
     return posts;
   } catch (error) {
     console.error("Error returning posts:", error);

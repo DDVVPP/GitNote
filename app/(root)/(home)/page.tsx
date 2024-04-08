@@ -11,7 +11,6 @@ export default async function Home({
   searchParams: { page: string; type: string };
 }) {
   const user = (await getUser()) as User;
-  // const foundPosts = await findPosts(searchParams.term ?? "");
   const posts = await getAllPosts({
     page: searchParams.page ?? "1",
     searchTerm: searchParams.type as CreateType,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { signOut } from "@/lib/actions";
 
 import Image from "next/image";
@@ -12,7 +12,7 @@ import NavSection from "./NavSection";
 import Button from "../shared/ui/Button";
 import Search from "../shared/Search";
 
-const LeftNavbar = async () => {
+const LeftNavbar = () => {
   return (
     <nav className="bg-black-800 flex-2 sticky left-0 top-0 z-20 flex h-screen w-1/5 flex-col justify-between pl-8 pr-8 pt-20 ">
       <div>
