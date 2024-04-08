@@ -26,7 +26,7 @@ export default async function Home({
       <p className="paragraph-1-regular text-white-300">
         Time to jot down your latest learnings today!
       </p>
-      <div className="bg-black-700 h-52 w-full">
+      <div className="bg-black-800 h-52 w-full">
         {/* placeholder for contribution grid */}
       </div>
       {somePosts && (
