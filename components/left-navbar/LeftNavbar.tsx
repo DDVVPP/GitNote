@@ -10,7 +10,6 @@ import Link from "next/link";
 import QuickLink from "./QuickLink";
 import NavSection from "./NavSection";
 import Button from "../shared/ui/Button";
-import SearchWrapper from "../shared/SearchWrapper";
 import Search from "../shared/Search";
 
 const LeftNavbar = async () => {
@@ -34,7 +33,6 @@ const LeftNavbar = async () => {
               </Button>
             </Link>
             <Search />
-            {/* <SearchWrapper /> */}
           </div>
         </div>
 

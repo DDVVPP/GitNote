@@ -60,10 +60,6 @@ const Search = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  function handleSearch(term: string) {
-    console.log(term);
-  }
-
   const iconMatch = (post: Post) => {
     switch (post.createType) {
       case CreateType.COMPONENT:
