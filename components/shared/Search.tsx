@@ -2,20 +2,26 @@
 
 import { Command } from "cmdk";
 import { useState, useEffect } from "react";
+import Link from "next/link";
+
 import searchIcon from "@/public/searchIcon.svg";
 import shortcutIcon from "@/public/shortcutIcon.svg";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
-import urlManager from "@/lib/utils/urlManager";
-import { Post } from "@prisma/client";
+
+import { CreateType, Post } from "@prisma/client";
 import { findPosts } from "@/lib/actions/post.actions";
+import urlManager from "@/lib/utils/urlManager";
+import WorkflowIcon from "./icons/WorkflowIcon";
+import ComponentIcon from "./icons/ComponentIcon";
+import KnowledgeIcon from "./icons/KnowledgeIcon";
 
 const Search = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [posts, setPosts] = useState<Post[]>();
-  const searchParams = useSearchParams();
-  const router = useRouter();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -38,7 +44,12 @@ const Search = () => {
 
   // Toggle the menu when ⌘K is pressed
   useEffect(() => {
-    const down = (e) => {
+    const down = (e: {
+      key: string;
+      metaKey: any;
+      ctrlKey: any;
+      preventDefault: () => void;
+    }) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
@@ -48,25 +59,50 @@ const Search = () => {
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
+
   function handleSearch(term: string) {
     console.log(term);
   }
 
+  const iconMatch = (post: Post) => {
+    switch (post.createType) {
+      case CreateType.COMPONENT:
+        return (
+          <>
+            <ComponentIcon className="text-purple-500" size={18} />
+            <span>{post.title}</span>
+          </>
+        );
+      case CreateType.WORKFLOW:
+        return (
+          <>
+            <WorkflowIcon className="text-primary-500" size={18} />
+            <span>{post.title}</span>
+          </>
+        );
+      case CreateType.KNOWLEDGE:
+        return (
+          <>
+            <KnowledgeIcon className="text-green-500" size={18} />
+            <span>{post.title}</span>
+          </>
+        );
+    }
+  };
   return (
     <>
-      <div className="bg-black-700 flex items-center gap-2 rounded-md px-2">
-        <Image
-          src={searchIcon}
-          alt="Search Icon"
-          className="pointer-events-none"
-        />
-        <input
-          className="placeholder:paragraph-4-medium placeholder:text-white-500 bg-black-700 w-full rounded-md border-none text-sm focus:outline-none"
-          placeholder="Search..."
-          onChange={(e) => {
-            handleSearch(e.target.value);
-          }}
-        />
+      <div
+        className="bg-black-700 paragraph-4-medium flex cursor-pointer items-center justify-between rounded-md p-4"
+        onClick={() => setOpen((open) => !open)}
+      >
+        <div className="flex gap-x-2">
+          <Image
+            src={searchIcon}
+            alt="Search Icon"
+            className="pointer-events-none"
+          />
+          <p className="text-white-500">Search...</p>
+        </div>
         <Image
           src={shortcutIcon}
           alt="Shortcut Icon"
@@ -78,34 +114,44 @@ const Search = () => {
         open={open}
         onOpenChange={setOpen}
         label="Global Command Menu"
-        className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center backdrop-blur"
+        className="fixed inset-0 z-50 flex h-full w-full items-center justify-center backdrop-blur"
       >
-        <div className="bg-black-800 flex w-2/3 flex-col">
-          <Command.Input
-            value={searchTerm}
-            onValueChange={setSearchTerm}
-            className="bg-black-700 w-full border-none"
-          />
-          <Command.List className="p-4">
+        <div className="bg-black-800 flex w-1/2 flex-col">
+          <div className="bg-black-700 flex w-full items-center gap-x-2 border-none p-4  py-3">
+            <Image
+              src={searchIcon}
+              alt="Search Icon"
+              className=" pointer-events-none ml-2"
+            />
+            <Command.Input
+              value={searchTerm}
+              onValueChange={setSearchTerm}
+              className="bg-black-700 paragraph-3-regular text-white-300 placeholder:text-white-300 w-full border-none p-0 py-1"
+              placeholder="Type a command or search..."
+            />
+            <div className="bg-black-800 text-white-300 paragraph-4-regular rounded p-1">
+              ESC
+            </div>
+          </div>
+          <Command.List className="paragraph-3-regular text-white-300 h-64 overflow-auto p-4">
             <Command.Empty>No results found.</Command.Empty>
-
-            <Command.Group className="paragraph-3-regular text-white-300 space-y-4">
+            <Command.Group>
               {posts &&
                 posts.length > 0 &&
-                posts.map((post, idx) => {
+                posts.map((post) => {
                   return (
-                    <Command.Item className="cursor-pointer">
-                      {post.title}
-                    </Command.Item>
+                    <Link
+                      key={post.id}
+                      href={`/posts/${post.id}`}
+                      onClick={() => setOpen((open) => !open)}
+                    >
+                      <Command.Item className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 px-2 py-2 hover:rounded hover:py-2">
+                        {iconMatch(post)}
+                      </Command.Item>
+                    </Link>
                   );
                 })}
-              <Command.Item>a</Command.Item>
-              <Command.Item>b</Command.Item>
-              <Command.Separator />
-              <Command.Item>c</Command.Item>
             </Command.Group>
-
-            <Command.Item>Apple</Command.Item>
           </Command.List>
         </div>
       </Command.Dialog>
