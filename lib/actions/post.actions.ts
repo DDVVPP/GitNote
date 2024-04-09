@@ -39,10 +39,12 @@ export async function getAllPosts({
   page,
   searchTerm,
   postsToTake = 4,
+  term,
 }: {
   page: string;
   searchTerm?: string;
   postsToTake?: number;
+  term?: string;
 }) {
   let hasNextPage = false;
   try {
@@ -52,6 +54,33 @@ export async function getAllPosts({
         userEmail,
         ...(searchTerm &&
           searchTerm !== "all" && { createType: searchTerm as CreateType }),
+        ...(term && {
+          OR: [
+            {
+              title: {
+                contains: term,
+                mode: "insensitive",
+              },
+            },
+            {
+              content: {
+                contains: term,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: term,
+                mode: "insensitive",
+              },
+            },
+            {
+              tags: {
+                has: term,
+              },
+            },
+          ],
+        }),
       },
       orderBy: [{ createdAt: "desc" }],
       skip: (Number(page) - 1) * postsToTake,
@@ -69,6 +98,33 @@ export async function getAllPosts({
         userEmail,
         ...(searchTerm &&
           searchTerm !== "all" && { createType: searchTerm as CreateType }),
+        ...(term && {
+          OR: [
+            {
+              title: {
+                contains: term,
+                mode: "insensitive",
+              },
+            },
+            {
+              content: {
+                contains: term,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: term,
+                mode: "insensitive",
+              },
+            },
+            {
+              tags: {
+                has: term,
+              },
+            },
+          ],
+        }),
       },
     });
 
@@ -139,5 +195,28 @@ export async function findPosts(searchTerm: string | CreateType) {
   } catch (error) {
     console.error("Error returning posts:", error);
     return { error: "An unexpected error occurred while returning posts." };
+  }
+}
+
+export async function getUniqueTags() {
+  try {
+    const userEmail = await getUserSession();
+    const posts = await prisma.post.findMany({
+      where: {
+        userEmail,
+      },
+      select: {
+        tags: true,
+      },
+      distinct: ["tags"],
+    });
+
+    const flattenedPosts = posts.flatMap((item) => item.tags);
+    const deDupedTags = Array.from(new Set(flattenedPosts));
+
+    return { deDupedTags, error: null };
+  } catch (error) {
+    console.error("Error returning tags:", error);
+    return { error: "An unexpected error occurred while returning tags." };
   }
 }

@@ -1,25 +1,52 @@
 /* eslint-disable tailwindcss/no-custom-classname */
-import React from "react";
-
+import { getUniqueTags } from "@/lib/actions/post.actions";
+import React, { useEffect, useState } from "react";
+import { Badge } from "../shared";
+import urlManager from "@/lib/utils/urlManager";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const SidebarTags = () => {
-  // Hardcoded placeholder for actual tags
-  const tagList = ['Authentication', 'Next.js', 'Next.js setup', 'ESLint/Prettier']
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [tagList, setTagList] = useState<String[]>();
+  const [tagTerm, setTagTerm] = useState("");
 
-  return(
-    <div className='flex flex-col justify-start gap-4'>
-      <h3 className='text-white-100 paragraph-3-bold'>Tags</h3>
-        {tagList.map((tag) => {
+  useEffect(() => {
+    const getTags = async () => {
+      const tags = await getUniqueTags();
+      if (tags) setTagList(tags.deDupedTags);
+    };
+    getTags();
+  }, []);
+
+  useEffect(() => {
+    const setParams = async () => {
+      const newParams = urlManager(searchParams.toString(), {
+        page: "1",
+        tag: tagTerm,
+      });
+      router.push(`?${newParams}`);
+    };
+    setParams();
+  }, [tagTerm]);
+
+  return (
+    <div className="flex flex-col justify-start gap-4">
+      <h3 className="text-white-100 paragraph-3-bold">Tags</h3>
+      {tagList &&
+        tagList.map((tag) => {
           return (
-            <div key={tag}>
-              <p className='bg-black-700 text-white-300 paragraph-3-medium inline-block px-2'>
-                {tag}
-              </p>
-            </div>
-          )
+            <button
+              type="button"
+              key={tag as string}
+              onClick={() => setTagTerm(tag as string)}
+            >
+              <Badge hover>{tag}</Badge>
+            </button>
+          );
         })}
     </div>
-  )
+  );
 };
 
-export default SidebarTags
+export default SidebarTags;

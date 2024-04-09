@@ -2,18 +2,20 @@ import { getUser } from "@/lib/actions/user.actions";
 import { getAllPosts } from "@/lib/actions/post.actions";
 
 import { CreateType, Post, User } from "@prisma/client";
+import { SearchParams } from "@/types";
 import Posts from "../../../components/post/Posts";
 import Pagination from "@/components/post/Pagination";
 
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { page: string; type: string };
+  searchParams: SearchParams;
 }) {
   const user = (await getUser()) as User;
   const posts = await getAllPosts({
     page: searchParams.page ?? "1",
     searchTerm: searchParams.type as CreateType,
+    term: searchParams.tag ?? "",
   });
   const { somePosts, hasNextPage, numberOfPages } = posts;
 

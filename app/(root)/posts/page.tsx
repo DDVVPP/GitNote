@@ -3,15 +3,17 @@ import { getAllPosts } from "@/lib/actions/post.actions";
 import { CreateType, Post, User } from "@prisma/client";
 import Posts from "../../../components/post/Posts";
 import Pagination from "@/components/post/Pagination";
+import { SearchParams } from "@/types";
 
 export default async function PostsInCols({
   searchParams,
 }: {
-  searchParams: { page: string; type: string };
+  searchParams: SearchParams;
 }) {
   const posts = await getAllPosts({
     page: searchParams.page ?? "1",
     searchTerm: searchParams.type as CreateType,
+    term: searchParams.tag,
     postsToTake: 8,
   });
   const { somePosts, hasNextPage, numberOfPages } = posts;
