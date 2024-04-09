@@ -15,7 +15,8 @@ export default async function Home({
   const posts = await getAllPosts({
     page: searchParams.page ?? "1",
     searchTerm: searchParams.type as CreateType,
-    term: searchParams.tag ?? "",
+    term: searchParams.term ?? "",
+    tag: searchParams.tag ?? "",
   });
   const { somePosts, hasNextPage, numberOfPages } = posts;
 
