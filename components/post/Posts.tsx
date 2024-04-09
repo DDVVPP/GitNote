@@ -87,14 +87,21 @@ const Posts = ({
       </section>
 
       <div className={containerStyle}>
-        {posts &&
+        {posts && posts.length > 0 ? (
           posts.map((post) => (
             <section key={post.id} className={postStyle}>
               <Link href={`/posts/${post.id}`}>
                 <PostOverview post={post} />
               </Link>
             </section>
-          ))}
+          ))
+        ) : (
+          <h3
+            className={`paragraph-1-regular text-white-300 flex items-center justify-center p-12 ${postStyle}`}
+          >
+            No posts to display!
+          </h3>
+        )}
       </div>
     </section>
   );
