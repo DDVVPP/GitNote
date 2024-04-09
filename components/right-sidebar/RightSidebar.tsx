@@ -16,17 +16,12 @@ const RightSidebar = ({ user }: { user: User }) => {
   const params = useParams();
 
   const renderCorrectSidebar = () => {
-    switch (pathname) {
-      case "/":
-        return <SidebarTags />;
-      case "/posts/create-post":
-        return <SidebarTags />;
-      case `/posts/${params.postId}`:
-        return <SidebarRelatedPosts />;
-      case "/profile":
-        return <SidebarSocialMedia user={user} />;
-      case "/profile/edit":
-        return <SidebarSocialMedia user={user} />;
+    if (["/", "/posts", "/posts/create-post"].includes(pathname)) {
+      return <SidebarTags />;
+    } else if ([`/posts/${params.postId}`].includes(pathname)) {
+      return <SidebarRelatedPosts />;
+    } else if (["/profile", "/profile/edit"].includes(pathname)) {
+      return <SidebarSocialMedia user={user} />;
     }
   };
 

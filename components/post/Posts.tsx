@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -18,10 +18,10 @@ const Posts = ({
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+
   let containerStyle = `flex flex-col gap-y-4`;
   let postStyle = `bg-black-800 rounded-md`;
   if (isTwoCols) {
-    console.log("in isTwoCols");
     containerStyle = "flex flex-wrap gap-x-2 gap-y-4";
     postStyle += " basis-[49%]";
   }
@@ -43,7 +43,7 @@ const Posts = ({
   };
 
   return (
-    <section className="space-y-10">
+    <section className="mb-8 space-y-10">
       <section className="flex justify-between">
         <h1 className="display-2-bold text-white-100">Recent Posts</h1>
         <div className="flex flex-wrap gap-x-2">
@@ -53,6 +53,7 @@ const Posts = ({
                 type="button"
                 key={createType.name}
                 onClick={() => handleClick(createType.name)}
+                className="cursor-pointer"
               >
                 <Badge
                   color={createType.badgeColor}

@@ -65,7 +65,12 @@ const PostDetails = ({
       </div>
 
       <div className="flex gap-x-3">
-        {tags && tags.map((tag) => <Badge size="medium">{tag}</Badge>)}
+        {tags &&
+          tags.map((tag) => (
+            <Badge key={tag} size="medium">
+              {tag}
+            </Badge>
+          ))}
       </div>
 
       <hr className="dark:bg-black-700 h-px w-full border-0" />
