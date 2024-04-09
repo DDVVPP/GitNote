@@ -41,11 +41,13 @@ const SidebarTags = () => {
               type="button"
               key={tag as string}
               onClick={() => setTagTerm(isSelected ? "" : (tag as string))}
-              className={`${
-                isSelected && "bg-black-600 mt-1 h-fit w-min rounded"
-              } cursor-pointer`}
             >
-              <Badge hover>{tag}</Badge>
+              <Badge
+                hover={!isSelected}
+                color={isSelected ? "gray" : undefined}
+              >
+                {tag}
+              </Badge>
             </button>
           );
         })}

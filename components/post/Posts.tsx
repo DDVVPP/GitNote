@@ -18,8 +18,7 @@ const Posts = ({
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [isSelectedTypeAll, setIsSelectedTypeAll] = useState(false);
-  // const isSelectedTypeAll = "all" === searchParams.get("type");
+  const isSelectedTypeAll = "all" === searchParams.get("type");
 
   let containerStyle = `flex flex-col gap-y-4`;
   let postStyle = `bg-black-800 rounded-md`;
@@ -28,9 +27,8 @@ const Posts = ({
     postStyle += " basis-[49%]";
   }
 
-  const handleClick = (postType: CreateType | "all") => {
+  const handleClick = (postType: CreateType | "all" | "") => {
     if (postType === "all") {
-      setIsSelectedTypeAll("all" === searchParams.get("type"));
       const newParams = urlManager(searchParams.toString(), {
         page: "1",
         type: "all",
@@ -60,15 +58,12 @@ const Posts = ({
                 type="button"
                 key={createType.name}
                 onClick={() => handleClick(isSelected ? "" : createType.name)}
-                className={`${
-                  isSelected && "bg-black-600 mt-1 h-fit rounded"
-                } cursor-pointer`}
               >
                 <Badge
-                  color={createType.badgeColor}
+                  color={isSelected ? "gray" : createType.badgeColor}
                   icon={createType.name}
                   size="medium"
-                  hover
+                  hover={!isSelected}
                 >
                   {createType.uiName}
                 </Badge>
@@ -78,12 +73,13 @@ const Posts = ({
 
           <button
             type="button"
-            onClick={() => handleClick("all")}
-            className={`${
-              isSelectedTypeAll && "bg-black-600 mt-1 h-fit rounded"
-            } cursor-pointer`}
+            onClick={() => handleClick(isSelectedTypeAll ? "" : "all")}
           >
-            <Badge size="medium" hover>
+            <Badge
+              size="medium"
+              hover={!isSelectedTypeAll}
+              color={isSelectedTypeAll ? "gray" : undefined}
+            >
               All Posts
             </Badge>
           </button>
