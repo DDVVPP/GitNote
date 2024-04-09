@@ -128,7 +128,10 @@ const PostDetails = ({
           <p className="paragraph-2-bold text-white-100">Resources & Links</p>
           {resources.map((resource) => {
             return (
-              <div className="text-white-300  mb-3 mt-3 flex items-center gap-x-2">
+              <div
+                key={resource && resource.id}
+                className="text-white-300  mb-3 mt-3 flex items-center gap-x-2"
+              >
                 <CheckSquare size={16} className="flex text-green-400" />
                 <a
                   target="_blank"

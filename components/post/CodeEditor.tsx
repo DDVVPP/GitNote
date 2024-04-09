@@ -60,7 +60,7 @@ const CodeEditor = ({
         <div className="bg-black-700 relative flex h-96 overflow-y-auto">
           <div className="editorLineNumbers absolute left-0 top-0 flex flex-col pt-2">
             {[...Array(numberOfEditorLines)].map((_, idx) => (
-              <span>{idx + 1}</span>
+              <span key={idx}>{idx + 1}</span>
             ))}
           </div>
           <textarea

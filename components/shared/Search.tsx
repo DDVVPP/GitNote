@@ -35,7 +35,7 @@ const Search = () => {
         page: "1",
         term: searchTerm,
       });
-      router.push(`/?${newParams}`);
+      router.push(`?${newParams}`);
     };
 
     const timeout = setTimeout(() => {
@@ -149,7 +149,10 @@ const Search = () => {
                       href={`/posts/${post.id}`}
                       onClick={() => setOpen((open) => !open)}
                     >
-                      <Command.Item className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 px-2 py-2 hover:rounded hover:py-2">
+                      <Command.Item
+                        className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 px-2 py-2 hover:rounded hover:py-2"
+                        value={post.title}
+                      >
                         {iconMatch(post)}
                       </Command.Item>
                     </Link>
