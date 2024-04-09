@@ -12,6 +12,7 @@ export default async function PostsInCols({
   const posts = await getAllPosts({
     page: searchParams.page ?? "1",
     searchTerm: searchParams.type as CreateType,
+    postsToTake: 8,
   });
   const { somePosts, hasNextPage, numberOfPages } = posts;
 
@@ -19,7 +20,7 @@ export default async function PostsInCols({
     <section className="flex flex-col gap-4">
       {somePosts && (
         <>
-          <Posts posts={somePosts as Post[]} />
+          <Posts posts={somePosts as Post[]} isTwoCols />
           <Pagination
             hasNextPage={hasNextPage as boolean}
             numberOfPages={numberOfPages as number}

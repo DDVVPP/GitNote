@@ -14,7 +14,7 @@ import Search from "../shared/Search";
 
 const LeftNavbar = () => {
   return (
-    <nav className="bg-black-800 flex-2 sticky left-0 top-0 z-20 flex h-screen w-1/5 flex-col justify-between pl-8 pr-8 pt-20 ">
+    <nav className="bg-black-800 flex-2 sticky left-0 top-0 z-20 mt-20 flex h-screen w-1/5 flex-col justify-between pl-8 pr-8">
       <div>
         <div className="border-white-500 flex flex-col justify-start space-y-12 border-b">
           <Link href="/">
@@ -36,7 +36,7 @@ const LeftNavbar = () => {
           </div>
         </div>
 
-        <NavSection title="POSTS">{/* placeholder for posts */}</NavSection>
+        <NavSection title="POSTS"> placeholder for posts</NavSection>
 
         <NavSection title="QUICK LINKS">
           <QuickLink

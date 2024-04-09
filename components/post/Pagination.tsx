@@ -12,7 +12,6 @@ const Pagination = ({
 }) => {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") ?? "1";
-  const type = searchParams.get("type");
   const router = useRouter();
 
   const next = () => {
@@ -21,7 +20,7 @@ const Pagination = ({
       const newParams = urlManager(searchParams.toString(), {
         page: nextPage.toString(),
       });
-      router.push(`/?${newParams}`);
+      router.push(`?${newParams}`);
     }
   };
 
@@ -30,7 +29,7 @@ const Pagination = ({
     const newParams = urlManager(searchParams.toString(), {
       page: previousPage.toString(),
     });
-    router.push(`/?${newParams}`);
+    router.push(`?${newParams}`);
   };
 
   return (

@@ -9,9 +9,22 @@ import PostOverview from "@/components/post/PostOverview";
 import { createTypeList } from "@/lib/constants/createTypeList";
 import urlManager from "@/lib/utils/urlManager";
 
-const Posts = ({ posts }: { posts: Post[] }) => {
+const Posts = ({
+  posts,
+  isTwoCols = false,
+}: {
+  posts: Post[];
+  isTwoCols?: boolean;
+}) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  let containerStyle = `flex flex-col gap-y-4`;
+  let postStyle = `bg-black-800 rounded-md`;
+  if (isTwoCols) {
+    console.log("in isTwoCols");
+    containerStyle = "flex flex-wrap gap-x-2 gap-y-4";
+    postStyle += " basis-[49%]";
+  }
 
   const handleClick = (postType: CreateType | "all") => {
     if (postType === "all") {
@@ -19,18 +32,18 @@ const Posts = ({ posts }: { posts: Post[] }) => {
         page: "1",
         type: "all",
       });
-      router.push(`/?${newParams}`);
+      router.push(`?${newParams}`);
     } else {
       const newParams = urlManager(searchParams.toString(), {
         page: "1",
         type: postType,
       });
-      router.push(`/?${newParams}`);
+      router.push(`?${newParams}`);
     }
   };
 
   return (
-    <section className="mb-6 mt-8 space-y-6">
+    <section className="space-y-10">
       <section className="flex justify-between">
         <h1 className="display-2-bold text-white-100">Recent Posts</h1>
         <div className="flex flex-wrap gap-x-2">
@@ -60,10 +73,10 @@ const Posts = ({ posts }: { posts: Post[] }) => {
         </div>
       </section>
 
-      <div className="space-y-4">
+      <div className={containerStyle}>
         {posts &&
           posts.map((post) => (
-            <section key={post.id} className="bg-black-800 rounded-md">
+            <section key={post.id} className={postStyle}>
               <Link href={`/posts/${post.id}`}>
                 <PostOverview post={post} />
               </Link>

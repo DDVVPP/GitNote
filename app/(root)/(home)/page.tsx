@@ -18,16 +18,18 @@ export default async function Home({
   const { somePosts, hasNextPage, numberOfPages } = posts;
 
   return (
-    <section className="flex flex-col gap-4">
-      <h1 className="display-1-bold text-white-100">
-        Hello {user && user.name},
-      </h1>
-      <p className="paragraph-1-regular text-white-300">
-        Time to jot down your latest learnings today!
-      </p>
-      <div className="bg-black-800 h-52 w-full">
-        {/* placeholder for contribution grid */}
-      </div>
+    <section className="flex flex-col">
+      <section className="mb-8 space-y-4">
+        <h1 className="display-1-bold text-white-100">
+          Hello {user && user.name},
+        </h1>
+        <p className="paragraph-1-regular text-white-300">
+          Time to jot down your latest learnings today!
+        </p>
+        <div className="bg-black-800 h-52 w-full">
+          {/* placeholder for contribution grid */}
+        </div>
+      </section>
       {somePosts && (
         <>
           <Posts posts={somePosts as Post[]} />

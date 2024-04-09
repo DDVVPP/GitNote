@@ -38,11 +38,12 @@ export async function createPost(data: IPostSchema) {
 export async function getAllPosts({
   page,
   searchTerm,
+  postsToTake = 4,
 }: {
   page: string;
   searchTerm?: string;
+  postsToTake?: number;
 }) {
-  const postsToTake = 4;
   let hasNextPage = false;
   try {
     const userEmail = await getUserSession();
@@ -74,7 +75,7 @@ export async function getAllPosts({
     return {
       somePosts,
       hasNextPage,
-      numberOfPages: Math.ceil(numberOfResults / 4) || 1,
+      numberOfPages: Math.ceil(numberOfResults / postsToTake) || 1,
     };
   } catch (error) {
     console.error("Error returning posts:", error);
@@ -140,5 +141,3 @@ export async function findPosts(searchTerm: string | CreateType) {
     return { error: "An unexpected error occurred while returning posts." };
   }
 }
-
-//findMany : distinct keyword for unique tags
