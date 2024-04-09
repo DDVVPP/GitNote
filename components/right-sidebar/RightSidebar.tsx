@@ -2,17 +2,31 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname, useParams } from "next/navigation";
+
 import { Image as LandscapeIcon } from "lucide-react";
 
-// import SidebarTags from "./SidebarTags";
-// import SidebarRelatedPosts from "./SidebarRelatedPosts";
-// import SidebarOnThisPage from "./SidebarOnThisPage";
+import SidebarTags from "./SidebarTags";
+import SidebarRelatedPosts from "./SidebarRelatedPosts";
 import SidebarSocialMedia from "./SidebarSocialMedia";
 import { User } from "@prisma/client";
 
 const RightSidebar = ({ user }: { user: User }) => {
+  const pathname = usePathname();
+  const params = useParams();
+
+  const renderCorrectSidebar = () => {
+    if (["/", "/posts", "/posts/create-post"].includes(pathname)) {
+      return <SidebarTags />;
+    } else if ([`/posts/${params.postId}`].includes(pathname)) {
+      return <SidebarRelatedPosts />;
+    } else if (["/profile", "/profile/edit"].includes(pathname)) {
+      return <SidebarSocialMedia user={user} />;
+    }
+  };
+
   return (
-    <div className=" bg-black-800 flex-2 sticky right-0 top-0 z-20 flex h-screen w-1/5 flex-col gap-10 overflow-y-auto p-8 pt-20">
+    <div className=" bg-black-800 flex-2 sticky right-0 top-0 z-20 flex h-screen w-1/5 flex-col gap-10 overflow-y-auto p-8 pt-16">
       <Link href="/profile" className="flex items-center gap-2">
         {user.image ? (
           <Image
@@ -37,10 +51,7 @@ const RightSidebar = ({ user }: { user: User }) => {
         </div>
       </Link>
 
-      {/* <SidebarTags /> */}
-      {/* <SidebarRelatedPosts /> */}
-      {/* <SidebarOnThisPage /> */}
-      <SidebarSocialMedia user={user} />
+      {renderCorrectSidebar()}
     </div>
   );
 };

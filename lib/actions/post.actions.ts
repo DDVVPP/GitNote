@@ -2,7 +2,7 @@
 
 import { prisma } from "@/db";
 
-import { CreateType, Resource } from "@prisma/client";
+import { CreateType, Resource, Prisma } from "@prisma/client";
 import { IPostSchema } from "../validations/PostSchema";
 import { getUserSession } from ".";
 
@@ -38,20 +38,57 @@ export async function createPost(data: IPostSchema) {
 export async function getAllPosts({
   page,
   searchTerm,
+  postsToTake = 4,
+  term,
+  tag,
 }: {
   page: string;
   searchTerm?: string;
+  postsToTake?: number;
+  term?: string;
+  tag?: string;
 }) {
-  const postsToTake = 4;
   let hasNextPage = false;
   try {
     const userEmail = await getUserSession();
-    const somePosts = await prisma.post.findMany({
+    const options = {
       where: {
         userEmail,
         ...(searchTerm &&
           searchTerm !== "all" && { createType: searchTerm as CreateType }),
+        ...(term && {
+          OR: [
+            {
+              title: {
+                contains: term,
+                mode: "insensitive",
+              },
+            },
+            {
+              content: {
+                contains: term,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: term,
+                mode: "insensitive",
+              },
+            },
+            {
+              tags: {
+                has: term,
+              },
+            },
+          ],
+        }),
+        ...(tag && { tags: { has: tag } }),
       },
+    };
+
+    const somePosts = await prisma.post.findMany({
+      ...(options as Prisma.PostFindManyArgs),
       orderBy: [{ createdAt: "desc" }],
       skip: (Number(page) - 1) * postsToTake,
       take: postsToTake + 1,
@@ -62,19 +99,15 @@ export async function getAllPosts({
       hasNextPage = true;
     }
 
-    const { _count: numberOfResults } = await prisma.post.aggregate({
+    const { _count: numberOfResults } = (await prisma.post.aggregate({
       _count: true,
-      where: {
-        userEmail,
-        ...(searchTerm &&
-          searchTerm !== "all" && { createType: searchTerm as CreateType }),
-      },
-    });
+      ...(options as Prisma.PostAggregateArgs),
+    })) as any;
 
     return {
       somePosts,
       hasNextPage,
-      numberOfPages: Math.ceil(numberOfResults / 4) || 1,
+      numberOfPages: Math.ceil(numberOfResults / postsToTake) || 1,
     };
   } catch (error) {
     console.error("Error returning posts:", error);
@@ -130,9 +163,6 @@ export async function findPosts(searchTerm: string | CreateType) {
               has: searchTerm,
             },
           },
-          {
-            createType: searchTerm as CreateType,
-          },
         ],
       },
     });
@@ -144,4 +174,25 @@ export async function findPosts(searchTerm: string | CreateType) {
   }
 }
 
-//findMany : distinct keyword for unique tags
+export async function getUniqueTags() {
+  try {
+    const userEmail = await getUserSession();
+    const posts = await prisma.post.findMany({
+      where: {
+        userEmail,
+      },
+      select: {
+        tags: true,
+      },
+      distinct: ["tags"],
+    });
+
+    const flattenedPosts = posts.flatMap((item) => item.tags);
+    const deDupedTags = Array.from(new Set(flattenedPosts));
+
+    return { deDupedTags, error: null };
+  } catch (error) {
+    console.error("Error returning tags:", error);
+    return { error: "An unexpected error occurred while returning tags." };
+  }
+}

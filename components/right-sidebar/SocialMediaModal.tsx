@@ -87,7 +87,10 @@ const SocialMediaModal = ({
           {socialMediaIconList.map((icon, index) => {
             const { icon: Icon, type } = icon;
             return (
-              <div key={type} className="flex justify-center gap-x-2">
+              <div
+                key={type}
+                className="flex items-center justify-center gap-x-2"
+              >
                 <Icon size={34} />
                 <Controller
                   control={control}

@@ -17,3 +17,10 @@ export type CreateTypeListItemType = {
   badgeColor: "blue" | "orange" | "red" | "green" | "gray" | "purple";
   color: string;
 };
+
+export type SearchParams = {
+  page: string;
+  type: CreateType | "all";
+  term: string;
+  tag: string;
+};

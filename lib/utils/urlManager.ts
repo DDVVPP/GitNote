@@ -1,9 +1,5 @@
-import { CreateType } from "@prisma/client";
 import queryString from "query-string";
-type SearchParams = {
-  page: string;
-  type: CreateType | "all";
-};
+import { SearchParams } from "@/types";
 
 const urlManager = (params: string, change: Partial<SearchParams>) => {
   const param = queryString.parse(params);
