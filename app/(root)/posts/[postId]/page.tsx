@@ -1,15 +1,23 @@
-import React from 'react'
-import Link from 'next/link'
+import React from "react";
+import Link from "next/link";
+import { getPostById } from "@/lib/actions/post.actions";
+import PostDetails from "@/components/post/PostDetails";
+import { Resource, Post } from "@prisma/client";
 
-const Post = ({params}) => {
+const Post = async ({ params }: { params: { postId: string } }) => {
+  const post = await getPostById(params.postId);
+
   return (
     <>
-    <h1>Post Name {params.postId}</h1>
-        <Link href={`/posts/${params.postId}/update-post`}>
-      Update post
-    </Link>
-    </>
-  )
-}
+      {post && (
+        <PostDetails
+          post={post as Post & { resources?: Partial<Resource[]> }}
+        />
+      )}
 
-export default Post
+      {/* <Link href={`/posts/${params.postId}/update-post`}>Update post</Link> */}
+    </>
+  );
+};
+
+export default Post;

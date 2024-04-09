@@ -1,10 +1,10 @@
 "use server";
 
-import { auth } from "@/auth";
 import { prisma } from "@/db";
 import { User, Goals, Social } from "@prisma/client";
 import bcryptjs from "bcryptjs";
 import { revalidateTag, unstable_cache } from "next/cache";
+import { getUserSession } from ".";
 
 export async function createUser(data: Partial<User>) {
   try {
@@ -28,11 +28,8 @@ export async function createUser(data: Partial<User>) {
 }
 
 async function _getUser() {
-  const session = await auth();
-  const email = session && (await session.user?.email);
-  if (!email) return { error: "User not found!" };
-
   try {
+    const email = await getUserSession();
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -56,10 +53,6 @@ export const getUser = unstable_cache(_getUser, ["getUser"], {
 export async function updateUser(
   data: Partial<User & { goals?: any } & { socialMedia?: any }>
 ) {
-  const session = await auth();
-  const email = session && (await session.user?.email);
-  if (!email) return { error: "User not found!" };
-
   if (data && data.goals) {
     data.goals = {
       upsert: data.goals.map((goal: Goals) => ({
@@ -112,6 +105,7 @@ export async function updateUser(
   }
 
   try {
+    const email = await getUserSession();
     if (data) {
       const user = await prisma.user.update({
         where: {

@@ -1,11 +1,11 @@
-'use server';
+"use server";
 
-import * as auth from '@/auth';
+import * as auth from "@/auth";
 
-export async function signIn(provider: 'github' | 'google') {
+export async function signIn(provider: "github" | "google") {
   return auth.signIn(provider, {
     redirect: true,
-    redirectTo: '/',
+    redirectTo: "/",
   });
 }
 
@@ -16,17 +16,24 @@ export async function credentialsSignIn({
   email: string;
   password: string;
 }) {
-  return auth.signIn('credentials', {
+  return auth.signIn("credentials", {
     email,
     password,
     redirect: true,
-    redirectTo: '/',
+    redirectTo: "/",
   });
 }
 
 export async function signOut() {
   return auth.signOut({
     redirect: true,
-    redirectTo: '/login',
+    redirectTo: "/login",
   });
+}
+
+export async function getUserSession() {
+  const session = await auth.auth();
+  const email = session && (await session.user?.email);
+  if (!email) throw Error("Unauthorized");
+  return email;
 }

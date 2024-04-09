@@ -8,7 +8,7 @@ import githubOutline from "@/public/githubOutline.svg";
 import logoutIcon from "@/public/logoutIcon.svg";
 import Link from "next/link";
 import Search from "../shared/Search";
-import Posts from "@/app/(root)/posts/page";
+import Posts from "@/components/post/Posts";
 import QuickLink from "./QuickLink";
 import NavSection from "./NavSection";
 import Button from "../shared/ui/Button";
@@ -18,12 +18,15 @@ const LeftNavbar = () => {
     <nav className="bg-black-800 flex-2 sticky left-0 top-0 z-20 flex h-screen w-1/5 flex-col justify-between pl-8 pr-8 pt-20 ">
       <div>
         <div className="border-white-500 flex flex-col justify-start space-y-12 border-b">
-          <div className="flex items-center space-x-2">
-            <Image src={gitNoteIcon} alt="Git Note Icon" />
-            <h1 className="text-left text-[22.55px] font-bold leading-[19.64px]">
-              GitNote
-            </h1>
-          </div>
+          <Link href="/">
+            <div className="flex items-center space-x-2">
+              <Image src={gitNoteIcon} alt="Git Note Icon" />
+              <h1 className="text-left text-[22.55px] font-bold leading-[19.64px]">
+                GitNote
+              </h1>
+            </div>
+          </Link>
+
           <div className="space-y-4 pb-12">
             <Link href="/posts/create-post">
               <Button icon="plus" color="gradient">
@@ -34,9 +37,7 @@ const LeftNavbar = () => {
           </div>
         </div>
 
-        <NavSection title="POSTS">
-          <Posts />
-        </NavSection>
+        <NavSection title="POSTS">{/* placeholder for posts */}</NavSection>
 
         <NavSection title="QUICK LINKS">
           <QuickLink

@@ -24,6 +24,7 @@
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "prismjs": "^1.29.0",
+    "query-string": "^9.0.0",
     "react": "^18",
     "react-datepicker": "^6.4.0",
     "react-dom": "^18",

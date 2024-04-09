@@ -1,25 +1,43 @@
 import { getUser } from "@/lib/actions/user.actions";
+import { getAllPosts } from "@/lib/actions/post.actions";
 
-import { User } from "@prisma/client";
-// import Posts from "../posts/page";
+import { CreateType, Post, User } from "@prisma/client";
+import Posts from "../../../components/post/Posts";
+import Pagination from "@/components/post/Pagination";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { page: string; type: string };
+}) {
   const user = (await getUser()) as User;
 
+  const posts = await getAllPosts({
+    page: searchParams.page ?? "1",
+    searchTerm: searchParams.type as CreateType,
+  });
+  const { somePosts, hasNextPage, numberOfPages } = posts;
+
   return (
-    <>
-      <div className="text-white-300 flex flex-col gap-4">
-        <h1 className="display-2-bold text-white-100">
-          Hi {user && user.name}!
-        </h1>
-        <p className="paragraph-3-medium">
-          You have the role of {user && user.role}
-        </p>
+    <section className="flex flex-col gap-4">
+      <h1 className="display-1-bold text-white-100">
+        Hello {user && user.name},
+      </h1>
+      <p className="paragraph-1-regular text-white-300">
+        Time to jot down your latest learnings today!
+      </p>
+      <div className="bg-black-700 h-52 w-full">
+        {/* placeholder for contribution grid */}
       </div>
-      <div className="text-white-300 mt-4 flex flex-col gap-4">
-        <h3 className="display-2-bold text-white-100">Recent Posts</h3>
-        {/* {session && <Posts user={user} />} */}
-      </div>
-    </>
+      {somePosts && (
+        <>
+          <Posts posts={somePosts as Post[]} />
+          <Pagination
+            hasNextPage={hasNextPage as boolean}
+            numberOfPages={numberOfPages as number}
+          />
+        </>
+      )}
+    </section>
   );
 }

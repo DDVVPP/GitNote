@@ -2,21 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { CreateType } from "@prisma/client";
 import { createTypeList } from "@/lib/constants/createTypeList";
 import ChevronDown from "../shared/icons/ChevronDown";
 import ChevronUp from "../shared/icons/ChevronUp";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
 import useEscapeHandler from "@/lib/utils/useEscapeHandler";
+import { CreateTypeListItemType } from "@/types";
 
-type CreateTypeListItemType = {
-  icon: (props: any) => JSX.Element;
-  name: CreateType;
-  uiName: string;
-  color: string;
-};
-
-const CreateTypeSelect = ({
+const CreateTypeDropdown = ({
   setValue,
   postType,
 }: {
@@ -93,4 +86,4 @@ const CreateTypeSelect = ({
   );
 };
 
-export default CreateTypeSelect;
+export default CreateTypeDropdown;
