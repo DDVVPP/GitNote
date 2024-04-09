@@ -35,11 +35,15 @@ const SidebarTags = () => {
       <h3 className="text-white-100 paragraph-3-bold">Tags</h3>
       {tagList &&
         tagList.map((tag) => {
+          const isSelected = tag === searchParams.get("tag");
           return (
             <button
               type="button"
               key={tag as string}
-              onClick={() => setTagTerm(tag as string)}
+              onClick={() => setTagTerm(isSelected ? "" : (tag as string))}
+              className={`${
+                isSelected && "bg-black-600 mt-1 h-fit w-min rounded"
+              } cursor-pointer`}
             >
               <Badge hover>{tag}</Badge>
             </button>

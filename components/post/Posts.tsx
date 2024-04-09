@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -18,6 +18,8 @@ const Posts = ({
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [isSelectedTypeAll, setIsSelectedTypeAll] = useState(false);
+  // const isSelectedTypeAll = "all" === searchParams.get("type");
 
   let containerStyle = `flex flex-col gap-y-4`;
   let postStyle = `bg-black-800 rounded-md`;
@@ -28,9 +30,12 @@ const Posts = ({
 
   const handleClick = (postType: CreateType | "all") => {
     if (postType === "all") {
+      setIsSelectedTypeAll("all" === searchParams.get("type"));
       const newParams = urlManager(searchParams.toString(), {
         page: "1",
         type: "all",
+        tag: "",
+        term: "",
       });
       router.push(`?${newParams}`);
     } else {
@@ -48,12 +53,16 @@ const Posts = ({
         <h1 className="display-2-bold text-white-100">Recent Posts</h1>
         <div className="flex flex-wrap gap-x-2">
           {createTypeList.map((createType) => {
+            const isSelected = createType.name === searchParams.get("type");
+
             return (
               <button
                 type="button"
                 key={createType.name}
-                onClick={() => handleClick(createType.name)}
-                className="cursor-pointer"
+                onClick={() => handleClick(isSelected ? "" : createType.name)}
+                className={`${
+                  isSelected && "bg-black-600 mt-1 h-fit rounded"
+                } cursor-pointer`}
               >
                 <Badge
                   color={createType.badgeColor}
@@ -66,7 +75,14 @@ const Posts = ({
               </button>
             );
           })}
-          <button type="button" onClick={() => handleClick("all")}>
+
+          <button
+            type="button"
+            onClick={() => handleClick("all")}
+            className={`${
+              isSelectedTypeAll && "bg-black-600 mt-1 h-fit rounded"
+            } cursor-pointer`}
+          >
             <Badge size="medium" hover>
               All Posts
             </Badge>
