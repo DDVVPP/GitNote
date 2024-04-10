@@ -196,3 +196,31 @@ export async function getUniqueTags() {
     return { error: "An unexpected error occurred while returning tags." };
   }
 }
+
+export async function getPostDates() {
+  try {
+    const userEmail = await getUserSession();
+    const posts = await prisma.post.findMany({
+      where: {
+        userEmail,
+      },
+      select: {
+        createdAt: true,
+      },
+    });
+    const datesWithoutTimes = posts.map((post) => {
+      return post.createdAt.toISOString().split("T")[0];
+    });
+
+    const deDupedDates = Array.from(new Set(datesWithoutTimes));
+    const activity = deDupedDates.map((date) => {
+      const matchedDates = datesWithoutTimes.filter((d) => d === date);
+      return { date, count: matchedDates.length };
+    });
+
+    return activity;
+  } catch (error) {
+    console.error("Error returning posts:", error);
+    return { error: "An unexpected error occurred while returning posts." };
+  }
+}
