@@ -36,6 +36,7 @@ const SocialMediaModal = ({
   useEscapeHandler(onClose);
 
   const userSocials = new Array(socialMediaIconList.length);
+
   socialMediaIconList.forEach((icon, index) => {
     const { type } = icon;
     const matchedData = user.socialMedia?.find(
@@ -65,6 +66,17 @@ const SocialMediaModal = ({
     register,
   } = useFormHelpers;
 
+  //Added this to include new error property socialFields
+  const formErrors = errors as {
+    socialMedia: {
+      id?: { message: number | undefined };
+      username?: { message: string | undefined };
+      link?: { message: string | undefined };
+      type?: { message: string | undefined };
+    }[];
+    socialFields?: { message: string | undefined };
+  };
+
   const onSubmit: SubmitHandler<Partial<IUserSchema>> = async (data) => {
     try {
       await updateUser(data);
@@ -89,9 +101,9 @@ const SocialMediaModal = ({
             return (
               <div
                 key={type}
-                className="flex items-center justify-center gap-x-2"
+                className="flex items-start justify-start gap-x-2"
               >
-                <Icon size={34} />
+                <Icon size={34} className="self-center" />
                 <Controller
                   control={control}
                   name={`socialMedia.${index}.username`}
@@ -106,8 +118,8 @@ const SocialMediaModal = ({
                         }}
                         placeholder="Username"
                         errors={
-                          errors.socialMedia &&
-                          (errors.socialMedia[index]?.username
+                          formErrors.socialMedia &&
+                          (formErrors.socialMedia[index]?.username
                             ?.message as FieldError & string)
                         }
                       />
@@ -129,8 +141,8 @@ const SocialMediaModal = ({
                         }}
                         placeholder="Social Link"
                         errors={
-                          errors.socialMedia &&
-                          (errors.socialMedia[index]?.link
+                          formErrors.socialMedia &&
+                          (formErrors.socialMedia[index]?.link
                             ?.message as FieldError & string)
                         }
                       />
@@ -148,6 +160,9 @@ const SocialMediaModal = ({
               </div>
             );
           })}
+          <span className="text-error-500 paragraph-3-regular mt-2 flex justify-center">
+            {formErrors.socialFields && formErrors.socialFields.message}
+          </span>
         </section>
 
         <div className="mt-6">

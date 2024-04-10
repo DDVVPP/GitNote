@@ -37,7 +37,7 @@ export const UserSchema = z.object({
             return value.length > 1;
           },
           {
-            message: "Username must contain at least 1 character",
+            message: "Username must contain at least 2 characters",
           }
         )
         .optional(),
@@ -88,5 +88,19 @@ export const ProfileSchema = UserSchema.omit({
 export type ISocialMediaSchema = z.infer<typeof SocialMediaSchema>;
 export const SocialMediaSchema = UserSchema.pick({
   socialMedia: true,
-});
+}).refine(
+  (data) => {
+    return data.socialMedia.every((item) => {
+      const hasLink = item.link && item.link?.length > 0;
+      const hasUserName = item.username && item.username?.length > 0;
+      if (hasLink && hasUserName) return true;
+      if (!hasLink && !hasUserName) return true;
+      return false;
+    });
+  },
+  {
+    message: "Both fields to be empty or both fields to contain values",
+    path: ["socialFields"],
+  }
+);
 //-------------------------------
