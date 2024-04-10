@@ -1,10 +1,11 @@
 import { getUser } from "@/lib/actions/user.actions";
-import { getAllPosts } from "@/lib/actions/post.actions";
+import { getAllPosts, getPostDates } from "@/lib/actions/post.actions";
 
 import { CreateType, Post, User } from "@prisma/client";
 import { SearchParams } from "@/types";
 import Posts from "../../../components/post/Posts";
 import Pagination from "@/components/post/Pagination";
+import ContributionGrid from "@/components/post/ContributionGrid";
 
 export default async function Home({
   searchParams,
@@ -19,6 +20,7 @@ export default async function Home({
     tag: searchParams.tag ?? "",
   });
   const { somePosts, hasNextPage, numberOfPages } = posts;
+  const postDates = await getPostDates();
 
   return (
     <section className="flex flex-col">
@@ -29,8 +31,8 @@ export default async function Home({
         <p className="paragraph-1-regular text-white-300">
           Time to jot down your latest learnings today!
         </p>
-        <div className="bg-black-800 h-52 w-full">
-          {/* placeholder for contribution grid */}
+        <div className="">
+          <ContributionGrid postDates={postDates} />
         </div>
       </section>
       {somePosts && (

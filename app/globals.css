@@ -125,6 +125,26 @@
   border: 3px solid #252939;
 }
 
+/* React HeatMap */
+.react-calendar-heatmap-month-label {
+  fill: rgba(85, 89, 125) !important;
+}
+.react-calendar-heatmap-week .color-empty {
+  fill: rgb(29 32 50) !important;
+}
+.react-calendar-heatmap .color-scale-1 {
+  fill: #0e4429;
+}
+.react-calendar-heatmap .color-scale-2 {
+  fill: #006d32;
+}
+.react-calendar-heatmap .color-scale-3 {
+  fill: #26a641;
+}
+.react-calendar-heatmap .color-scale-4 {
+  fill: #39d353;
+}
+
 /* React Datepicker */
 
 .react-datepicker__view-calendar-icon {
