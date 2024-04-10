@@ -24,3 +24,8 @@ export type SearchParams = {
   term: string;
   tag: string;
 };
+
+export type PostDate = {
+  date: string;
+  count: number;
+};

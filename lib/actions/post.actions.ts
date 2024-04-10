@@ -218,7 +218,7 @@ export async function getPostDates() {
       return { date, count: matchedDates.length };
     });
 
-    return activity;
+    return { activity, error: null };
   } catch (error) {
     console.error("Error returning posts:", error);
     return { error: "An unexpected error occurred while returning posts." };

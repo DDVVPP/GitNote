@@ -1,13 +1,10 @@
 "use client";
 
+import { PostDate } from "@/types";
 import ReactCalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 
-const ContributionGrid = ({
-  postDates,
-}: {
-  postDates: { date: string; count: number }[];
-}) => {
+const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
   const weekdayLabels = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
   return (
     <>

@@ -2,7 +2,7 @@ import { getUser } from "@/lib/actions/user.actions";
 import { getAllPosts, getPostDates } from "@/lib/actions/post.actions";
 
 import { CreateType, Post, User } from "@prisma/client";
-import { SearchParams } from "@/types";
+import { PostDate, SearchParams } from "@/types";
 import Posts from "../../../components/post/Posts";
 import Pagination from "@/components/post/Pagination";
 import ContributionGrid from "@/components/post/ContributionGrid";
@@ -32,7 +32,7 @@ export default async function Home({
           Time to jot down your latest learnings today!
         </p>
         <div className="">
-          <ContributionGrid postDates={postDates} />
+          <ContributionGrid postDates={postDates.activity as PostDate[]} />
         </div>
       </section>
       {somePosts && (
