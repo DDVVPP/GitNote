@@ -126,25 +126,21 @@
 }
 
 /* React HeatMap */
-/* .react-calendar-heatmap-all-weeks {
-  margin: 12px !important;
-} */
 
-/* .react-calendar-heatmap text {
-  margin: 10px !important;
-} */
+.react-calendar-heatmap {
+  width: 100% !important;
+}
 .react-calendar-heatmap-month-label {
-  fill: rgba(85, 89, 125) !important;
+  fill: #55597d !important;
+}
+.react-calendar-heatmap-weekday-labels {
+  transform: translate(5px, 12px) !important;
 }
 .react-calendar-heatmap-weekday-label {
-  fill: rgba(85, 89, 125) !important;
-  /* padding-right: 10px !important; */
+  fill: #55597d !important;
 }
-/* .react-calendar-heatmap-weekday-labels {
-  text-align: right !important;
-} */
 .react-calendar-heatmap-week .color-empty {
-  fill: rgb(29 32 50) !important;
+  fill: #1d2032 !important;
 }
 .react-calendar-heatmap .color-scale-1 {
   fill: #0e4429;
