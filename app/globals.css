@@ -129,6 +129,10 @@
 /* .react-calendar-heatmap-all-weeks {
   margin: 12px !important;
 } */
+
+/* .react-calendar-heatmap text {
+  margin: 10px !important;
+} */
 .react-calendar-heatmap-month-label {
   fill: rgba(85, 89, 125) !important;
 }
