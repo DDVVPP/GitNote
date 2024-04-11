@@ -8,6 +8,7 @@ import { CreateType, Post, Resource } from "@prisma/client";
 import Badge from "../shared/ui/Badge";
 import { createTypeList } from "@/lib/constants/createTypeList";
 import RenderedCodeEditor from "./RenderedCodeEditor";
+import VerticalEllipsisIcon from "../shared/icons/VerticalEllipsisIcon";
 
 const PostDetails = ({
   post,
@@ -44,6 +45,10 @@ const PostDetails = ({
           >
             {filteredPostType[0].uiName}
           </Badge>
+
+          <button type="button">
+            <VerticalEllipsisIcon size={30} />
+          </button>
         </div>
       </section>
 
