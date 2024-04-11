@@ -20,7 +20,7 @@ export default async function Home({
     tag: searchParams.tag ?? "",
   });
   const { somePosts, hasNextPage, numberOfPages } = posts;
-  const postDates = await getPostDates();
+  const { reducedDates } = await getPostDates();
 
   return (
     <section className="flex flex-col">
@@ -32,7 +32,7 @@ export default async function Home({
           Time to jot down your latest learnings today!
         </p>
         <div className="">
-          <ContributionGrid postDates={postDates.activity as PostDate[]} />
+          <ContributionGrid postDates={reducedDates as PostDate[]} />
         </div>
       </section>
       {somePosts && (

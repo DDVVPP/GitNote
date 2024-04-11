@@ -200,7 +200,7 @@ export async function getUniqueTags() {
 export async function getPostDates() {
   try {
     const userEmail = await getUserSession();
-    const posts = await prisma.post.findMany({
+    const dates = await prisma.post.findMany({
       where: {
         userEmail,
       },
@@ -208,19 +208,28 @@ export async function getPostDates() {
         createdAt: true,
       },
     });
-    const datesWithoutTimes = posts.map((post) => {
-      return post.createdAt.toISOString().split("T")[0];
-    });
 
-    const deDupedDates = Array.from(new Set(datesWithoutTimes));
-    const activity = deDupedDates.map((date) => {
-      const matchedDates = datesWithoutTimes.filter((d) => d === date);
-      return { date, count: matchedDates.length };
-    });
+    const reducedDates = dates.reduce(
+      (acc: { date: string; count: number }[], date) => {
+        const splitDate = date.createdAt.toISOString().split("T")[0];
+        const indexOfDate = acc.findIndex(
+          (item: { date: string; count: number }) => item.date === splitDate
+        );
 
-    return { activity, error: null };
+        if (indexOfDate === -1) {
+          acc.push({ date: splitDate, count: 1 });
+        } else {
+          acc[indexOfDate].count += 1;
+        }
+
+        return acc;
+      },
+      []
+    );
+
+    return { reducedDates, error: null };
   } catch (error) {
-    console.error("Error returning posts:", error);
-    return { error: "An unexpected error occurred while returning posts." };
+    console.error("Error returning dates:", error);
+    return { error: "An unexpected error occurred while returning dates." };
   }
 }
