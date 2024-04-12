@@ -1,9 +1,18 @@
-import React from 'react';
+import React from "react";
 
-const UpdatePost = () => {
-  return (
-    <h1>Update Post</h1>
-  )
-}
+import { getPostById } from "@/lib/actions/post.actions";
 
-export default UpdatePost;
+import UpdatePost from "@/components/post/UpdatePost";
+import { Post } from "@prisma/client";
+
+const UpdatePostWrapper = async ({
+  params,
+}: {
+  params: { postId: string };
+}) => {
+  const post = await getPostById(params.postId);
+
+  return <UpdatePost post={post as Post} />;
+};
+
+export default UpdatePostWrapper;

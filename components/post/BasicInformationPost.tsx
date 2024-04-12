@@ -20,9 +20,10 @@ const BasicInformationPost = ({
   register: any;
   useFieldArray: any;
 }) => {
-  const { trigger, control, watch, setValue } = useFormHelpers;
+  const { trigger, control, watch, setValue, formState } = useFormHelpers;
   const postType = watch("createType");
   const codeContent = watch("codeEditor");
+  const { tags } = formState.defaultValues;
 
   return (
     <section className="space-y-6">
@@ -53,7 +54,7 @@ const BasicInformationPost = ({
 
       <CreateTypeDropdown setValue={setValue} postType={postType} />
 
-      <Tags setValue={setValue} />
+      <Tags setValue={setValue} defaultValueTags={tags} />
 
       <div className="text-white-300 flex flex-col">
         <label className="paragraph-3-medium mb-2">Description</label>

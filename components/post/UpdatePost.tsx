@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useEffect } from "react";
+import React from "react";
 import { Loader2 } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +12,7 @@ import {
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-import { CreateType, Resource, User } from "@prisma/client";
+import { CreateType, Post, Resource, User } from "@prisma/client";
 import { IPostSchema, PostSchema } from "@/lib/validations/PostSchema";
 
 import { createPost } from "@/lib/actions/post.actions";
@@ -22,35 +21,35 @@ import BasicInformationPost from "@/components/post/BasicInformationPost";
 import Content from "@/components/post/Content";
 import Resources from "@/components/post/Resources";
 
-const CreatePost = () => {
+const UpdatePost = ({
+  post,
+}: {
+  post: Post & { resources?: Partial<Resource[]> };
+}) => {
+  console.log({ post });
+
   const router = useRouter();
   const useFormHelpers = useForm<IPostSchema>({
     defaultValues: {
-      title: "",
-      createType: CreateType.COMPONENT,
-      description: "",
-      codeEditor: "",
-      content: "",
-      steps: [],
-      learnings: [],
-      tags: [],
-      resources: [],
+      title: post.title ?? "",
+      createType: post.createType ?? CreateType.COMPONENT,
+      description: post.description ?? "",
+      codeEditor: post.codeEditor ?? "",
+      content: post.content ?? "",
+      steps: post.steps ?? [],
+      learnings: post.learnings ?? [],
+      tags: post.tags ?? [],
+      resources: post.resources ?? [],
     },
     resolver: zodResolver(PostSchema),
   });
 
   const {
     register,
-    watch,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, defaultValues },
   } = useFormHelpers;
   const { control } = useFormHelpers;
-  const contentWatch = watch("content");
-
-  useEffect(() => {
-    console.log("contentWatch", contentWatch);
-  }, [contentWatch]);
 
   const onSubmit: SubmitHandler<IPostSchema> = async (data) => {
     try {
@@ -64,7 +63,7 @@ const CreatePost = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="pb-10">
-      <h1 className="display-2-bold mb-5">Create Post</h1>
+      <h1 className="display-2-bold mb-5">Update Post</h1>
       <div className="space-y-14">
         <section className="space-y-8">
           <BasicInformationPost
@@ -78,7 +77,12 @@ const CreatePost = () => {
             render={({
               field: { name, onChange, ...rest },
               formState: { errors },
-            }) => <Content onChange={onChange} />}
+            }) => (
+              <Content
+                onChange={onChange}
+                content={defaultValues?.content ?? ""}
+              />
+            )}
           />
 
           <Resources
@@ -90,11 +94,11 @@ const CreatePost = () => {
         </section>
 
         <Button color="blue" type="submit">
-          {isSubmitting ? <Loader2 className="animate-spin" /> : "Create Post"}
+          {isSubmitting ? <Loader2 className="animate-spin" /> : "Update Post"}
         </Button>
       </div>
     </form>
   );
 };
 
-export default CreatePost;
+export default UpdatePost;
