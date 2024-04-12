@@ -9,6 +9,10 @@ import Badge from "../shared/ui/Badge";
 import { createTypeList } from "@/lib/constants/createTypeList";
 import RenderedCodeEditor from "./RenderedCodeEditor";
 import VerticalEllipsisIcon from "../shared/icons/VerticalEllipsisIcon";
+import { useRef, useState } from "react";
+import { tripleDotMenuList } from "@/lib/constants/tripleDotMenuList";
+import useEscapeHandler from "@/lib/utils/useEscapeHandler";
+import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
 
 const PostDetails = ({
   post,
@@ -32,51 +36,90 @@ const PostDetails = ({
   const filteredPostType = createTypeList.filter(
     (type) => type.name === createType
   );
+  const ref = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => setIsOpen(false);
+  useOutsideClickHandler(ref, onClose);
+  useEscapeHandler(onClose);
+
+  const renderMenu = () => {
+    return (
+      <div className="bg-black-700 text-white-300 paragraph-3-medium flex flex-col text-nowrap rounded-md py-2">
+        {tripleDotMenuList.map((item) => {
+          const { icon: Icon, title } = item;
+          return (
+            <button
+              type="button"
+              className="hover:bg-black-600 px-9 py-2 hover:py-2"
+              key={title}
+            >
+              <div className="flex gap-x-2">
+                <Icon size={18} />
+                <p className="text-white-100">{title}</p>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <section className="flex flex-col space-y-6">
-      <section className="flex items-center justify-between">
-        <h1 className="display-2-bold text-white-100">{title}</h1>
-        <div className="flex gap-x-2">
-          <Badge
-            color={filteredPostType[0].badgeColor}
-            icon={filteredPostType[0].name}
-            size="medium"
-          >
-            {filteredPostType[0].uiName}
-          </Badge>
+      <section className="flex justify-between">
+        <section className="flex flex-col space-y-5">
+          <h1 className="display-2-bold text-white-100">{title}</h1>
+          <p className="paragraph-3-regular text-white-300">{description}</p>
 
-          <button type="button">
-            <VerticalEllipsisIcon size={30} />
-          </button>
-        </div>
-      </section>
+          <section className="flex gap-x-4">
+            <div className="flex items-center gap-x-1">
+              <Calendar size={16} className="text-white-500" />
+              <p className="paragraph-3-regular text-white-300">
+                {createdAtDate}
+              </p>
+            </div>
+            <div className="flex items-center gap-x-1">
+              <Star size={16} className="text-white-500" />
+              <p className="paragraph-3-regular text-white-300">stars</p>
+            </div>
+            <div className="flex items-center gap-x-1">
+              <Eye size={16} className="text-white-500" />
+              <p className="paragraph-3-regular text-white-300">views</p>
+            </div>
+          </section>
 
-      <p className="paragraph-3-regular text-white-300">{description}</p>
+          <div className="flex gap-x-3">
+            {tags &&
+              tags.map((tag) => (
+                <Badge key={tag} size="medium">
+                  {tag}
+                </Badge>
+              ))}
+          </div>
+        </section>
 
-      <div className="flex gap-x-4">
-        <div className="flex items-center gap-x-1">
-          <Calendar size={16} className="text-white-500" />
-          <p className="paragraph-3-regular text-white-300">{createdAtDate}</p>
-        </div>
-        <div className="flex items-center gap-x-1">
-          <Star size={16} className="text-white-500" />
-          <p className="paragraph-3-regular text-white-300">stars</p>
-        </div>
-        <div className="flex items-center gap-x-1">
-          <Eye size={16} className="text-white-500" />
-          <p className="paragraph-3-regular text-white-300">views</p>
-        </div>
-      </div>
-
-      <div className="flex gap-x-3">
-        {tags &&
-          tags.map((tag) => (
-            <Badge key={tag} size="medium">
-              {tag}
+        <section className="flex flex-col gap-y-2" ref={ref}>
+          <div className="flex justify-end gap-x-2">
+            <Badge
+              color={filteredPostType[0].badgeColor}
+              icon={filteredPostType[0].name}
+              size="medium"
+            >
+              {filteredPostType[0].uiName}
             </Badge>
-          ))}
-      </div>
+
+            <button
+              type="button"
+              className="hover:bg-black-600 rounded-md"
+              onClick={() => setIsOpen((open) => !open)}
+            >
+              <VerticalEllipsisIcon size={30} />
+            </button>
+          </div>
+
+          <div className="flex justify-end">{isOpen && renderMenu()}</div>
+        </section>
+      </section>
 
       <hr className="dark:bg-black-700 h-px w-full border-0" />
 

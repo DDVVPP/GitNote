@@ -21,5 +21,5 @@ const VerticalEllipsisIcon = (props: any) => {
 
 export default IconWrapper(VerticalEllipsisIcon, {
   backgroundStyle: "bg-none",
-  strokeOrFill: "stroke-white-500",
+  strokeOrFill: "stroke-white-300",
 });
