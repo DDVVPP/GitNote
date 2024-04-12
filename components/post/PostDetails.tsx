@@ -3,6 +3,8 @@
 import { format as formatDate } from "date-fns";
 import "prismjs/themes/prism-tomorrow.css";
 import { Calendar, Star, Eye, ExternalLink, CheckSquare } from "lucide-react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 
 import { CreateType, Post, Resource } from "@prisma/client";
 import Badge from "../shared/ui/Badge";
@@ -10,9 +12,9 @@ import { createTypeList } from "@/lib/constants/createTypeList";
 import RenderedCodeEditor from "./RenderedCodeEditor";
 import VerticalEllipsisIcon from "../shared/icons/VerticalEllipsisIcon";
 import { useRef, useState } from "react";
-import { tripleDotMenuList } from "@/lib/constants/tripleDotMenuList";
 import useEscapeHandler from "@/lib/utils/useEscapeHandler";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
+import { SquarePen, Trash } from "lucide-react";
 
 const PostDetails = ({
   post,
@@ -37,32 +39,12 @@ const PostDetails = ({
     (type) => type.name === createType
   );
   const ref = useRef<HTMLDivElement>(null);
+  const params = useParams();
   const [isOpen, setIsOpen] = useState(false);
+
   const onClose = () => setIsOpen(false);
   useOutsideClickHandler(ref, onClose);
   useEscapeHandler(onClose);
-
-  const renderMenu = () => {
-    return (
-      <div className="bg-black-700 text-white-300 paragraph-3-medium flex flex-col text-nowrap rounded-md py-2">
-        {tripleDotMenuList.map((item) => {
-          const { icon: Icon, title } = item;
-          return (
-            <button
-              type="button"
-              className="hover:bg-black-600 px-9 py-2 hover:py-2"
-              key={title}
-            >
-              <div className="flex gap-x-2">
-                <Icon size={18} />
-                <p className="text-white-100">{title}</p>
-              </div>
-            </button>
-          );
-        })}
-      </div>
-    );
-  };
 
   return (
     <section className="flex flex-col space-y-6">
@@ -110,6 +92,7 @@ const PostDetails = ({
 
             <button
               type="button"
+              id="triple-dot-button"
               className="hover:bg-black-600 rounded-md"
               onClick={() => setIsOpen((open) => !open)}
             >
@@ -117,7 +100,24 @@ const PostDetails = ({
             </button>
           </div>
 
-          <div className="flex justify-end">{isOpen && renderMenu()}</div>
+          <div className="flex justify-end">
+            {isOpen && (
+              <div className="bg-black-700 text-white-300 paragraph-3-medium flex flex-col text-nowrap rounded-md py-2">
+                <Link
+                  href={`/posts/${params.postId}/update-post`}
+                  className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2"
+                >
+                  <SquarePen size={18} />
+                  <p className="text-white-100">Update Post</p>
+                </Link>
+
+                <div className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2">
+                  <Trash size={18} />
+                  <p className="text-white-100">Delete Post</p>
+                </div>
+              </div>
+            )}
+          </div>
         </section>
       </section>
 
