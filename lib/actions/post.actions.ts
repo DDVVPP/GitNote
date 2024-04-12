@@ -2,7 +2,7 @@
 
 import { prisma } from "@/db";
 
-import { CreateType, Resource, Prisma } from "@prisma/client";
+import { CreateType, Resource, Prisma, Post } from "@prisma/client";
 import { IPostSchema } from "../validations/PostSchema";
 import { getUserSession } from ".";
 
@@ -131,6 +131,53 @@ export async function getPostById(id: string) {
     console.error("Error returning posts:", error);
     return { error: "An unexpected error occurred while returning posts." };
   }
+}
+
+export async function updatePost(
+  data: Partial<Post & { resources?: any }>,
+  postId: number
+) {
+  if (data && data.resources) {
+    data.resources = {
+      upsert: data.resources.map((resource: Resource) => ({
+        where: {
+          id: resource.id || -1,
+        },
+        update: {
+          label: resource.label,
+          link: resource.link,
+        },
+        create: {
+          label: resource.label,
+          link: resource.link,
+        },
+      })),
+    };
+  }
+  try {
+    const email = await getUserSession();
+    if (data) {
+      const post = await prisma.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          ...data,
+          user: {
+            connect: {
+              email,
+            },
+          },
+        },
+      });
+
+      return { post, error: null };
+    }
+  } catch (error) {
+    console.error("Error updating post:", error);
+    return { error: "An unexpected error occurred while updating post." };
+  }
+  return { error: "An unexpected error occurred while updating post." };
 }
 
 export async function findPosts(searchTerm: string | CreateType) {

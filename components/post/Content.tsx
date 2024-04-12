@@ -4,7 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 
 const Content = ({
   onChange,
-  content,
+  content = "",
 }: {
   onChange: any;
   content?: string;
@@ -28,7 +28,7 @@ const Content = ({
             { value: "Email", title: "Email" },
           ],
         }}
-        initialValue={content ?? ""}
+        initialValue={content}
         onEditorChange={(content) => onChange(content)}
       />
     </section>

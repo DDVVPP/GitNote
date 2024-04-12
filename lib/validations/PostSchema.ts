@@ -24,14 +24,14 @@ export const PostSchema = z
         label: z
           .string()
           .min(1, { message: "Label must contain at least 3 character" })
-          .optional(),
+          .nullable(),
         link: z
           .string()
           .refine((value) => {
             if (!value) return true;
             return urlMatch.test(value);
           })
-          .optional(),
+          .nullable(),
       })
     ),
   })

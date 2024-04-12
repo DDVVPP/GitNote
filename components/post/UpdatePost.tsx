@@ -14,8 +14,8 @@ import toast from "react-hot-toast";
 
 import { CreateType, Post, Resource, User } from "@prisma/client";
 import { IPostSchema, PostSchema } from "@/lib/validations/PostSchema";
+import { updatePost } from "@/lib/actions/post.actions";
 
-import { createPost } from "@/lib/actions/post.actions";
 import { Button } from "@/components/shared/ui";
 import BasicInformationPost from "@/components/post/BasicInformationPost";
 import Content from "@/components/post/Content";
@@ -26,8 +26,6 @@ const UpdatePost = ({
 }: {
   post: Post & { resources?: Partial<Resource[]> };
 }) => {
-  console.log({ post });
-
   const router = useRouter();
   const useFormHelpers = useForm<IPostSchema>({
     defaultValues: {
@@ -52,8 +50,9 @@ const UpdatePost = ({
   const { control } = useFormHelpers;
 
   const onSubmit: SubmitHandler<IPostSchema> = async (data) => {
+    const postId = post.id;
     try {
-      await createPost(data);
+      await updatePost(data, postId);
       router.push("/");
     } catch (error) {
       console.log("error in catch", error);
@@ -78,10 +77,7 @@ const UpdatePost = ({
               field: { name, onChange, ...rest },
               formState: { errors },
             }) => (
-              <Content
-                onChange={onChange}
-                content={defaultValues?.content ?? ""}
-              />
+              <Content onChange={onChange} content={defaultValues?.content} />
             )}
           />
 

@@ -5,13 +5,13 @@ import { X } from "lucide-react";
 
 const Tags = ({
   setValue,
-  defaultValueTags,
+  defaultValueTags = [],
 }: {
   setValue: any;
-  defaultValueTags: string[];
+  defaultValueTags?: string[];
 }) => {
   const [tagInput, setTagInput] = useState("");
-  const [tags, setTags] = useState<string[]>(defaultValueTags ?? []);
+  const [tags, setTags] = useState<string[]>(defaultValueTags);
 
   useEffect(() => {
     setValue("tags", tags);
