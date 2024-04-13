@@ -5,6 +5,7 @@ import "prismjs/themes/prism-tomorrow.css";
 import { Calendar, Star, Eye, ExternalLink, CheckSquare } from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 
 import { CreateType, Post, Resource } from "@prisma/client";
 import Badge from "../shared/ui/Badge";
@@ -15,6 +16,7 @@ import { useRef, useState } from "react";
 import useEscapeHandler from "@/lib/utils/useEscapeHandler";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
 import { SquarePen, Trash } from "lucide-react";
+import ConfirmationModal from "./ConfirmationModal";
 
 const PostDetails = ({
   post,
@@ -41,6 +43,7 @@ const PostDetails = ({
   const ref = useRef<HTMLDivElement>(null);
   const params = useParams();
   const [isOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const onClose = () => setIsOpen(false);
   useOutsideClickHandler(ref, onClose);
@@ -111,7 +114,10 @@ const PostDetails = ({
                   <p className="text-white-100">Update Post</p>
                 </Link>
 
-                <div className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2">
+                <div
+                  className="hover:bg-black-600 flex cursor-pointer gap-x-2 px-9 py-2 hover:py-2"
+                  onClick={() => setModalIsOpen((open) => !open)}
+                >
                   <Trash size={18} />
                   <p className="text-white-100">Delete Post</p>
                 </div>
@@ -136,7 +142,7 @@ const PostDetails = ({
           {learnings &&
             learnings.map((item) => {
               return (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2" key={item}>
                   <CheckSquare className="text-green-400" size={16} />
                   <p className="paragraph-2-regular text-white-300">{item}</p>
                 </div>
@@ -182,7 +188,7 @@ const PostDetails = ({
           {resources.map((resource) => {
             return (
               <div
-                key={resource && resource.id}
+                key={resource?.id}
                 className="text-white-300  mb-3 mt-3 flex items-center gap-x-2"
               >
                 <CheckSquare size={16} className="flex text-green-400" />
@@ -199,6 +205,22 @@ const PostDetails = ({
           })}
         </section>
       )}
+
+      {modalIsOpen &&
+        createPortal(
+          <div
+            aria-labelledby="confirmation-modal"
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 backdrop-blur transition-opacity"
+          >
+            <ConfirmationModal
+              onClose={() => setModalIsOpen(false)}
+              postId={post.id}
+            />
+          </div>,
+          document.body
+        )}
     </section>
   );
 };
