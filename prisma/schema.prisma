@@ -107,7 +107,6 @@ model Resource {
   link        String?
   post        Post @relation(fields: [postId], references: [id])
   postId      Int
-  // posts Post[]
 }
 
 enum Role {
