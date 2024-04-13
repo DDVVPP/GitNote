@@ -43,8 +43,8 @@ const ConfirmationModal = ({
         Are you sure you'd like to delete this post?
       </p>
       <div className="flex justify-between gap-x-4">
-        <Button color="blue" type="submit" onClick={() => handleDelete(postId)}>
-          {isSubmitting ? <Loader2 className="animate-spin" /> : "Yes, Delete!"}
+        <Button color="red" type="submit" onClick={() => handleDelete(postId)}>
+          {isSubmitting ? <Loader2 className="animate-spin" /> : "Delete"}
         </Button>
         <Button color="gray" onClick={onClose}>
           Cancel
