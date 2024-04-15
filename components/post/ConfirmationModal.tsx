@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 import { Button } from "../shared";
 import { deletePost } from "@/lib/actions/post.actions";
@@ -17,16 +18,18 @@ const ConfirmationModal = ({
   postId: number;
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   useOutsideClickHandler(ref, onClose);
   useEscapeHandler(onClose);
 
   const handleDelete = async (postId: number) => {
-    console.log("postId");
     setIsSubmitting(true);
     try {
       await deletePost(postId);
+      router.push("/");
     } catch (error) {
+      console.log("error in catch", error);
       toast.error("Unable to delete post");
     } finally {
       setIsSubmitting(false);

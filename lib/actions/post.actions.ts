@@ -246,19 +246,12 @@ export async function getUniqueTags() {
 
 export async function deletePost(id: number) {
   try {
-    const resource = prisma.resource.deleteMany({
-      where: {
-        postId: id,
-      },
-    });
     const post = prisma.post.delete({
       where: {
         id,
       },
     });
-
-    const transaction = await prisma.$transaction([post, resource]);
-    return transaction;
+    return post;
   } catch (error) {
     console.error("Error deleting post:", error);
     throw new Error("An unexpected error occurred while deleting post.");

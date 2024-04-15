@@ -73,10 +73,7 @@ const UpdatePost = ({
           <Controller
             control={control}
             name="content"
-            render={({
-              field: { name, onChange, ...rest },
-              formState: { errors },
-            }) => (
+            render={({ field: { onChange } }) => (
               <Content onChange={onChange} content={defaultValues?.content} />
             )}
           />
