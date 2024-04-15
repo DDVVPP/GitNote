@@ -16,7 +16,14 @@ const RightSidebar = ({ user }: { user: User }) => {
   const params = useParams();
 
   const renderCorrectSidebar = () => {
-    if (["/", "/posts", "/posts/create-post"].includes(pathname)) {
+    if (
+      [
+        "/",
+        "/posts",
+        "/posts/create-post",
+        `/posts/${params.postId}/update-post`,
+      ].includes(pathname)
+    ) {
       return <SidebarTags />;
     } else if ([`/posts/${params.postId}`].includes(pathname)) {
       return <SidebarRelatedPosts />;

@@ -66,9 +66,10 @@ const CreateTypeDropdown = ({
         {isOpen && (
           <div className="paragraph-3-medium bg-black-700 mt-0.5 flex flex-col gap-y-2 rounded p-2">
             {createTypeList.map((createType) => {
-              const { icon: Icon, uiName, color } = createType;
+              const { icon: Icon, uiName, color, name } = createType;
               return (
                 <ul
+                  key={name}
                   className={`flex cursor-pointer gap-x-2 ${color} hover:bg-black-600 p-1 hover:rounded hover:p-1`}
                   onClick={() =>
                     onSelectClick(createType as CreateTypeListItemType)

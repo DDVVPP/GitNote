@@ -136,7 +136,7 @@ export async function deleteUser(id: string) {
     });
     return user;
   } catch (error) {
-    console.error("Error updating user:", error);
-    throw new Error("An unexpected error occurred while updating user.");
+    console.error("Error deleting user:", error);
+    throw new Error("An unexpected error occurred while deleting user.");
   }
 }

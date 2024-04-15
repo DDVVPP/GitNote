@@ -2,7 +2,7 @@
 
 import { prisma } from "@/db";
 
-import { CreateType, Resource, Prisma } from "@prisma/client";
+import { CreateType, Resource, Prisma, Post } from "@prisma/client";
 import { IPostSchema } from "../validations/PostSchema";
 import { getUserSession } from ".";
 
@@ -133,6 +133,53 @@ export async function getPostById(id: string) {
   }
 }
 
+export async function updatePost(
+  data: Partial<Post & { resources?: any }>,
+  postId: number
+) {
+  if (data && data.resources) {
+    data.resources = {
+      upsert: data.resources.map((resource: Resource) => ({
+        where: {
+          id: resource.id || -1,
+        },
+        update: {
+          label: resource.label,
+          link: resource.link,
+        },
+        create: {
+          label: resource.label,
+          link: resource.link,
+        },
+      })),
+    };
+  }
+  try {
+    const email = await getUserSession();
+    if (data) {
+      const post = await prisma.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          ...data,
+          user: {
+            connect: {
+              email,
+            },
+          },
+        },
+      });
+
+      return { post, error: null };
+    }
+  } catch (error) {
+    console.error("Error updating post:", error);
+    return { error: "An unexpected error occurred while updating post." };
+  }
+  return { error: "An unexpected error occurred while updating post." };
+}
+
 export async function findPosts(searchTerm: string | CreateType) {
   try {
     const userEmail = await getUserSession();
@@ -194,5 +241,19 @@ export async function getUniqueTags() {
   } catch (error) {
     console.error("Error returning tags:", error);
     return { error: "An unexpected error occurred while returning tags." };
+  }
+}
+
+export async function deletePost(id: number) {
+  try {
+    const post = prisma.post.delete({
+      where: {
+        id,
+      },
+    });
+    return post;
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    throw new Error("An unexpected error occurred while deleting post.");
   }
 }

@@ -3,11 +3,20 @@
 import { format as formatDate } from "date-fns";
 import "prismjs/themes/prism-tomorrow.css";
 import { Calendar, Star, Eye, ExternalLink, CheckSquare } from "lucide-react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { createPortal } from "react-dom";
 
 import { CreateType, Post, Resource } from "@prisma/client";
 import Badge from "../shared/ui/Badge";
 import { createTypeList } from "@/lib/constants/createTypeList";
 import RenderedCodeEditor from "./RenderedCodeEditor";
+import VerticalEllipsisIcon from "../shared/icons/VerticalEllipsisIcon";
+import { useRef, useState } from "react";
+import useEscapeHandler from "@/lib/utils/useEscapeHandler";
+import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
+import { SquarePen, Trash } from "lucide-react";
+import ConfirmationModal from "./ConfirmationModal";
 
 const PostDetails = ({
   post,
@@ -31,47 +40,92 @@ const PostDetails = ({
   const filteredPostType = createTypeList.filter(
     (type) => type.name === createType
   );
+  const ref = useRef<HTMLDivElement>(null);
+  const params = useParams();
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const onClose = () => setIsOpen(false);
+  useOutsideClickHandler(ref, onClose);
+  useEscapeHandler(onClose);
 
   return (
     <section className="flex flex-col space-y-6">
-      <section className="flex items-center justify-between">
-        <h1 className="display-2-bold text-white-100">{title}</h1>
-        <div className="flex gap-x-2">
-          <Badge
-            color={filteredPostType[0].badgeColor}
-            icon={filteredPostType[0].name}
-            size="medium"
-          >
-            {filteredPostType[0].uiName}
-          </Badge>
-        </div>
-      </section>
+      <section className="flex justify-between">
+        <section className="flex flex-col space-y-5">
+          <h1 className="display-2-bold text-white-100">{title}</h1>
+          <p className="paragraph-3-regular text-white-300">{description}</p>
 
-      <p className="paragraph-3-regular text-white-300">{description}</p>
+          <section className="flex gap-x-4">
+            <div className="flex items-center gap-x-1">
+              <Calendar size={16} className="text-white-500" />
+              <p className="paragraph-3-regular text-white-300">
+                {createdAtDate}
+              </p>
+            </div>
+            <div className="flex items-center gap-x-1">
+              <Star size={16} className="text-white-500" />
+              <p className="paragraph-3-regular text-white-300">stars</p>
+            </div>
+            <div className="flex items-center gap-x-1">
+              <Eye size={16} className="text-white-500" />
+              <p className="paragraph-3-regular text-white-300">views</p>
+            </div>
+          </section>
 
-      <div className="flex gap-x-4">
-        <div className="flex items-center gap-x-1">
-          <Calendar size={16} className="text-white-500" />
-          <p className="paragraph-3-regular text-white-300">{createdAtDate}</p>
-        </div>
-        <div className="flex items-center gap-x-1">
-          <Star size={16} className="text-white-500" />
-          <p className="paragraph-3-regular text-white-300">stars</p>
-        </div>
-        <div className="flex items-center gap-x-1">
-          <Eye size={16} className="text-white-500" />
-          <p className="paragraph-3-regular text-white-300">views</p>
-        </div>
-      </div>
+          <div className="flex gap-x-3">
+            {tags &&
+              tags.map((tag) => (
+                <Badge key={tag} size="medium">
+                  {tag}
+                </Badge>
+              ))}
+          </div>
+        </section>
 
-      <div className="flex gap-x-3">
-        {tags &&
-          tags.map((tag) => (
-            <Badge key={tag} size="medium">
-              {tag}
+        <section className="flex flex-col gap-y-2" ref={ref}>
+          <div className="flex justify-end gap-x-2">
+            <Badge
+              color={filteredPostType[0].badgeColor}
+              icon={filteredPostType[0].name}
+              size="medium"
+            >
+              {filteredPostType[0].uiName}
             </Badge>
-          ))}
-      </div>
+
+            <button
+              type="button"
+              id="triple-dot-button"
+              className="hover:bg-black-600 rounded-md"
+              onClick={() => setIsOpen((open) => !open)}
+            >
+              <VerticalEllipsisIcon size={30} />
+            </button>
+          </div>
+
+          <div className="flex justify-end">
+            {isOpen && (
+              <div className="bg-black-700 text-white-300 paragraph-3-medium flex flex-col text-nowrap rounded-md py-2">
+                <Link
+                  href={`/posts/${params.postId}/update-post`}
+                  className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2"
+                >
+                  <SquarePen size={18} />
+                  <p className="text-white-100">Update Post</p>
+                </Link>
+
+                <div
+                  className="hover:bg-black-600 flex cursor-pointer gap-x-2 px-9 py-2 hover:py-2"
+                  onClick={() => setModalIsOpen((open) => !open)}
+                >
+                  <Trash size={18} />
+                  <p className="text-white-100">Delete Post</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      </section>
 
       <hr className="dark:bg-black-700 h-px w-full border-0" />
 
@@ -88,7 +142,7 @@ const PostDetails = ({
           {learnings &&
             learnings.map((item) => {
               return (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2" key={item}>
                   <CheckSquare className="text-green-400" size={16} />
                   <p className="paragraph-2-regular text-white-300">{item}</p>
                 </div>
@@ -134,7 +188,7 @@ const PostDetails = ({
           {resources.map((resource) => {
             return (
               <div
-                key={resource && resource.id}
+                key={resource?.id}
                 className="text-white-300  mb-3 mt-3 flex items-center gap-x-2"
               >
                 <CheckSquare size={16} className="flex text-green-400" />
@@ -151,6 +205,22 @@ const PostDetails = ({
           })}
         </section>
       )}
+
+      {modalIsOpen &&
+        createPortal(
+          <div
+            aria-labelledby="confirmation-modal"
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 backdrop-blur transition-opacity"
+          >
+            <ConfirmationModal
+              onClose={() => setModalIsOpen(false)}
+              postId={post.id}
+            />
+          </div>,
+          document.body
+        )}
     </section>
   );
 };

@@ -79,7 +79,7 @@ model Post {
   content     String?
   steps       String[]
   learnings   String[]
-  user        User       @relation(fields: [userEmail], references: [email])
+  user        User       @relation(fields: [userEmail], references: [email], onDelete: Cascade)
   tags        String[]
   resources   Resource[]
   userEmail   String
@@ -105,9 +105,8 @@ model Resource {
   id          Int    @id @default(autoincrement())
   label       String?
   link        String?
-  post        Post @relation(fields: [postId], references: [id])
+  post        Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId      Int
-  // posts Post[]
 }
 
 enum Role {

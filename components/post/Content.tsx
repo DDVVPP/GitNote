@@ -2,7 +2,13 @@
 
 import { Editor } from "@tinymce/tinymce-react";
 
-const Content = ({ onChange }: { onChange: any }) => {
+const Content = ({
+  onChange,
+  content = "",
+}: {
+  onChange: any;
+  content?: string;
+}) => {
   return (
     <section className="flex flex-col">
       <h3 className="paragraph-3-medium text-white-500 mb-6">CONTENT</h3>
@@ -22,6 +28,7 @@ const Content = ({ onChange }: { onChange: any }) => {
             { value: "Email", title: "Email" },
           ],
         }}
+        initialValue={content}
         onEditorChange={(content) => onChange(content)}
       />
     </section>

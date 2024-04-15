@@ -9,7 +9,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | "gray"
     | "darkGrayBlueText"
     | "darkGrayWhiteText"
-    | "gradient";
+    | "gradient"
+    | "red";
 }
 
 const colorClassMap = {
@@ -18,6 +19,7 @@ const colorClassMap = {
   darkGrayWhiteText: "bg-black-700 text-white-300 paragraph-3-medium",
   darkGrayBlueText: "bg-black-700 text-primary-500 paragraph-3-medium",
   gradient: "text-white-100 primary-gradient paragraph-4-medium",
+  red: "bg-error-500 text-white-100 paragraph-3-medium",
   default: "bg-black-700 text-white-300 paragraph-3-medium",
 };
 
