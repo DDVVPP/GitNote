@@ -75,7 +75,7 @@ npm install
 
 **Set Up Environment Variables**
 
-For a few specific applications, we require environment variables. Create .env.local file in the root of your project.
+For a few specific applications, we require environment variables. Create .env file in the root of your project.
 
 ```env
 DB_URL=""
