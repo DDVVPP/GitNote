@@ -61,8 +61,8 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com/JavaScript-Mastery-Pro/codebook.git
-cd gitnote
+git clone https://github.com/DDVVPP/GitNote.git
+cd GitNote
 ```
 
 **Installation**
