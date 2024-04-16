@@ -61,7 +61,7 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com/DDVVPP/GitNote.git
+git clone https://github.com/[username]/GitNote.git
 cd GitNote
 ```
 
@@ -78,8 +78,22 @@ npm install
 For a few specific applications, we require environment variables. Create .env.local file in the root of your project.
 
 ```env
-DB_URL=
-...
+DB_URL=""
+DIRECT_URL=""
+
+GITHUB_CLIENT_ID=""
+GITHUB_CLIENT_SECRET=""
+
+NEXTAUTH_SECRET=""
+
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+
+AWS_S3_ACCESS_KEY=""
+AWS_S3_SECRET_ACCESS_KEY=""
+AWS_REGION=""
+
+NEXT_PUBLIC_GOOGLE_PLACES_KEY=""
 ```
 
 **Running the Project**
