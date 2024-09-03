@@ -22,23 +22,23 @@ GitNote - Your all-in-one solution for developers, designed to be their second b
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Authentication & Onboarding**: Seamlessly log in or sign up and personalize your experience with smooth onboarding.
+**Authentication & Onboarding**: Seamlessly log in or sign up and personalize your experience with smooth onboarding.
 
-👉 **Profile Management**: Easily update profile details and link social media accounts for enhanced connectivity.
+**Profile Management**: Easily update profile details and link social media accounts for enhanced connectivity.
 
-👉 **Creating Learning Posts**: Document knowledge, components, or workflows effortlessly, enriched with resources and links.
+**Creating Learning Posts**: Document knowledge, components, or workflows effortlessly, enriched with resources and links.
 
-👉 **Related Posts**: Connect related content seamlessly for improved information accessibility.
+**Related Posts**: Connect related content seamlessly for improved information accessibility.
 
-👉 **Tagging for Context**: Enhance post context and retrieval efficiency with intuitive tagging.
+**Tagging for Context**: Enhance post context and retrieval efficiency with intuitive tagging.
 
-👉 **Contribution Grid**: Track progress visually as the grid dynamically updates with each post similar to Github.
+**Contribution Grid**: Track progress visually as the grid dynamically updates with each post similar to Github.
 
-👉 **Goals & Experience Tracking**: Monitor and reflect on learning goals conveniently from your profile.
+**Goals & Experience Tracking**: Monitor and reflect on learning goals conveniently from your profile.
 
-👉 **Search & Filter**: Retrieve past notes and tutorials swiftly with global search and filtering.
+**Search & Filter**: Retrieve past notes and tutorials swiftly with global search and filtering.
 
-👉 **Post Collection**: Explore content easily with pagination features, witnessing your learning progression firsthand.
+**Post Collection**: Explore content easily with pagination features, witnessing your learning progression firsthand.
 
 <!-- 👉 **Responsive**: Ensures seamless functionality and aesthetics across all devices and many more, including code architecture and reusability -->
 
