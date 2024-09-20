@@ -1,6 +1,6 @@
-## <a name="introduction">🤖 Introduction</a>
+# <a name="introduction">GitNote</a>
 
-GitNote - Your all-in-one solution for developers, designed to be their second brain, a comprehensive learning tool, and an efficient progress tracker. Seamlessly capture and organize knowledge, set and track learning goals, and monitor study habits with ease. Developed as part of the JSM Masterclass, GitNote empowers developers to enhance their productivity and knowledge management skills effortlessly.
+GitNote is your all-in-one solution for developers, designed to be their second brain, a comprehensive learning tool, and an efficient progress tracker. Seamlessly capture and organize knowledge, set and track learning goals, and monitor study habits with ease. Developed as part of the JSM Masterclass, GitNote empowers developers to enhance their productivity and knowledge management skills effortlessly.
 
 &nbsp;
 
@@ -18,7 +18,7 @@ GitNote - Your all-in-one solution for developers, designed to be their second b
 
 &nbsp;
 
-## <a name="features">🔋 Features</a>
+## <a name="features">☀️ Key Features</a>
 
 - **Authentication** - Next auth for secure sign-up, sign-in, and logout functionalities.
 - **Onboarding** – Provides an introduction and walkthrough for new users.
@@ -34,7 +34,7 @@ GitNote - Your all-in-one solution for developers, designed to be their second b
 
 &nbsp;
 
-## <a name="quick-start">🤸 Quick Start</a>
+## <a name="quick-start">🚀 Quick Start</a>
 
 Follow these steps to set up the project locally on your machine.
 
@@ -46,22 +46,18 @@ Ensure you have the following installed:
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 
 **Steps**
-
 1. Clone the Repo:
-
 ```bash
 git clone https://github.com/[username]/GitNote.git
 cd GitNote
 ```
 
 2. Install Dependencies
-
 ```bash
 npm install
 ```
 
 3. Set Up Environment Variables: Create a `.env` file in the project root:
-
 ```env
 DB_URL=""
 DIRECT_URL=""
@@ -82,7 +78,6 @@ NEXT_PUBLIC_GOOGLE_PLACES_KEY=""
 ```
 
 4. Run the Project
-
 ```bash
 npm run dev
 ```
@@ -90,7 +85,6 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
 
 &nbsp;
-
 ## <a name="todo">✅ To Do List</a>
 
 **Home Page**
