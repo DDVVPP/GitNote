@@ -1,82 +1,63 @@
-## 📋 <a name="table">Table of Contents</a>
+# <a name="introduction">GitNote</a>
 
-1. 🤖 [Introduction](#introduction)
-2. ⚙️ [Tech Stack](#tech-stack)
-3. 🔋 [Features](#features)
-4. 🤸 [Quick Start](#quick-start)
+GitNote is your all-in-one solution for developers, designed to be their second brain, a comprehensive learning tool, and an efficient progress tracker. Seamlessly capture and organize knowledge, set and track learning goals, and monitor study habits with ease. Developed as part of the JSM Masterclass, GitNote empowers developers to enhance their productivity and knowledge management skills effortlessly.
 
-## <a name="introduction">🤖 Introduction</a>
-
-GitNote - Your all-in-one solution for developers, designed to be their second brain, a comprehensive learning tool, and an efficient progress tracker. Seamlessly capture and organize knowledge, set and track learning goals, and monitor study habits with ease. Developed as part of the JSM Masterclass, GitNote empowers developers to enhance their productivity and knowledge management skills effortlessly.
-
-If you're getting started and need assistance or face any bugs, join our active Discord community with over 27k+ members. It's a place where people help each other out.
-
-<a href="https://discord.com/invite/n6EdbFJ" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/618f4872-1e10-42da-8213-1d69e486d02e" /></a>
+&nbsp;
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
-- Next.js
-- TypeScript
-- Prism.js
-- TinyMCE
-- PostgreSQL
-- Prisma.io
-- Supabase
-- Tailwind CSS
+- **TypeScript** - Superset of JavaScript that adds static typing for improved code quality and maintainability.
+- **Next.js** - Framework for building server-side-rendered React applications.
+- **PostgreSQL** - Relational database management system.
+- **Prisma.io** - ORM for interacting with the database.
+- **Supabase** - Backend-as-a-Service for database management.
+- **Tailwind CSS** - Utility-first CSS framework for styling.
+- **TinyMCE** - WYSIWYG HTML editor.
+- **Prism.js** - Lightweight syntax highlighter for code snippets.
+- **React DatePicker** - Flexible date and time picker component for React applications.
 
-## <a name="features">🔋 Features</a>
+&nbsp;
 
-👉 **Authentication & Onboarding**: Seamlessly log in or sign up and personalize your experience with smooth onboarding.
+## <a name="features">☀️ Key Features</a>
 
-👉 **Profile Management**: Easily update profile details and link social media accounts for enhanced connectivity.
-
-👉 **Creating Learning Posts**: Document knowledge, components, or workflows effortlessly, enriched with resources and links.
-
-👉 **Related Posts**: Connect related content seamlessly for improved information accessibility.
-
-👉 **Tagging for Context**: Enhance post context and retrieval efficiency with intuitive tagging.
-
-👉 **Contribution Grid**: Track progress visually as the grid dynamically updates with each post similar to Github.
-
-👉 **Goals & Experience Tracking**: Monitor and reflect on learning goals conveniently from your profile.
-
-👉 **Search & Filter**: Retrieve past notes and tutorials swiftly with global search and filtering.
-
-👉 **Post Collection**: Explore content easily with pagination features, witnessing your learning progression firsthand.
-
+- **Authentication** - Next auth for secure sign-up, sign-in, and logout functionalities.
+- **Onboarding** – Provides an introduction and walkthrough for new users.
+- **Profile Management** - Easily update profile details and link social media accounts for enhanced connectivity.
+- **Creating Learning Posts** - Document knowledge, components, or workflows effortlessly, enriched with resources and links.
+- **Related Posts**- Connect related content seamlessly for improved information accessibility.
+- **Tagging for Context** - Enhance post context and retrieval efficiency with intuitive tagging.
+- **Contribution Grid** - Track progress visually as the grid dynamically updates with each post similar to Github.
+- **Goals & Experience Tracking** - Monitor and reflect on learning goals conveniently from your profile.
+- **Search & Filter** - Retrieve past notes and tutorials swiftly with global search and filtering.
+- **Post Collection** - Explore content easily with pagination features, witnessing your learning progression firsthand.
 <!-- 👉 **Responsive**: Ensures seamless functionality and aesthetics across all devices and many more, including code architecture and reusability -->
 
-## <a name="quick-start">🤸 Quick Start</a>
+&nbsp;
+
+## <a name="quick-start">🚀 Quick Start</a>
 
 Follow these steps to set up the project locally on your machine.
 
-**Prerequisites**
-
-Make sure you have the following installed on your machine:
+**Prerequisites**\
+Ensure you have the following installed:
 
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en)
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 
-**Cloning the Repository**
-
+**Steps**
+1. Clone the Repo:
 ```bash
 git clone https://github.com/[username]/GitNote.git
 cd GitNote
 ```
 
-**Installation**
-
-Install the project dependencies using npm:
-
+2. Install Dependencies
 ```bash
 npm install
 ```
 
-**Set Up Environment Variables**
-
-For a few specific applications, we require environment variables. Create .env file in the root of your project.
-
+3. Set Up Environment Variables: Create a `.env` file in the project root:
 ```env
 DB_URL=""
 DIRECT_URL=""
@@ -96,12 +77,60 @@ AWS_REGION=""
 NEXT_PUBLIC_GOOGLE_PLACES_KEY=""
 ```
 
-**Running the Project**
-
+4. Run the Project
 ```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
 
-#
+&nbsp;
+## <a name="todo">✅ To Do List</a>
+
+**Home Page**
+
+- [ ] Integrate contributions grid (react-calendar-heatmap)
+
+**Profile Page**
+
+- [ ] Integrate contributions grid (react-calendar-heatmap)
+
+**Edit Profile Page**
+
+- [ ] 'Enter' keyboard event should not trigger form submit
+- [ ] Add a 'Cancel' button
+- [ ] Disable 'Update Profile' button if no updates have been made to the inputs
+
+**Left Sidebar**
+
+- [ ] Display posts in the 'Posts' section
+
+**Right Sidebar**
+
+- [ ] Post Details: Determine what indicates a related post, and show related posts
+- [ ] Profile Page: If there are no social media links - move button under section and update text to 'Add social links'
+- [ ] Update social links modal: If there are no updates made to the modal inputs, disable the 'Update Links' button
+- [ ] Create Post: Either remove 'Tags' section, or disable them
+
+**Post Details Page**
+
+- [ ] Add 'No content' text in the 'Resources & Links' section if there is no content
+
+**Create / Update Post Pages**
+
+- [ ] Fix padding in Tag input when there are two words
+- [ ] Visually indicate which fields are required and/or optional
+- [ ] Clicking on 'Create Post' should set the focus state on the first required field that is not filled out, or remove focus state altogether
+- [ ] 'Add checkmark' button should be disabled if the input hasn't yet been filled
+- [ ] Add a 'Cancel' button
+- [ ] Disable 'Update Post' button if no updates have been made to the inputs
+
+**Miscellaneous Updates**
+
+- [ ] Add mobile responsiveness
+- [ ] Add hover states to all clickable items
+- [ ] Add loading.tsx files for each route
+- [ ] Add Skeleton loaders
+- [ ] Create a seed file
+- [ ] Add a Demo User
+- [ ] Deploy site
