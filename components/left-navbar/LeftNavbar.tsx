@@ -18,9 +18,9 @@ const LeftNavbar = () => {
       <div>
         <div className="border-white-500 flex flex-col justify-start space-y-12 border-b">
           <Link href="/">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-x-2">
               <Image src={gitNoteIcon} alt="Git Note Icon" />
-              <h1 className="text-left text-[22.55px] font-bold leading-[19.64px]">
+              <h1 className="text-left text-[22.55px] font-bold leading-[19.64px] hover:text-blue-500 hover:duration-300">
                 GitNote
               </h1>
             </div>
@@ -55,7 +55,7 @@ const LeftNavbar = () => {
       <div className="mb-5 flex">
         <form action={signOut}>
           <button
-            className="paragraph-3-medium text-white-300 flex gap-2"
+            className="paragraph-3-medium text-white-300 hover:text-white-100 flex gap-2 hover:duration-300"
             type="submit"
           >
             <Image src={logoutIcon} alt="Logout Icon" />

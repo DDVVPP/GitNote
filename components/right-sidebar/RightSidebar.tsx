@@ -33,8 +33,11 @@ const RightSidebar = ({ user }: { user: User }) => {
   };
 
   return (
-    <div className=" bg-black-800 flex-2 sticky right-0 top-0 z-20 flex h-screen w-1/5 flex-col gap-10 overflow-y-auto p-8 pt-16">
-      <Link href="/profile" className="flex items-center gap-2">
+    <div className="bg-black-800 flex-2 sticky right-0 top-0 z-20 flex h-screen w-1/5 flex-col gap-10 overflow-y-auto p-6 pt-16">
+      <Link
+        href="/profile"
+        className="hover:bg-black-600 flex items-center gap-2 rounded-md p-2 hover:duration-300"
+      >
         {user.image ? (
           <Image
             src={user.image as string}

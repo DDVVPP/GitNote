@@ -21,7 +21,7 @@ const Posts = ({
   const isSelectedTypeAll = "all" === searchParams.get("type");
 
   let containerStyle = `flex flex-col gap-y-4`;
-  let postStyle = `bg-black-800 rounded-md`;
+  let postStyle = `bg-black-800 hover:bg-black-600 hover:duration-300 rounded-md`;
   if (isTwoCols) {
     containerStyle = "flex flex-wrap gap-x-2 gap-y-4";
     postStyle += " basis-[49%]";
