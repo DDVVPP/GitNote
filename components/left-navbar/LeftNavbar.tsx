@@ -11,6 +11,7 @@ import QuickLink from "./QuickLink";
 import NavSection from "./NavSection";
 import Button from "../shared/ui/Button";
 import Search from "../shared/Search";
+import { quickLinks } from "@/constants";
 
 const LeftNavbar = () => {
   return (
@@ -39,16 +40,16 @@ const LeftNavbar = () => {
         <NavSection title="POSTS"> placeholder for posts</NavSection>
 
         <NavSection title="QUICK LINKS">
-          <QuickLink
-            icon={jsmProLogo}
-            href="https://www.jsmastery.pro/"
-            name="JSM Courses"
-          />
-          <QuickLink
-            icon={githubOutline}
-            href="https://github.com/"
-            name="Github Organization"
-          />
+          {quickLinks.map((link) => {
+            return (
+              <QuickLink
+                key={link.key}
+                href={link.href}
+                name={link.name}
+                icon={link.icon}
+              />
+            );
+          })}
         </NavSection>
       </div>
 

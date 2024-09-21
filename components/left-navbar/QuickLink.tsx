@@ -1,19 +1,27 @@
 import React from "react";
-import Image from "next/image";
+
+const colorClassMap = {
+  jsm: "hover:fill-white-100 fill-[#55597D] stroke-white-100",
+  github: "hover:stroke-white-100 stroke-[#55597D]",
+};
 
 const QuickLink = ({
-  icon,
+  key,
   href,
   name,
+  icon: Icon,
 }: {
-  icon: string;
+  key: string;
   href: string;
   name: string;
+  icon: any;
 }) => {
+  const colorClass = colorClassMap[key as string];
+
   return (
-    <div className="hover:text-white-100 flex gap-2 hover:duration-300">
-      <Image src={icon} alt={`${name} Icon`} />
-      <a target="_blank" href={href}>
+    <div className="group flex gap-2">
+      <Icon className={colorClass} />
+      <a target="_blank" href={href} className="group-hover:text-white-100">
         {name}
       </a>
     </div>
