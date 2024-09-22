@@ -3,8 +3,6 @@ import { signOut } from "@/lib/actions";
 
 import Image from "next/image";
 import gitNoteIcon from "@/public/gitNoteIcon.svg";
-import jsmProLogo from "@/public/jsmProLogo.svg";
-import githubOutline from "@/public/githubOutline.svg";
 import logoutIcon from "@/public/logoutIcon.svg";
 import Link from "next/link";
 import QuickLink from "./QuickLink";
@@ -12,6 +10,7 @@ import NavSection from "./NavSection";
 import Button from "../shared/ui/Button";
 import Search from "../shared/Search";
 import { quickLinks } from "@/constants";
+import { QuickLinkProps } from "@/types";
 
 const LeftNavbar = () => {
   return (
@@ -40,10 +39,11 @@ const LeftNavbar = () => {
         <NavSection title="POSTS"> placeholder for posts</NavSection>
 
         <NavSection title="QUICK LINKS">
-          {quickLinks.map((link) => {
+          {quickLinks.map((link: QuickLinkProps) => {
             return (
               <QuickLink
-                key={link.key}
+                key={link.groupName}
+                groupName={link.groupName}
                 href={link.href}
                 name={link.name}
                 icon={link.icon}

@@ -24,3 +24,10 @@ export type SearchParams = {
   term: string;
   tag: string;
 };
+
+export type QuickLinkProps = {
+  groupName: "jsm" | "github";
+  href: string;
+  name: string;
+  icon?: any;
+};
