@@ -155,6 +155,7 @@
 }
 .tox-tbtn:hover {
   background-color: rgb(77, 86, 122) !important;
+  transition-duration: 300ms !important;
 }
 
 .tox-tbtn svg {
