@@ -84,7 +84,10 @@ const Tags = ({
               >
                 {tag}
                 <button type="button" onClick={() => handleDelete(tag)}>
-                  <X className="text-white-500" size={16} />
+                  <X
+                    className="text-white-500 hover:text-white-300 hover:duration-300"
+                    size={16}
+                  />
                 </button>
               </span>
             ))}

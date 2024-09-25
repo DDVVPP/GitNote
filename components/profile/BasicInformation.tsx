@@ -50,11 +50,11 @@ const BasicInformation = ({
           </div>
         )}
 
-        <div className="bg-black-700 flex items-center space-x-2 p-1.5">
+        <div className="bg-black-700 group flex cursor-pointer items-center space-x-2 rounded-sm p-1.5 hover:bg-[#4d567a] hover:duration-300">
           <UploadCloud stroke="rgba(173, 179, 204, 1)" size={18} />
           <label
             htmlFor="image"
-            className="paragraph-3-medium bg-black-700 text-white-300 flex cursor-pointer justify-center"
+            className="paragraph-3-medium  text-white-300 group-hover:text-white-100 flex cursor-pointer  justify-center group-hover:duration-300"
           >
             Upload Profile Photo
             <input
