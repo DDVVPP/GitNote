@@ -96,7 +96,7 @@ const PostDetails = ({
             <button
               type="button"
               id="triple-dot-button"
-              className="hover:bg-black-600 rounded-md"
+              className="hover:bg-black-600 rounded-md hover:duration-300"
               onClick={() => setIsOpen((open) => !open)}
             >
               <VerticalEllipsisIcon size={30} />
@@ -108,14 +108,14 @@ const PostDetails = ({
               <div className="bg-black-700 text-white-300 paragraph-3-medium flex flex-col text-nowrap rounded-md py-2">
                 <Link
                   href={`/posts/${params.postId}/update-post`}
-                  className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2"
+                  className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
                 >
                   <SquarePen size={18} />
                   <p className="text-white-100">Update Post</p>
                 </Link>
 
                 <div
-                  className="hover:bg-black-600 flex cursor-pointer gap-x-2 px-9 py-2 hover:py-2"
+                  className="hover:bg-black-600 flex cursor-pointer gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
                   onClick={() => setModalIsOpen((open) => !open)}
                 >
                   <Trash size={18} />
@@ -189,7 +189,7 @@ const PostDetails = ({
             return (
               <div
                 key={resource?.id}
-                className="text-white-300  mb-3 mt-3 flex items-center gap-x-2"
+                className="text-white-300 hover:text-primary-500 mb-3  mt-3 flex items-center gap-x-2 hover:duration-300"
               >
                 <CheckSquare size={16} className="flex text-green-400" />
                 <a
