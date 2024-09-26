@@ -37,19 +37,20 @@ const SidebarSocialMedia = ({
 
             return (
               social.username && (
-                <div
+                <a
                   key={social.id}
-                  className="flex flex-wrap items-center justify-start"
+                  target="_blank"
+                  href={social.link ?? "No link found"}
+                  className="group flex flex-wrap items-center justify-start "
                 >
-                  <Icon size={30} />
-                  <a
-                    target="_blank"
-                    href={social.link ?? "No link found"}
-                    className="text-white-300 paragraph-2-regular"
-                  >
+                  <Icon
+                    size={30}
+                    className="group-hover:fill-white-300 group-hover:duration-300"
+                  />
+                  <p className="text-white-300 group-hover:text-white-100 paragraph-2-regular  group-hover:duration-300">
                     @{social.username}
-                  </a>
-                </div>
+                  </p>
+                </a>
               )
             );
           })
