@@ -97,7 +97,7 @@ const Posts = ({
           ))
         ) : (
           <h3
-            className={`paragraph-1-regular text-white-300 flex items-center justify-center p-12 ${postStyle}`}
+            className={`paragraph-1-regular text-white-300 bg-black-800 flex items-center justify-center rounded-md p-12`}
           >
             No posts to display!
           </h3>
