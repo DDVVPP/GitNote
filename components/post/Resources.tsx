@@ -64,7 +64,10 @@ const Resources = ({
                   className="bg-black-700 h-11 rounded px-3"
                   onClick={() => remove(index)}
                 >
-                  <X className="text-white-500" size={16} />
+                  <X
+                    className="text-white-500 hover:text-white-300 hover:duration-300"
+                    size={16}
+                  />
                 </button>
               </div>
             </React.Fragment>

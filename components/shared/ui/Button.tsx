@@ -14,12 +14,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const colorClassMap = {
-  blue: "bg-primary-500 text-black-900 paragraph-3-bold ",
-  gray: "bg-black-600 text-white-100 paragraph-3-medium",
+  blue: "bg-primary-500 text-black-900 paragraph-3-bold hover:text-white-100 hover:duration-300 hover:bg-blue-500",
+  gray: "bg-black-600 hover:bg-[#4d567a] text-white-100 paragraph-3-medium hover:duration-300",
   darkGrayWhiteText: "bg-black-700 text-white-300 paragraph-3-medium",
-  darkGrayBlueText: "bg-black-700 text-primary-500 paragraph-3-medium",
+  darkGrayBlueText:
+    "bg-black-700 hover:bg-[#4d567a] hover:duration-300 text-primary-500 hover:text-white-100 paragraph-3-medium",
   gradient: "text-white-100 primary-gradient paragraph-4-medium",
-  red: "bg-error-500 text-white-100 paragraph-3-medium",
+  red: "bg-error-500 hover:bg-red-600 hover:duration-300 text-white-100 paragraph-3-medium",
   default: "bg-black-700 text-white-300 paragraph-3-medium",
 };
 

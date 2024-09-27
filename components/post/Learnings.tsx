@@ -38,7 +38,10 @@ const Learnings = ({
                 {...register(`learnings.${index}`)}
               />
               <button type="button" onClick={() => remove(index)}>
-                <X className="text-white-500" size={16} />
+                <X
+                  className="text-white-500 hover:text-white-300 hover:duration-300"
+                  size={16}
+                />
               </button>
             </div>
 

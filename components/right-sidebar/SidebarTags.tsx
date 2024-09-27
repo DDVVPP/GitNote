@@ -31,7 +31,7 @@ const SidebarTags = () => {
   }, [tagTerm]);
 
   return (
-    <div className="flex flex-col justify-start gap-4">
+    <div className="flex flex-col justify-start gap-4 px-2">
       <h3 className="text-white-100 paragraph-3-bold">Tags</h3>
       {tagList &&
         tagList.map((tag) => {

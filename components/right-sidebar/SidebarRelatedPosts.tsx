@@ -1,14 +1,14 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
-import Button from '../shared/ui/Button';
+import Button from "../shared/ui/Button";
 
 const SidebarRelatedPosts = () => {
   // Hardcoded placeholder for actual realated posts
-  const relatedPosts = ['Bottom Icons', 'Popup', 'Slider Sheet', 'Tab bar'];
+  const relatedPosts = ["Bottom Icons", "Popup", "Slider Sheet", "Tab bar"];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 px-2">
       <h3 className="paragraph-2-bold border-white-500 border-b pb-4">
         Related Posts
       </h3>

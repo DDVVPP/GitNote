@@ -45,7 +45,7 @@ const Pagination = ({
         {page}/{numberOfPages}
       </p>
       <button
-        className="bg-black-700 paragraph-4-medium text-white-100 hover:bg-black-600 disabled:bg-black-800 disabled:text-white-500 p-3"
+        className="bg-black-700 paragraph-4-medium text-white-100 hover:bg-black-600 disabled:bg-black-800 disabled:text-white-500 p-3 hover:duration-300"
         onClick={next}
         disabled={!hasNextPage}
       >

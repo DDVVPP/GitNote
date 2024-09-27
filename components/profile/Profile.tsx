@@ -73,15 +73,19 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             <h1 className="display-2-bold text-white-100">
               {name ?? "(oops! Missing name)"}
             </h1>
-            <div className="paragraph-3-regular flex gap-4">
+            <div className="paragraph-3-regular group flex gap-4">
               {portfolio && (
-                <div className="text-primary-500 flex items-center gap-1">
-                  <LinkIcon size={16} className="text-black-600" />
+                <div className="text-primary-500 group-hover:text-white-300 flex items-center gap-1 group-hover:duration-300">
+                  <LinkIcon
+                    size={16}
+                    className="text-black-600 group-hover:text-white-500 group-hover:duration-300"
+                  />
                   <a target="_blank" href={portfolio}>
                     {portfolio}
                   </a>
                 </div>
               )}
+
               {location && (
                 <div className="text-primary-500 flex items-center gap-1">
                   <MapPin size={16} className="text-black-600" />
@@ -140,7 +144,12 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
               techStackStateUI.map((tech) => {
                 const { icon: TechStackIcon, name, link } = tech;
                 return (
-                  <a href={link} target="_blank" key={name} className="mt-2">
+                  <a
+                    href={link}
+                    target="_blank"
+                    key={name}
+                    className="mt-2 hover:scale-125 hover:duration-300"
+                  >
                     <TechStackIcon size={28} />
                   </a>
                 );

@@ -70,7 +70,7 @@ const CreateTypeDropdown = ({
               return (
                 <ul
                   key={name}
-                  className={`flex cursor-pointer gap-x-2 ${color} hover:bg-black-600 p-1 hover:rounded hover:p-1`}
+                  className={`flex cursor-pointer gap-x-2 ${color} hover:bg-black-600 p-1 hover:rounded hover:p-1 hover:duration-300`}
                   onClick={() =>
                     onSelectClick(createType as CreateTypeListItemType)
                   }

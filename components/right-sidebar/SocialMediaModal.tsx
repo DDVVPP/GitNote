@@ -92,7 +92,11 @@ const SocialMediaModal = ({
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <div className="text-white-100 mb-4 flex items-center justify-between">
           <h1 className="display-1-bold">Social Media Links</h1>
-          <X onClick={onClose} cursor="pointer" />
+          <X
+            onClick={onClose}
+            cursor="pointer"
+            className="hover:text-white-300 hover:duration-300"
+          />
         </div>
 
         <section className="flex flex-col gap-y-4">

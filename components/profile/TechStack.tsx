@@ -88,7 +88,10 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
                   <TechStackIcon size={24} />
                   <p className="paragraph-3-regular">{uiName} </p>
                   <button type="button" onClick={() => handleDelete(tech)}>
-                    <X className="text-white-500" size={16} />
+                    <X
+                      className="text-white-500 hover:text-white-300 hover:duration-300"
+                      size={16}
+                    />
                   </button>
                 </div>
               );

@@ -81,7 +81,7 @@
   }
 
   .primary-gradient {
-    background: linear-gradient(90deg, rgb(67, 183, 254), rgb(79, 72, 230));
+    @apply bg-gradient-to-r from-[rgba(67,183,254)] to-[rgba(79,72,230)] hover:from-[rgba(67,183,254)]/70 hover:to-[rgba(79,72,230)]/70 hover:duration-300;
   }
 
   .codeTextArea {
@@ -155,6 +155,7 @@
 }
 .tox-tbtn:hover {
   background-color: rgb(77, 86, 122) !important;
+  transition-duration: 300ms !important;
 }
 
 .tox-tbtn svg {

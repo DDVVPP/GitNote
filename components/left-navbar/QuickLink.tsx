@@ -1,18 +1,33 @@
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import { QuickLinkProps } from "@/types";
 
-const QuickLink = ({icon, href, name}: {icon: string; href: string; name: string}) => {
+const QuickLink = ({ groupName, href, name, icon: Icon }: QuickLinkProps) => {
+  const groupNameClass = groupName === "jsm" ? "group/jsm" : "group/github";
+
   return (
-    <div className='flex gap-2'>
-      <Image
-        src={icon}
-        alt={`${name} Icon`}
+    <a
+      target="_blank"
+      href={href}
+      className={`${groupNameClass} flex h-8 items-center gap-x-2`}
+    >
+      <Icon
+        className={`${
+          groupName === "jsm"
+            ? `group-hover/jsm:fill-white-100 fill-[#55597D] `
+            : `group-hover/github:stroke-white-100 stroke-[#55597D]`
+        } group-hover:duration-300`}
       />
-      <a target="_blank" href={href}>
+      <p
+        className={`${
+          groupName === "jsm"
+            ? "group-hover/jsm:text-white-100"
+            : "group-hover/github:text-white-100"
+        } group-hover:duration-300`}
+      >
         {name}
-      </a>
-    </div>
-  )
-}
+      </p>
+    </a>
+  );
+};
 
 export default QuickLink;
