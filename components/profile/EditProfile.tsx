@@ -75,13 +75,23 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <Availability useFormHelpers={useFormHelpers} isEditProfile />
         </section>
 
-        <Button color="blue" type="submit">
-          {isSubmitting ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            "Update Profile"
-          )}
-        </Button>
+        <div className="flex gap-x-4">
+          <Button
+            color="gray"
+            type="button"
+            onClick={() => router.push("/profile")}
+          >
+            Cancel
+          </Button>
+
+          <Button color="blue" type="submit">
+            {isSubmitting ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              "Update Profile"
+            )}
+          </Button>
+        </div>
       </div>
     </form>
   );
