@@ -53,7 +53,7 @@ const UpdatePost = ({
     const postId = post.id;
     try {
       await updatePost(data, postId);
-      router.push("/");
+      router.push(`/posts/${postId}`);
     } catch (error) {
       console.log("error in catch", error);
       toast.error("Unable to create post");
@@ -86,9 +86,22 @@ const UpdatePost = ({
           />
         </section>
 
-        <Button color="blue" type="submit">
-          {isSubmitting ? <Loader2 className="animate-spin" /> : "Update Post"}
-        </Button>
+        <div className="flex gap-x-4">
+          <Button
+            color="gray"
+            type="button"
+            onClick={() => router.push(`/posts/${post.id}`)}
+          >
+            Cancel
+          </Button>
+          <Button color="blue" type="submit">
+            {isSubmitting ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              "Update Post"
+            )}
+          </Button>
+        </div>
       </div>
     </form>
   );
