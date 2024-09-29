@@ -89,9 +89,22 @@ const CreatePost = () => {
           />
         </section>
 
-        <Button color="blue" type="submit">
-          {isSubmitting ? <Loader2 className="animate-spin" /> : "Create Post"}
-        </Button>
+        <div className="flex gap-x-4">
+          <Button
+            color="gray"
+            type="button"
+            onClick={() => router.push("/posts")}
+          >
+            Cancel
+          </Button>
+          <Button color="blue" type="submit">
+            {isSubmitting ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              "Create Post"
+            )}
+          </Button>
+        </div>
       </div>
     </form>
   );
