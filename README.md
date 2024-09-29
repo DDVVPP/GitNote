@@ -98,7 +98,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 **Edit Profile Page**
 
 - [ ] 'Enter' keyboard event should not trigger form submit
-- [ ] Add a 'Cancel' button
+- [x] Add a 'Cancel' button
 - [ ] Disable 'Update Profile' button if no updates have been made to the inputs
 
 **Left Sidebar**
@@ -122,7 +122,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 - [ ] Visually indicate which fields are required and/or optional
 - [ ] Clicking on 'Create Post' should set the focus state on the first required field that is not filled out, or remove focus state altogether
 - [ ] 'Add checkmark' button should be disabled if the input hasn't yet been filled
-- [ ] Add a 'Cancel' button
+- [x] Add a 'Cancel' button
 - [ ] Disable 'Update Post' button if no updates have been made to the inputs
 
 **Miscellaneous Updates**
