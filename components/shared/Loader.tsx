@@ -1,6 +1,6 @@
 const Loader = () => {
   return (
-    <h1 className="text-white-300 flex animate-pulse justify-center text-lg">
+    <h1 className="text-white-300 paragraph-1-medium flex animate-pulse justify-center">
       Loading...
     </h1>
   );
