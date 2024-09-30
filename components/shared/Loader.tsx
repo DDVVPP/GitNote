@@ -1,5 +1,9 @@
 const Loader = () => {
-  return <h1 className="animate-pulse">Loading...</h1>;
+  return (
+    <h1 className="text-white-300 flex animate-pulse justify-center text-lg">
+      Loading...
+    </h1>
+  );
 };
 
 export default Loader;
