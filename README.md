@@ -129,7 +129,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 - [ ] Add mobile responsiveness
 - [x] Add hover states to all clickable items
-- [ ] Add loading.tsx files for each route
+- [x] Add loading.tsx files for each route
 - [ ] Add Skeleton loaders
 - [ ] Create a seed file
 - [ ] Add a Demo User
