@@ -56,7 +56,7 @@ const UpdatePost = ({
       router.push(`/posts/${postId}`);
     } catch (error) {
       console.log("error in catch", error);
-      toast.error("Unable to create post");
+      toast.error("Unable to update post");
     }
   };
 
