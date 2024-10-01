@@ -71,6 +71,7 @@ const CreatePost = () => {
             useFormHelpers={useFormHelpers}
             register={register}
             useFieldArray={useFieldArray}
+            errors={errors}
           />
           <Controller
             control={control}

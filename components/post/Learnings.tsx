@@ -9,10 +9,12 @@ const Learnings = ({
   useFormHelpers,
   register,
   useFieldArray,
+  errors,
 }: {
   useFormHelpers: any;
   register: any;
   useFieldArray: any;
+  errors: any;
 }) => {
   const { control, formState } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
@@ -66,6 +68,12 @@ const Learnings = ({
           Add checkmark
         </Button>
       </div>
+
+      {errors && (
+        <span className="text-error-500 paragraph-3-regular mt-2">
+          {errors}
+        </span>
+      )}
     </section>
   );
 };

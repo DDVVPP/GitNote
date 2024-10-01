@@ -15,10 +15,12 @@ const BasicInformationPost = ({
   useFormHelpers,
   register,
   useFieldArray,
+  errors,
 }: {
   useFormHelpers: any;
   register: any;
   useFieldArray: any;
+  errors: any;
 }) => {
   const { trigger, control, watch, setValue, formState } = useFormHelpers;
   const postType = watch("createType");
@@ -63,6 +65,11 @@ const BasicInformationPost = ({
           placeholder="Enter a short description"
           {...register("description")}
         />
+        {errors?.description && errors.description?.message && (
+          <span className="text-error-500 paragraph-3-regular mt-2">
+            {errors.description?.message}
+          </span>
+        )}
       </div>
 
       {postType === CreateType.KNOWLEDGE && (
@@ -70,6 +77,7 @@ const BasicInformationPost = ({
           useFieldArray={useFieldArray}
           useFormHelpers={useFormHelpers}
           register={register}
+          errors={errors.learnings?.message}
         />
       )}
 
@@ -77,8 +85,12 @@ const BasicInformationPost = ({
         <Controller
           control={control}
           name="codeEditor"
-          render={({ field: { onChange } }) => (
-            <CodeEditor onChange={onChange} codeContent={codeContent} />
+          render={({ field: { onChange }, formState: { errors } }) => (
+            <CodeEditor
+              onChange={onChange}
+              codeContent={codeContent}
+              errors={errors.codeEditor?.message as string}
+            />
           )}
         />
       )}
@@ -88,6 +100,7 @@ const BasicInformationPost = ({
           useFieldArray={useFieldArray}
           useFormHelpers={useFormHelpers}
           register={register}
+          errors={errors.steps?.message}
         />
       )}
     </section>

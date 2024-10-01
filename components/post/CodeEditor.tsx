@@ -10,9 +10,11 @@ import CodeIcon from "../shared/icons/CodeIcon";
 const CodeEditor = ({
   onChange,
   codeContent,
+  errors,
 }: {
   onChange: (value: string) => void;
   codeContent: string;
+  errors: string;
 }) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [numberOfEditorLines, setNumberOfEditorLines] = useState(0);
@@ -72,6 +74,12 @@ const CodeEditor = ({
             value={codeContent}
           />
         </div>
+      )}
+
+      {errors && (
+        <span className="text-error-500 paragraph-3-regular mt-2">
+          {errors}
+        </span>
       )}
     </section>
   );
