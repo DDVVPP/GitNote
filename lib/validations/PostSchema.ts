@@ -12,7 +12,7 @@ export const PostSchema = z
     createType: z.nativeEnum(CreateType),
     description: z
       .string()
-      .min(1, { message: "Description must contain at least 20 characters" }),
+      .min(20, { message: "Description must contain at least 20 characters" }),
     codeEditor: z.string().optional(),
     content: z.string(),
     steps: z.string().min(1).array(),
@@ -35,20 +35,31 @@ export const PostSchema = z
       })
     ),
   })
-  .refine(
-    (data) => {
-      if (data.createType === CreateType.COMPONENT && !data.codeEditor) {
-        return false;
-      } else if (data.createType === CreateType.KNOWLEDGE && !data.learnings) {
-        return false;
-      } else if (data.createType === CreateType.WORKFLOW && !data.steps) {
-        return false;
-      }
-      return true;
-    },
-    {
-      message: "Cannot be empty",
-      path: ["codeEditor", "learnings", "steps"],
+  .superRefine((data, ctx) => {
+    if (data.createType === CreateType.COMPONENT && !data.codeEditor) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["codeEditor"],
+        message: "Code Editor cannot be empty",
+      });
+    } else if (
+      data.createType === CreateType.KNOWLEDGE &&
+      data.learnings.length === 0
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["learnings"],
+        message: "Learning checkmark is required",
+      });
+    } else if (
+      data.createType === CreateType.WORKFLOW &&
+      data.steps.length === 0
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["steps"],
+        message: "Step checkmark is required",
+      });
     }
-  );
+  });
 //-------------------------------
