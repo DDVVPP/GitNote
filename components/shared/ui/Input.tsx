@@ -20,11 +20,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           {...rest}
           ref={ref}
         />
-        {errors && (
-          <span className="text-error-500 paragraph-3-regular mt-2">
-            {errors}
-          </span>
-        )}
+        {errors && <span className="error-message">{errors}</span>}
       </div>
     );
   }

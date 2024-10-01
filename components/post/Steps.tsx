@@ -49,7 +49,7 @@ const Steps = ({
 
             <div>
               {formState.errors.steps && (
-                <span className="text-error-500 paragraph-3-regular mt-2">
+                <span className="error-message">
                   {formState.errors.steps[index]?.message}
                 </span>
               )}
@@ -69,11 +69,7 @@ const Steps = ({
         </Button>
       </div>
 
-      {errors && (
-        <span className="text-error-500 paragraph-3-regular mt-2">
-          {errors}
-        </span>
-      )}
+      {errors && <span className="error-message">{errors}</span>}
     </section>
   );
 };

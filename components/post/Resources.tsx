@@ -40,7 +40,7 @@ const Resources = ({
 
                   {errors.resources &&
                     errors.resources[index]?.label?.message && (
-                      <span className="text-error-500 paragraph-3-regular">
+                      <span className="error-message">
                         {errors.resources[index].label.message}
                       </span>
                     )}
@@ -54,7 +54,7 @@ const Resources = ({
                   />
                   {errors.resources &&
                     errors.resources[index]?.link?.message && (
-                      <span className="text-error-500 paragraph-3-regular">
+                      <span className="error-message">
                         {errors.resources[index].link.message}
                       </span>
                     )}

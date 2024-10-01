@@ -92,6 +92,10 @@
     leading-6 text-slate-500;
   }
 
+  .error-message {
+    @apply text-error-500 paragraph-3-regular mt-2;
+  }
+
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;

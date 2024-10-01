@@ -57,7 +57,7 @@ const KnowledgeLevel = ({
 
                 <div>
                   {formState.errors.knowledgeLevel && (
-                    <span className="text-error-500 paragraph-3-regular mt-2">
+                    <span className="error-message">
                       {formState.errors.knowledgeLevel[index]?.message}
                     </span>
                   )}

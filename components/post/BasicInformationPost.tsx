@@ -66,9 +66,7 @@ const BasicInformationPost = ({
           {...register("description")}
         />
         {errors?.description && errors.description?.message && (
-          <span className="text-error-500 paragraph-3-regular mt-2">
-            {errors.description?.message}
-          </span>
+          <span className="error-message">{errors.description?.message}</span>
         )}
       </div>
 
