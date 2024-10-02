@@ -80,7 +80,7 @@ const Tags = ({
             tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="bg-black-600 paragraph-3-medium flex items-center gap-2 rounded-md px-2"
+                className="bg-black-600 paragraph-3-medium flex items-center gap-2 text-nowrap rounded-md px-2"
               >
                 {tag}
                 <button type="button" onClick={() => handleDelete(tag)}>
