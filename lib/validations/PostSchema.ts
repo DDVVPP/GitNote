@@ -16,7 +16,7 @@ export const PostSchema = z
     codeEditor: z.string().optional(),
     content: z.string(),
     steps: z.string().min(1).array(),
-    learnings: z.string().min(1).array(),
+    learnings: z.string().min(3).array(),
     tags: z.string().min(1).array(),
     resources: z.array(
       z.object({
