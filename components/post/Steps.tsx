@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/shared/ui";
 import { CheckSquare, X } from "lucide-react";
@@ -16,11 +16,19 @@ const Steps = ({
   useFieldArray: any;
   errors: any;
 }) => {
-  const { control, formState } = useFormHelpers;
+  const { control, formState, watch } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
     name: "steps",
     control,
   });
+  const fieldsInput = watch("steps");
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    fieldsInput[fieldsInput.length - 1] === ""
+      ? setIsDisabled(true)
+      : setIsDisabled(false);
+  }, [fieldsInput, formState]);
 
   return (
     <section className="space-y-6">
@@ -64,6 +72,7 @@ const Steps = ({
           color="gray"
           icon="plus"
           onClick={() => append("")}
+          disabled={isDisabled}
         >
           Add checkmark
         </Button>
