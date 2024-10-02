@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,7 @@ import {
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-import { CreateType, Post, Resource, User } from "@prisma/client";
+import { CreateType, Post, Resource } from "@prisma/client";
 import { IPostSchema, PostSchema } from "@/lib/validations/PostSchema";
 import { updatePost } from "@/lib/actions/post.actions";
 
@@ -45,9 +45,11 @@ const UpdatePost = ({
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors, defaultValues },
+    watch,
+    formState: { isSubmitting, errors, defaultValues, isDirty },
   } = useFormHelpers;
   const { control } = useFormHelpers;
+  const tagsInput = watch("tags");
 
   const onSubmit: SubmitHandler<IPostSchema> = async (data) => {
     const postId = post.id;
@@ -95,7 +97,13 @@ const UpdatePost = ({
           >
             Cancel
           </Button>
-          <Button color="blue" type="submit">
+          <Button
+            color="blue"
+            type="submit"
+            disabled={
+              defaultValues?.tags?.length === tagsInput.length && !isDirty
+            }
+          >
             {isSubmitting ? (
               <Loader2 className="animate-spin" />
             ) : (

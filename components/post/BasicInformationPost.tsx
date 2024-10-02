@@ -22,10 +22,16 @@ const BasicInformationPost = ({
   useFieldArray: any;
   errors: any;
 }) => {
-  const { trigger, control, watch, setValue, formState } = useFormHelpers;
+  const {
+    trigger,
+    control,
+    watch,
+    setValue,
+    formState: { defaultValues },
+  } = useFormHelpers;
   const postType = watch("createType");
   const codeContent = watch("codeEditor");
-  const { tags } = formState.defaultValues;
+  const { tags } = defaultValues;
 
   return (
     <section className="space-y-6">

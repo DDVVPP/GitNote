@@ -43,10 +43,11 @@ const CreatePost = () => {
     register,
     watch,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, defaultValues, isDirty },
   } = useFormHelpers;
   const { control } = useFormHelpers;
   const contentWatch = watch("content");
+  const tagsInput = watch("tags");
 
   useEffect(() => {
     console.log("contentWatch", contentWatch);
@@ -98,7 +99,13 @@ const CreatePost = () => {
           >
             Cancel
           </Button>
-          <Button color="blue" type="submit">
+          <Button
+            color="blue"
+            type="submit"
+            disabled={
+              defaultValues?.tags?.length === tagsInput.length && !isDirty
+            }
+          >
             {isSubmitting ? (
               <Loader2 className="animate-spin" />
             ) : (
