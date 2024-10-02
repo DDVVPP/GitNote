@@ -25,7 +25,7 @@ const Steps = ({
   return (
     <section className="space-y-6">
       <label className="paragraph-3-medium text-white-300">
-        Steps to follow
+        Steps to follow <span className="font-light"> (required)</span>
       </label>
       {fields.map((field: { id: number }, index: number) => {
         return (

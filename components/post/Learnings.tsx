@@ -25,7 +25,7 @@ const Learnings = ({
   return (
     <section className="space-y-6">
       <label className="paragraph-3-medium text-white-300">
-        What you learned
+        What you learned <span className="font-light"> (required)</span>
       </label>
       {fields.map((field: { id: number }, index: number) => {
         return (

@@ -8,10 +8,15 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, id, placeholder, required = true, errors, ...rest }, ref) => {
+  ({ label, id, placeholder, required = false, errors, ...rest }, ref) => {
     return (
       <div className=" text-white-300 flex flex-col">
-        {label && <label className="paragraph-3-medium mb-2">{label}</label>}
+        {label && (
+          <label className="paragraph-3-medium mb-2">
+            {label}
+            {required && <span className="font-light"> (required)</span>}
+          </label>
+        )}
         <input
           className="paragraph-3-regular bg-black-700 rounded-md border-none p-3"
           type="text"

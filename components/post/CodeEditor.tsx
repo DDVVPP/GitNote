@@ -30,7 +30,7 @@ const CodeEditor = ({
 
   return (
     <section className="text-white-300 flex flex-col space-y-2">
-      <div className="paragraph-3-medium flex rounded-md border-none">
+      <div className="paragraph-3-medium flex items-center rounded-md border-none">
         <button
           type="button"
           className={`${
@@ -52,6 +52,7 @@ const CodeEditor = ({
           <EyeIcon size={20} />
           Preview
         </button>
+        <p className="ml-2 font-light">(required)</p>
       </div>
 
       {isPreview ? (

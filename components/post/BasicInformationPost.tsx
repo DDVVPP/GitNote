@@ -42,6 +42,7 @@ const BasicInformationPost = ({
         }) => (
           <Input
             label="Title"
+            required
             id={name}
             {...rest}
             onChange={(event) => {
@@ -59,7 +60,9 @@ const BasicInformationPost = ({
       <Tags setValue={setValue} defaultValueTags={tags} />
 
       <div className="text-white-300 flex flex-col">
-        <label className="paragraph-3-medium mb-2">Description</label>
+        <label className="paragraph-3-medium mb-2">
+          Description <span className="font-light"> (required)</span>
+        </label>
         <textarea
           className="paragraph-3-regular bg-black-700 rounded-md border-none p-3"
           placeholder="Enter a short description"
