@@ -95,6 +95,9 @@
   .error-message {
     @apply text-error-500 paragraph-3-regular mt-2;
   }
+  .disabledButton {
+    @apply disabled:hover:bg-black-700 disabled:text-white-500 disabled:hover:text-white-500 disabled:bg-black-700;
+  }
 
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
