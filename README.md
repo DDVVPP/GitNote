@@ -4,20 +4,6 @@ GitNote is your all-in-one solution for developers, designed to be their second 
 
 &nbsp;
 
-## <a name="tech-stack">⚙️ Tech Stack</a>
-
-- **TypeScript** - Superset of JavaScript that adds static typing for improved code quality and maintainability.
-- **Next.js** - Framework for building server-side-rendered React applications.
-- **PostgreSQL** - Relational database management system.
-- **Prisma.io** - ORM for interacting with the database.
-- **Supabase** - Backend-as-a-Service for database management.
-- **Tailwind CSS** - Utility-first CSS framework for styling.
-- **TinyMCE** - WYSIWYG HTML editor.
-- **Prism.js** - Lightweight syntax highlighter for code snippets.
-- **React DatePicker** - Flexible date and time picker component for React applications.
-
-&nbsp;
-
 ## <a name="features">☀️ Key Features</a>
 
 - **Authentication** - Next auth for secure sign-up, sign-in, and logout functionalities.
@@ -31,6 +17,20 @@ GitNote is your all-in-one solution for developers, designed to be their second 
 - **Search & Filter** - Retrieve past notes and tutorials swiftly with global search and filtering.
 - **Post Collection** - Explore content easily with pagination features, witnessing your learning progression firsthand.
 <!-- 👉 **Responsive**: Ensures seamless functionality and aesthetics across all devices and many more, including code architecture and reusability -->
+
+&nbsp;
+
+## <a name="tech-stack">⚙️ Tech Stack</a>
+
+- **TypeScript** - Superset of JavaScript that adds static typing for improved code quality and maintainability.
+- **Next.js** - Framework for building server-side-rendered React applications.
+- **PostgreSQL** - Relational database management system.
+- **Prisma.io** - ORM for interacting with the database.
+- **Supabase** - Backend-as-a-Service for database management.
+- **Tailwind CSS** - Utility-first CSS framework for styling.
+- **TinyMCE** - WYSIWYG HTML editor.
+- **Prism.js** - Lightweight syntax highlighter for code snippets.
+- **React DatePicker** - Flexible date and time picker component for React applications.
 
 &nbsp;
 
@@ -114,16 +114,16 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 **Post Details Page**
 
-- [ ] Add 'No content' text in the 'Resources & Links' section if there is no content
+- [x] Remove 'Resources & Links' section if there is no content
 
 **Create / Update Post Pages**
 
-- [ ] Fix padding in Tag input when there are two words
-- [ ] Visually indicate which fields are required and/or optional
-- [ ] Clicking on 'Create Post' should set the focus state on the first required field that is not filled out, or remove focus state altogether
-- [ ] 'Add checkmark' button should be disabled if the input hasn't yet been filled
+- [x] Fix padding in Tag input when there are two words
+- [x] Visually indicate which fields are required and/or optional
+- [ ] Figure out focus ring order
+- [x] 'Add checkmark' button should be disabled if the input hasn't yet been filled
 - [x] Add a 'Cancel' button
-- [ ] Disable 'Update Post' button if no updates have been made to the inputs
+- [x] Disable 'Update Post' button if no updates have been made to the inputs
 
 **Miscellaneous Updates**
 
