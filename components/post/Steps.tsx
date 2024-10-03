@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/shared/ui";
 import { CheckSquare, X } from "lucide-react";
@@ -9,21 +9,31 @@ const Steps = ({
   useFormHelpers,
   register,
   useFieldArray,
+  errors,
 }: {
   useFormHelpers: any;
   register: any;
   useFieldArray: any;
+  errors: any;
 }) => {
-  const { control, formState } = useFormHelpers;
+  const { control, formState, watch } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
     name: "steps",
     control,
   });
+  const fieldsInput = watch("steps");
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    fieldsInput[fieldsInput.length - 1] === ""
+      ? setIsDisabled(true)
+      : setIsDisabled(false);
+  }, [fieldsInput, formState]);
 
   return (
     <section className="space-y-6">
       <label className="paragraph-3-medium text-white-300">
-        Steps to follow
+        Steps to follow <span className="font-light"> (required)</span>
       </label>
       {fields.map((field: { id: number }, index: number) => {
         return (
@@ -47,7 +57,7 @@ const Steps = ({
 
             <div>
               {formState.errors.steps && (
-                <span className="text-error-500 paragraph-3-regular mt-2">
+                <span className="error-message">
                   {formState.errors.steps[index]?.message}
                 </span>
               )}
@@ -62,10 +72,13 @@ const Steps = ({
           color="gray"
           icon="plus"
           onClick={() => append("")}
+          disabled={isDisabled}
         >
           Add checkmark
         </Button>
       </div>
+
+      {errors && <span className="error-message">{errors}</span>}
     </section>
   );
 };

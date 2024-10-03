@@ -182,7 +182,7 @@ const PostDetails = ({
         </>
       )}
 
-      {resources && (
+      {resources && resources.length > 0 && (
         <section>
           <p className="paragraph-2-bold text-white-100">Resources & Links</p>
           {resources.map((resource) => {

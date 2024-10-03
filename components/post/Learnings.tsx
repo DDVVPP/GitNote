@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/shared/ui";
 import { CheckSquare, X } from "lucide-react";
@@ -9,21 +9,31 @@ const Learnings = ({
   useFormHelpers,
   register,
   useFieldArray,
+  errors,
 }: {
   useFormHelpers: any;
   register: any;
   useFieldArray: any;
+  errors: any;
 }) => {
-  const { control, formState } = useFormHelpers;
+  const { control, formState, watch } = useFormHelpers;
   const { fields, append, remove } = useFieldArray({
     name: "learnings",
     control,
   });
+  const fieldsInput = watch("learnings");
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    fieldsInput[fieldsInput.length - 1] === ""
+      ? setIsDisabled(true)
+      : setIsDisabled(false);
+  }, [fieldsInput, formState]);
 
   return (
     <section className="space-y-6">
       <label className="paragraph-3-medium text-white-300">
-        What you learned
+        What you learned <span className="font-light"> (required)</span>
       </label>
       {fields.map((field: { id: number }, index: number) => {
         return (
@@ -45,13 +55,11 @@ const Learnings = ({
               </button>
             </div>
 
-            <div>
-              {formState.errors.learnings && (
-                <span className="text-error-500 paragraph-3-regular mt-2">
-                  {formState.errors.learnings[index]?.message}
-                </span>
-              )}
-            </div>
+            {formState.errors.learnings && (
+              <span className="error-message">
+                {formState.errors.learnings[index]?.message}
+              </span>
+            )}
           </React.Fragment>
         );
       })}
@@ -61,11 +69,17 @@ const Learnings = ({
           type="button"
           color="gray"
           icon="plus"
-          onClick={() => append("")}
+          onClick={() => {
+            append("");
+            setIsDisabled(true);
+          }}
+          disabled={isDisabled}
         >
           Add checkmark
         </Button>
       </div>
+
+      {errors && <span className="error-message">{errors}</span>}
     </section>
   );
 };

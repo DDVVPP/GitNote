@@ -63,7 +63,7 @@ const LearningGoals = ({
               <div>
                 {formState.errors.goals &&
                   formState.errors.goals[index]?.name?.message && (
-                    <span className="text-error-500 paragraph-3-regular">
+                    <span className="error-message">
                       {formState.errors.goals[index].name.message}
                     </span>
                   )}
