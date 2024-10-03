@@ -164,7 +164,7 @@ const SocialMediaModal = ({
               </div>
             );
           })}
-          <span className="text-error-500 flex justify-center">
+          <span className="error-message flex justify-center">
             {formErrors.socialFields && formErrors.socialFields.message}
           </span>
         </section>
