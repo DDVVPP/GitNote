@@ -14,15 +14,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const colorClassMap = {
-  blue: "bg-primary-500 text-black-900 paragraph-3-bold hover:text-white-100 hover:duration-300 hover:bg-blue-500 disabledButton",
-  gray: "bg-black-600 hover:bg-[#4d567a] text-white-100 paragraph-3-medium hover:duration-300 disabledButton",
+  blue: "bg-primary-500 text-black-900 paragraph-3-bold hover:text-white-100 hover:duration-300 hover:bg-blue-500 disabled-button",
+  gray: "bg-black-600 hover:bg-[#4d567a] text-white-100 paragraph-3-medium hover:duration-300 disabled-button",
   darkGrayWhiteText:
-    "bg-black-700 text-white-300 paragraph-3-medium disabledButton",
+    "bg-black-700 text-white-300 paragraph-3-medium disabled-button",
   darkGrayBlueText:
-    "bg-black-700 hover:bg-[#4d567a] hover:duration-300 text-primary-500 hover:text-white-100 paragraph-3-medium disabledButton",
-  gradient: "text-white-100 primary-gradient paragraph-4-medium disabledButton",
-  red: "bg-error-500 hover:bg-red-600 hover:duration-300 text-white-100 paragraph-3-medium disabledButton",
-  default: "bg-black-700 text-white-300 paragraph-3-medium disabledButton",
+    "bg-black-700 hover:bg-[#4d567a] hover:duration-300 text-primary-500 hover:text-white-100 paragraph-3-medium disabled-button",
+  gradient:
+    "text-white-100 primary-gradient paragraph-4-medium disabled-button",
+  red: "bg-error-500 hover:bg-red-600 hover:duration-300 text-white-100 paragraph-3-medium disabled-button",
+  default: "bg-black-700 text-white-300 paragraph-3-medium disabled-button",
 };
 
 const iconMap = {
