@@ -2,11 +2,11 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const { faker } = require("@faker-js/faker");
 import bcryptjs from "bcryptjs";
-import { Role } from "@prisma/client";
+import { CreateType, Role } from "@prisma/client";
 
 async function main() {
   try {
-    const userIds = [];
+    const emails = [];
     const knowledgeLevels = [
       "Expert in TailwindCSS",
       "Beginner in Three.js",
@@ -46,9 +46,61 @@ async function main() {
       "Github",
       "Dribble",
     ];
+    const techTags = [
+      "JavaScript",
+      "Python",
+      "Java",
+      "TypeScript",
+      "Ruby",
+      "C++",
+      "React",
+      "Angular",
+      "Vue",
+      "Django",
+      "Node.js",
+      "Express",
+      "HTML",
+      "CSS",
+      "GraphQL",
+      "REST",
+      "APIs",
+      "Docker",
+      "Kubernetes",
+      "Git",
+      "Webpack",
+      "Babel",
+      "Jenkins",
+      "Agile",
+      "Scrum",
+      "DevOps",
+      "Continuous Integration",
+      "Test-Driven Development",
+      "PostgreSQL",
+      "MongoDB",
+      "MySQL",
+      "SQLite",
+      "Redis",
+      "Firebase",
+      "AWS",
+      "Azure",
+      "Google Cloud",
+      "Encryption",
+      "OAuth",
+      "Authentication",
+      "Firewalls",
+      "UI/UX",
+      "Responsive Design",
+      "Wireframes",
+      "Prototyping",
+      "User Testing",
+      "AI",
+      "Machine Learning",
+      "AR/VR",
+      "IoT",
+    ];
 
     // USERS
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
       const socialMedia = platformArray.map((platform) => ({
         username: faker.internet.userName(),
         type: platform,
@@ -74,7 +126,7 @@ async function main() {
           availability: i % 2 === 0,
         },
       });
-      userIds.push(user.id);
+      emails.push(user.email);
     }
 
     // DEMO USER
@@ -112,7 +164,58 @@ async function main() {
         availability: true,
       },
     });
-    userIds.push(demoUser.id);
+    emails.push(demoUser.email);
+
+    // POSTS
+    for (let i = 0; i < 40; i++) {
+      const createType = faker.helpers.enumValue(CreateType);
+
+      const randomNumberOfArrayElements = Math.floor(Math.random() * 4) + 2;
+      const learningsOrSteps = Array.from(
+        { length: randomNumberOfArrayElements },
+        () => faker.lorem.sentence()
+      );
+
+      const randomParagraphsCount = Math.floor(Math.random() * 5) + 1;
+      const content = faker.lorem.paragraphs(randomParagraphsCount);
+
+      const randomResourcesCount = Math.floor(Math.random() * 5);
+      const resources = Array.from({ length: randomResourcesCount }, () => ({
+        label: faker.lorem.words(1),
+        link: faker.internet.url(),
+      }));
+
+      const titleAdjective = faker.hacker.adjective();
+      const titleNoun = faker.hacker.noun();
+      const capitalizedTitleAdjective = `${titleAdjective[0].toUpperCase()}${titleAdjective.slice(
+        1
+      )}`;
+      const capitalizedTitleNoun = `${titleNoun[0].toUpperCase()}${titleNoun.slice(
+        1
+      )}`;
+
+      await prisma.post.create({
+        data: {
+          title: `${capitalizedTitleAdjective} ${capitalizedTitleNoun}`,
+          createType,
+          description: faker.lorem.sentence(),
+          content,
+          ...(createType === "WORKFLOW" && { steps: learningsOrSteps }),
+          ...(createType === "KNOWLEDGE" && { learnings: learningsOrSteps }),
+          user: {
+            connect: {
+              email: faker.helpers.arrayElement(emails),
+            },
+          },
+          tags: faker.helpers.arrayElements(techTags, { min: 1, max: 10 }),
+          ...(randomResourcesCount > 0 && {
+            resources: {
+              create: resources,
+            },
+          }),
+        },
+      });
+    }
   } catch (error) {
     console.error("Error seeding data:", error);
   } finally {
