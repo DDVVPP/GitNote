@@ -20,31 +20,34 @@ async function main() {
       "Intermediate user of Docker",
       "Learning Cybersecurity Fundamentals",
     ];
+    //TODO: Fix icon list
     const tech = [
-      "Vue.js",
-      "Angular",
-      "Javascript",
-      "Typescript",
-      "StyledComponents",
-      "TailwindCSS",
-      "Node.js",
-      "Express.js",
-      "Svelte",
-      "Django",
-      "Jest",
-      "Mocha",
-      "Chai",
-      "Kubernetes",
-      "Terraform",
-      "GraphQL",
-      "MongoDB",
+      "javascript",
+      "typescript",
+      "styledcomponents",
+      "tailwind",
+      "nodejs",
+      "vscode",
+      "materialui",
+      "reactjs",
+      // "Express.js",
+      // "Svelte",
+      // "Django",
+      // "Jest",
+      // "Mocha",
+      // "Chai",
+      // "Kubernetes",
+      // "Terraform",
+      // "GraphQL",
+      // "MongoDB",
     ];
     const platformArray = [
-      "Twitter",
-      "LinkedIn",
-      "Instagram",
-      "Github",
-      "Dribble",
+      "twitter",
+      "linkedIn",
+      "instagram",
+      "github",
+      "dribble",
+      "facebook",
     ];
     const techTags = [
       "JavaScript",
@@ -138,21 +141,33 @@ async function main() {
     }
 
     // DEMO USER
-    const password = "password123";
+    const password = "demouser!2#";
     const hashedPassword = bcryptjs.hashSync(password, 10);
 
-    const demoUserSocialMedia = platformArray.map((platform) => ({
-      username: faker.internet.userName(),
-      type: platform,
-      link: faker.internet.url(),
-    }));
+    const demoUserSocialMedia = [
+      {
+        username: "duser",
+        type: "twitter",
+        link: faker.internet.url(),
+      },
+      {
+        username: "demo.user",
+        type: "instagram",
+        link: faker.internet.url(),
+      },
+      {
+        username: "d.dribbles",
+        type: "dribble",
+        link: faker.internet.url(),
+      },
+    ];
 
     const demoUser = await prisma.user.create({
       data: {
         name: "Demo User",
         email: "demouser@email.com",
         password: hashedPassword,
-        image: "https://example.com/image2.jpg",
+        image: faker.image.urlLoremFlickr({ category: "avatar" }),
         location: "San Francisco",
         onboardingStatus: 5,
         portfolio: "https://demouserportfolio.com",
@@ -165,6 +180,7 @@ async function main() {
             { name: "Understand the principles of DevOps", isComplete: false },
           ],
         },
+        //TODO: techStack: ["reactjs", "Python", "Django", "GraphQL"],
         knowledgeLevel: [
           "Proficient in React",
           "Intermediate in Python",
@@ -172,7 +188,15 @@ async function main() {
           "Expert in GraphQL",
           "Familiar with Cybersecurity Fundamentals",
         ],
-        techStack: ["React", "Python", "Django", "GraphQL"],
+        techStack: [
+          "reactjs",
+          "javascript",
+          "node",
+          "vscode",
+          "materialui",
+          "styledcomponents",
+          "tailwind",
+        ],
         socialMedia: {
           create: demoUserSocialMedia,
         },
@@ -196,7 +220,7 @@ async function main() {
 
       const randomResourcesCount = Math.floor(Math.random() * 5);
       const resources = Array.from({ length: randomResourcesCount }, () => ({
-        label: faker.lorem.words(1),
+        label: faker.lorem.words(3),
         link: faker.internet.url(),
       }));
 
