@@ -101,6 +101,11 @@ async function main() {
 
     // USERS
     for (let i = 0; i < 5; i++) {
+      const randomGoalsCount = Math.floor(Math.random() * 6) + 1;
+      const goals = Array.from({ length: randomGoalsCount }, () => ({
+        name: faker.lorem.sentence(),
+        isComplete: i % 2 === 0,
+      }));
       const socialMedia = platformArray.map((platform) => ({
         username: faker.internet.userName(),
         type: platform,
@@ -118,6 +123,9 @@ async function main() {
           location: faker.location.city(),
           portfolio: faker.internet.url(),
           role: faker.helpers.enumValue(Role),
+          goals: {
+            create: goals,
+          },
           knowledgeLevel: faker.helpers.arrayElements(knowledgeLevels),
           techStack: faker.helpers.arrayElements(tech),
           socialMedia: {
@@ -149,6 +157,14 @@ async function main() {
         onboardingStatus: 5,
         portfolio: "https://demouserportfolio.com",
         role: Role.USER,
+        goals: {
+          create: [
+            { name: "Build a personal portfolio website", isComplete: false },
+            { name: "Contribute to open-source projects", isComplete: false },
+            { name: "Learn more about cloud computing", isComplete: true },
+            { name: "Understand the principles of DevOps", isComplete: false },
+          ],
+        },
         knowledgeLevel: [
           "Proficient in React",
           "Intermediate in Python",
@@ -157,7 +173,6 @@ async function main() {
           "Familiar with Cybersecurity Fundamentals",
         ],
         techStack: ["React", "Python", "Django", "GraphQL"],
-
         socialMedia: {
           create: demoUserSocialMedia,
         },
