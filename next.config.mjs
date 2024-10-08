@@ -17,6 +17,12 @@ const nextConfig = {
         hostname: "git-note.s3.us-west-1.amazonaws.com/**",
         port: "",
       },
+      // For seed file
+      {
+        protocol: "https",
+        hostname: "loremflickr.com",
+        pathname: "**",
+      },
     ],
   },
 };
