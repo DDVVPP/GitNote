@@ -4,9 +4,111 @@ const { faker } = require("@faker-js/faker");
 import bcryptjs from "bcryptjs";
 import { CreateType, Role } from "@prisma/client";
 
+// POSTS - HELPER FUNCTION:
+async function createPost(userEmail: string, createType: string | CreateType) {
+  const techTags = [
+    "JavaScript",
+    "Python",
+    "Java",
+    "TypeScript",
+    "Ruby",
+    "C++",
+    "React",
+    "Angular",
+    "Vue",
+    "Django",
+    "Node.js",
+    "Express",
+    "HTML",
+    "CSS",
+    "GraphQL",
+    "REST",
+    "APIs",
+    "Docker",
+    "Kubernetes",
+    "Git",
+    "Webpack",
+    "Babel",
+    "Jenkins",
+    "Agile",
+    "Scrum",
+    "DevOps",
+    "Continuous Integration",
+    "Test-Driven Development",
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+    "SQLite",
+    "Redis",
+    "Firebase",
+    "AWS",
+    "Azure",
+    "Google Cloud",
+    "Encryption",
+    "OAuth",
+    "Authentication",
+    "Firewalls",
+    "UI/UX",
+    "Responsive Design",
+    "Wireframes",
+    "Prototyping",
+    "User Testing",
+    "AI",
+    "Machine Learning",
+    "AR/VR",
+    "IoT",
+  ];
+
+  const randomNumberOfArrayElements = Math.floor(Math.random() * 4) + 2;
+  const learningsOrSteps = Array.from(
+    { length: randomNumberOfArrayElements },
+    () => faker.lorem.sentence()
+  );
+
+  const randomParagraphsCount = Math.floor(Math.random() * 5) + 1;
+  const content = faker.lorem.paragraphs(randomParagraphsCount);
+
+  const randomResourcesCount = Math.floor(Math.random() * 5);
+  const resources = Array.from({ length: randomResourcesCount }, () => ({
+    label: faker.lorem.words(3),
+    link: faker.internet.url(),
+  }));
+
+  const titleAdjective = faker.hacker.adjective();
+  const titleNoun = faker.hacker.noun();
+  const capitalizedTitleAdjective = `${titleAdjective[0].toUpperCase()}${titleAdjective.slice(
+    1
+  )}`;
+  const capitalizedTitleNoun = `${titleNoun[0].toUpperCase()}${titleNoun.slice(
+    1
+  )}`;
+
+  await prisma.post.create({
+    data: {
+      title: `${capitalizedTitleAdjective} ${capitalizedTitleNoun}`,
+      createType,
+      description: faker.lorem.sentence(),
+      content,
+      ...(createType === "WORKFLOW" && { steps: learningsOrSteps }),
+      ...(createType === "KNOWLEDGE" && { learnings: learningsOrSteps }),
+      user: {
+        connect: {
+          email: userEmail,
+        },
+      },
+      tags: faker.helpers.arrayElements(techTags, { min: 1, max: 10 }),
+      ...(randomResourcesCount > 0 && {
+        resources: {
+          create: resources,
+        },
+      }),
+    },
+  });
+}
+
 async function main() {
   try {
-    const emails = [];
+    const emails: String[] = [];
     const knowledgeLevels = [
       "Expert in TailwindCSS",
       "Beginner in Three.js",
@@ -48,58 +150,6 @@ async function main() {
       "github",
       "dribble",
       "facebook",
-    ];
-    const techTags = [
-      "JavaScript",
-      "Python",
-      "Java",
-      "TypeScript",
-      "Ruby",
-      "C++",
-      "React",
-      "Angular",
-      "Vue",
-      "Django",
-      "Node.js",
-      "Express",
-      "HTML",
-      "CSS",
-      "GraphQL",
-      "REST",
-      "APIs",
-      "Docker",
-      "Kubernetes",
-      "Git",
-      "Webpack",
-      "Babel",
-      "Jenkins",
-      "Agile",
-      "Scrum",
-      "DevOps",
-      "Continuous Integration",
-      "Test-Driven Development",
-      "PostgreSQL",
-      "MongoDB",
-      "MySQL",
-      "SQLite",
-      "Redis",
-      "Firebase",
-      "AWS",
-      "Azure",
-      "Google Cloud",
-      "Encryption",
-      "OAuth",
-      "Authentication",
-      "Firewalls",
-      "UI/UX",
-      "Responsive Design",
-      "Wireframes",
-      "Prototyping",
-      "User Testing",
-      "AI",
-      "Machine Learning",
-      "AR/VR",
-      "IoT",
     ];
 
     // USERS
@@ -143,6 +193,7 @@ async function main() {
     // DEMO USER
     const password = "demouser!2#";
     const hashedPassword = bcryptjs.hashSync(password, 10);
+    const demoUserEmail = "demouser@email.com";
 
     const demoUserSocialMedia = [
       {
@@ -165,7 +216,7 @@ async function main() {
     const demoUser = await prisma.user.create({
       data: {
         name: "Demo User",
-        email: "demouser@email.com",
+        email: demoUserEmail,
         password: hashedPassword,
         image: faker.image.urlLoremFlickr({ category: "avatar" }),
         location: "San Francisco",
@@ -205,55 +256,24 @@ async function main() {
     });
     emails.push(demoUser.email);
 
-    // POSTS
-    for (let i = 0; i < 40; i++) {
+    // USER POSTS
+    for (let i = 0; i < 20; i++) {
+      const userEmail = faker.helpers.arrayElement(emails);
       const createType = faker.helpers.enumValue(CreateType);
+      await createPost(userEmail, createType);
+    }
 
-      const randomNumberOfArrayElements = Math.floor(Math.random() * 4) + 2;
-      const learningsOrSteps = Array.from(
-        { length: randomNumberOfArrayElements },
-        () => faker.lorem.sentence()
-      );
+    // DEMO USER POSTS
+    const createTypes = Object.values(CreateType);
+    createTypes.forEach(async (type) => {
+      await createPost(demoUserEmail, type);
+    });
 
-      const randomParagraphsCount = Math.floor(Math.random() * 5) + 1;
-      const content = faker.lorem.paragraphs(randomParagraphsCount);
+    const additionalPostsCount = 40 - createTypes.length;
+    for (let i = 0; i < additionalPostsCount; i++) {
+      const createType = faker.helpers.arrayElement(createTypes);
 
-      const randomResourcesCount = Math.floor(Math.random() * 5);
-      const resources = Array.from({ length: randomResourcesCount }, () => ({
-        label: faker.lorem.words(3),
-        link: faker.internet.url(),
-      }));
-
-      const titleAdjective = faker.hacker.adjective();
-      const titleNoun = faker.hacker.noun();
-      const capitalizedTitleAdjective = `${titleAdjective[0].toUpperCase()}${titleAdjective.slice(
-        1
-      )}`;
-      const capitalizedTitleNoun = `${titleNoun[0].toUpperCase()}${titleNoun.slice(
-        1
-      )}`;
-
-      await prisma.post.create({
-        data: {
-          title: `${capitalizedTitleAdjective} ${capitalizedTitleNoun}`,
-          createType,
-          description: faker.lorem.sentence(),
-          content,
-          ...(createType === "WORKFLOW" && { steps: learningsOrSteps }),
-          ...(createType === "KNOWLEDGE" && { learnings: learningsOrSteps }),
-          user: {
-            connect: {
-              email: faker.helpers.arrayElement(emails),
-            },
-          },
-          tags: faker.helpers.arrayElements(techTags, { min: 1, max: 10 }),
-          ...(randomResourcesCount > 0 && {
-            resources: {
-              create: resources,
-            },
-          }),
-        },
-      });
+      await createPost(demoUserEmail, createType);
     }
   } catch (error) {
     console.error("Error seeding data:", error);
