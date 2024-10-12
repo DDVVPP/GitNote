@@ -59,16 +59,16 @@ async function createPost(userEmail: string, createType: string | CreateType) {
     "IoT",
   ];
 
-  const randomNumberOfArrayElements = Math.floor(Math.random() * 4) + 2;
+  const randomNumberOfArrayElements = Math.floor(Math.random() * 4) + 2; // between 2-5
   const learningsOrSteps = Array.from(
     { length: randomNumberOfArrayElements },
     () => faker.lorem.sentence()
   );
 
-  const randomParagraphsCount = Math.floor(Math.random() * 5) + 1;
+  const randomParagraphsCount = Math.floor(Math.random() * 5) + 1; // between 1-5
   const content = faker.lorem.paragraphs(randomParagraphsCount);
 
-  const randomResourcesCount = Math.floor(Math.random() * 5);
+  const randomResourcesCount = Math.floor(Math.random() * 5); // between 0-5
   const resources = Array.from({ length: randomResourcesCount }, () => ({
     label: faker.lorem.words(3),
     link: faker.internet.url(),
@@ -191,8 +191,8 @@ async function main() {
     }
 
     // DEMO USER
-    const password = "demouser!2#";
-    const hashedPassword = bcryptjs.hashSync(password, 10);
+    const password = process.env.DEMO_USER_PASSWORD;
+    const hashedPassword = bcryptjs.hashSync(password as string, 10);
     const demoUserEmail = "demouser@email.com";
 
     const demoUserSocialMedia = [
