@@ -25,7 +25,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       setTechStackStateUI(newTechStackState);
     };
     matchedItemsForUI();
-  }, []);
+  }, [techStackState]);
 
   // compare techSearchItems with techStack and return matched items
   useEffect(() => {
