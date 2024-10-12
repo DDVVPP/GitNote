@@ -29,7 +29,6 @@ const BasicAuthLogin = () => {
       await credentialsSignIn({ email, password });
     } catch (error) {
       toast.error("Invalid user");
-      return;
     }
   };
 
@@ -63,7 +62,7 @@ const BasicAuthLogin = () => {
           href="/sign-up"
           className="paragraph-3-medium flex justify-center  underline underline-offset-2"
         >
-          I don't have an account
+          I don&apos;t have an account
         </Link>
         <div className="inline-flex w-full items-center justify-center">
           <hr className="dark:bg-black-700 my-8 h-px w-full  border-0" />

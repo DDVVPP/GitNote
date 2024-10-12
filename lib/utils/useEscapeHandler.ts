@@ -13,7 +13,7 @@ const useEscapeHandler = (onClick: () => void) => {
     return () => {
       window.removeEventListener("keydown", handleEsc);
     };
-  }, []);
+  }, [onClick]);
 };
 
 export default useEscapeHandler;

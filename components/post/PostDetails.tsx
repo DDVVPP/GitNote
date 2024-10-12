@@ -2,7 +2,15 @@
 
 import { format as formatDate } from "date-fns";
 import "prismjs/themes/prism-tomorrow.css";
-import { Calendar, Star, Eye, ExternalLink, CheckSquare } from "lucide-react";
+import {
+  Calendar,
+  Star,
+  Eye,
+  ExternalLink,
+  CheckSquare,
+  SquarePen,
+  Trash,
+} from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { createPortal } from "react-dom";
@@ -15,7 +23,6 @@ import VerticalEllipsisIcon from "../shared/icons/VerticalEllipsisIcon";
 import { useRef, useState } from "react";
 import useEscapeHandler from "@/lib/utils/useEscapeHandler";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
-import { SquarePen, Trash } from "lucide-react";
 import ConfirmationModal from "./ConfirmationModal";
 
 const PostDetails = ({
@@ -105,7 +112,7 @@ const PostDetails = ({
 
           <div className="flex justify-end">
             {isOpen && (
-              <div className="bg-black-700 text-white-300 paragraph-3-medium flex flex-col text-nowrap rounded-md py-2">
+              <div className="paragraph-3-medium bg-black-700 text-white-300 flex flex-col text-nowrap rounded-md py-2">
                 <Link
                   href={`/posts/${params.postId}/update-post`}
                   className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
@@ -162,9 +169,9 @@ const PostDetails = ({
                 <div key={step} className="my-1 flex items-center gap-2">
                   <input
                     type="checkbox"
-                    className="border-white-500 bg-black-800 checked:border-white-500 h-4.5 w-4.5 cursor-pointer appearance-none rounded-sm border-2 checked:bg-transparent"
+                    className="h-4.5 w-4.5 border-white-500 bg-black-800 checked:border-white-500 cursor-pointer appearance-none rounded-sm border-2 checked:bg-transparent"
                   />
-                  <p className="text-white-300 paragraph-2-regular">{step}</p>
+                  <p className="paragraph-2-regular text-white-300">{step}</p>
                 </div>
               );
             })}
@@ -189,7 +196,7 @@ const PostDetails = ({
             return (
               <div
                 key={resource?.id}
-                className="text-white-300 hover:text-primary-500 mb-3  mt-3 flex items-center gap-x-2 hover:duration-300"
+                className="text-white-300 hover:text-primary-500 my-3  flex items-center gap-x-2 hover:duration-300"
               >
                 <CheckSquare size={16} className="flex text-green-400" />
                 <a

@@ -43,7 +43,7 @@ const ConfirmationModal = ({
       ref={ref}
     >
       <p className="text-white-300">
-        Are you sure you'd like to delete this post?
+        Are you sure you&apos;d like to delete this post?
       </p>
       <div className="flex justify-between gap-x-4">
         <Button color="red" type="submit" onClick={() => handleDelete(postId)}>

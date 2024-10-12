@@ -1,6 +1,6 @@
 import { getAllPosts } from "@/lib/actions/post.actions";
 
-import { CreateType, Post, User } from "@prisma/client";
+import { CreateType, Post } from "@prisma/client";
 import Posts from "../../../components/post/Posts";
 import Pagination from "@/components/post/Pagination";
 import { SearchParams } from "@/types";
