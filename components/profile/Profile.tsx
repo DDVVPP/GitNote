@@ -75,7 +75,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             </h1>
             <div className="paragraph-3-regular group flex gap-4">
               {portfolio && (
-                <div className="text-primary-500 group-hover:text-white-300 flex items-center gap-1 group-hover:duration-300">
+                <div className="flex items-center gap-1 text-primary-500 group-hover:text-white-300 group-hover:duration-300">
                   <LinkIcon
                     size={16}
                     className="text-black-600 group-hover:text-white-500 group-hover:duration-300"
@@ -87,14 +87,14 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
               )}
 
               {location && (
-                <div className="text-primary-500 flex items-center gap-1">
+                <div className="flex items-center gap-1 text-primary-500">
                   <MapPin size={16} className="text-black-600" />
                   <p className="text-white-300">{location}</p>
                 </div>
               )}
 
               {created && (
-                <div className="text-primary-500 flex items-center gap-1">
+                <div className="flex items-center gap-1 text-primary-500">
                   <Calendar size={16} className="text-black-600" />
                   <p className="text-white-300">Joined {created}</p>
                 </div>
@@ -123,18 +123,18 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
                     type="checkbox"
                     disabled
                     checked={goal.isComplete}
-                    className="border-white-500 bg-white-500 h-3 w-3 appearance-none rounded-sm border text-green-400"
+                    className="size-3 appearance-none rounded-sm border border-white-500 bg-white-500 text-green-400"
                   />
-                  <p className="text-white-300 paragraph-2-regular">
+                  <p className="paragraph-2-regular text-white-300">
                     {goal.name}
                   </p>
                 </div>
               );
             })
           ) : (
-            <p className="text-white-300 paragraph-2-regular">No goals added</p>
+            <p className="paragraph-2-regular text-white-300">No goals added</p>
           )}
-          <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
+          <hr className="my-8 mt-20 h-px w-full border-0 dark:bg-black-700" />
         </div>
 
         <div className="flex flex-col">
@@ -155,12 +155,12 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
                 );
               })
             ) : (
-              <p className="text-white-300 paragraph-2-regular">
+              <p className="paragraph-2-regular text-white-300">
                 No tech added
               </p>
             )}
           </div>
-          <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
+          <hr className="my-8 mt-20 h-px w-full border-0 dark:bg-black-700" />
         </div>
 
         <div className=" flex flex-col">
@@ -171,16 +171,16 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
                 <div key={level} className="my-1 flex items-center gap-2">
                   {" "}
                   <CheckSquare className="text-primary-500" size={16} />
-                  <p className="text-white-300 paragraph-2-regular">{level}</p>
+                  <p className="paragraph-2-regular text-white-300">{level}</p>
                 </div>
               );
             })
           ) : (
-            <p className="text-white-300 paragraph-2-regular">
+            <p className="paragraph-2-regular text-white-300">
               No knowledge levels added
             </p>
           )}
-          <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
+          <hr className="my-8 mt-20 h-px w-full border-0 dark:bg-black-700" />
         </div>
 
         <div className="mb-20 flex flex-col">
@@ -189,20 +189,20 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             <>
               <div className="my-1 flex items-center gap-2">
                 <UserCheck className="text-green-400" size={16} />
-                <p className="text-white-300 paragraph-2-regular">
+                <p className="paragraph-2-regular text-white-300">
                   Available for a new project
                 </p>
               </div>
               <div className="my-1 flex items-center gap-2">
                 <Clock className="text-green-400" size={16} />
-                <p className="text-white-300 paragraph-2-regular">
+                <p className="paragraph-2-regular text-white-300">
                   Available from {start ?? "(oops! Missing start date)"} to{" "}
                   {end ?? "(oops! Missing end date)"}
                 </p>
               </div>
             </>
           ) : (
-            <p className="text-white-300 paragraph-2-regular">
+            <p className="paragraph-2-regular text-white-300">
               Availability not added
             </p>
           )}

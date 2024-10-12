@@ -66,10 +66,10 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
 
   return (
     <>
-      <div className=" text-white-300 my-5 flex flex-col">
+      <div className=" my-5 flex flex-col text-white-300">
         <label className="paragraph-3-medium mb-2">Tech Stack</label>
         <input
-          className="paragraph-3-regular bg-black-700 rounded-md border-none p-3"
+          className="paragraph-3-regular rounded-md border-none bg-black-700 p-3"
           type="text"
           placeholder="Enter tech"
           onChange={(e) => setTechSearchItems(e.target.value)}
@@ -77,12 +77,12 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
         />
 
         {techStackStateUI && techStackStateUI.length > 0 && (
-          <div className="bg-black-700 mb-4 mt-0.5 flex flex-wrap gap-2 rounded-md p-4">
+          <div className="mb-4 mt-0.5 flex flex-wrap gap-2 rounded-md bg-black-700 p-4">
             {techStackStateUI.map((tech) => {
               const { icon: TechStackIcon, name, uiName } = tech;
               return (
                 <div
-                  className="bg-black-600 flex items-center gap-2 rounded-md p-1"
+                  className="flex items-center gap-2 rounded-md bg-black-600 p-1"
                   key={name}
                 >
                   <TechStackIcon size={24} />
@@ -101,14 +101,14 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       </div>
 
       {techSearchResults && techSearchResults.length > 0 && (
-        <div className="bg-black-700 text-white-300 -mt-6 mb-5 flex flex-col rounded-md p-2">
+        <div className="-mt-6 mb-5 flex flex-col rounded-md bg-black-700 p-2 text-white-300">
           {techSearchResults?.map((techSearchResult) => {
             if (techStackState.includes(techSearchResult.name)) return null;
             const { icon: ItemIcon, uiName, name } = techSearchResult;
             return (
               <div
                 key={name}
-                className="paragraph-3-regular bg-black-600 m-1 flex cursor-pointer items-center gap-2 rounded-md p-1"
+                className="paragraph-3-regular m-1 flex cursor-pointer items-center gap-2 rounded-md bg-black-600 p-1"
                 onClick={() => handleClick(techSearchResult)}
               >
                 {<ItemIcon size={24} />}

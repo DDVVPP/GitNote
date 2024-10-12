@@ -21,7 +21,7 @@ const Resources = ({
 
   return (
     <section>
-      <div className="text-white-300 flex flex-col">
+      <div className="flex flex-col text-white-300">
         <h3 className="paragraph-3-medium text-white-500">RESOURCES & LINKS</h3>
       </div>
 
@@ -33,7 +33,7 @@ const Resources = ({
                 <div className="flex w-full flex-col">
                   <input
                     type="text"
-                    className="placeholder:text-white-500 paragraph-3-regular bg-black-700 w-full rounded-md border-none p-3 focus:outline-none"
+                    className="paragraph-3-regular w-full rounded-md border-none bg-black-700 p-3 placeholder:text-white-500 focus:outline-none"
                     placeholder="Label"
                     {...register(`resources.${index}.label`)}
                   />
@@ -48,7 +48,7 @@ const Resources = ({
                 <div className="flex w-full flex-col">
                   <input
                     type="text"
-                    className="placeholder:text-white-500 paragraph-3-regular bg-black-700 w-full rounded-md border-none p-3 focus:outline-none"
+                    className="paragraph-3-regular w-full rounded-md border-none bg-black-700 p-3 placeholder:text-white-500 focus:outline-none"
                     placeholder="Resource Link"
                     {...register(`resources.${index}.link`)}
                   />
@@ -61,7 +61,7 @@ const Resources = ({
                 </div>
                 <button
                   type="button"
-                  className="bg-black-700 h-11 rounded px-3"
+                  className="h-11 rounded bg-black-700 px-3"
                   onClick={() => remove(index)}
                 >
                   <X

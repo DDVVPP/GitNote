@@ -9,14 +9,14 @@ const SidebarRelatedPosts = () => {
 
   return (
     <div className="flex flex-col gap-4 px-2">
-      <h3 className="paragraph-2-bold border-white-500 border-b pb-4">
+      <h3 className="paragraph-2-bold border-b border-white-500 pb-4">
         Related Posts
       </h3>
 
       {relatedPosts.map((tag) => {
         return (
           <div key={tag} className="">
-            <p className="text-white-300 paragraph-2-regular">{tag}</p>
+            <p className="paragraph-2-regular text-white-300">{tag}</p>
           </div>
         );
       })}

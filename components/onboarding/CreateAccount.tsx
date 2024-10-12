@@ -35,7 +35,6 @@ const CreateAccount = () => {
         await credentialsSignIn({ email, password });
       } catch (error) {
         toast.error("Invalid user");
-        return;
       }
     }
   };

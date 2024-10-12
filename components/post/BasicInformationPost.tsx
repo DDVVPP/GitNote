@@ -35,7 +35,7 @@ const BasicInformationPost = ({
 
   return (
     <section className="space-y-6">
-      <h3 className="paragraph-3-medium text-white-500 mb-6">
+      <h3 className="paragraph-3-medium mb-6 text-white-500">
         BASIC INFORMATION
       </h3>
 
@@ -65,12 +65,12 @@ const BasicInformationPost = ({
 
       <Tags setValue={setValue} defaultValueTags={tags} />
 
-      <div className="text-white-300 flex flex-col">
+      <div className="flex flex-col text-white-300">
         <label className="paragraph-3-medium mb-2">
           Description <span className="font-light"> (required)</span>
         </label>
         <textarea
-          className="paragraph-3-regular bg-black-700 rounded-md border-none p-3"
+          className="paragraph-3-regular rounded-md border-none bg-black-700 p-3"
           placeholder="Enter a short description"
           {...register("description")}
         />

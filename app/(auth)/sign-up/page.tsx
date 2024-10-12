@@ -15,8 +15,8 @@ const SignUp = () => {
           Already have an account
         </Link>
         <div className="inline-flex w-full items-center justify-center">
-          <hr className="dark:bg-black-700 my-8 h-px w-full  border-0" />
-          <span className="paragraph-4-regular dark:bg-black-900 absolute left-1/2  -translate-x-1/2  px-3">
+          <hr className="my-8 h-px w-full border-0 dark:bg-black-700" />
+          <span className="paragraph-4-regular absolute left-1/2 -translate-x-1/2 px-3 dark:bg-black-900">
             or
           </span>
         </div>

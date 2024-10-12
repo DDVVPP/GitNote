@@ -79,11 +79,11 @@ export const OnboardingSchema = UserSchema.omit({
 export type IOnboardingSchema = z.infer<typeof OnboardingSchema>;
 // -------------------------------
 
-export type IProfileSchema = z.infer<typeof ProfileSchema>;
 export const ProfileSchema = UserSchema.omit({
   password: true,
   socialMedia: true,
 });
+export type IProfileSchema = z.infer<typeof ProfileSchema>;
 // -------------------------------s
 
 export const SocialMediaSchema = UserSchema.pick({

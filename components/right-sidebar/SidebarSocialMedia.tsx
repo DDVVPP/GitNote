@@ -23,7 +23,7 @@ const SidebarSocialMedia = ({
       >
         Update social link
       </Button>
-      <h3 className="paragraph-2-bold border-white-500 border-b py-4">
+      <h3 className="paragraph-2-bold border-b border-white-500 py-4">
         Social Media Links
       </h3>
 

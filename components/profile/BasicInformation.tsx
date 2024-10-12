@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Image as LandscapeIcon, UploadCloud } from "lucide-react";
 import Image from "next/image";
 import { Controller } from "react-hook-form";
@@ -50,11 +50,11 @@ const BasicInformation = ({
           </div>
         )}
 
-        <div className="bg-black-700 group flex cursor-pointer items-center space-x-2 rounded-sm p-1.5 hover:bg-[#4d567a] hover:duration-300">
+        <div className="group flex cursor-pointer items-center space-x-2 rounded-sm bg-black-700 p-1.5 hover:bg-[#4d567a] hover:duration-300">
           <UploadCloud stroke="rgba(173, 179, 204, 1)" size={18} />
           <label
             htmlFor="image"
-            className="paragraph-3-medium  text-white-300 group-hover:text-white-100 flex cursor-pointer  justify-center group-hover:duration-300"
+            className="paragraph-3-medium  flex cursor-pointer justify-center text-white-300  group-hover:text-white-100 group-hover:duration-300"
           >
             Upload Profile Photo
             <input

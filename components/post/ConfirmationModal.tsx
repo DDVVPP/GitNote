@@ -39,7 +39,7 @@ const ConfirmationModal = ({
 
   return (
     <section
-      className="bg-black-800 flex flex-col space-y-8 rounded-md p-8"
+      className="flex flex-col space-y-8 rounded-md bg-black-800 p-8"
       ref={ref}
     >
       <p className="text-white-300">
