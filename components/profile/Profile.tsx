@@ -53,7 +53,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
       setTechStackStateUI(newTechStackState);
     };
     matchedItemsForUI();
-  }, []);
+  }, [techStackFromUser]);
 
   return (
     <>

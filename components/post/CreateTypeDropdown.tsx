@@ -29,7 +29,7 @@ const CreateTypeDropdown = ({
       (createType) => createType.name === postType
     );
     setSelection(initType[0]);
-  }, []);
+  }, [postType]);
 
   const renderSelection = () => {
     if (selection) {

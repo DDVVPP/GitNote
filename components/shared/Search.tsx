@@ -44,7 +44,7 @@ const Search = () => {
     }, 250);
 
     return () => clearTimeout(timeout);
-  }, [searchTerm]);
+  }, [router, searchParams, searchTerm]);
 
   // Toggle the menu when ⌘K is pressed
   useEffect(() => {
