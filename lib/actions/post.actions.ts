@@ -2,7 +2,7 @@
 
 import { prisma } from "@/db";
 
-import { CreateType, Resource, Prisma, Post } from "@prisma/client";
+import { CreateType, Resource, Prisma, Post, User } from "@prisma/client";
 import { IPostSchema } from "../validations/PostSchema";
 import { getUserSession } from ".";
 
@@ -165,10 +165,10 @@ export async function updatePost(
           ...data,
           user: {
             connect: {
-              email,
-            },
+              email: email,
+            } as User,
           },
-        },
+        } as any, //TODO: fix this any type problem
       });
 
       return { post, error: null };

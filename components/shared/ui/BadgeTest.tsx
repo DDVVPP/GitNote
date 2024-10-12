@@ -33,13 +33,13 @@ const BadgeTest = () => (
     <Badge variant="solid" icon="dot" color="gray" size="medium">
       Badge Green Dot Medium
     </Badge>
-    <Badge icon="knowledge" color="green">
+    <Badge icon="KNOWLEDGE" color="green">
       Knowledge
     </Badge>
-    <Badge icon="component" color="purple">
+    <Badge icon="COMPONENT" color="purple">
       Component
     </Badge>
-    <Badge icon="workflow" color="blue">
+    <Badge icon="WORKFLOW" color="blue">
       Workflow{" "}
     </Badge>
     <Badge>Badge All Defaults</Badge>
