@@ -165,10 +165,10 @@ export async function updatePost(
           ...data,
           user: {
             connect: {
-              email: email,
+              email,
             } as User,
           },
-        } as any, //TODO: fix this any type problem
+        } as any, // TODO: fix this any type problem
       });
 
       return { post, error: null };

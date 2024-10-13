@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getUser } from "@/lib/actions/user.actions";
 import { getAllPosts } from "@/lib/actions/post.actions";
 
@@ -29,17 +30,21 @@ export default async function Home({
         <p className="paragraph-1-regular text-white-300">
           Time to jot down your latest learnings today!
         </p>
-        <div className="bg-black-800 h-52 w-full content-center">
-          <p className="text-white-500 paragraph-3-regular p-3 text-center">{`[placeholder for contribution grid]`}</p>
+        <div className="h-52 w-full content-center bg-black-800">
+          <p className="paragraph-3-regular p-3 text-center text-white-500">{`[placeholder for contribution grid]`}</p>
         </div>
       </section>
       {somePosts && (
         <>
-          <Posts posts={somePosts as Post[]} />
-          <Pagination
-            hasNextPage={hasNextPage as boolean}
-            numberOfPages={numberOfPages as number}
-          />
+          <Suspense>
+            <Posts posts={somePosts as Post[]} />
+          </Suspense>
+          <Suspense>
+            <Pagination
+              hasNextPage={hasNextPage as boolean}
+              numberOfPages={numberOfPages as number}
+            />
+          </Suspense>
         </>
       )}
     </section>

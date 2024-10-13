@@ -2,7 +2,15 @@
 
 import { format as formatDate } from "date-fns";
 import "prismjs/themes/prism-tomorrow.css";
-import { Calendar, Star, Eye, ExternalLink, CheckSquare } from "lucide-react";
+import {
+  Calendar,
+  Star,
+  Eye,
+  ExternalLink,
+  CheckSquare,
+  SquarePen,
+  Trash,
+} from "lucide-react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { createPortal } from "react-dom";
@@ -15,7 +23,6 @@ import VerticalEllipsisIcon from "../shared/icons/VerticalEllipsisIcon";
 import { useRef, useState } from "react";
 import useEscapeHandler from "@/lib/utils/useEscapeHandler";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
-import { SquarePen, Trash } from "lucide-react";
 import ConfirmationModal from "./ConfirmationModal";
 
 const PostDetails = ({
@@ -96,7 +103,7 @@ const PostDetails = ({
             <button
               type="button"
               id="triple-dot-button"
-              className="hover:bg-black-600 rounded-md hover:duration-300"
+              className="rounded-md hover:bg-black-600 hover:duration-300"
               onClick={() => setIsOpen((open) => !open)}
             >
               <VerticalEllipsisIcon size={30} />
@@ -105,17 +112,17 @@ const PostDetails = ({
 
           <div className="flex justify-end">
             {isOpen && (
-              <div className="bg-black-700 text-white-300 paragraph-3-medium flex flex-col text-nowrap rounded-md py-2">
+              <div className="paragraph-3-medium flex flex-col text-nowrap rounded-md bg-black-700 py-2 text-white-300">
                 <Link
                   href={`/posts/${params.postId}/update-post`}
-                  className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
+                  className="flex gap-x-2 px-9 py-2 hover:bg-black-600 hover:py-2 hover:duration-300"
                 >
                   <SquarePen size={18} />
                   <p className="text-white-100">Update Post</p>
                 </Link>
 
                 <div
-                  className="hover:bg-black-600 flex cursor-pointer gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
+                  className="flex cursor-pointer gap-x-2 px-9 py-2 hover:bg-black-600 hover:py-2 hover:duration-300"
                   onClick={() => setModalIsOpen((open) => !open)}
                 >
                   <Trash size={18} />
@@ -127,12 +134,12 @@ const PostDetails = ({
         </section>
       </section>
 
-      <hr className="dark:bg-black-700 h-px w-full border-0" />
+      <hr className="h-px w-full border-0 dark:bg-black-700" />
 
       {createType === CreateType.COMPONENT && codeEditor && (
         <>
           <RenderedCodeEditor codeEditor={codeEditor} />
-          <hr className="dark:bg-black-700 h-px w-full border-0" />
+          <hr className="h-px w-full border-0 dark:bg-black-700" />
         </>
       )}
 
@@ -149,7 +156,7 @@ const PostDetails = ({
               );
             })}
 
-          <hr className="dark:bg-black-700 h-px w-full border-0" />
+          <hr className="h-px w-full border-0 dark:bg-black-700" />
         </section>
       )}
 
@@ -162,13 +169,13 @@ const PostDetails = ({
                 <div key={step} className="my-1 flex items-center gap-2">
                   <input
                     type="checkbox"
-                    className="border-white-500 bg-black-800 checked:border-white-500 h-4.5 w-4.5 cursor-pointer appearance-none rounded-sm border-2 checked:bg-transparent"
+                    className="h-4.5 w-4.5 cursor-pointer appearance-none rounded-sm border-2 border-white-500 bg-black-800 checked:border-white-500 checked:bg-transparent"
                   />
-                  <p className="text-white-300 paragraph-2-regular">{step}</p>
+                  <p className="paragraph-2-regular text-white-300">{step}</p>
                 </div>
               );
             })}
-          <hr className="dark:bg-black-700 h-px w-full border-0" />
+          <hr className="h-px w-full border-0 dark:bg-black-700" />
         </section>
       )}
 
@@ -176,9 +183,9 @@ const PostDetails = ({
         <>
           <div
             dangerouslySetInnerHTML={{ __html: content }}
-            className="bg-black-800 text-white-300 rounded-lg p-4"
+            className="rounded-lg bg-black-800 p-4 text-white-300"
           />
-          <hr className="dark:bg-black-700 h-px w-full border-0" />
+          <hr className="h-px w-full border-0 dark:bg-black-700" />
         </>
       )}
 
@@ -189,7 +196,7 @@ const PostDetails = ({
             return (
               <div
                 key={resource?.id}
-                className="text-white-300 hover:text-primary-500 mb-3  mt-3 flex items-center gap-x-2 hover:duration-300"
+                className="my-3 flex items-center  gap-x-2 text-white-300 hover:text-primary-500 hover:duration-300"
               >
                 <CheckSquare size={16} className="flex text-green-400" />
                 <a
@@ -212,7 +219,7 @@ const PostDetails = ({
             aria-labelledby="confirmation-modal"
             role="dialog"
             aria-modal="true"
-            className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 backdrop-blur transition-opacity"
+            className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
           >
             <ConfirmationModal
               onClose={() => setModalIsOpen(false)}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { signOut } from "@/lib/actions";
 
 import Image from "next/image";
@@ -14,9 +14,9 @@ import { QuickLinkProps } from "@/types";
 
 const LeftNavbar = () => {
   return (
-    <nav className="bg-black-800 flex-2 sticky left-0 top-0 z-20 flex h-screen w-1/5 flex-col justify-between pl-8 pr-8 pt-20">
+    <nav className="flex-2 sticky left-0 top-0 z-20 flex h-screen w-1/5 flex-col justify-between bg-black-800 px-8 pt-20">
       <div>
-        <div className="border-white-500 flex flex-col justify-start space-y-12 border-b">
+        <div className="flex flex-col justify-start space-y-12 border-b border-white-500">
           <Link href="/">
             <div className="flex items-center gap-x-2">
               <Image src={gitNoteIcon} alt="Git Note Icon" />
@@ -32,7 +32,9 @@ const LeftNavbar = () => {
                 Create Post
               </Button>
             </Link>
-            <Search />
+            <Suspense>
+              <Search />
+            </Suspense>
           </div>
         </div>
 
@@ -56,7 +58,7 @@ const LeftNavbar = () => {
       <div className="mb-5 flex">
         <form action={signOut}>
           <button
-            className="paragraph-3-medium text-white-300 hover:text-white-100 flex gap-2 hover:duration-300"
+            className="paragraph-3-medium flex gap-2 text-white-300 hover:text-white-100 hover:duration-300"
             type="submit"
           >
             <Image src={logoutIcon} alt="Logout Icon" />

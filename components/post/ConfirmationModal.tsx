@@ -39,11 +39,11 @@ const ConfirmationModal = ({
 
   return (
     <section
-      className="bg-black-800 flex flex-col space-y-8 rounded-md p-8"
+      className="flex flex-col space-y-8 rounded-md bg-black-800 p-8"
       ref={ref}
     >
       <p className="text-white-300">
-        Are you sure you'd like to delete this post?
+        Are you sure you&apos;d like to delete this post?
       </p>
       <div className="flex justify-between gap-x-4">
         <Button color="red" type="submit" onClick={() => handleDelete(postId)}>
