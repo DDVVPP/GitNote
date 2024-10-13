@@ -1,10 +1,10 @@
 "use client";
-import React, { useState} from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import React from "react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Loader2 } from "lucide-react";
+// import { Loader2 } from "lucide-react";
 
 import { User } from "@prisma/client";
 import { updateUser } from "@/lib/actions/user.actions";
@@ -51,7 +51,6 @@ const Onboarding = ({ user }: { user: User }) => {
     watch,
     handleSubmit,
     trigger,
-    formState: { isSubmitting },
   } = useFormHelpers;
   const formData = watch();
 
