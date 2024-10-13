@@ -8,18 +8,19 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/db';
 import { Role } from '@prisma/client';
 
-declare module 'next-auth' {
-  interface User {
-    role: Role;
-    onboardingStatus: number | null;
-  }
-}
+// declare module 'next-auth' {
+//   interface User {
+//     role: Role;
+//     onboardingStatus: number | null;
+//   }
+// }
 
 export const {
   handlers: { GET, POST },
   auth,
   signIn,
   signOut,
+  // eslint-disable-next-line camelcase
   unstable_update,
 } = NextAuth({
   session: {
@@ -79,7 +80,7 @@ export const {
   ],
   callbacks: {
     async jwt({ token, user, trigger }) {
-      //everytime read or write to the token
+      // everytime read or write to the token
 
       if (user) {
         token.role = user.role;
@@ -88,10 +89,10 @@ export const {
       if (trigger === 'update') {
         token.onboardingStatus = 5;
       }
-      return token; //this token will get passed to session
+      return token; // this token will get passed to session
     },
     async session({ session, token }) {
-      //will run this also in jwt
+      // will run this also in jwt
       if (token) {
         session.user.role = token.role as Role;
         session.user.onboardingStatus = token.onboardingStatus as number;
