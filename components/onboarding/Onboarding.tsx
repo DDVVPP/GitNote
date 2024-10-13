@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useState} from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-// import { Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 import { User } from "@prisma/client";
 import { updateUser } from "@/lib/actions/user.actions";
@@ -25,10 +25,10 @@ import { Button } from "@/components/shared/ui";
 
 const Onboarding = ({ user }: { user: User }) => {
   const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const stepFromParams = parseInt(searchParams.get("step") ?? "1", 10);
+  const searchParams = useSearchParams();
+  const stepFromParams = parseInt(searchParams.get("step") ?? "1", 10);
 
-  // const [step, setStep] = useState(stepFromParams);
+  const [step, setStep] = useState(stepFromParams);
   const fields = [] as Partial<keyof IOnboardingSchema>[];
 
   const useFormHelpers = useForm<IOnboardingSchema>({
@@ -51,6 +51,7 @@ const Onboarding = ({ user }: { user: User }) => {
     watch,
     handleSubmit,
     trigger,
+    formState: { isSubmitting },
   } = useFormHelpers;
   const formData = watch();
 
@@ -88,14 +89,14 @@ const Onboarding = ({ user }: { user: User }) => {
       return {
         ...acc,
         [cur]: data[cur as keyof IOnboardingSchema],
-        onboardingStatus: 2,
+        onboardingStatus: step + 1,
       };
     }, {});
     return dataToSend;
   };
 
   const validateSpecificFields = async () => {
-    const fields = stepData[1].fields;
+    const fields = stepData[step].fields;
     const isValid = await Promise.all(fields.map((field) => trigger(field)));
     const allFieldsValid = isValid.every((field) => field === true);
     return allFieldsValid;
@@ -110,14 +111,14 @@ const Onboarding = ({ user }: { user: User }) => {
       } catch (error) {
         toast.error("Unable to update user");
       } finally {
-        // setStep((prevStep) => prevStep + 1);
+        setStep((prevStep) => prevStep + 1);
       }
     }
   };
 
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
     try {
-      const updatedData = { ...data, onboardingStatus: 1 + 1 };
+      const updatedData = { ...data, onboardingStatus: step + 1 };
       await updateUser(updatedData);
       await revalidateSession();
       router.push("/");
@@ -131,18 +132,18 @@ const Onboarding = ({ user }: { user: User }) => {
     <div className="flex w-2/5 flex-col justify-center">
       <div className="bg-black-800 p-6">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <OnboardingVisualStepper step={1} />
-          <div>{stepData[1].component}</div>
+          <OnboardingVisualStepper step={step} />
+          <div>{stepData[step].component}</div>
           <div className="mt-5">
-            {/* {step === 4 ? (
+            {step === 4 ? (
               <Button color="blue" type="submit">
                 {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
               </Button>
-            ) : ( */}
+            ) : (
               <Button color="blue" type="button" onClick={validateFields}>
                 Next
               </Button>
-            {/* )} */}
+            )}
           </div>
         </form>
       </div>
