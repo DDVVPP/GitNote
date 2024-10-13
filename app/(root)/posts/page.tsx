@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { getAllPosts } from "@/lib/actions/post.actions";
 
 import { CreateType, Post } from "@prisma/client";
@@ -22,6 +23,7 @@ export default async function PostsInCols({
   const { somePosts, hasNextPage, numberOfPages } = posts;
 
   return (
+    <Suspense>
     <section className="flex flex-col gap-4">
       {somePosts && (
         <>
@@ -33,5 +35,6 @@ export default async function PostsInCols({
         </>
       )}
     </section>
+    </Suspense>
   );
 }
