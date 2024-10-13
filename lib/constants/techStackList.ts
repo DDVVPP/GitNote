@@ -10,6 +10,7 @@ import {
   VSCodeIcon,
 } from "@/components/shared/icons/tech";
 
+// TODO: Add more icons
 export const techStackList = [
   {
     icon: NodeJSIcon,
