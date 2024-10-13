@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { signOut } from "@/lib/actions";
 
 import Image from "next/image";
@@ -32,7 +32,9 @@ const LeftNavbar = () => {
                 Create Post
               </Button>
             </Link>
-            <Search />
+            <Suspense>
+              <Search />
+            </Suspense>
           </div>
         </div>
 

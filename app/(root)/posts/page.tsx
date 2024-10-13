@@ -27,11 +27,15 @@ export default async function PostsInCols({
     <section className="flex flex-col gap-4">
       {somePosts && (
         <>
+        <Suspense>
           <Posts posts={somePosts as Post[]} isTwoCols />
+          </Suspense>
+          <Suspense>
           <Pagination
             hasNextPage={hasNextPage as boolean}
             numberOfPages={numberOfPages as number}
           />
+          </Suspense>
         </>
       )}
     </section>

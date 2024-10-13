@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getUser } from "@/lib/actions/user.actions";
 import { getAllPosts } from "@/lib/actions/post.actions";
 
@@ -35,11 +36,15 @@ export default async function Home({
       </section>
       {somePosts && (
         <>
-          <Posts posts={somePosts as Post[]} />
-          <Pagination
-            hasNextPage={hasNextPage as boolean}
-            numberOfPages={numberOfPages as number}
-          />
+          <Suspense>
+            <Posts posts={somePosts as Post[]} />
+          </Suspense>
+          <Suspense>
+            <Pagination
+              hasNextPage={hasNextPage as boolean}
+              numberOfPages={numberOfPages as number}
+            />
+          </Suspense>
         </>
       )}
     </section>
