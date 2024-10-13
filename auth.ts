@@ -8,12 +8,13 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/db';
 import { Role } from '@prisma/client';
 
-// declare module 'next-auth' {
-//   interface User {
-//     role: Role;
-//     onboardingStatus: number | null;
-//   }
-// }
+declare module 'next-auth' {
+  // eslint-disable-next-line no-unused-vars
+  interface User {
+    role: Role;
+    onboardingStatus: number | null;
+  }
+}
 
 export const {
   handlers: { GET, POST },
