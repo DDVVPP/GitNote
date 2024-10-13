@@ -133,4 +133,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 - [ ] Add Skeleton loaders
 - [x] Create a seed file
 - [ ] Add a Demo User
-- [ ] Deploy site
+- [x] Deploy site
