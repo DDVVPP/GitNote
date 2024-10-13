@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -128,6 +128,7 @@ const Onboarding = ({ user }: { user: User }) => {
   };
 
   return (
+    <Suspense>
     <div className="flex w-2/5 flex-col justify-center">
       <div className="bg-black-800 p-6">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -147,6 +148,7 @@ const Onboarding = ({ user }: { user: User }) => {
         </form>
       </div>
     </div>
+    </Suspense>
   );
 };
 
