@@ -9,7 +9,7 @@ const RenderedCodeEditor = ({ codeEditor }: { codeEditor: string }) => {
   );
 
   return (
-    <pre className="language-javascript !bg-black-800 !border-white-500 !h-auto !overflow-y-auto !rounded-lg !p-4 !text-[14px]">
+    <pre className="language-javascript !h-auto !overflow-y-auto !rounded-lg !border-white-500 !bg-black-800 !p-4 !text-[14px]">
       <code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
     </pre>
   );

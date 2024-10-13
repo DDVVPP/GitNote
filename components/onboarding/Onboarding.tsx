@@ -1,6 +1,6 @@
 "use client";
+import React, { useState} from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -29,7 +29,7 @@ const Onboarding = ({ user }: { user: User }) => {
   const stepFromParams = parseInt(searchParams.get("step") ?? "1", 10);
 
   const [step, setStep] = useState(stepFromParams);
-  let fields = [] as Partial<keyof IOnboardingSchema>[];
+  const fields = [] as Partial<keyof IOnboardingSchema>[];
 
   const useFormHelpers = useForm<IOnboardingSchema>({
     defaultValues: {
@@ -57,7 +57,7 @@ const Onboarding = ({ user }: { user: User }) => {
 
   const stepData: {
     [key: number]: {
-      component: JSX.Element;
+      component: React.JSX.Element;
       fields: Partial<keyof IOnboardingSchema>[];
     };
   } = {
@@ -96,7 +96,7 @@ const Onboarding = ({ user }: { user: User }) => {
   };
 
   const validateSpecificFields = async () => {
-    let fields = stepData[step].fields;
+    const fields = stepData[step].fields;
     const isValid = await Promise.all(fields.map((field) => trigger(field)));
     const allFieldsValid = isValid.every((field) => field === true);
     return allFieldsValid;
@@ -128,6 +128,7 @@ const Onboarding = ({ user }: { user: User }) => {
   };
 
   return (
+
     <div className="flex w-2/5 flex-col justify-center">
       <div className="bg-black-800 p-6">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -147,6 +148,7 @@ const Onboarding = ({ user }: { user: User }) => {
         </form>
       </div>
     </div>
+
   );
 };
 

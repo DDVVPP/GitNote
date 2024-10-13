@@ -3,7 +3,6 @@ import { z } from "zod";
 import { urlMatch } from "../utils/constants";
 import { CreateType } from "@prisma/client";
 
-export type IPostSchema = z.infer<typeof PostSchema>;
 export const PostSchema = z
   .object({
     title: z
@@ -62,4 +61,4 @@ export const PostSchema = z
       });
     }
   });
-//-------------------------------
+export type IPostSchema = z.infer<typeof PostSchema>;

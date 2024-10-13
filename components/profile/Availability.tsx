@@ -19,7 +19,7 @@ const Availability = ({
   return (
     <div>
       {isEditProfile ? (
-        <h3 className="paragraph-3-medium text-white-500 mb-5">
+        <h3 className="paragraph-3-medium mb-5 text-white-500">
           SCHEDULE & AVAILABILITY
         </h3>
       ) : (
@@ -29,7 +29,7 @@ const Availability = ({
       <section className="space-x-2 pb-2">
         <input
           type="checkbox"
-          className="border-white-500 bg-black-700 h-3 w-3 cursor-pointer appearance-none rounded-sm border text-green-400"
+          className="size-3 cursor-pointer appearance-none rounded-sm border border-white-500 bg-black-700 text-green-400"
           {...register("availability")}
         />
         <label className="paragraph-3-regular  text-white-300">
@@ -59,7 +59,7 @@ const Availability = ({
                   disabled={!availabilityValue}
                   showIcon
                   icon={
-                    <Calendar className="stroke-white-500 !relative !pl-4" />
+                    <Calendar className="!relative stroke-white-500 !pl-4" />
                   }
                 />
               )}
@@ -89,7 +89,7 @@ const Availability = ({
                   disabled={!availabilityValue}
                   showIcon
                   icon={
-                    <Calendar className="stroke-white-500 !relative !pl-4" />
+                    <Calendar className="!relative stroke-white-500 !pl-4" />
                   }
                 />
               )}

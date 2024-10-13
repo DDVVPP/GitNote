@@ -44,7 +44,7 @@ const Search = () => {
     }, 250);
 
     return () => clearTimeout(timeout);
-  }, [searchTerm]);
+  }, [router, searchParams, searchTerm]);
 
   // Toggle the menu when ⌘K is pressed
   useEffect(() => {
@@ -92,7 +92,7 @@ const Search = () => {
   return (
     <>
       <div
-        className="bg-black-700 paragraph-4-medium flex cursor-pointer items-center justify-between rounded-md p-4"
+        className="paragraph-4-medium flex cursor-pointer items-center justify-between rounded-md bg-black-700 p-4"
         onClick={() => setOpen((open) => !open)}
       >
         <div className="flex gap-x-2">
@@ -114,28 +114,28 @@ const Search = () => {
         open={open}
         onOpenChange={setOpen}
         label="Global Command Menu"
-        className="fixed inset-0 z-50 flex h-full w-full items-center justify-center backdrop-blur"
+        className="fixed inset-0 z-50 flex size-full items-center justify-center backdrop-blur"
         onClick={(e) => {
           if (e.target === e.currentTarget) setOpen(false);
         }}
       >
-        <div className="bg-black-800 flex w-1/2 flex-col">
-          <div className="bg-black-700 flex w-full items-center gap-x-2 border-none p-4  py-3">
+        <div className="flex w-1/2 flex-col bg-black-800">
+          <div className="flex w-full items-center gap-x-2 border-none bg-black-700 p-4  py-3">
             <Command.Input
               value={searchTerm}
               onValueChange={setSearchTerm}
-              className="bg-black-700 paragraph-3-regular text-white-300 placeholder:text-white-300 w-full border-none p-0 py-1"
+              className="paragraph-3-regular w-full border-none bg-black-700 p-0 py-1 text-white-300 placeholder:text-white-300"
               placeholder="Type a command or search..."
             />
-            <div className="bg-black-800 text-white-300 paragraph-4-regular rounded p-1">
+            <div className="paragraph-4-regular rounded bg-black-800 p-1 text-white-300">
               ESC
             </div>
           </div>
-          <Command.List className="paragraph-3-regular text-white-300 h-fit max-h-64 overflow-auto p-4">
+          <Command.List className="paragraph-3-regular h-fit max-h-64 overflow-auto p-4 text-white-300">
             <Command.Empty>No results found.</Command.Empty>
             <Command.Group>
               <Link href="/posts" onClick={() => setOpen((open) => !open)}>
-                <Command.Item className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 px-2 py-2 hover:rounded hover:py-2">
+                <Command.Item className="flex cursor-pointer items-center gap-x-2 p-2 hover:rounded hover:bg-black-600 hover:py-2">
                   <Layers size={18} />
                   Explore all posts
                 </Command.Item>
@@ -150,7 +150,7 @@ const Search = () => {
                       onClick={() => setOpen((open) => !open)}
                     >
                       <Command.Item
-                        className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 px-2 py-2 hover:rounded hover:py-2"
+                        className="flex cursor-pointer items-center gap-x-2 p-2 hover:rounded hover:bg-black-600 hover:py-2"
                         value={post.title}
                       >
                         {iconMatch(post)}

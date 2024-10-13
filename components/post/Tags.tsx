@@ -15,7 +15,7 @@ const Tags = ({
 
   useEffect(() => {
     setValue("tags", tags);
-  }, [tags]);
+  }, [setValue, tags]);
 
   useEffect(() => {
     const onEnter = (event: KeyboardEvent) => {
@@ -73,14 +73,14 @@ const Tags = ({
 
   return (
     <section className="space-y-6">
-      <div className="text-white-300 flex flex-col">
+      <div className="flex flex-col text-white-300">
         <label className="paragraph-3-medium mb-2">Tags</label>
-        <div className="bg-black-700 relative flex w-full items-center gap-2 rounded-md border-none px-2 focus:ring-1">
+        <div className="relative flex w-full items-center gap-2 rounded-md border-none bg-black-700 px-2 focus:ring-1">
           {tags.length > 0 &&
             tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="bg-black-600 paragraph-3-medium flex items-center gap-2 text-nowrap rounded-md px-2"
+                className="paragraph-3-medium flex items-center gap-2 text-nowrap rounded-md bg-black-600 px-2"
               >
                 {tag}
                 <button type="button" onClick={() => handleDelete(tag)}>

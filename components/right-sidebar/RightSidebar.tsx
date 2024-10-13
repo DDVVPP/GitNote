@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useParams } from "next/navigation";
@@ -24,7 +24,11 @@ const RightSidebar = ({ user }: { user: User }) => {
         `/posts/${params.postId}/update-post`,
       ].includes(pathname)
     ) {
-      return <SidebarTags />;
+      return (
+        <Suspense>
+          <SidebarTags />
+        </Suspense>
+      );
     } else if ([`/posts/${params.postId}`].includes(pathname)) {
       return <SidebarRelatedPosts />;
     } else if (["/profile", "/profile/edit"].includes(pathname)) {
@@ -33,10 +37,10 @@ const RightSidebar = ({ user }: { user: User }) => {
   };
 
   return (
-    <div className="bg-black-800 flex-2 sticky right-0 top-0 z-20 flex h-screen w-1/5 flex-col gap-10 overflow-y-auto p-6 pt-16">
+    <div className="flex-2 sticky right-0 top-0 z-20 flex h-screen w-1/5 flex-col gap-10 overflow-y-auto bg-black-800 p-6 pt-16">
       <Link
         href="/profile"
-        className="hover:bg-black-600 flex items-center gap-2 rounded-md p-2 hover:duration-300"
+        className="flex items-center gap-2 rounded-md p-2 hover:bg-black-600 hover:duration-300"
       >
         {user.image ? (
           <Image
@@ -55,7 +59,7 @@ const RightSidebar = ({ user }: { user: User }) => {
           <p className="paragraph-3-medium">
             {user.name ?? '"(oops! Missing name)"'}
           </p>
-          <p className="text-white-300 paragraph-4-regular">
+          <p className="paragraph-4-regular text-white-300">
             {user.email ?? "(oops! Missing email)"}
           </p>
         </div>

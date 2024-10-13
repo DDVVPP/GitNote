@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 const Datepicker = ({ label }: { label: string }) => {
   return (
     <section className="flex flex-col space-y-2">
       <span className="paragraph-3-regular  text-white-300">{label}</span>
-      <div className="bg-black-700 px-4 py-4 paragraph-3-regular text-white-300">
+      <div className="paragraph-3-regular bg-black-700 p-4 text-white-300">
         Select date & time
       </div>
       <span className="paragraph-4-regular text-white-500">

@@ -12,7 +12,7 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
   const techStackState = watch("techStack");
   const [techStackStateUI, setTechStackStateUI] = useState<TechStackType[]>();
 
-  //return techStack items ([{icon:..., name:..., uiName:...}, {icon:..., name:..., uiName:...}]) that match with techStackState items (['', '']) to have access to uiName and icon props.
+  // return techStack items ([{icon:..., name:..., uiName:...}, {icon:..., name:..., uiName:...}]) that match with techStackState items (['', '']) to have access to uiName and icon props.
   useEffect(() => {
     const matchedItemsForUI = () => {
       const techStackStateClone = techStackState ?? [];
@@ -25,9 +25,9 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       setTechStackStateUI(newTechStackState);
     };
     matchedItemsForUI();
-  }, []);
+  }, [techStackState]);
 
-  //compare techSearchItems with techStack and return matched items
+  // compare techSearchItems with techStack and return matched items
   useEffect(() => {
     if (techSearchItems.length < 1) {
       setTechSearchResult([]);
@@ -41,35 +41,35 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
   }, [techSearchItems, techStackStateUI]);
 
   const handleClick = (tech: TechStackType) => {
-    //add to techStackStateUI
+    // add to techStackStateUI
     techStackStateUI?.push(tech);
-    //remove added item from techSearchResults
+    // remove added item from techSearchResults
     const filteredSearchResults = techSearchResults?.filter(
       (item) => !item.name.includes(tech.name)
     );
     setTechSearchResult(filteredSearchResults);
-    //update values to submit - array of strings instead of array of objects
+    // update values to submit - array of strings instead of array of objects
     const techStackNames = techStackStateUI?.map((item) => item.name);
     setValue("techStack", techStackNames);
   };
 
   const handleDelete = (tech: TechStackType) => {
-    //remove from techStackStateUI
+    // remove from techStackStateUI
     const filteredTechStack = techStackStateUI?.filter(
       (item) => !item.name.includes(tech.name)
     );
     setTechStackStateUI(filteredTechStack);
-    //update values to submit - array of strings instead of array of objects
+    // update values to submit - array of strings instead of array of objects
     const techStackNames = filteredTechStack?.map((item) => item.name);
     setValue("techStack", techStackNames);
   };
 
   return (
     <>
-      <div className=" text-white-300 mb-5 mt-5 flex flex-col">
+      <div className=" my-5 flex flex-col text-white-300">
         <label className="paragraph-3-medium mb-2">Tech Stack</label>
         <input
-          className="paragraph-3-regular bg-black-700 rounded-md border-none p-3"
+          className="paragraph-3-regular rounded-md border-none bg-black-700 p-3"
           type="text"
           placeholder="Enter tech"
           onChange={(e) => setTechSearchItems(e.target.value)}
@@ -77,12 +77,12 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
         />
 
         {techStackStateUI && techStackStateUI.length > 0 && (
-          <div className="bg-black-700 mb-4 mt-0.5 flex flex-wrap gap-2 rounded-md p-4">
+          <div className="mb-4 mt-0.5 flex flex-wrap gap-2 rounded-md bg-black-700 p-4">
             {techStackStateUI.map((tech) => {
               const { icon: TechStackIcon, name, uiName } = tech;
               return (
                 <div
-                  className="bg-black-600 flex items-center gap-2 rounded-md p-1"
+                  className="flex items-center gap-2 rounded-md bg-black-600 p-1"
                   key={name}
                 >
                   <TechStackIcon size={24} />
@@ -101,13 +101,14 @@ const TechStack = ({ watch, setValue }: { watch: any; setValue: any }) => {
       </div>
 
       {techSearchResults && techSearchResults.length > 0 && (
-        <div className="bg-black-700 text-white-300 -mt-6 mb-5 flex flex-col rounded-md p-2">
+        <div className="-mt-6 mb-5 flex flex-col rounded-md bg-black-700 p-2 text-white-300">
           {techSearchResults?.map((techSearchResult) => {
             if (techStackState.includes(techSearchResult.name)) return null;
-            const { icon: ItemIcon, uiName } = techSearchResult;
+            const { icon: ItemIcon, uiName, name } = techSearchResult;
             return (
               <div
-                className="paragraph-3-regular bg-black-600 m-1 flex cursor-pointer items-center gap-2 rounded-md p-1"
+                key={name}
+                className="paragraph-3-regular m-1 flex cursor-pointer items-center gap-2 rounded-md bg-black-600 p-1"
                 onClick={() => handleClick(techSearchResult)}
               >
                 {<ItemIcon size={24} />}

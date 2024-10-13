@@ -3,6 +3,7 @@
 import { prisma } from "@/db";
 import { User, Goals, Social } from "@prisma/client";
 import bcryptjs from "bcryptjs";
+// eslint-disable-next-line camelcase
 import { revalidateTag, unstable_cache } from "next/cache";
 import { getUserSession } from ".";
 
@@ -75,9 +76,9 @@ export async function updateUser(
     const filteredData =
       data.socialMedia &&
       data.socialMedia.filter((social: { username: string; type: string }) => {
-        if (social.username && social.type)
-          return social.username.length > 0 && social.type.length > 0;
+        return social.username.length > 0 && social.type.length > 0;
       });
+
     const emptyUsernames = data.socialMedia.filter((social: Social) => {
       return social.username === "";
     });

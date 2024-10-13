@@ -23,7 +23,7 @@ const SidebarSocialMedia = ({
       >
         Update social link
       </Button>
-      <h3 className="paragraph-2-bold border-white-500 border-b pb-4 pt-4">
+      <h3 className="paragraph-2-bold border-b border-white-500 py-4">
         Social Media Links
       </h3>
 
@@ -47,7 +47,7 @@ const SidebarSocialMedia = ({
                     size={30}
                     className="group-hover:fill-white-300 group-hover:duration-300"
                   />
-                  <p className="text-white-300 group-hover:text-white-100 paragraph-2-regular  group-hover:duration-300">
+                  <p className="paragraph-2-regular text-white-300 group-hover:text-white-100  group-hover:duration-300">
                     @{social.username}
                   </p>
                 </a>
@@ -55,7 +55,7 @@ const SidebarSocialMedia = ({
             );
           })
         ) : (
-          <p className="text-white-300 paragraph-2-regular">
+          <p className="paragraph-2-regular text-white-300">
             Oops! No socials!
           </p>
         )}
@@ -67,7 +67,7 @@ const SidebarSocialMedia = ({
             aria-labelledby="social-media-modal"
             role="dialog"
             aria-modal="true"
-            className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 backdrop-blur transition-opacity"
+            className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
           >
             <SocialMediaModal user={user} onClose={() => setOpen(false)} />
           </div>,

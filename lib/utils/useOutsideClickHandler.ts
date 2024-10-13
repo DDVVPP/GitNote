@@ -16,7 +16,7 @@ const useOutsideClickHandler = (
     return () => {
       window.removeEventListener("mousedown", handleOutSideClick);
     };
-  }, [ref]);
+  }, [onClick, ref]);
 };
 
 export default useOutsideClickHandler;

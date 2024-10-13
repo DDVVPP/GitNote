@@ -66,7 +66,7 @@ const SocialMediaModal = ({
     register,
   } = useFormHelpers;
 
-  //Added this to include new error property socialFields
+  // Added this to include new error property socialFields
   const formErrors = errors as {
     socialMedia: {
       id?: { message: number | undefined };
@@ -88,9 +88,9 @@ const SocialMediaModal = ({
   };
 
   return (
-    <div className="bg-black-800 flex rounded-md p-12" ref={ref}>
+    <div className="flex rounded-md bg-black-800 p-12" ref={ref}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-        <div className="text-white-100 mb-4 flex items-center justify-between">
+        <div className="mb-4 flex items-center justify-between text-white-100">
           <h1 className="display-1-bold">Social Media Links</h1>
           <X
             onClick={onClose}

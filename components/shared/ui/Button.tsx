@@ -1,3 +1,5 @@
+import React from "react";
+
 import PlusIcon from "@/components/shared/icons/PlusIcon";
 import GoogleIcon from "@/components/shared/icons/GoogleIcon";
 import GithubIcon from "@/components/shared/icons/GithubIcon";
