@@ -17,6 +17,8 @@ export default async function PostsInCols({
     tag: searchParams.tag ?? "",
     postsToTake: 8,
   });
+
+  if (!posts) return null;
   const { somePosts, hasNextPage, numberOfPages } = posts;
 
   return (
