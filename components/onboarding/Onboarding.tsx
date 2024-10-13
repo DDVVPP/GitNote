@@ -25,10 +25,10 @@ import { Button } from "@/components/shared/ui";
 
 const Onboarding = ({ user }: { user: User }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const stepFromParams = parseInt(searchParams.get("step") ?? "1", 10);
+  // const searchParams = useSearchParams();
+  // const stepFromParams = parseInt(searchParams.get("step") ?? "1", 10);
 
-  const [step, setStep] = useState(stepFromParams);
+  // const [step, setStep] = useState(stepFromParams);
   const fields = [] as Partial<keyof IOnboardingSchema>[];
 
   const useFormHelpers = useForm<IOnboardingSchema>({
@@ -89,14 +89,14 @@ const Onboarding = ({ user }: { user: User }) => {
       return {
         ...acc,
         [cur]: data[cur as keyof IOnboardingSchema],
-        onboardingStatus: step + 1,
+        onboardingStatus: 2,
       };
     }, {});
     return dataToSend;
   };
 
   const validateSpecificFields = async () => {
-    const fields = stepData[step].fields;
+    const fields = stepData[1].fields;
     const isValid = await Promise.all(fields.map((field) => trigger(field)));
     const allFieldsValid = isValid.every((field) => field === true);
     return allFieldsValid;
@@ -111,14 +111,14 @@ const Onboarding = ({ user }: { user: User }) => {
       } catch (error) {
         toast.error("Unable to update user");
       } finally {
-        setStep((prevStep) => prevStep + 1);
+        // setStep((prevStep) => prevStep + 1);
       }
     }
   };
 
   const onSubmit: SubmitHandler<IOnboardingSchema> = async (data) => {
     try {
-      const updatedData = { ...data, onboardingStatus: step + 1 };
+      const updatedData = { ...data, onboardingStatus: 1 + 1 };
       await updateUser(updatedData);
       await revalidateSession();
       router.push("/");
@@ -132,18 +132,18 @@ const Onboarding = ({ user }: { user: User }) => {
     <div className="flex w-2/5 flex-col justify-center">
       <div className="bg-black-800 p-6">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <OnboardingVisualStepper step={step} />
-          <div>{stepData[step].component}</div>
+          <OnboardingVisualStepper step={1} />
+          <div>{stepData[1].component}</div>
           <div className="mt-5">
-            {step === 4 ? (
+            {/* {step === 4 ? (
               <Button color="blue" type="submit">
                 {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
               </Button>
-            ) : (
+            ) : ( */}
               <Button color="blue" type="button" onClick={validateFields}>
                 Next
               </Button>
-            )}
+            {/* )} */}
           </div>
         </form>
       </div>
