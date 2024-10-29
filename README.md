@@ -111,6 +111,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 - [ ] Profile Page: If there are no social media links - move button under section and update text to 'Add social links'
 - [ ] Update social links modal: If there are no updates made to the modal inputs, disable the 'Update Links' button
 - [ ] Create Post: Either remove 'Tags' section, or disable them
+- [ ] Fix red border around profile image
 
 **Post Details Page**
 
@@ -130,7 +131,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 - [ ] Add mobile responsiveness
 - [x] Add hover states to all clickable items
 - [x] Add loading.tsx files for each route
+- [ ] Add loading spinner on Login button
 - [ ] Add Skeleton loaders
 - [x] Create a seed file
-- [ ] Add a Demo User
+- [x] Add a Demo User
 - [x] Deploy site
