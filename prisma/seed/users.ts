@@ -8,7 +8,8 @@ const { faker } = require("@faker-js/faker");
 
 export async function createUsers() {
   const emails: String[] = [];
-  // USERS
+
+  // ALL USERS
   for (let i = 0; i < 5; i++) {
     const randomGoalsCount = Math.floor(Math.random() * 6) + 1;
     const goals = Array.from({ length: randomGoalsCount }, () => ({
@@ -20,8 +21,8 @@ export async function createUsers() {
       type: platform,
       link: faker.internet.url(),
     }));
-    const password = "password123";
-    const hashedPassword = bcryptjs.hashSync(password, 10);
+    const password = process.env.ALL_USERS_PASSWORD;
+    const hashedPassword = bcryptjs.hashSync(password as string, 10);
 
     const user = await prisma.user.create({
       data: {
@@ -47,8 +48,8 @@ export async function createUsers() {
   }
 
   // DEMO USER
-  const password = "demouser!2#";
-  const hashedPassword = bcryptjs.hashSync(password, 10);
+  const password = process.env.DEMO_USER_PASSWORD;
+  const hashedPassword = bcryptjs.hashSync(password as string, 10);
   const demoUserEmail = "demouser@email.com";
 
   const demoUserSocialMedia = [
@@ -87,7 +88,6 @@ export async function createUsers() {
           { name: "Understand the principles of DevOps", isComplete: false },
         ],
       },
-      // TODO: techStack: ["reactjs", "Python", "Django", "GraphQL"],
       knowledgeLevel: [
         "Proficient in React",
         "Intermediate in Python",
@@ -95,6 +95,7 @@ export async function createUsers() {
         "Expert in GraphQL",
         "Familiar with Cybersecurity Fundamentals",
       ],
+      // TODO: techStack: ["reactjs", "Python", "Django", "GraphQL"],
       techStack: [
         "reactjs",
         "javascript",
@@ -111,4 +112,6 @@ export async function createUsers() {
     },
   });
   emails.push(demoUser.email);
+
+  return emails;
 }
