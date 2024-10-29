@@ -1,5 +1,5 @@
 import { CreateType, PrismaClient } from "@prisma/client";
-import { createPost } from "./postHelpers";
+import { createPost } from "./post";
 const { faker } = require("@faker-js/faker");
 
 export async function createPosts(emails: String[], prisma: PrismaClient) {
