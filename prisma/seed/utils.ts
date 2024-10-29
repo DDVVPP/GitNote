@@ -183,23 +183,6 @@ const binarySearch = (arr, target) => {
   }
   return -1; // target not found
 }`,
-  `// Controlled input component in React
-import React, { useState } from 'react';
-
-const TextInput = () => {
-  const [value, setValue] = useState('');
-
-  return (
-    <input
-      type="text"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      placeholder="Type something..."
-    />
-  );
-}
-
-export default TextInput;`,
 ];
 
 export const getRandomContent = () => {
@@ -220,7 +203,7 @@ export const getRandomContent = () => {
       case "image":
         content.push(
           `<img src="${faker.image.urlLoremFlickr({
-            category: "nature",
+            category: "cats",
           })}" alt="Random Image" /><br />`
         );
         break;
