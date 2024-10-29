@@ -27,7 +27,9 @@ const SidebarTags = () => {
       router.push(`?${newParams}`);
     };
     setParams();
-  }, [router, searchParams, tagTerm]);
+    // adding searchParams and router to dependency array was causing pagination to revert back to previous page
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tagTerm]);
 
   return (
     <div className="flex flex-col justify-start gap-4 px-2">
