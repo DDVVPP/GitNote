@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 
 async function main() {
   try {
-    const emails = await createUsers();
-    await createPosts(emails);
+    const emails = await createUsers(prisma);
+    await createPosts(emails, prisma);
   } catch (error) {
     console.error("Error seeding data:", error);
   } finally {

@@ -1,12 +1,11 @@
-import { CreateType } from "@prisma/client";
+import { CreateType, PrismaClient } from "@prisma/client";
 import { techTags } from "./constants";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
 const { faker } = require("@faker-js/faker");
 
 export async function createPost(
   email: string,
-  createType: string | CreateType
+  createType: CreateType,
+  prisma: PrismaClient
 ) {
   // between 2 to 5 elements
   const randomNumberOfArrayElements = Math.floor(Math.random() * 4) + 2;

@@ -1,12 +1,10 @@
 import bcryptjs from "bcryptjs";
-import { Role } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 import { platformArray, knowledgeLevels, tech } from "./constants";
 
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
 const { faker } = require("@faker-js/faker");
 
-export async function createUsers() {
+export async function createUsers(prisma: PrismaClient) {
   const emails: String[] = [];
 
   // ALL USERS
@@ -44,7 +42,7 @@ export async function createUsers() {
         availability: i % 2 === 0,
       },
     });
-    emails.push(user.email);
+    emails.push(user.email as string);
   }
 
   // DEMO USER
@@ -111,7 +109,7 @@ export async function createUsers() {
       availability: true,
     },
   });
-  emails.push(demoUser.email);
+  emails.push(demoUser.email as string);
 
   return emails;
 }
