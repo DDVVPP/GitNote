@@ -1,5 +1,5 @@
 import { CreateType, PrismaClient } from "@prisma/client";
-import { techTags } from "./constants";
+import { codeSnippets, getRandomContent, techTags } from "./utils";
 const { faker } = require("@faker-js/faker");
 
 export async function createPost(
@@ -14,9 +14,12 @@ export async function createPost(
     () => faker.lorem.sentence()
   );
 
-  // between 1 to 5 paragraphs
-  const randomParagraphsCount = Math.floor(Math.random() * 5) + 1;
-  const content = faker.lorem.paragraphs(randomParagraphsCount);
+  // between 1 to 3 snippets
+  const randomSnippetCount = Math.floor(Math.random() * 3) + 1;
+  const content = getRandomContent();
+  const codeEditorContent = faker.helpers
+    .arrayElements(codeSnippets, randomSnippetCount)
+    .join("\n\n");
 
   // between 0 to 5 resources
   const randomResourcesCount = Math.floor(Math.random() * 5);
@@ -42,6 +45,7 @@ export async function createPost(
       content,
       ...(createType === "WORKFLOW" && { steps: learningsOrSteps }),
       ...(createType === "KNOWLEDGE" && { learnings: learningsOrSteps }),
+      ...(createType === "COMPONENT" && { codeEditor: codeEditorContent }),
       user: {
         connect: {
           email,
