@@ -1,6 +1,6 @@
 import bcryptjs from "bcryptjs";
 import { PrismaClient, Role } from "@prisma/client";
-import { platformArray, knowledgeLevels, tech } from "./constants";
+import { platformArray, knowledgeLevels, tech } from "./utils";
 
 const { faker } = require("@faker-js/faker");
 
