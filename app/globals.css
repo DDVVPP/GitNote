@@ -132,13 +132,23 @@
   border: 3px solid #252939;
 }
 
+/* For inputs when clicking on an existing value in autofill browser menu */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px rgb(29 32 50) inset !important;
+  -webkit-text-fill-color: rgb(173 179 204) !important;
+  background-clip: content-box !important;
+  caret-color: white !important;
+}
+
 /* React Datepicker */
 
 .react-datepicker__view-calendar-icon {
   background-color: rgb(29 32 50) !important;
   display: flex !important;
   align-items: center !important;
-  border-radius: 0.25rem /* 4px */ !important;
 }
 
 /* TinyMCE */
