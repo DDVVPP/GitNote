@@ -7,7 +7,7 @@ const OnboardingWrapper = async () => {
   const user = (await getUser()) as User;
 
   return (
-    <div className="bg-black-800 flex w-full flex-col justify-center border md:w-[600px]">
+    <div className="mx-6">
       <Suspense>
         <Onboarding user={user} />
       </Suspense>

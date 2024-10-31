@@ -128,23 +128,24 @@ const Onboarding = ({ user }: { user: User }) => {
   };
 
   return (
-    <div className="p-6">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <OnboardingVisualStepper step={step} />
-        <div>{stepData[step].component}</div>
-        <div className="mt-5">
-          {step === 4 ? (
-            <Button color="blue" type="submit">
-              {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
-            </Button>
-          ) : (
-            <Button color="blue" type="button" onClick={validateFields}>
-              Next
-            </Button>
-          )}
-        </div>
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-black-800 flex w-full flex-col justify-center p-6 md:w-[600px]"
+    >
+      <OnboardingVisualStepper step={step} />
+      <div>{stepData[step].component}</div>
+      <div className="mt-5">
+        {step === 4 ? (
+          <Button color="blue" type="submit">
+            {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
+          </Button>
+        ) : (
+          <Button color="blue" type="button" onClick={validateFields}>
+            Next
+          </Button>
+        )}
+      </div>
+    </form>
   );
 };
 
