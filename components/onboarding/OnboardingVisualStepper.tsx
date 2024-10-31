@@ -44,7 +44,7 @@ const RenderStepPosition = ({ step }: { step: number }) => {
 
 const OnboardingVisualStepper = ({ step }: { step: number }) => {
   return (
-    <div className="mb-5 flex w-full justify-center">
+    <div className="mb-5 flex justify-center">
       {<RenderStepPosition step={step} />}
     </div>
   );
