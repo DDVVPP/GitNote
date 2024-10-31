@@ -13,13 +13,13 @@ const ProviderLogins = () => {
       <form action={submit} className="mb-4">
         <input type="hidden" name="provider" value="github" />
         <Button icon="github" color="darkGrayWhiteText">
-          Sign In To Github
+          Continue with Github
         </Button>
       </form>
       <form action={submit}>
         <input type="hidden" name="provider" value="google" />
         <Button icon="google" color="darkGrayWhiteText">
-          Sign In To Google
+          Continue with Google
         </Button>
       </form>
     </>
