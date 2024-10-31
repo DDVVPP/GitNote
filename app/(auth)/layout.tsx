@@ -6,14 +6,14 @@ import gitNoteIcon from "@/public/gitNoteIcon.svg";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="flex max-w-full flex-col items-center justify-center">
-      <header className="mt-14 flex items-baseline gap-x-2">
-        <div className="max-md:hidden">
+      <header className="mt-14 flex items-baseline gap-x-2 ">
+        <div className="duration-500 max-md:hidden">
           <Image src={gitNoteIcon} alt="Git Note Icon" width={40} />
         </div>
-        <div className="md:hidden">
+        <div className="duration-500 md:hidden">
           <Image src={gitNoteIcon} alt="Git Note Icon" width={28} />
         </div>
-        <h1 className="heading-1-bold max-md:display-1-bold text-left">
+        <h1 className="heading-1-bold max-md:display-1-bold text-left duration-500">
           GitNote
         </h1>
       </header>

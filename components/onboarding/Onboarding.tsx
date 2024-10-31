@@ -1,5 +1,5 @@
 "use client";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -128,27 +128,24 @@ const Onboarding = ({ user }: { user: User }) => {
   };
 
   return (
-
-    <div className="flex w-2/5 flex-col justify-center">
-      <div className="bg-black-800 p-6">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <OnboardingVisualStepper step={step} />
-          <div>{stepData[step].component}</div>
-          <div className="mt-5">
-            {step === 4 ? (
-              <Button color="blue" type="submit">
-                {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
-              </Button>
-            ) : (
-              <Button color="blue" type="button" onClick={validateFields}>
-                Next
-              </Button>
-            )}
-          </div>
-        </form>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-black-800 flex w-full flex-col justify-center p-6 duration-500 md:w-[600px]"
+    >
+      <OnboardingVisualStepper step={step} />
+      <div>{stepData[step].component}</div>
+      <div className="mt-5">
+        {step === 4 ? (
+          <Button color="blue" type="submit">
+            {isSubmitting ? <Loader2 className="animate-spin" /> : "Submit"}
+          </Button>
+        ) : (
+          <Button color="blue" type="button" onClick={validateFields}>
+            Next
+          </Button>
+        )}
       </div>
-    </div>
-
+    </form>
   );
 };
 
