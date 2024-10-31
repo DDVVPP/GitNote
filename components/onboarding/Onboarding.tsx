@@ -130,7 +130,7 @@ const Onboarding = ({ user }: { user: User }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="bg-black-800 flex w-full flex-col justify-center p-6 md:w-[600px]"
+      className="bg-black-800 flex w-full flex-col justify-center p-6 duration-500 md:w-[600px]"
     >
       <OnboardingVisualStepper step={step} />
       <div>{stepData[step].component}</div>

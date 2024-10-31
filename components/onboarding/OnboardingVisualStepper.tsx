@@ -28,7 +28,7 @@ const RenderStepPosition = ({ step }: { step: number }) => {
         {statusComponent}
         {index < totalSteps && (
           <hr
-            className={`max-xs-b:w-12 max-xs-a:w-8 h-px w-28 border-0 ${borderColor}`}
+            className={`max-xs-b:w-12 max-xs-a:w-8 h-px w-28 border-0 duration-500 ${borderColor}`}
           />
         )}
       </React.Fragment>
