@@ -14,9 +14,9 @@ import { QuickLinkProps } from "@/types";
 
 const LeftNavbar = () => {
   return (
-    <nav className="flex-2 sticky left-0 top-0 z-20 flex h-screen w-1/5 flex-col justify-between bg-black-800 px-8 pt-20">
-      <div>
-        <div className="flex flex-col justify-start space-y-12 border-b border-white-500">
+    <nav className="flex h-screen flex-col justify-between px-7 pt-10">
+      <section>
+        <div className="border-white-500 flex flex-col justify-start gap-y-12 border-b">
           <Link href="/">
             <div className="flex items-center gap-x-2">
               <Image src={gitNoteIcon} alt="Git Note Icon" />
@@ -53,19 +53,19 @@ const LeftNavbar = () => {
             );
           })}
         </NavSection>
-      </div>
+      </section>
 
-      <div className="mb-5 flex">
+      <section className="mb-5 flex align-bottom">
         <form action={signOut}>
           <button
-            className="paragraph-3-medium flex gap-2 text-white-300 hover:text-white-100 hover:duration-300"
+            className="paragraph-3-medium text-white-300 hover:text-white-100 flex gap-2 hover:duration-300"
             type="submit"
           >
             <Image src={logoutIcon} alt="Logout Icon" />
             Logout
           </button>
         </form>
-      </div>
+      </section>
     </nav>
   );
 };
