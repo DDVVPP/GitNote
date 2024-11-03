@@ -8,7 +8,7 @@ const QuickLink = ({ groupName, href, name, icon: Icon }: QuickLinkProps) => {
     <a
       target="_blank"
       href={href}
-      className={`${groupNameClass} flex items-center gap-x-2`}
+      className={`${groupNameClass} flex items-center gap-x-3`}
     >
       <Icon
         className={`${

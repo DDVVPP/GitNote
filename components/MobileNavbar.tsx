@@ -76,7 +76,7 @@ const MobileNavbar = ({ user }: { user: User }) => {
           })}
           <form action={signOut}>
             <button
-              className="paragraph-3-medium text-white-300 hover:text-white-100 flex gap-2 hover:duration-300"
+              className="paragraph-3-medium text-white-300 hover:text-white-100 flex gap-x-3 hover:duration-300"
               type="submit"
             >
               <Image src={logoutIcon} alt="Logout Icon" />
