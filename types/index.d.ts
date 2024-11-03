@@ -23,7 +23,7 @@ export type CreateTypeListItemType = {
 
 export type SearchParams = {
   page: string;
-  type: CreateType | "all";
+  type: CreateType | "all" | "";
   term: string;
   tag: string;
 };
