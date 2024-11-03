@@ -8,13 +8,13 @@ const QuickLink = ({ groupName, href, name, icon: Icon }: QuickLinkProps) => {
     <a
       target="_blank"
       href={href}
-      className={`${groupNameClass} flex h-8 items-center gap-x-2`}
+      className={`${groupNameClass} flex items-center gap-x-2`}
     >
       <Icon
         className={`${
           groupName === "jsm"
-            ? `fill-[#55597D] group-hover/jsm:fill-white-100`
-            : `stroke-[#55597D] group-hover/github:stroke-white-100`
+            ? `fill-white-500 group-hover/jsm:fill-white-100`
+            : `group-hover/github:stroke-white-100 stroke-white-500`
         } group-hover:duration-300`}
       />
       <p
