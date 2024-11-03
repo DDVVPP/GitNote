@@ -10,18 +10,19 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   const user = (await getUser()) as User;
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="border md:hidden">
-        <MobileHeader />
+    <div className="flex h-screen flex-col">
+      <header className="lg:fixed lg:hidden">
+        <MobileHeader user={user} />
       </header>
 
-      <div className="flex flex-1 flex-col md:flex-row">
-        <aside className="bg-black-800 hidden w-[290px] md:block">
+      <div className="flex flex-1 flex-col lg:flex-row">
+        <aside className="bg-black-800 hidden w-[290px] lg:block">
           <LeftNavbar />
         </aside>
+
         <main className="flex-1 px-7 pt-10">{children}</main>
 
-        <aside className="bg-black-800 hidden w-[290px] md:block">
+        <aside className="bg-black-800 hidden w-[290px] lg:block">
           <RightSidebar user={user} />
         </aside>
       </div>
