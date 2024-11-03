@@ -58,7 +58,7 @@ const LeftNavbar = () => {
       <section className="mb-5 flex align-bottom">
         <form action={signOut}>
           <button
-            className="paragraph-3-medium text-white-300 hover:text-white-100 flex gap-2 hover:duration-300"
+            className="paragraph-3-medium text-white-100 hover:text-white-100 flex gap-2 hover:duration-300"
             type="submit"
           >
             <Image src={logoutIcon} alt="Logout Icon" />

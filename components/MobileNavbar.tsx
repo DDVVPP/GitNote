@@ -46,7 +46,7 @@ const MobileNavbar = ({ user }: { user: User }) => {
                 </p>
               </div>
             </Link>
-            <X />
+            <X className="cursor-pointer" />
           </div>
 
           <div className="mb-6 flex flex-col gap-y-4">
@@ -85,7 +85,7 @@ const MobileNavbar = ({ user }: { user: User }) => {
 
           <form action={signOut}>
             <button
-              className="paragraph-3-medium text-white-300 hover:text-white-100 flex h-fit cursor-pointer gap-x-3 hover:duration-300"
+              className="paragraph-3-medium text-white-100 hover:text-white-100 flex h-fit cursor-pointer gap-x-3 hover:duration-300"
               type="submit"
               onClick={(event) => event.stopPropagation()}
             >
