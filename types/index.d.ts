@@ -1,3 +1,6 @@
+import { JSX } from "react";
+import { CreateType } from "@prisma/client";
+
 export type TechStackType = {
   icon: ({ size: number }) => JSX.Element;
   name: string;
@@ -30,4 +33,5 @@ export type QuickLinkProps = {
   href: string;
   name: string;
   icon?: any;
+  onClick?: any;
 };

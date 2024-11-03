@@ -1,7 +1,13 @@
 import React from "react";
 import { QuickLinkProps } from "@/types";
 
-const QuickLink = ({ groupName, href, name, icon: Icon }: QuickLinkProps) => {
+const QuickLink = ({
+  groupName,
+  href,
+  name,
+  icon: Icon,
+  onClick,
+}: QuickLinkProps) => {
   const groupNameClass = groupName === "jsm" ? "group/jsm" : "group/github";
 
   return (
@@ -9,6 +15,7 @@ const QuickLink = ({ groupName, href, name, icon: Icon }: QuickLinkProps) => {
       target="_blank"
       href={href}
       className={`${groupNameClass} flex items-center gap-x-3`}
+      onClick={onClick}
     >
       <Icon
         className={`${

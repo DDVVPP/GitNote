@@ -95,7 +95,10 @@ const Search = () => {
     <>
       <div
         className="paragraph-4-medium bg-black-700 flex cursor-pointer items-center justify-between rounded-md p-4"
-        onClick={() => setOpen((open) => !open)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((open) => !open);
+        }}
       >
         <div className="flex gap-x-2">
           <Image

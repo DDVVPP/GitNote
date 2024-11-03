@@ -15,13 +15,14 @@ import { Image as LandscapeIcon, X } from "lucide-react";
 
 const MobileNavbar = ({ user }: { user: User }) => {
   return (
-    <nav className="flex h-screen flex-col justify-between px-7">
+    <nav className="flex h-screen cursor-default flex-col justify-between px-7">
       <section>
         <div className="flex flex-col justify-start">
           <div className="my-10 flex justify-between">
             <Link
               href="/profile"
               className="hover:bg-black-600 flex gap-2 rounded-md hover:duration-300"
+              onClick={(event) => event.stopPropagation()}
             >
               {user.image ? (
                 <Image
@@ -50,7 +51,11 @@ const MobileNavbar = ({ user }: { user: User }) => {
 
           <div className="mb-6 flex flex-col gap-y-4">
             <Link href="/posts/create-post">
-              <Button icon="plus" color="gradient">
+              <Button
+                icon="plus"
+                color="gradient"
+                onClick={(event) => event.stopPropagation()}
+              >
                 Create Post
               </Button>
             </Link>
@@ -71,13 +76,18 @@ const MobileNavbar = ({ user }: { user: User }) => {
                 href={link.href}
                 name={link.name}
                 icon={link.icon}
+                onClick={(event: { stopPropagation: () => any }) =>
+                  event.stopPropagation()
+                }
               />
             );
           })}
+
           <form action={signOut}>
             <button
-              className="paragraph-3-medium text-white-300 hover:text-white-100 flex gap-x-3 hover:duration-300"
+              className="paragraph-3-medium text-white-300 hover:text-white-100 flex h-fit cursor-pointer gap-x-3 hover:duration-300"
               type="submit"
+              onClick={(event) => event.stopPropagation()}
             >
               <Image src={logoutIcon} alt="Logout Icon" />
               Logout
