@@ -112,7 +112,7 @@ const PostDetails = ({
 
         <section className="flex gap-x-4">
           <div className="flex items-center gap-x-1">
-            <Calendar size={16} className="text-white-500" />
+            <Calendar size={16} className="text-white-500 shrink-0" />
             <p className="paragraph-3-regular text-white-300">
               {createdAtDate}
             </p>
@@ -204,7 +204,10 @@ const PostDetails = ({
                 key={resource?.id}
                 className="text-white-300 hover:text-primary-500 my-3  flex items-center gap-x-2 hover:duration-300"
               >
-                <CheckSquare size={16} className="flex text-green-400" />
+                <CheckSquare
+                  size={16}
+                  className="flex shrink-0 text-green-400"
+                />
                 <a
                   target="_blank"
                   href={resource?.link ?? "/"}
