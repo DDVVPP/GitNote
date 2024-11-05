@@ -58,71 +58,46 @@ const PostDetails = ({
 
   return (
     <section className="flex flex-col space-y-6">
-      <section className="flex justify-between">
-        <section className="flex flex-col space-y-5">
-          <h1 className="display-2-bold text-white-100">{title}</h1>
-          <p className="paragraph-3-regular text-white-300">{description}</p>
+      <section className="flex flex-col space-y-5">
+        <div>
+          <header className="flex justify-between">
+            <h1 className="display-2-bold text-white-100 w-fit">{title}</h1>
+            <div className="flex justify-end gap-x-2">
+              <Badge
+                color={filteredPostType[0].badgeColor}
+                icon={filteredPostType[0].name}
+                size="medium"
+              >
+                {filteredPostType[0].uiName}
+              </Badge>
 
-          <section className="flex gap-x-4">
-            <div className="flex items-center gap-x-1">
-              <Calendar size={16} className="text-white-500" />
-              <p className="paragraph-3-regular text-white-300">
-                {createdAtDate}
-              </p>
+              <button
+                type="button"
+                id="triple-dot-button"
+                className="hover:bg-black-600 rounded-md hover:duration-300"
+                onClick={() => setIsOpen((prevState) => !prevState)}
+              >
+                <VerticalEllipsisIcon size={30} />
+              </button>
             </div>
-            <div className="flex items-center gap-x-1">
-              <Star size={16} className="text-white-500" />
-              <p className="paragraph-3-regular text-white-300">stars</p>
-            </div>
-            <div className="flex items-center gap-x-1">
-              <Eye size={16} className="text-white-500" />
-              <p className="paragraph-3-regular text-white-300">views</p>
-            </div>
-          </section>
+          </header>
 
-          <div className="flex gap-x-3">
-            {tags &&
-              tags.map((tag) => (
-                <Badge key={tag} size="medium">
-                  {tag}
-                </Badge>
-              ))}
-          </div>
-        </section>
-
-        <section className="flex flex-col gap-y-2" ref={ref}>
-          <div className="flex justify-end gap-x-2">
-            <Badge
-              color={filteredPostType[0].badgeColor}
-              icon={filteredPostType[0].name}
-              size="medium"
-            >
-              {filteredPostType[0].uiName}
-            </Badge>
-
-            <button
-              type="button"
-              id="triple-dot-button"
-              className="rounded-md hover:bg-black-600 hover:duration-300"
-              onClick={() => setIsOpen((open) => !open)}
-            >
-              <VerticalEllipsisIcon size={30} />
-            </button>
-          </div>
-
-          <div className="flex justify-end">
+          <menu
+            className="absolute right-10 mt-1 flex justify-end lg:right-80"
+            ref={ref}
+          >
             {isOpen && (
-              <div className="paragraph-3-medium flex flex-col text-nowrap rounded-md bg-black-700 py-2 text-white-300">
+              <div className="paragraph-3-medium bg-black-700 text-white-300 z-10 flex w-fit flex-col text-nowrap rounded-md py-2">
                 <Link
                   href={`/posts/${params.postId}/update-post`}
-                  className="flex gap-x-2 px-9 py-2 hover:bg-black-600 hover:py-2 hover:duration-300"
+                  className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
                 >
                   <SquarePen size={18} />
                   <p className="text-white-100">Update Post</p>
                 </Link>
 
                 <div
-                  className="flex cursor-pointer gap-x-2 px-9 py-2 hover:bg-black-600 hover:py-2 hover:duration-300"
+                  className="hover:bg-black-600 flex cursor-pointer gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
                   onClick={() => setModalIsOpen((open) => !open)}
                 >
                   <Trash size={18} />
@@ -130,16 +105,44 @@ const PostDetails = ({
                 </div>
               </div>
             )}
+          </menu>
+        </div>
+
+        <p className="paragraph-3-regular text-white-300">{description}</p>
+
+        <section className="flex gap-x-4">
+          <div className="flex items-center gap-x-1">
+            <Calendar size={16} className="text-white-500" />
+            <p className="paragraph-3-regular text-white-300">
+              {createdAtDate}
+            </p>
+          </div>
+          <div className="flex items-center gap-x-1">
+            <Star size={16} className="text-white-500" />
+            <p className="paragraph-3-regular text-white-300">stars</p>
+          </div>
+          <div className="flex items-center gap-x-1">
+            <Eye size={16} className="text-white-500" />
+            <p className="paragraph-3-regular text-white-300">views</p>
           </div>
         </section>
+
+        <div className="flex flex-wrap gap-3">
+          {tags &&
+            tags.map((tag) => (
+              <Badge key={tag} size="medium">
+                {tag}
+              </Badge>
+            ))}
+        </div>
       </section>
 
-      <hr className="h-px w-full border-0 dark:bg-black-700" />
+      <hr className="dark:bg-black-700 h-px w-full border-0" />
 
       {createType === CreateType.COMPONENT && codeEditor && (
         <>
           <RenderedCodeEditor codeEditor={codeEditor} />
-          <hr className="h-px w-full border-0 dark:bg-black-700" />
+          <hr className="dark:bg-black-700 h-px w-full border-0" />
         </>
       )}
 
@@ -156,7 +159,7 @@ const PostDetails = ({
               );
             })}
 
-          <hr className="h-px w-full border-0 dark:bg-black-700" />
+          <hr className="dark:bg-black-700 h-px w-full border-0" />
         </section>
       )}
 
@@ -169,13 +172,13 @@ const PostDetails = ({
                 <div key={step} className="my-1 flex items-center gap-2">
                   <input
                     type="checkbox"
-                    className="h-4.5 w-4.5 cursor-pointer appearance-none rounded-sm border-2 border-white-500 bg-black-800 checked:border-white-500 checked:bg-transparent"
+                    className="h-4.5 w-4.5 border-white-500 bg-black-800 checked:border-white-500 cursor-pointer appearance-none rounded-sm border-2 checked:bg-transparent"
                   />
                   <p className="paragraph-2-regular text-white-300">{step}</p>
                 </div>
               );
             })}
-          <hr className="h-px w-full border-0 dark:bg-black-700" />
+          <hr className="dark:bg-black-700 h-px w-full border-0" />
         </section>
       )}
 
@@ -183,9 +186,9 @@ const PostDetails = ({
         <>
           <div
             dangerouslySetInnerHTML={{ __html: content }}
-            className="rounded-lg bg-black-800 p-4 text-white-300"
+            className="bg-black-800 text-white-300 rounded-lg p-4"
           />
-          <hr className="h-px w-full border-0 dark:bg-black-700" />
+          <hr className="dark:bg-black-700 h-px w-full border-0" />
         </>
       )}
 
@@ -196,7 +199,7 @@ const PostDetails = ({
             return (
               <div
                 key={resource?.id}
-                className="my-3 flex items-center  gap-x-2 text-white-300 hover:text-primary-500 hover:duration-300"
+                className="text-white-300 hover:text-primary-500 my-3  flex items-center gap-x-2 hover:duration-300"
               >
                 <CheckSquare size={16} className="flex text-green-400" />
                 <a
