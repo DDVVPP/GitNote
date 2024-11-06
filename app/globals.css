@@ -188,3 +188,9 @@ input:-webkit-autofill:active {
 .tox-statusbar {
   display: none !important;
 }
+
+/* Wrap code content in mobile mode */
+code[class*="language-"],
+pre[class*="language-"] {
+  text-wrap: auto !important;
+}

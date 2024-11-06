@@ -12,7 +12,7 @@ const MobileHeader = ({ user }: { user: User }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-black-800 flex justify-between p-6 lg:hidden">
+    <header className="bg-black-800 flex justify-between p-6 lg:hidden">
       <Link href="/">
         <div className="flex items-center gap-x-2">
           <Image src={gitNoteIcon} alt="Git Note Icon" />
@@ -22,19 +22,12 @@ const MobileHeader = ({ user }: { user: User }) => {
         </div>
       </Link>
 
-      <button
-        type="button"
-        onClick={() => setIsOpen((prevState) => !prevState)}
-      >
-        {isOpen ? (
-          <menu className="bg-black-800 absolute right-0 top-0 z-10 w-80">
-            <MobileNavbar user={user} />
-          </menu>
-        ) : (
-          <Menu />
-        )}
+      <button type="button" onClick={() => setIsOpen(true)}>
+        {!isOpen && <Menu />}
       </button>
-    </nav>
+
+      <MobileNavbar user={user} isOpen={isOpen} setIsOpen={setIsOpen} />
+    </header>
   );
 };
 

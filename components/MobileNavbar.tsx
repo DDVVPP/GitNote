@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useRef, Dispatch } from "react";
 import { signOut } from "@/lib/actions";
 
 import Image from "next/image";
@@ -12,17 +12,38 @@ import { quickLinks } from "@/constants";
 import { QuickLinkProps } from "@/types";
 import { User } from "@prisma/client";
 import { Image as LandscapeIcon, X } from "lucide-react";
+import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
 
-const MobileNavbar = ({ user }: { user: User }) => {
+const MobileNavbar = ({
+  user,
+  isOpen,
+  setIsOpen,
+}: {
+  user: User;
+  isOpen: boolean;
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const closeMenu = () => setIsOpen(false);
+  useOutsideClickHandler(ref, closeMenu);
+
   return (
-    <nav className="flex h-screen cursor-default flex-col justify-between px-7">
-      <section>
-        <div className="flex flex-col justify-start">
-          <div className="my-10 flex justify-between">
+    <nav
+      className={`bg-black-800 absolute right-0 top-0 z-10 flex h-screen w-80 cursor-default flex-col justify-between px-7 transition-opacity duration-500 ${
+        isOpen ? "opacity-100" : "pointer-events-none opacity-0"
+      }`}
+      ref={ref}
+    >
+      <menu>
+        <section className="flex flex-col justify-start">
+          <header className="my-10 flex justify-between">
             <Link
               href="/profile"
               className="hover:bg-black-600 flex gap-2 rounded-md hover:duration-300"
-              onClick={(event) => event.stopPropagation()}
+              onClick={(event) => {
+                event.stopPropagation();
+                closeMenu();
+              }}
             >
               {user.image ? (
                 <Image
@@ -46,8 +67,12 @@ const MobileNavbar = ({ user }: { user: User }) => {
                 </p>
               </div>
             </Link>
-            <X className="cursor-pointer" />
-          </div>
+
+            {/* The X icon-button is located here rather than in the parent in order to align it with the user profile info */}
+            <button type="button" onClick={closeMenu}>
+              <X className="cursor-pointer" />
+            </button>
+          </header>
 
           <div className="mb-6 flex flex-col gap-y-4">
             <Link href="/posts/create-post">
@@ -63,7 +88,7 @@ const MobileNavbar = ({ user }: { user: User }) => {
               <Search />
             </Suspense>
           </div>
-        </div>
+        </section>
 
         <hr className="bg-white-500 h-px border-0" />
 
@@ -98,7 +123,7 @@ const MobileNavbar = ({ user }: { user: User }) => {
         <hr className="bg-white-500 h-px border-0" />
 
         <NavSection title="POSTS"> placeholder for posts</NavSection>
-      </section>
+      </menu>
     </nav>
   );
 };
