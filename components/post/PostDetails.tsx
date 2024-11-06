@@ -47,7 +47,7 @@ const PostDetails = ({
   const filteredPostType = createTypeList.filter(
     (type) => type.name === createType
   );
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
   const params = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -59,39 +59,35 @@ const PostDetails = ({
   return (
     <section className="flex flex-col space-y-6">
       <section className="flex flex-col space-y-5">
-        <div>
-          <header className="flex justify-between">
-            <h1 className="display-2-bold text-white-100 w-fit">{title}</h1>
-            <div className="flex h-fit justify-end gap-x-2">
-              <Badge
-                color={filteredPostType[0].badgeColor}
-                icon={filteredPostType[0].name}
-                size="medium"
-              >
-                {filteredPostType[0].uiName}
-              </Badge>
+        <header className="max-xs-b:flex-col max-xs-b:items-start flex items-center justify-between gap-y-1">
+          <h1 className="display-2-bold text-white-100 w-fit">{title}</h1>
 
+          <div className="max-xs-b:justify-between max-xs-b:w-full flex h-fit justify-end gap-x-2">
+            <Badge
+              color={filteredPostType[0].badgeColor}
+              icon={filteredPostType[0].name}
+              size="medium"
+            >
+              {filteredPostType[0].uiName}
+            </Badge>
+
+            <div ref={ref}>
               <button
                 type="button"
                 id="triple-dot-button"
-                className="hover:bg-black-600 rounded-md hover:duration-300"
+                className="hover:bg-black-600 rounded-md align-middle hover:duration-300"
                 onClick={() => setIsOpen((prevState) => !prevState)}
               >
                 <VerticalEllipsisIcon size={30} />
               </button>
-            </div>
 
-            <menu
-              className="absolute right-7 mt-9 flex justify-end lg:right-80"
-              ref={ref}
-            >
               {isOpen && (
-                <div className="paragraph-3-medium bg-black-700 text-white-300 z-10 flex w-fit flex-col text-nowrap rounded-md py-2">
+                <menu className="paragraph-3-medium bg-black-700 text-white-300 absolute right-7 z-10 mt-2 flex w-fit flex-col justify-end text-nowrap rounded-md py-2 lg:right-80">
                   <Link
                     href={`/posts/${params.postId}/update-post`}
                     className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
                   >
-                    <SquarePen size={18} />
+                    <SquarePen size={18} className="" />
                     <p className="text-white-100">Update Post</p>
                   </Link>
 
@@ -102,11 +98,11 @@ const PostDetails = ({
                     <Trash size={18} />
                     <p className="text-white-100">Delete Post</p>
                   </div>
-                </div>
+                </menu>
               )}
-            </menu>
-          </header>
-        </div>
+            </div>
+          </div>
+        </header>
 
         <p className="paragraph-3-regular text-white-300">{description}</p>
 
