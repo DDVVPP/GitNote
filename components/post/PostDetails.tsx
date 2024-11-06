@@ -93,7 +93,7 @@ const PostDetails = ({
 
                   <div
                     className="hover:bg-black-600 flex cursor-pointer gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
-                    onClick={() => setModalIsOpen((open) => !open)}
+                    onClick={() => setModalIsOpen((prevState) => !prevState)}
                   >
                     <Trash size={18} />
                     <p className="text-white-100">Delete Post</p>
