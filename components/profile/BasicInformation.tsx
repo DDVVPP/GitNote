@@ -43,18 +43,20 @@ const BasicInformation = ({
 
       <div className="flex items-center space-x-6">
         {image ? (
-          <Image src={image} alt="profileImage" width={120} height={120} />
+          <div className="relative size-24">
+            <Image src={image} alt="profileImage" fill objectFit="contain" />
+          </div>
         ) : (
           <div className="bg-black-700 p-7">
             <LandscapeIcon stroke="rgba(173, 179, 204, 1)" size={18} />
           </div>
         )}
 
-        <div className="group flex cursor-pointer items-center space-x-2 rounded-sm bg-black-700 p-1.5 hover:bg-[#4d567a] hover:duration-300">
+        <div className="bg-black-700 group flex cursor-pointer items-center space-x-2 rounded-sm p-1.5 hover:bg-[#4d567a] hover:duration-300">
           <UploadCloud stroke="rgba(173, 179, 204, 1)" size={18} />
           <label
             htmlFor="image"
-            className="paragraph-3-medium  flex cursor-pointer justify-center text-white-300  group-hover:text-white-100 group-hover:duration-300"
+            className="paragraph-3-medium  text-white-300 group-hover:text-white-100 flex cursor-pointer  justify-center group-hover:duration-300"
           >
             Upload Profile Photo
             <input

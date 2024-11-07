@@ -60,7 +60,9 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
       <header className="flex items-center gap-4">
         <div>
           {image ? (
-            <Image src={image} alt="profileImage" width={120} height={120} />
+            <div className="relative size-24">
+              <Image src={image} alt="profileImage" fill objectFit="contain" />
+            </div>
           ) : (
             <div className="bg-black-700 p-7">
               <LandscapeIcon stroke="rgba(173, 179, 204, 1)" size={18} />
@@ -75,7 +77,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             </h1>
             <div className="paragraph-3-regular group flex gap-4">
               {portfolio && (
-                <div className="flex items-center gap-1 text-primary-500 group-hover:text-white-300 group-hover:duration-300">
+                <div className="text-primary-500 group-hover:text-white-300 flex items-center gap-1 group-hover:duration-300">
                   <LinkIcon
                     size={16}
                     className="text-black-600 group-hover:text-white-500 group-hover:duration-300"
@@ -87,14 +89,14 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
               )}
 
               {location && (
-                <div className="flex items-center gap-1 text-primary-500">
+                <div className="text-primary-500 flex items-center gap-1">
                   <MapPin size={16} className="text-black-600" />
                   <p className="text-white-300">{location}</p>
                 </div>
               )}
 
               {created && (
-                <div className="flex items-center gap-1 text-primary-500">
+                <div className="text-primary-500 flex items-center gap-1">
                   <Calendar size={16} className="text-black-600" />
                   <p className="text-white-300">Joined {created}</p>
                 </div>
@@ -123,7 +125,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
                     type="checkbox"
                     disabled
                     checked={goal.isComplete}
-                    className="size-3 appearance-none rounded-sm border border-white-500 bg-white-500 text-green-400"
+                    className="border-white-500 bg-white-500 size-3 appearance-none rounded-sm border text-green-400"
                   />
                   <p className="paragraph-2-regular text-white-300">
                     {goal.name}
@@ -134,7 +136,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           ) : (
             <p className="paragraph-2-regular text-white-300">No goals added</p>
           )}
-          <hr className="my-8 mt-20 h-px w-full border-0 dark:bg-black-700" />
+          <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
         </div>
 
         <div className="flex flex-col">
@@ -160,7 +162,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
               </p>
             )}
           </div>
-          <hr className="my-8 mt-20 h-px w-full border-0 dark:bg-black-700" />
+          <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
         </div>
 
         <div className=" flex flex-col">
@@ -180,7 +182,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
               No knowledge levels added
             </p>
           )}
-          <hr className="my-8 mt-20 h-px w-full border-0 dark:bg-black-700" />
+          <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
         </div>
 
         <div className="mb-20 flex flex-col">

@@ -46,12 +46,14 @@ const MobileNavbar = ({
               }}
             >
               {user.image ? (
-                <Image
-                  src={user.image as string}
-                  width={50}
-                  height={50}
-                  alt="Profile photo"
-                />
+                <div className="relative size-9">
+                  <Image
+                    src={user.image as string}
+                    fill
+                    alt="Profile photo"
+                    objectFit="contain"
+                  />
+                </div>
               ) : (
                 <div className="bg-black-700 p-7">
                   <LandscapeIcon stroke="rgba(173, 179, 204, 1)" size={18} />
