@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import React from "react";
 
 const NavSection = ({
@@ -9,15 +8,13 @@ const NavSection = ({
   title: string;
 }) => {
   return (
-    <div className="border-b border-white-500 pt-4">
-      <div className="group m-auto mb-2 flex flex-col justify-start gap-4 rounded-md p-2">
-        <h3 className="caption group-hover:text-white text-white-500">
-          {title}
-        </h3>
-        <section className="paragraph-3-medium flex flex-col gap-2 text-white-300">
-          {children}
-        </section>
-      </div>
+    <div className="group flex flex-col justify-start rounded-md text-left">
+      <h3 className="caption text-white-500 mb-5 group-hover:text-white">
+        {title}
+      </h3>
+      <section className="paragraph-3-medium text-white-300 flex flex-col gap-y-5">
+        {children}
+      </section>
     </div>
   );
 };

@@ -225,6 +225,7 @@ export async function getUniqueTags() {
   try {
     const userEmail = await getUserSession();
     const posts = await prisma.post.findMany({
+      take: 3, // TODO: rethink fetching all tags
       where: {
         userEmail,
       },
