@@ -74,7 +74,7 @@ const MobileNavbar = ({
             </button>
           </header>
 
-          <div className="mb-6 flex flex-col gap-y-4">
+          <div className="space-y-4">
             <Link href="/posts/create-post">
               <Button
                 icon="plus"
@@ -90,7 +90,7 @@ const MobileNavbar = ({
           </div>
         </section>
 
-        <hr className="bg-white-500 h-px border-0" />
+        <hr className="bg-white-500 my-6 h-px border-0" />
 
         <NavSection title="QUICK LINKS">
           {quickLinks.map((link: QuickLinkProps) => {
@@ -120,7 +120,7 @@ const MobileNavbar = ({
           </form>
         </NavSection>
 
-        <hr className="bg-white-500 h-px border-0" />
+        <hr className="bg-white-500 my-6 h-px border-0" />
 
         <NavSection title="POSTS"> placeholder for posts</NavSection>
       </menu>
