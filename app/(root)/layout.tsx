@@ -16,15 +16,15 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
       </header>
 
       <div className="flex flex-1 flex-col lg:flex-row">
-        <aside className="bg-black-800 hidden w-[290px] lg:block">
+        <nav className="bg-black-800 hidden w-[290px] lg:block">
           <LeftNavbar />
-        </aside>
+        </nav>
 
         <main className="flex-1 px-7 pt-10">{children}</main>
 
-        <aside className="bg-black-800 hidden w-[290px] lg:block">
+        <nav className="bg-black-800 hidden w-[290px] lg:block">
           <RightSidebar user={user} />
-        </aside>
+        </nav>
       </div>
     </div>
   );
