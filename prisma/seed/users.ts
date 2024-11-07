@@ -73,7 +73,8 @@ export async function createUsers(prisma: PrismaClient) {
       name: "Demo User",
       email: demoUserEmail,
       password: hashedPassword,
-      image: faker.image.urlLoremFlickr({ category: "avatar" }),
+      image:
+        "https://git-note.s3.us-west-1.amazonaws.com/flouffy-qEO5MpLyOks-unsplash2.jpg",
       location: "San Francisco",
       onboardingStatus: 5,
       portfolio: "https://demouserportfolio.com",
