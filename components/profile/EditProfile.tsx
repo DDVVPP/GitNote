@@ -25,13 +25,16 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
       name: user?.name ?? "",
       email: user?.email ?? "",
       image: user?.image ?? "",
+      blurImage: user?.blurImage ?? "",
       location: "",
       portfolio: user?.portfolio ?? "",
       goals: user?.goals ?? [],
       knowledgeLevel: user?.knowledgeLevel ?? [],
       techStack: user?.techStack ?? [],
       availability: user?.availability ?? false,
-      startDate: user?.startDate ?  new Date(user?.startDate as Date) : new Date(),
+      startDate: user?.startDate
+        ? new Date(user?.startDate as Date)
+        : new Date(),
       endDate: user?.endDate ? new Date(user?.endDate as Date) : new Date(),
     },
     resolver: zodResolver(ProfileSchema),
