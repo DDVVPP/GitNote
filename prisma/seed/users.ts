@@ -1,6 +1,7 @@
 import bcryptjs from "bcryptjs";
 import { PrismaClient, Role } from "@prisma/client";
 import { platformArray, knowledgeLevels, tech } from "./utils";
+import getBlurDataURL from "../../lib/utils/getBlurDataURL";
 
 const { faker } = require("@faker-js/faker");
 
@@ -9,6 +10,8 @@ export async function createUsers(prisma: PrismaClient) {
 
   // ALL USERS
   for (let i = 0; i < 5; i++) {
+    const imageSrc = faker.image.urlLoremFlickr({ category: "avatar" });
+    const blurDataURL = await getBlurDataURL(imageSrc);
     const randomGoalsCount = Math.floor(Math.random() * 6) + 1;
     const goals = Array.from({ length: randomGoalsCount }, () => ({
       name: faker.lorem.sentence(),
@@ -27,7 +30,8 @@ export async function createUsers(prisma: PrismaClient) {
         name: `${faker.person.firstName()} ${faker.person.lastName()}`,
         email: faker.internet.exampleEmail(),
         password: hashedPassword,
-        image: faker.image.urlLoremFlickr({ category: "avatar" }),
+        image: imageSrc,
+        blurImage: blurDataURL,
         location: faker.location.city(),
         portfolio: faker.internet.url(),
         role: faker.helpers.enumValue(Role),
@@ -49,6 +53,9 @@ export async function createUsers(prisma: PrismaClient) {
   const password = process.env.DEMO_USER_PASSWORD;
   const hashedPassword = bcryptjs.hashSync(password as string, 10);
   const demoUserEmail = "demouser@email.com";
+  const demoUserImage =
+    "https://git-note.s3.us-west-1.amazonaws.com/flouffy-qEO5MpLyOks-unsplash2.jpg";
+  const demoUserblurDataURL = await getBlurDataURL(demoUserImage);
 
   const demoUserSocialMedia = [
     {
@@ -73,7 +80,8 @@ export async function createUsers(prisma: PrismaClient) {
       name: "Demo User",
       email: demoUserEmail,
       password: hashedPassword,
-      image: faker.image.urlLoremFlickr({ category: "avatar" }),
+      image: demoUserImage,
+      blurImage: demoUserblurDataURL,
       location: "San Francisco",
       onboardingStatus: 5,
       portfolio: "https://demouserportfolio.com",

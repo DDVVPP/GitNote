@@ -35,6 +35,7 @@ const Onboarding = ({ user }: { user: User }) => {
     defaultValues: {
       name: user?.name ?? "",
       image: user?.image ?? "",
+      blurImage: user?.blurImage ?? "",
       location: "",
       portfolio: "",
       goals: [],
@@ -65,7 +66,7 @@ const Onboarding = ({ user }: { user: User }) => {
       component: (
         <BasicInformation useFormHelpers={useFormHelpers} formData={formData} />
       ),
-      fields: ["name", "portfolio", "image"],
+      fields: ["name", "portfolio", "image", "blurImage"],
     },
     2: {
       component: <LearningGoals useFormHelpers={useFormHelpers} />,
