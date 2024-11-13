@@ -45,12 +45,13 @@ const RightSidebar = ({ user }: { user: User }) => {
         {user.image ? (
           <div className="relative size-9">
             <Image
-              src={user.image as string}
-              blurDataURL={(user.blurImage as string) ?? ""}
+              src={user.image}
+              blurDataURL={user.blurImage ?? ""}
               placeholder="blur"
               alt="Profile photo"
               fill
               objectFit="contain"
+              className="bg-black-800"
             />
           </div>
         ) : (

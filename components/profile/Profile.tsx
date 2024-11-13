@@ -69,6 +69,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
                 alt="profileImage"
                 fill
                 objectFit="contain"
+                className="bg-black-800"
               />
             </div>
           ) : (
