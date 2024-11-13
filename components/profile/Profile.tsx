@@ -23,6 +23,7 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
   const {
     name,
     image,
+    blurImage,
     portfolio,
     goals,
     techStack: techStackFromUser,
@@ -61,7 +62,14 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
         <div>
           {image ? (
             <div className="relative size-24">
-              <Image src={image} alt="profileImage" fill objectFit="contain" />
+              <Image
+                src={image}
+                blurDataURL={(blurImage as string) ?? ""}
+                placeholder="blur"
+                alt="profileImage"
+                fill
+                objectFit="contain"
+              />
             </div>
           ) : (
             <div className="bg-black-700 p-7">

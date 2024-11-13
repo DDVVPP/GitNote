@@ -46,12 +46,15 @@ const MobileNavbar = ({
               }}
             >
               {user.image ? (
-                <div className="relative size-9">
+                <div className=" relative size-9">
                   <Image
-                    src={user.image as string}
+                    src={user.image}
+                    blurDataURL={user.blurImage ?? ""}
+                    placeholder="blur"
                     fill
                     alt="Profile photo"
                     objectFit="contain"
+                    className="bg-black-800"
                   />
                 </div>
               ) : (

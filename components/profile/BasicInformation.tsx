@@ -7,6 +7,7 @@ import { Controller } from "react-hook-form";
 
 import { UploadFile } from "@/lib/actions/s3.actions";
 import { Input } from "@/components/shared/ui";
+import getBlurDataURL from "@/lib/utils/getBlurDataURL";
 
 const BasicInformation = ({
   useFormHelpers,
@@ -28,9 +29,11 @@ const BasicInformation = ({
     if (!file) return;
     newFormData.append("file", file);
     const url = await UploadFile(newFormData);
+    const blurDataURL = await getBlurDataURL(url);
 
     setImage(URL.createObjectURL(file as Blob | MediaSource));
     setValue("image", url);
+    setValue("blurImage", blurDataURL);
   };
 
   return (
@@ -44,7 +47,14 @@ const BasicInformation = ({
       <div className="flex items-center space-x-6">
         {image ? (
           <div className="relative size-24">
-            <Image src={image} alt="profileImage" fill objectFit="contain" />
+            <Image
+              src={image}
+              blurDataURL={formData.blurImage ?? ""}
+              placeholder="blur"
+              alt="profileImage"
+              fill
+              objectFit="contain"
+            />
           </div>
         ) : (
           <div className="bg-black-700 p-7">
