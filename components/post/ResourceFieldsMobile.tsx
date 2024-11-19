@@ -2,7 +2,12 @@ import { X } from "lucide-react";
 import React from "react";
 
 type ResourceFieldType = {
-  errors: { resources: { label: { message: string } }[] };
+  errors: {
+    resources: {
+      label: { message: string };
+      link: { message: string };
+    }[];
+  };
   index: number;
   register: (type: string) => {};
   remove: (index: number) => void;
