@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 
 import { Button } from "../shared";
 import ResourceFieldsMobile from "./ResourceFieldsMobile";
+import useInputBlurHandler from "@/lib/utils/useInputBlurHandler";
 
 const Resources = ({
   useFieldArray,
@@ -20,6 +21,9 @@ const Resources = ({
     control,
   });
 
+  useInputBlurHandler("label");
+  useInputBlurHandler("link");
+
   return (
     <section>
       <div className="text-white-300 flex flex-col">
@@ -33,6 +37,7 @@ const Resources = ({
               <div className="max-xs-b:hidden flex w-full gap-x-2">
                 <div className="flex w-full flex-col">
                   <input
+                    id="label"
                     type="text"
                     className="paragraph-3-regular bg-black-700 placeholder:text-white-500 w-full rounded-md border-none p-3 focus:outline-none"
                     placeholder="Label"
@@ -48,6 +53,7 @@ const Resources = ({
                 </div>
                 <div className="flex w-full flex-col">
                   <input
+                    id="link"
                     type="text"
                     className="paragraph-3-regular bg-black-700 placeholder:text-white-500 w-full rounded-md border-none p-3 focus:outline-none"
                     placeholder="Resource Link"

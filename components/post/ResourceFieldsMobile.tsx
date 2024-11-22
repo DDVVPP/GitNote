@@ -1,5 +1,6 @@
-import { X } from "lucide-react";
 import React from "react";
+import { X } from "lucide-react";
+import useInputBlurHandler from "@/lib/utils/useInputBlurHandler";
 
 type ResourceFieldType = {
   errors: {
@@ -19,11 +20,15 @@ const ResourceFieldsMobile = ({
   register,
   remove,
 }: ResourceFieldType) => {
+  useInputBlurHandler("label");
+  useInputBlurHandler("link");
+
   return (
     <>
       <div className="flex gap-x-2">
         <div className="flex w-full flex-col">
           <input
+            id="label"
             type="text"
             className="paragraph-3-regular bg-black-700 placeholder:text-white-500 w-full rounded-md border-none p-3 focus:outline-none"
             placeholder="Label"
@@ -50,6 +55,7 @@ const ResourceFieldsMobile = ({
 
       <div className="flex w-full flex-col">
         <input
+          id="link"
           type="text"
           className="paragraph-3-regular bg-black-700 placeholder:text-white-500 w-full rounded-md border-none p-3 focus:outline-none"
           placeholder="Resource Link"
