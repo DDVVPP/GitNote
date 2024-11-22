@@ -92,7 +92,7 @@ const Tags = ({
               </span>
             ))}
           <input
-            className="paragraph-3-regular flex w-fit border-none bg-transparent px-1 py-0 focus:ring-0"
+            className="paragraph-3-regular flex min-w-[70px] grow basis-[70px] border-none bg-transparent px-1 py-0 focus:ring-0"
             type="text"
             id="tags"
             onChange={(event) => setTagInput(event.target.value)}
