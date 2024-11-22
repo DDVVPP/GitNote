@@ -137,3 +137,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 - [x] Create a seed file
 - [x] Add a Demo User
 - [x] Deploy site
+- [ ] Once a new user is onboarded - create main route with instructions & steps of how to begin - create UI for routes with no information in them
