@@ -178,6 +178,9 @@ input:-webkit-autofill:active {
 .tox-tbtn svg {
   fill: #adb3cc !important;
 }
+.tox-toolbar {
+  background-color: none !important;
+}
 .tox-toolbar-overlord {
   background-color: transparent !important;
 }
