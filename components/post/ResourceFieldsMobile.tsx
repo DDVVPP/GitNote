@@ -30,7 +30,7 @@ const ResourceFieldsMobile = ({
           <input
             id="label"
             type="text"
-            className="paragraph-3-regular bg-black-700 placeholder:text-white-500 w-full rounded-md border-none p-3 focus:outline-none"
+            className="resources-input-label"
             placeholder="Label"
             {...register(`resources.${index}.label`)}
           />
@@ -43,13 +43,10 @@ const ResourceFieldsMobile = ({
         </div>
         <button
           type="button"
-          className="bg-black-700 h-11 rounded px-3"
+          className="resources-x-button"
           onClick={() => remove(index)}
         >
-          <X
-            className="text-white-500 hover:text-white-300 hover:duration-300"
-            size={16}
-          />
+          <X className="resources-x-icon" size={16} />
         </button>
       </div>
 
@@ -57,7 +54,7 @@ const ResourceFieldsMobile = ({
         <input
           id="link"
           type="text"
-          className="paragraph-3-regular bg-black-700 placeholder:text-white-500 w-full rounded-md border-none p-3 focus:outline-none"
+          className="resources-input-link"
           placeholder="Resource Link"
           {...register(`resources.${index}.link`)}
         />

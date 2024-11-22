@@ -99,6 +99,19 @@
     @apply disabled:hover:bg-black-700 disabled:text-white-500 disabled:hover:text-white-500 disabled:bg-black-700;
   }
 
+  .resources-input-label {
+    @apply paragraph-3-regular bg-black-700 placeholder:text-white-500 w-full rounded-md border-none p-3 focus:outline-none;
+  }
+  .resources-input-link {
+    @apply paragraph-3-regular bg-black-700 placeholder:text-white-500 w-full rounded-md border-none p-3 focus:outline-none;
+  }
+  .resources-x-button {
+    @apply bg-black-700 h-11 rounded px-3;
+  }
+  .resources-x-icon {
+    @apply text-white-500 hover:text-white-300 hover:duration-300;
+  }
+
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
