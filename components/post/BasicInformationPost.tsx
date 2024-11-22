@@ -5,6 +5,7 @@ import { Controller } from "react-hook-form";
 import { CreateType } from "@prisma/client";
 
 import { Input } from "@/components/shared/ui";
+import useInputBlurHandler from "@/lib/utils/useInputBlurHandler";
 import Learnings from "./Learnings";
 import CodeEditor from "./CodeEditor";
 import Steps from "./Steps";
@@ -32,10 +33,11 @@ const BasicInformationPost = ({
   const postType = watch("createType");
   const codeContent = watch("codeEditor");
   const { tags } = defaultValues;
+  useInputBlurHandler("title");
 
   return (
     <section className="space-y-6">
-      <h3 className="paragraph-3-medium mb-6 text-white-500">
+      <h3 className="paragraph-3-medium text-white-500 mb-6">
         BASIC INFORMATION
       </h3>
 
@@ -65,12 +67,12 @@ const BasicInformationPost = ({
 
       <Tags setValue={setValue} defaultValueTags={tags} />
 
-      <div className="flex flex-col text-white-300">
+      <div className="text-white-300 flex flex-col">
         <label className="paragraph-3-medium mb-2">
           Description <span className="font-light"> (required)</span>
         </label>
         <textarea
-          className="paragraph-3-regular rounded-md border-none bg-black-700 p-3"
+          className="paragraph-3-regular bg-black-700 rounded-md border-none p-3"
           placeholder="Enter a short description"
           {...register("description")}
         />

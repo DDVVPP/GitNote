@@ -2,6 +2,8 @@ import React from "react";
 import { X } from "lucide-react";
 
 import { Button } from "../shared";
+import ResourceFieldsMobile from "./ResourceFieldsMobile";
+import useInputBlurHandler from "@/lib/utils/useInputBlurHandler";
 
 const Resources = ({
   useFieldArray,
@@ -19,21 +21,25 @@ const Resources = ({
     control,
   });
 
+  useInputBlurHandler("label");
+  useInputBlurHandler("link");
+
   return (
     <section>
-      <div className="flex flex-col text-white-300">
+      <div className="text-white-300 flex flex-col">
         <h3 className="paragraph-3-medium text-white-500">RESOURCES & LINKS</h3>
       </div>
 
       <section className="mt-6">
         {fields.map((field: { id: number }, index: number) => {
           return (
-            <React.Fragment key={field.id}>
-              <div className="mb-2 flex gap-x-2">
+            <div key={field.id} className="mb-2 flex gap-x-2">
+              <div className="max-xs-b:hidden flex w-full gap-x-2">
                 <div className="flex w-full flex-col">
                   <input
+                    id="label"
                     type="text"
-                    className="paragraph-3-regular w-full rounded-md border-none bg-black-700 p-3 placeholder:text-white-500 focus:outline-none"
+                    className="resources-input-label"
                     placeholder="Label"
                     {...register(`resources.${index}.label`)}
                   />
@@ -47,8 +53,9 @@ const Resources = ({
                 </div>
                 <div className="flex w-full flex-col">
                   <input
+                    id="link"
                     type="text"
-                    className="paragraph-3-regular w-full rounded-md border-none bg-black-700 p-3 placeholder:text-white-500 focus:outline-none"
+                    className="resources-input-link"
                     placeholder="Resource Link"
                     {...register(`resources.${index}.link`)}
                   />
@@ -61,16 +68,22 @@ const Resources = ({
                 </div>
                 <button
                   type="button"
-                  className="h-11 rounded bg-black-700 px-3"
+                  className="resources-x-button"
                   onClick={() => remove(index)}
                 >
-                  <X
-                    className="text-white-500 hover:text-white-300 hover:duration-300"
-                    size={16}
-                  />
+                  <X className="resources-x-icon" size={16} />
                 </button>
               </div>
-            </React.Fragment>
+
+              <div className="xs-b:hidden flex w-full flex-col gap-y-2">
+                <ResourceFieldsMobile
+                  errors={errors}
+                  index={index}
+                  register={register}
+                  remove={remove}
+                />
+              </div>
+            </div>
           );
         })}
       </section>
