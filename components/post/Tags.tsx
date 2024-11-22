@@ -73,14 +73,14 @@ const Tags = ({
 
   return (
     <section className="space-y-6">
-      <div className="flex flex-col text-white-300">
+      <div className="text-white-300 flex flex-col">
         <label className="paragraph-3-medium mb-2">Tags</label>
-        <div className="relative flex w-full items-center gap-2 rounded-md border-none bg-black-700 px-2 focus:ring-1">
+        <div className="bg-black-700 relative flex w-full flex-wrap items-center gap-2 rounded-md border-none p-3 focus:ring-1">
           {tags.length > 0 &&
             tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="paragraph-3-medium flex items-center gap-2 text-nowrap rounded-md bg-black-600 px-2"
+                className="paragraph-3-medium bg-black-600 flex items-center gap-2 text-nowrap rounded-md px-2"
               >
                 {tag}
                 <button type="button" onClick={() => handleDelete(tag)}>
@@ -92,7 +92,7 @@ const Tags = ({
               </span>
             ))}
           <input
-            className="paragraph-3-regular flex w-full border-none bg-transparent px-1 py-3 focus:ring-0"
+            className="paragraph-3-regular flex w-fit border-none bg-transparent px-1 py-0 focus:ring-0"
             type="text"
             id="tags"
             onChange={(event) => setTagInput(event.target.value)}
