@@ -119,9 +119,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 **Create / Update Post Pages**
 
+- [ ] Refactor these two components into one
 - [x] Fix padding in Tag input when there are two words
 - [x] Visually indicate which fields are required and/or optional
-- [ ] Figure out focus ring order
+- [x] Figure out focus ring order / Fix onEnter key press
 - [x] 'Add checkmark' button should be disabled if the input hasn't yet been filled
 - [x] Add a 'Cancel' button
 - [x] Disable 'Update Post' button if no updates have been made to the inputs
