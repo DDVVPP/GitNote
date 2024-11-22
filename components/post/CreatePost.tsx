@@ -91,14 +91,7 @@ const CreatePost = () => {
           />
         </section>
 
-        <div className="flex gap-x-4">
-          <Button
-            color="gray"
-            type="button"
-            onClick={() => router.push("/posts")}
-          >
-            Cancel
-          </Button>
+        <div className="max-xs-b:flex-col flex gap-4">
           <Button
             color="blue"
             type="submit"
@@ -111,6 +104,13 @@ const CreatePost = () => {
             ) : (
               "Create Post"
             )}
+          </Button>
+          <Button
+            color="gray"
+            type="button"
+            onClick={() => router.push("/posts")}
+          >
+            Cancel
           </Button>
         </div>
       </div>
