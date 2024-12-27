@@ -16,8 +16,9 @@ const ProfileHeader = ({
   headerItems: ProfileHeaderItems;
 }) => {
   const { image, blurImage, name, portfolio, location, created } = headerItems;
+
   return (
-    <header className="flex items-center gap-4">
+    <div className="flex items-center gap-4">
       <div>
         {image ? (
           <div className="relative size-24">
@@ -72,15 +73,13 @@ const ProfileHeader = ({
           </div>
         </div>
 
-        <div>
-          <Link href="/profile/edit">
-            <Button icon="plus" color="darkGrayBlueText">
-              Edit Profile
-            </Button>
-          </Link>
-        </div>
+        <Link href="/profile/edit">
+          <Button icon="plus" color="darkGrayBlueText">
+            Edit Profile
+          </Button>
+        </Link>
       </div>
-    </header>
+    </div>
   );
 };
 

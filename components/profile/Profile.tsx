@@ -58,19 +58,20 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
   return (
     <>
-      <section className="max-md: hidden">
+      <header className="max-md: hidden">
         <ProfileHeader headerItems={headerItems} />
-      </section>
-      <section className="md: block">
+      </header>
+      <header className="md: block">
         <MobileProfileHeader headerItems={headerItems} />
-      </section>
+      </header>
+
       <section>
-        <div className="mt-20 flex flex-col">
+        <div className="mt-20 flex flex-col gap-y-2">
           <h3 className="paragraph-1-bold">Learning Goals</h3>
           {goals && goals?.length > 0 ? (
             goals.map((goal) => {
               return (
-                <div key={goal.id} className="my-1 flex items-center gap-2">
+                <div key={goal.id} className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     disabled
@@ -89,9 +90,9 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-y-2">
           <h3 className="paragraph-1-bold">Technology Stack</h3>
-          <div className="flex gap-3">
+          <div className="flex gap-x-3">
             {techStackStateUI && techStackStateUI.length > 0 ? (
               techStackStateUI.map((tech) => {
                 const { icon: TechStackIcon, name, link } = tech;
@@ -115,12 +116,12 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
         </div>
 
-        <div className=" flex flex-col">
+        <div className="flex flex-col gap-y-2">
           <h3 className="paragraph-1-bold">Knowledge Level</h3>
           {knowledgeLevel && knowledgeLevel.length > 0 ? (
             knowledgeLevel.map((level) => {
               return (
-                <div key={level} className="my-1 flex items-center gap-2">
+                <div key={level} className="flex items-center gap-2">
                   {" "}
                   <CheckSquare className="text-primary-500" size={16} />
                   <p className="paragraph-2-regular text-white-300">{level}</p>
@@ -135,24 +136,24 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <hr className="dark:bg-black-700 my-8 mt-20 h-px w-full border-0" />
         </div>
 
-        <div className="mb-20 flex flex-col">
+        <div className="mb-20 flex flex-col gap-y-2">
           <h3 className="paragraph-1-bold">Schedule & Availability</h3>
           {availability ? (
-            <>
-              <div className="my-1 flex items-center gap-2">
-                <UserCheck className="text-green-400" size={16} />
+            <div className="flex flex-col gap-y-2">
+              <div className="flex items-center gap-2">
+                <UserCheck className="shrink-0 text-green-400" size={16} />
                 <p className="paragraph-2-regular text-white-300">
                   Available for a new project
                 </p>
               </div>
-              <div className="my-1 flex items-center gap-2">
-                <Clock className="text-green-400" size={16} />
-                <p className="paragraph-2-regular text-white-300">
+              <div className="flex items-center gap-2 max-md:items-start">
+                <Clock className="mt-1 shrink-0 text-green-400" size={16} />
+                <p className="paragraph-2-regular text-white-300 ">
                   Available from {start ?? "(oops! Missing start date)"} to{" "}
                   {end ?? "(oops! Missing end date)"}
                 </p>
               </div>
-            </>
+            </div>
           ) : (
             <p className="paragraph-2-regular text-white-300">
               Availability not added

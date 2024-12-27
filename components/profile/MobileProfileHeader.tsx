@@ -18,7 +18,7 @@ const MobileProfileHeader = ({
   const { image, blurImage, name, portfolio, location, created } = headerItems;
 
   return (
-    <header className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <section className="flex flex-row justify-start gap-x-4">
         <div>
           {image ? (
@@ -86,7 +86,7 @@ const MobileProfileHeader = ({
           Edit Profile
         </Button>
       </Link>
-    </header>
+    </div>
   );
 };
 
