@@ -7,11 +7,7 @@ import { Profile } from "@/components/profile";
 const ProfileWrapper = async () => {
   const user = (await getUser()) as User;
 
-  return (
-    <>
-      <Profile user={user} />
-    </>
-  );
+  return <Profile user={user} />;
 };
 
 export default ProfileWrapper;
