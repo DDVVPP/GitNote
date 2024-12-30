@@ -88,10 +88,15 @@ const SocialMediaModal = ({
   };
 
   return (
-    <div className="bg-black-800 flex rounded-md p-12 max-md:w-[90%]" ref={ref}>
+    <div
+      className="bg-black-800 flex rounded-md p-12 max-md:size-[90%] max-md:px-4 max-md:py-8"
+      ref={ref}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col">
         <div className="text-white-100 mb-4 flex items-center justify-between">
-          <h1 className="display-1-bold">Social Media Links</h1>
+          <h1 className="display-1-bold max-md:display-2-bold">
+            Social Media Links
+          </h1>
           <X
             onClick={onClose}
             cursor="pointer"
@@ -99,7 +104,7 @@ const SocialMediaModal = ({
           />
         </div>
 
-        <section className="flex w-full flex-col gap-y-4 border">
+        <section className="flex w-full flex-col gap-y-4 max-md:overflow-y-auto">
           {socialMediaIconList.map((icon, index) => {
             const { icon: Icon, type } = icon;
             return (
@@ -109,7 +114,7 @@ const SocialMediaModal = ({
                   className="self-center max-md:mt-2 max-md:self-start"
                 />
 
-                <div className="flex w-full gap-2 border max-md:flex-col">
+                <div className="flex w-full gap-2 max-md:flex-col">
                   <Controller
                     control={control}
                     name={`socialMedia.${index}.username`}
@@ -169,7 +174,7 @@ const SocialMediaModal = ({
           </span>
         </section>
 
-        <div className="mt-6">
+        <div className="mt-6 max-md:mt-0">
           <Button color="blue">
             {isSubmitting ? (
               <Loader2 className="animate-spin" />
