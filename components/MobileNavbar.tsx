@@ -1,4 +1,5 @@
 import React, { Suspense, useRef, Dispatch } from "react";
+import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/actions";
 
 import Image from "next/image";
@@ -26,6 +27,9 @@ const MobileNavbar = ({
   const ref = useRef<HTMLDivElement>(null);
   const closeMenu = () => setIsOpen(false);
   useOutsideClickHandler(ref, closeMenu);
+
+  const pathname = usePathname();
+  const isProfilePathname = ["/profile", `/profile/edit`].includes(pathname);
 
   return (
     <nav
@@ -79,24 +83,28 @@ const MobileNavbar = ({
             </button>
           </header>
 
-          <div className="space-y-4">
-            <Link href="/posts/create-post">
-              <Button
-                icon="plus"
-                color="gradient"
-                onClick={(event) => event.stopPropagation()}
-              >
-                Create Post
-              </Button>
-            </Link>
+          {isProfilePathname ? (
             <Suspense>
-              <Search />
+              <div>Social Links</div>
             </Suspense>
-          </div>
+          ) : (
+            <div className="space-y-4">
+              <Link href="/posts/create-post">
+                <Button
+                  icon="plus"
+                  color="gradient"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  Create Post
+                </Button>
+              </Link>
+              <Suspense>
+                <Search />
+              </Suspense>
+            </div>
+          )}
         </section>
-
         <hr className="bg-white-500 my-6 h-px border-0" />
-
         <NavSection title="QUICK LINKS">
           {quickLinks.map((link: QuickLinkProps) => {
             return (
@@ -125,9 +133,12 @@ const MobileNavbar = ({
           </form>
         </NavSection>
 
-        <hr className="bg-white-500 my-6 h-px border-0" />
-
-        <NavSection title="POSTS"> placeholder for posts</NavSection>
+        {!isProfilePathname && (
+          <>
+            <hr className="bg-white-500 my-6 h-px border-0" />
+            <NavSection title="POSTS"> placeholder for posts</NavSection>
+          </>
+        )}
       </menu>
     </nav>
   );
