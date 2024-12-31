@@ -29,7 +29,10 @@ export async function createUser(data: Partial<User>) {
 }
 
 async function _getUser(headers?: any) {
-  console.log("Received Headers:", headers);
+  console.log(
+    "Received Headers:",
+    console.log("Headers:", [...headers.entries()])
+  );
   try {
     const email = await getUserSession();
     const user = await prisma.user.findUnique({
