@@ -50,7 +50,7 @@ const RightSidebar = ({ user }: { user: User }) => {
               placeholder="blur"
               alt="Profile photo"
               fill
-              objectFit="contain"
+              style={{ objectFit: "contain" }}
               className="bg-black-800"
             />
           </div>

@@ -29,7 +29,7 @@ const MobileProfileHeader = ({
                 placeholder="blur"
                 alt="profileImage"
                 fill
-                objectFit="contain"
+                style={{ objectFit: "contain" }}
                 className="bg-black-800"
               />
             </div>

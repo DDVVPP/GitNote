@@ -58,7 +58,7 @@ const MobileNavbar = ({
                     placeholder="blur"
                     fill
                     alt="Profile photo"
-                    objectFit="contain"
+                    style={{ objectFit: "contain" }}
                     className="bg-black-800"
                   />
                 </div>
