@@ -5,9 +5,11 @@ import LeftNavbar from "@/components/left-navbar/LeftNavbar";
 import RightSidebar from "@/components/right-sidebar/RightSidebar";
 import { getUser } from "@/lib/actions/user.actions";
 import MobileHeader from "@/components/MobileHeader";
+import UserNotFound from "@/components/shared/UserNotFound";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const user = (await getUser()) as User;
+  if (!user) return <UserNotFound />;
 
   return (
     <div className="flex h-screen flex-col">
