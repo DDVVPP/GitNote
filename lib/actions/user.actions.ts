@@ -34,6 +34,7 @@ export async function createUser(data: Partial<User>) {
 //   );
 async function _getUser() {
   try {
+    console.log("in getUser");
     const email = await getUserSession();
     console.log("Email retrieved:>>>>>>>>>>>>>>", email);
 
