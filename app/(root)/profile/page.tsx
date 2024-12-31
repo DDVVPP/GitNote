@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { headers } from "next/headers";
 
 import { User } from "@prisma/client";
