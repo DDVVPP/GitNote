@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import { User } from "@prisma/client";
 import { getUser } from "@/lib/actions/user.actions";
@@ -10,7 +10,11 @@ const ProfileWrapper = async () => {
   if (!user) return <UserNotFound />;
   console.log("USER in server component", user);
 
-  return <Profile user={user && user} />;
+  return (
+    <Suspense>
+      <Profile user={user && user} />
+    </Suspense>
+  );
 };
 
 export default ProfileWrapper;
