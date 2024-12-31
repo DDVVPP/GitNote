@@ -90,7 +90,7 @@ export const {
       if (trigger === "update") {
         token.onboardingStatus = 5;
       }
-      console.log("token", token);
+
       return token; // this token will get passed to session
     },
     async session({ session, token }) {
@@ -99,7 +99,7 @@ export const {
         session.user.role = token.role as Role;
         session.user.onboardingStatus = token.onboardingStatus as number;
       }
-      console.log("session", session);
+
       return session;
     },
   },

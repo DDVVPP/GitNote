@@ -20,6 +20,12 @@ export default auth((req) => {
   if (pathname === "/profile/edit" && !req.auth?.user) {
     return NextResponse.redirect(`${req.nextUrl.origin}/login`);
   }
+  if (pathname === "/profile" && !req.auth?.user) {
+    console.error("User not authenticated. Redirecting to login.");
+    console.error("Auth Object:", req.auth);
+    console.error("Cookies:", req.cookies);
+    return NextResponse.redirect(`${req.nextUrl.origin}/login`);
+  }
 
   if (pathname === "/admin" && role !== "ADMIN") {
     return NextResponse.redirect(`${req.nextUrl.origin}/`);
@@ -33,6 +39,7 @@ export default auth((req) => {
       `${req.nextUrl.origin}/sign-up/onboarding?step=${onboardingStatus}`
     );
   }
+  return NextResponse.next();
 });
 
 export const config = {
