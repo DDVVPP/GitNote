@@ -1,5 +1,5 @@
 import React from "react";
-import { headers } from "next/headers";
+// import { headers } from "next/headers";
 import { User } from "@prisma/client";
 import LeftNavbar from "@/components/left-navbar/LeftNavbar";
 import RightSidebar from "@/components/right-sidebar/RightSidebar";
@@ -8,11 +8,11 @@ import MobileHeader from "@/components/MobileHeader";
 import UserNotFound from "@/components/shared/UserNotFound";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
-  const reqHeaders = headers();
-  const headersObject = Object.fromEntries(reqHeaders.entries());
-  console.log("Headers in ProfileWrapper as Object:", headersObject);
+  // const reqHeaders = headers();
+  // const headersObject = Object.fromEntries(reqHeaders.entries());
+  // console.log("Headers in ProfileWrapper as Object:", headersObject);
 
-  const user = (await getUser(reqHeaders)) as User;
+  const user = (await getUser()) as User;
   if (!user) return <UserNotFound />;
 
   return (

@@ -27,17 +27,15 @@ export async function createUser(data: Partial<User>) {
   }
   return { error: "An unexpected error occurred while creating user." };
 }
-
-async function _getUser(headers: any) {
-  console.log(
-    "Headers in getUser:",
-    headers ? [...headers.entries()] : "No headers provided"
-  );
-
+// async function _getUser(headers: any) {
+//   console.log(
+//     "Headers in getUser:",
+//     headers ? [...headers.entries()] : "No headers provided"
+//   );
+async function _getUser() {
   try {
     const email = await getUserSession();
-
-    console.log("Email retrieved:", email);
+    console.log("Email retrieved:>>>>>>>>>>>>>>", email);
 
     const user = await prisma.user.findUnique({
       where: {
@@ -54,14 +52,17 @@ async function _getUser(headers: any) {
     return { error: "User not found!" };
   }
 }
+// export const getUser = unstable_cache(
+//   (headers) => _getUser(headers),
+//   ["getUser"],
+//   {
+//     tags: ["userData"],
+//   }
+// );
 
-export const getUser = unstable_cache(
-  (headers) => _getUser(headers),
-  ["getUser"],
-  {
-    tags: ["userData"],
-  }
-);
+export const getUser = unstable_cache(_getUser, ["getUser"], {
+  tags: ["userData"],
+});
 
 export async function updateUser(
   data: Partial<User & { goals?: any } & { socialMedia?: any }>
