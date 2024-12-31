@@ -12,6 +12,7 @@ import MobileProfileHeader from "./MobileProfileHeader";
 import ProfileHeader from "./ProfileHeader";
 
 const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
+  console.log("user in profile", user);
   const {
     name,
     image,
