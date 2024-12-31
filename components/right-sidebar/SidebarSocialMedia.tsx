@@ -14,7 +14,7 @@ const SidebarSocialMedia = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-col gap-4 px-2">
+    <div className="flex flex-col gap-4">
       <Button
         type="button"
         icon="plus"

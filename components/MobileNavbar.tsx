@@ -44,7 +44,7 @@ const MobileNavbar = ({
           <header className="my-10 flex justify-between">
             <Link
               href="/profile"
-              className="hover:bg-black-600 flex gap-2 rounded-md hover:duration-300"
+              className="hover:bg-black-600 flex gap-2 rounded-md pr-2 hover:duration-300"
               onClick={(event) => {
                 event.stopPropagation();
                 closeMenu();
