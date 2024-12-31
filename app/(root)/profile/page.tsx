@@ -12,6 +12,7 @@ const ProfileWrapper = async () => {
   // console.log("Headers in ProfileWrapper as Object:", headersObject);
 
   const user = (await getUser()) as User;
+  if (!user) console.log("user not found...");
   if (!user) return <UserNotFound />;
   console.log("USER in server component", user.id);
 

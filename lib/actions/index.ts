@@ -33,6 +33,7 @@ export async function signOut() {
 }
 
 export async function getUserSession() {
+  console.log("in getUserSession");
   const session = await auth.auth();
   if (!session || !session.user?.email) {
     console.log("no session or email");
