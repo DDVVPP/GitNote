@@ -28,7 +28,8 @@ export async function createUser(data: Partial<User>) {
   return { error: "An unexpected error occurred while creating user." };
 }
 
-async function _getUser() {
+async function _getUser(headers?: any) {
+  console.log("Received Headers:", headers);
   try {
     const email = await getUserSession();
     const user = await prisma.user.findUnique({
