@@ -28,7 +28,7 @@ const ProfileHeader = ({
               placeholder="blur"
               alt="profileImage"
               fill
-              objectFit="contain"
+              style={{ objectFit: "contain" }}
               className="bg-black-800"
             />
           </div>
@@ -39,19 +39,19 @@ const ProfileHeader = ({
         )}
       </div>
 
-      <div className="space-between flex w-full justify-between">
+      <div className="space-between flex w-full justify-between gap-x-1">
         <div className="flex flex-col">
           <h1 className="display-2-bold text-white-100">
             {name ?? "(oops! Missing name)"}
           </h1>
-          <div className="paragraph-3-regular group flex gap-4">
+          <div className="paragraph-3-regular group flex flex-wrap gap-x-4 gap-y-1">
             {portfolio && (
               <div className="text-primary-500 group-hover:text-white-300 flex items-center gap-1 group-hover:duration-300">
                 <LinkIcon
                   size={16}
                   className="text-black-600 group-hover:text-white-500 group-hover:duration-300"
                 />
-                <a target="_blank" href={portfolio}>
+                <a target="_blank" href={portfolio} className="text-wrap">
                   {portfolio}
                 </a>
               </div>
@@ -67,13 +67,13 @@ const ProfileHeader = ({
             {created && (
               <div className="text-primary-500 flex items-center gap-1">
                 <Calendar size={16} className="text-black-600" />
-                <p className="text-white-300">Joined {created}</p>
+                <p className="text-white-300 text-wrap">Joined {created}</p>
               </div>
             )}
           </div>
         </div>
 
-        <Link href="/profile/edit">
+        <Link href="/profile/edit" className="w-fit shrink-0 lg:mr-6">
           <Button icon="plus" color="darkGrayBlueText">
             Edit Profile
           </Button>

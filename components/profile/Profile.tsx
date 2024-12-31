@@ -58,10 +58,10 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
   return (
     <>
-      <header className="max-md: hidden">
+      <header className="max-md:hidden lg:block">
         <ProfileHeader headerItems={headerItems} />
       </header>
-      <header className="md: block">
+      <header className="max-md:block md:hidden">
         <MobileProfileHeader headerItems={headerItems} />
       </header>
 

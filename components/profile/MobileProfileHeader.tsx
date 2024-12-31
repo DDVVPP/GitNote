@@ -45,9 +45,9 @@ const MobileProfileHeader = ({
             {name ?? "(oops! Missing name)"}
           </h1>
 
-          <div>
+          <div className="flex flex-col gap-1">
             {portfolio && (
-              <div className="group flex items-center gap-1">
+              <div className="group flex items-center gap-1.5">
                 <LinkIcon
                   size={16}
                   className="text-black-600 group-hover:text-white-500 group-hover:duration-300"
@@ -63,14 +63,14 @@ const MobileProfileHeader = ({
             )}
 
             {location && (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <MapPin size={16} className="text-black-600" />
                 <p className="text-white-30 paragraph-3-regular">{location}</p>
               </div>
             )}
 
             {created && (
-              <div className=" flex items-center gap-1">
+              <div className=" flex items-center gap-1.5">
                 <Calendar size={16} className="text-black-600" />
                 <p className="text-white-300 paragraph-3-regular">
                   Joined {created}
