@@ -11,16 +11,17 @@ import Button from "./shared/ui/Button";
 import Search from "./shared/Search";
 import { quickLinks } from "@/constants";
 import { QuickLinkProps } from "@/types";
-import { User } from "@prisma/client";
+import { User, Social } from "@prisma/client";
 import { Image as LandscapeIcon, X } from "lucide-react";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
+import SocialMediaLinks from "./right-sidebar/SocialMediaLinks";
 
 const MobileNavbar = ({
   user,
   isOpen,
   setIsOpen,
 }: {
-  user: User;
+  user: User & { socialMedia?: Social[] };
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }) => {
@@ -85,7 +86,7 @@ const MobileNavbar = ({
 
           {isProfilePathname ? (
             <Suspense>
-              <div>Social Links</div>
+              <SocialMediaLinks socialMedia={user.socialMedia} />
             </Suspense>
           ) : (
             <div className="space-y-4">
