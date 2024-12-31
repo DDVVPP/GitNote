@@ -10,7 +10,7 @@ const ProfileWrapper = async () => {
   if (!user) return <UserNotFound />;
   console.log("USER in server component", user);
 
-  return user && <Profile user={user} />;
+  return <Profile user={user && user} />;
 };
 
 export default ProfileWrapper;
