@@ -30,7 +30,7 @@ export async function createUser(data: Partial<User>) {
 
 async function _getUser(headers?: any) {
   console.log(
-    "Received Headers:",
+    "Received Headers: ",
     console.log("Headers:", [...headers.entries()])
   );
   try {
