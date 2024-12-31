@@ -35,6 +35,7 @@ export async function signOut() {
 export async function getUserSession() {
   console.log("in getUserSession");
   const session = await auth.auth();
+  console.log("session in getUserSession", session);
   if (!session || !session.user?.email) {
     console.log("no session or email");
     throw new Error("Unauthorized");
