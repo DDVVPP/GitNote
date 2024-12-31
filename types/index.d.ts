@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { CreateType } from "@prisma/client";
+import { CreateType, User } from "@prisma/client";
 
 export type TechStackType = {
   icon: ({ size: number }) => JSX.Element;
@@ -35,3 +35,5 @@ export type QuickLinkProps = {
   icon?: any;
   onClick?: any;
 };
+
+export type ProfileHeaderItems = Partial<User> & { created: string };

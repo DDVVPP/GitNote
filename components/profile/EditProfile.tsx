@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { Loader2 } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +13,7 @@ import { updateUser } from "@/lib/actions/user.actions";
 import { Goals, User } from "@prisma/client";
 import { IProfileSchema, ProfileSchema } from "@/lib/validations/UserSchema";
 
+import SocialMediaModal from "../right-sidebar/SocialMediaModal";
 import BasicInformation from "./BasicInformation";
 import LearningGoals from "./LearningGoals";
 import KnowledgeLevel from "./KnowledgeLevel";
@@ -19,6 +21,7 @@ import Availability from "./Availability";
 import Button from "../shared/ui/Button";
 
 const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const useFormHelpers = useForm<IProfileSchema>({
     defaultValues: {
@@ -78,24 +81,48 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <Availability useFormHelpers={useFormHelpers} isEditProfile />
         </section>
 
-        <div className="flex gap-x-4">
-          <Button
-            color="gray"
-            type="button"
-            onClick={() => router.push("/profile")}
-          >
-            Cancel
-          </Button>
-
-          <Button color="blue" type="submit">
+        <div className="flex gap-4 max-md:flex-col">
+          <Button color="blue" type="submit" mobileClass="max-md:order-1">
             {isSubmitting ? (
               <Loader2 className="animate-spin" />
             ) : (
               "Update Profile"
             )}
           </Button>
+
+          <Button
+            color="gray"
+            type="button"
+            onClick={() => router.push("/profile")}
+            mobileClass="max-md:order-3"
+          >
+            Cancel
+          </Button>
+
+          <Button
+            type="button"
+            icon="plus"
+            color="gray"
+            onClick={() => setOpen(true)}
+            mobileClass="md:hidden max-md:order-2"
+          >
+            Update social links
+          </Button>
         </div>
       </div>
+
+      {open &&
+        createPortal(
+          <div
+            aria-labelledby="social-media-modal"
+            role="dialog"
+            aria-modal="true"
+            className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
+          >
+            <SocialMediaModal user={user} onClose={() => setOpen(false)} />
+          </div>,
+          document.body
+        )}
     </form>
   );
 };

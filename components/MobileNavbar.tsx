@@ -1,4 +1,5 @@
 import React, { Suspense, useRef, Dispatch } from "react";
+import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/actions";
 
 import Image from "next/image";
@@ -10,22 +11,26 @@ import Button from "./shared/ui/Button";
 import Search from "./shared/Search";
 import { quickLinks } from "@/constants";
 import { QuickLinkProps } from "@/types";
-import { User } from "@prisma/client";
+import { User, Social } from "@prisma/client";
 import { Image as LandscapeIcon, X } from "lucide-react";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
+import SocialMediaLinks from "./right-sidebar/SocialMediaLinks";
 
 const MobileNavbar = ({
   user,
   isOpen,
   setIsOpen,
 }: {
-  user: User;
+  user: User & { socialMedia?: Social[] };
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const closeMenu = () => setIsOpen(false);
   useOutsideClickHandler(ref, closeMenu);
+
+  const pathname = usePathname();
+  const isProfilePathname = ["/profile", `/profile/edit`].includes(pathname);
 
   return (
     <nav
@@ -39,7 +44,7 @@ const MobileNavbar = ({
           <header className="my-10 flex justify-between">
             <Link
               href="/profile"
-              className="hover:bg-black-600 flex gap-2 rounded-md hover:duration-300"
+              className="hover:bg-black-600 flex gap-2 rounded-md pr-2 hover:duration-300"
               onClick={(event) => {
                 event.stopPropagation();
                 closeMenu();
@@ -53,7 +58,7 @@ const MobileNavbar = ({
                     placeholder="blur"
                     fill
                     alt="Profile photo"
-                    objectFit="contain"
+                    style={{ objectFit: "contain" }}
                     className="bg-black-800"
                   />
                 </div>
@@ -79,24 +84,28 @@ const MobileNavbar = ({
             </button>
           </header>
 
-          <div className="space-y-4">
-            <Link href="/posts/create-post">
-              <Button
-                icon="plus"
-                color="gradient"
-                onClick={(event) => event.stopPropagation()}
-              >
-                Create Post
-              </Button>
-            </Link>
+          {isProfilePathname ? (
             <Suspense>
-              <Search />
+              <SocialMediaLinks socialMedia={user.socialMedia} />
             </Suspense>
-          </div>
+          ) : (
+            <div className="space-y-4">
+              <Link href="/posts/create-post">
+                <Button
+                  icon="plus"
+                  color="gradient"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  Create Post
+                </Button>
+              </Link>
+              <Suspense>
+                <Search />
+              </Suspense>
+            </div>
+          )}
         </section>
-
         <hr className="bg-white-500 my-6 h-px border-0" />
-
         <NavSection title="QUICK LINKS">
           {quickLinks.map((link: QuickLinkProps) => {
             return (
@@ -125,9 +134,12 @@ const MobileNavbar = ({
           </form>
         </NavSection>
 
-        <hr className="bg-white-500 my-6 h-px border-0" />
-
-        <NavSection title="POSTS"> placeholder for posts</NavSection>
+        {!isProfilePathname && (
+          <>
+            <hr className="bg-white-500 my-6 h-px border-0" />
+            <NavSection title="POSTS"> placeholder for posts</NavSection>
+          </>
+        )}
       </menu>
     </nav>
   );

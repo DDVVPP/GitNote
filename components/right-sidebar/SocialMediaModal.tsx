@@ -88,10 +88,15 @@ const SocialMediaModal = ({
   };
 
   return (
-    <div className="flex rounded-md bg-black-800 p-12" ref={ref}>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-        <div className="mb-4 flex items-center justify-between text-white-100">
-          <h1 className="display-1-bold">Social Media Links</h1>
+    <div
+      className="bg-black-800 flex rounded-md p-12 max-md:size-[90%] max-md:px-4 max-md:py-8"
+      ref={ref}
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col">
+        <div className="text-white-100 mb-4 flex items-center justify-between">
+          <h1 className="display-1-bold max-md:display-2-bold">
+            Social Media Links
+          </h1>
           <X
             onClick={onClose}
             cursor="pointer"
@@ -99,20 +104,21 @@ const SocialMediaModal = ({
           />
         </div>
 
-        <section className="flex flex-col gap-y-4">
+        <section className="flex w-full flex-col gap-y-4 max-md:overflow-y-auto">
           {socialMediaIconList.map((icon, index) => {
             const { icon: Icon, type } = icon;
             return (
-              <div
-                key={type}
-                className="flex items-start justify-start gap-x-2"
-              >
-                <Icon size={34} className="self-center" />
-                <Controller
-                  control={control}
-                  name={`socialMedia.${index}.username`}
-                  render={({ field: { name, onChange, ...rest } }) => (
-                    <div className="w-48">
+              <div key={type} className="flex gap-x-2">
+                <Icon
+                  size={34}
+                  className="self-center max-md:mt-2 max-md:self-start"
+                />
+
+                <div className="flex w-full gap-2 max-md:flex-col">
+                  <Controller
+                    control={control}
+                    name={`socialMedia.${index}.username`}
+                    render={({ field: { name, onChange, ...rest } }) => (
                       <Input
                         id="username"
                         {...rest}
@@ -127,33 +133,32 @@ const SocialMediaModal = ({
                             ?.message as FieldError & string)
                         }
                       />
-                    </div>
-                  )}
-                />
+                    )}
+                  />
 
-                <Controller
-                  control={control}
-                  name={`socialMedia.${index}.link`}
-                  render={({ field: { name, onChange, ...rest } }) => (
-                    <div className="w-48">
-                      <Input
-                        id="link"
-                        {...rest}
-                        onChange={(event) => {
-                          onChange(event);
-                          trigger(name);
-                        }}
-                        placeholder="Social Link"
-                        errors={
-                          formErrors.socialMedia &&
-                          (formErrors.socialMedia[index]?.link
-                            ?.message as FieldError & string)
-                        }
-                      />
-                    </div>
-                  )}
-                />
-
+                  <Controller
+                    control={control}
+                    name={`socialMedia.${index}.link`}
+                    render={({ field: { name, onChange, ...rest } }) => (
+                      <div className="">
+                        <Input
+                          id="link"
+                          {...rest}
+                          onChange={(event) => {
+                            onChange(event);
+                            trigger(name);
+                          }}
+                          placeholder="Social Link"
+                          errors={
+                            formErrors.socialMedia &&
+                            (formErrors.socialMedia[index]?.link
+                              ?.message as FieldError & string)
+                          }
+                        />
+                      </div>
+                    )}
+                  />
+                </div>
                 <Input
                   id={type}
                   value={type}
@@ -169,7 +174,7 @@ const SocialMediaModal = ({
           </span>
         </section>
 
-        <div className="mt-6">
+        <div className="mt-6 max-md:mt-0">
           <Button color="blue">
             {isSubmitting ? (
               <Loader2 className="animate-spin" />

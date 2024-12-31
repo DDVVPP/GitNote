@@ -40,7 +40,7 @@ const RightSidebar = ({ user }: { user: User }) => {
     <section className="px-7 pt-10">
       <Link
         href="/profile"
-        className="hover:bg-black-600 flex items-center gap-2 rounded-md hover:duration-300"
+        className="hover:bg-black-600 flex items-center gap-x-2 rounded-md hover:duration-300"
       >
         {user.image ? (
           <div className="relative size-9">
@@ -50,7 +50,7 @@ const RightSidebar = ({ user }: { user: User }) => {
               placeholder="blur"
               alt="Profile photo"
               fill
-              objectFit="contain"
+              style={{ objectFit: "contain" }}
               className="bg-black-800"
             />
           </div>

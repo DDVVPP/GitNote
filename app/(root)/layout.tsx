@@ -11,7 +11,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="flex h-screen flex-col">
-      <header className="lg:fixed lg:hidden">
+      <header className="max-[1220px]:block">
         <MobileHeader user={user} />
       </header>
 

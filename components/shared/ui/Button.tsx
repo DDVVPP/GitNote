@@ -13,6 +13,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | "darkGrayWhiteText"
     | "gradient"
     | "red";
+  mobileClass?: string;
 }
 
 const colorClassMap = {
@@ -43,6 +44,7 @@ const Button = ({
   color,
   onClick,
   disabled,
+  mobileClass,
   ...rest
 }: ButtonProps) => {
   const colorClass = colorClassMap[color || "default"];
@@ -64,7 +66,7 @@ const Button = ({
 
   return (
     <button
-      className={`${colorClass} ${baseclass}`}
+      className={`${colorClass} ${baseclass} ${mobileClass}`}
       onClick={onClick}
       {...rest}
       disabled={disabled}
