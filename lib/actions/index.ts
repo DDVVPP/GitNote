@@ -34,11 +34,20 @@ export async function signOut() {
 
 export async function getUserSession() {
   console.log("in getUserSession");
-  const session = await auth.auth();
-  console.log("session in getUserSession", session);
-  if (!session || !session.user?.email) {
-    console.log("no session or email");
-    throw new Error("Unauthorized");
+
+  try {
+    const session = await auth.auth(); // Ensure this is resolving properly
+    console.log("session in getUserSession", session);
+
+    if (!session || !session.user?.email) {
+      console.log("no session or email found", session);
+      throw new Error("Unauthorized");
+    }
+
+    console.log("User email:", session.user.email);
+    return session.user.email; // This should be the email we need
+  } catch (error: any) {
+    console.error("Error in getUserSession:", error.message, error.stack);
+    throw error; // Rethrow error to handle upstream
   }
-  return session.user.email;
 }
