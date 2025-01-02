@@ -1,6 +1,6 @@
 # <a name="introduction">GitNote</a>
 
-GitNote a comprehensive learning tool and an efficient progress tracker for developers. Seamlessly capture and organize knowledge, set and track learning goals, and monitor study habits with ease. Developed as part of the JSM Masterclass, GitNote empowers developers to enhance their productivity and knowledge management skills effortlessly.
+GitNote is a comprehensive learning tool and an efficient progress tracker for developers. Seamlessly capture and organize knowledge, set and track learning goals, and monitor study habits with ease. Developed as part of the JSM Masterclass, GitNote empowers developers to enhance their productivity and knowledge management skills effortlessly.
 
 &nbsp;
 
@@ -46,18 +46,22 @@ Ensure you have the following installed:
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 
 **Steps**
+
 1. Clone the Repo:
+
 ```bash
 git clone https://github.com/[username]/GitNote.git
 cd GitNote
 ```
 
 2. Install Dependencies
+
 ```bash
 npm install
 ```
 
 3. Set Up Environment Variables: Create a `.env` file in the project root:
+
 ```env
 DB_URL=""
 DIRECT_URL=""
@@ -78,6 +82,7 @@ NEXT_PUBLIC_GOOGLE_PLACES_KEY=""
 ```
 
 4. Run the Project
+
 ```bash
 npm run dev
 ```
@@ -85,6 +90,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
 
 &nbsp;
+
 ## <a name="todo">✅ To Do List</a>
 
 **Home Page**
