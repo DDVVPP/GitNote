@@ -8,10 +8,10 @@ export default auth(async (req) => {
   // console.log("Auth User:>>>>>>>>", req.auth?.user);
   // console.log("Cookies:>>>>>>>>", req.cookies);
   // console.log("Decoded JWT in middleware:", req.auth);
-  if (req.auth?.user) {
+  if (role) {
     console.log("Auth User:>>>>>>>>", req.auth?.user);
   }
-  if (!req.auth?.user) {
+  if (!role) {
     console.log("User not authenticated. Redirecting to login.");
     return NextResponse.redirect(`${req.nextUrl.origin}/login`);
   }
