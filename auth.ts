@@ -31,6 +31,7 @@ export const {
   pages: {
     newUser: "/sign-up/onboarding",
   },
+  debug: true,
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID!,

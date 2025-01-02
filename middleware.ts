@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
-export default auth(async (req) => {
-  const { role, onboardingStatus } = (await req.auth?.user) || {};
+export default auth((req) => {
+  const { role, onboardingStatus } = req.auth?.user || {};
   const { pathname } = req.nextUrl;
   // console.log("Pathname:>>>>>>>>", pathname);
   // console.log("Auth User:>>>>>>>>", req.auth?.user);
@@ -10,6 +10,10 @@ export default auth(async (req) => {
   // console.log("Decoded JWT in middleware:", req.auth);
   if (role) {
     console.log("Auth User:>>>>>>>>", req.auth?.user);
+  }
+  if (pathname === "/profile") {
+    console.log("in middleware>>>>>>>", req.cookies);
+    return NextResponse.redirect(`${req.nextUrl.origin}/login`);
   }
   if (!role) {
     console.log("User not authenticated. Redirecting to login.");
