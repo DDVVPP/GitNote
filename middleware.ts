@@ -13,7 +13,6 @@ export default auth((req) => {
   }
   if (pathname === "/profile") {
     console.log("in middleware>>>>>>>", req.cookies);
-    return NextResponse.redirect(`${req.nextUrl.origin}/login`);
   }
   if (!role) {
     console.log("User not authenticated. Redirecting to login.");
