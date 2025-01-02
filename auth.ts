@@ -39,8 +39,8 @@ export const {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production", // Secure only in production
         sameSite: "none", // Required for cross-site cookies in secure environments
-        domain:
-          process.env.NODE_ENV === "production" ? ".vercel.app" : undefined,
+        // domain:
+        //   process.env.NODE_ENV === "production" ? ".vercel.app" : undefined,
       },
     },
     csrfToken: {
