@@ -32,28 +32,7 @@ export const {
     newUser: "/sign-up/onboarding",
   },
   debug: true,
-  cookies: {
-    sessionToken: {
-      name: "_Secure-next-auth.session-token",
-      options: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Secure only in production
-        sameSite: "none", // Required for cross-site cookies in secure environments
-        // domain:
-        //   process.env.NODE_ENV === "production" ? ".vercel.app" : undefined,
-      },
-    },
-    csrfToken: {
-      name: "_Secure-next-auth.csrf-token",
-      options: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
-        domain:
-          process.env.NODE_ENV === "production" ? ".vercel.app" : undefined,
-      },
-    },
-  },
+
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID!,
