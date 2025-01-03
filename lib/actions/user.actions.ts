@@ -132,7 +132,7 @@ export async function updateUser(
           socialMedia: true,
         },
       });
-      revalidateTag("userData");
+      // revalidateTag("userData");
       return { user, error: null };
     }
   } catch (error) {
