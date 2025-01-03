@@ -10,7 +10,6 @@ export default auth((req) => {
   }
 
   if (pathname === "/profile" && !role) {
-    console.log(req.auth?.user);
     return NextResponse.redirect(`${req.nextUrl.origin}/login`);
   }
   if (pathname === "/profile/edit" && !req.auth?.user) {
