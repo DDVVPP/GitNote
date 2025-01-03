@@ -5,11 +5,12 @@ import LeftNavbar from "@/components/left-navbar/LeftNavbar";
 import RightSidebar from "@/components/right-sidebar/RightSidebar";
 import { getUser } from "@/lib/actions/user.actions";
 import MobileHeader from "@/components/MobileHeader";
+import UserNotFound from "@/components/shared/UserNotFound";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const user = (await getUser()) as User;
 
-  return (
+  return user ? (
     <div className="flex h-screen flex-col">
       <header className="max-[1220px]:block">
         <MobileHeader user={user} />
@@ -27,6 +28,8 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         </nav>
       </div>
     </div>
+  ) : (
+    <UserNotFound />
   );
 };
 
