@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 export default auth((req) => {
   console.log("req.headers>>>>>>>", req.headers);
+  console.log("req.auth>>>>>>>", req.auth);
   const { role, onboardingStatus } = req.auth?.user || {};
   const { pathname } = req.nextUrl;
 
