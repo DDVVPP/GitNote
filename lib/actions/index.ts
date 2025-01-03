@@ -1,7 +1,6 @@
 "use server";
 
 import * as auth from "@/auth";
-// import getServerSession from "next-auth";
 
 export async function signIn(provider: "github" | "google") {
   return auth.signIn(provider, {
@@ -33,21 +32,8 @@ export async function signOut() {
 }
 
 export async function getUserSession() {
-  console.log("in getUserSession");
-
-  try {
-    const session = await auth.auth(); // Ensure this is resolving properly
-    console.log("session in getUserSession", session);
-
-    if (!session || !session.user?.email) {
-      console.log("no session or email found", session);
-      throw new Error("Unauthorized");
-    }
-
-    console.log("User email:", session.user.email);
-    return session.user.email; // This should be the email we need
-  } catch (error: any) {
-    console.error("Error in getUserSession:", error.message, error.stack);
-    throw error; // Rethrow error to handle upstream
-  }
+  const session = await auth.auth();
+  const email = session && (await session.user?.email);
+  if (!email) throw Error("Unauthorized");
+  return email;
 }

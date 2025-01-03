@@ -31,8 +31,6 @@ export const {
   pages: {
     newUser: "/sign-up/onboarding",
   },
-  debug: true,
-
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID!,
@@ -92,7 +90,6 @@ export const {
       if (trigger === "update") {
         token.onboardingStatus = 5;
       }
-
       return token; // this token will get passed to session
     },
     async session({ session, token }) {
@@ -101,7 +98,6 @@ export const {
         session.user.role = token.role as Role;
         session.user.onboardingStatus = token.onboardingStatus as number;
       }
-
       return session;
     },
   },

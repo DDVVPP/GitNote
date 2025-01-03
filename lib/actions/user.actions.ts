@@ -4,7 +4,7 @@ import { prisma } from "@/db";
 import { User, Goals, Social } from "@prisma/client";
 import bcryptjs from "bcryptjs";
 // eslint-disable-next-line camelcase
-// import { revalidateTag, unstable_cache } from "next/cache";
+import { revalidateTag, unstable_cache } from "next/cache";
 import { getUserSession } from ".";
 
 export async function createUser(data: Partial<User>) {
@@ -27,17 +27,10 @@ export async function createUser(data: Partial<User>) {
   }
   return { error: "An unexpected error occurred while creating user." };
 }
-// async function _getUser(headers: any) {
-//   console.log(
-//     "Headers in getUser:",
-//     headers ? [...headers.entries()] : "No headers provided"
-//   );
-export const getUser = async () => {
-  try {
-    console.log("in getUser");
-    const email = await getUserSession();
-    console.log("Email retrieved:>>>>>>>>>>>>>>", email);
 
+async function _getUser() {
+  try {
+    const email = await getUserSession();
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -52,18 +45,11 @@ export const getUser = async () => {
     console.error("Error finding user:", error);
     return { error: "User not found!" };
   }
-};
-// export const getUser = unstable_cache(
-//   (headers) => _getUser(headers),
-//   ["getUser"],
-//   {
-//     tags: ["userData"],
-//   }
-// );
+}
 
-// export const getUser = unstable_cache(_getUser, ["getUser"], {
-//   tags: ["userData"],
-// });
+export const getUser = unstable_cache(_getUser, ["getUser"], {
+  tags: ["userData"],
+});
 
 export async function updateUser(
   data: Partial<User & { goals?: any } & { socialMedia?: any }>
@@ -132,7 +118,7 @@ export async function updateUser(
           socialMedia: true,
         },
       });
-      // revalidateTag("userData");
+      revalidateTag("userData");
       return { user, error: null };
     }
   } catch (error) {

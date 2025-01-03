@@ -2,9 +2,6 @@ import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
 export default auth((req) => {
-  console.log("Cookies in middleware:", req.cookies);
-  console.log("Headers in middleware:", req.headers);
-  console.log("Auth in middleware:", req.auth?.user);
   const { role, onboardingStatus } = req.auth?.user || {};
   const { pathname } = req.nextUrl;
 
@@ -13,7 +10,7 @@ export default auth((req) => {
   }
 
   if (pathname === "/profile" && !role) {
-    console.log("req.auth?.user>>>>", req.auth?.user);
+    console.log(req.auth?.user);
     return NextResponse.redirect(`${req.nextUrl.origin}/login`);
   }
   if (pathname === "/profile/edit" && !req.auth?.user) {

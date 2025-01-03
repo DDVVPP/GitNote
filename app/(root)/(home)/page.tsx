@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-// import { headers } from "next/headers";
+
 import { getUser } from "@/lib/actions/user.actions";
 import { getAllPosts } from "@/lib/actions/post.actions";
 
@@ -14,10 +14,6 @@ export default async function Home({
 }: {
   searchParams: SearchParams;
 }) {
-  // const reqHeaders = headers();
-  // const headersObject = Object.fromEntries(reqHeaders.entries());
-  // console.log("Headers in ProfileWrapper as Object:", headersObject);
-
   const user = (await getUser()) as User;
   if (!user) return <UserNotFound />;
 
