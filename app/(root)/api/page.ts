@@ -1,5 +1,6 @@
 "use server";
-export default function handler(req: any, res: any) {
+
+export default async function handler(req: any, res: any) {
   console.log("Headers:", req.headers);
   console.log("Cookies:", req.cookies);
 
