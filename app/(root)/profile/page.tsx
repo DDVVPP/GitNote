@@ -1,5 +1,4 @@
 import React from "react";
-// import { headers } from "next/headers";
 
 import { User } from "@prisma/client";
 import { getUser } from "@/lib/actions/user.actions";

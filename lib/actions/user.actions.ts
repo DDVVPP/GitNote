@@ -32,7 +32,7 @@ export async function createUser(data: Partial<User>) {
 //     "Headers in getUser:",
 //     headers ? [...headers.entries()] : "No headers provided"
 //   );
-async function _getUser() {
+export const getUser = async () => {
   try {
     console.log("in getUser");
     const email = await getUserSession();
@@ -52,7 +52,7 @@ async function _getUser() {
     console.error("Error finding user:", error);
     return { error: "User not found!" };
   }
-}
+};
 // export const getUser = unstable_cache(
 //   (headers) => _getUser(headers),
 //   ["getUser"],
@@ -61,9 +61,9 @@ async function _getUser() {
 //   }
 // );
 
-export const getUser = unstable_cache(_getUser, ["getUser"], {
-  tags: ["userData"],
-});
+// export const getUser = unstable_cache(_getUser, ["getUser"], {
+//   tags: ["userData"],
+// });
 
 export async function updateUser(
   data: Partial<User & { goals?: any } & { socialMedia?: any }>
