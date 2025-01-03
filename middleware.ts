@@ -2,8 +2,9 @@ import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
 export default auth((req) => {
-  console.log("req.headers>>>>>>>", req.headers);
-  console.log("req.auth>>>>>>>", req.auth);
+  console.log("Cookies in middleware:", req.cookies);
+  console.log("Headers in middleware:", req.headers);
+  console.log("Auth in middleware:", req.auth?.user);
   const { role, onboardingStatus } = req.auth?.user || {};
   const { pathname } = req.nextUrl;
 

@@ -8,7 +8,7 @@ import UserNotFound from "@/components/shared/UserNotFound";
 
 const ProfileWrapper = async () => {
   const user = (await getUser()) as User;
-  if (!user) console.log("user not found...");
+  if (!user) console.log("in Profile Wrapper', user not found...");
   if (!user) return <UserNotFound />;
   console.log("USER in server component", user.id);
 
