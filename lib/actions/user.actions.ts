@@ -4,7 +4,7 @@ import { prisma } from "@/db";
 import { User, Goals, Social } from "@prisma/client";
 import bcryptjs from "bcryptjs";
 // eslint-disable-next-line camelcase
-import { revalidateTag, unstable_cache } from "next/cache";
+// import { revalidateTag, unstable_cache } from "next/cache";
 import { getUserSession } from ".";
 
 export async function createUser(data: Partial<User>) {
