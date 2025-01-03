@@ -64,29 +64,6 @@ export async function getUser() {
   }
 }
 
-// async function _getUser() {
-//   try {
-//     const email = await getUserSession();
-//     const user = await prisma.user.findUnique({
-//       where: {
-//         email,
-//       },
-//       include: {
-//         goals: true,
-//         socialMedia: true,
-//       },
-//     });
-//     return user;
-//   } catch (error) {
-//     console.error("Error finding user:", error);
-//     return { error: "User not found!" };
-//   }
-// }
-
-// export const getUser = unstable_cache(_getUser, ["getUser"], {
-//   tags: ["userData"],
-// });
-
 export async function updateUser(
   data: Partial<User & { goals?: any } & { socialMedia?: any }>
 ) {
