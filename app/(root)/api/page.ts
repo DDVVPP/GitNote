@@ -1,4 +1,5 @@
 "use server";
+export const dynamic = "force-dynamic";
 
 export default async function handler(req: any, res: any) {
   console.log("Headers:", req.headers);
