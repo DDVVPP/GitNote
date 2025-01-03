@@ -7,14 +7,15 @@ import UserNotFound from "@/components/shared/UserNotFound";
 
 const OnboardingWrapper = async () => {
   const user = (await getUser()) as User;
-  if (!user) return <UserNotFound />;
 
-  return (
+  return user ? (
     <div className="mx-6">
       <Suspense>
         <Onboarding user={user} />
       </Suspense>
     </div>
+  ) : (
+    <UserNotFound />
   );
 };
 

@@ -5,9 +5,8 @@ import { User } from "@prisma/client";
 
 const EditProfileWrapper = async () => {
   const user = (await getUser()) as User;
-  if (!user) return <UserNotFound />;
 
-  return <EditProfile user={user} />;
+  return user ? <EditProfile user={user} /> : <UserNotFound />;
 };
 
 export default EditProfileWrapper;

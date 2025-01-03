@@ -9,9 +9,8 @@ import UserNotFound from "@/components/shared/UserNotFound";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const user = (await getUser()) as User;
-  if (!user) return <UserNotFound />;
 
-  return (
+  return user ? (
     <div className="flex h-screen flex-col">
       <header className="max-[1220px]:block">
         <MobileHeader user={user} />
@@ -29,6 +28,8 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         </nav>
       </div>
     </div>
+  ) : (
+    <UserNotFound />
   );
 };
 
