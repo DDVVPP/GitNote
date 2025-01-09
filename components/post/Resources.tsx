@@ -1,9 +1,10 @@
-import React from "react";
-import { X } from "lucide-react";
+import React, { useState } from "react";
 
 import { Button } from "../shared";
 import ResourceFieldsMobile from "./ResourceFieldsMobile";
 import useInputBlurHandler from "@/lib/utils/useInputBlurHandler";
+import ResourceFields from "./ResourcesFields";
+import useMediaQuery from "@/lib/utils/useMediaQuery";
 
 const Resources = ({
   useFieldArray,
@@ -20,9 +21,11 @@ const Resources = ({
     name: "resources",
     control,
   });
+  const [isMobile, setIsMobile] = useState(false);
 
   useInputBlurHandler("label");
   useInputBlurHandler("link");
+  useMediaQuery(setIsMobile);
 
   return (
     <section>
@@ -34,55 +37,25 @@ const Resources = ({
         {fields.map((field: { id: number }, index: number) => {
           return (
             <div key={field.id} className="mb-2 flex gap-x-2">
-              <div className="max-xs-b:hidden flex w-full gap-x-2">
-                <div className="flex w-full flex-col">
-                  <input
-                    id="label"
-                    type="text"
-                    className="resources-input-label"
-                    placeholder="Label"
-                    {...register(`resources.${index}.label`)}
+              {isMobile ? (
+                <div className="flex w-full flex-col gap-y-2">
+                  <ResourceFieldsMobile
+                    errors={errors}
+                    index={index}
+                    register={register}
+                    remove={remove}
                   />
-
-                  {errors.resources &&
-                    errors.resources[index]?.label?.message && (
-                      <span className="error-message">
-                        {errors.resources[index].label.message}
-                      </span>
-                    )}
                 </div>
-                <div className="flex w-full flex-col">
-                  <input
-                    id="link"
-                    type="text"
-                    className="resources-input-link"
-                    placeholder="Resource Link"
-                    {...register(`resources.${index}.link`)}
+              ) : (
+                <div className="flex w-full gap-x-2">
+                  <ResourceFields
+                    errors={errors}
+                    index={index}
+                    register={register}
+                    remove={remove}
                   />
-                  {errors.resources &&
-                    errors.resources[index]?.link?.message && (
-                      <span className="error-message">
-                        {errors.resources[index].link.message}
-                      </span>
-                    )}
                 </div>
-                <button
-                  type="button"
-                  className="resources-x-button"
-                  onClick={() => remove(index)}
-                >
-                  <X className="resources-x-icon" size={16} />
-                </button>
-              </div>
-
-              <div className="xs-b:hidden flex w-full flex-col gap-y-2">
-                <ResourceFieldsMobile
-                  errors={errors}
-                  index={index}
-                  register={register}
-                  remove={remove}
-                />
-              </div>
+              )}
             </div>
           );
         })}
