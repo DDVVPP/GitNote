@@ -125,7 +125,7 @@ export async function getPostById(id: string) {
         resources: true,
       },
     });
-
+    console.log("resources in getPost", post?.resources);
     return post;
   } catch (error) {
     console.error("Error returning posts:", error);
@@ -137,22 +137,38 @@ export async function updatePost(
   data: Partial<Post & { resources?: any }>,
   postId: number
 ) {
-  if (data && data.resources) {
-    data.resources = {
-      upsert: data.resources.map((resource: Resource) => ({
+  try {
+    if (data && data.resources) {
+      prisma.resource.deleteMany({
         where: {
-          id: resource.id || -1,
+          postId,
+          NOT: {
+            id: {
+              in: data.resources.map((resource: Resource) => resource.id),
+            },
+          },
         },
-        update: {
-          label: resource.label,
-          link: resource.link,
-        },
-        create: {
-          label: resource.label,
-          link: resource.link,
-        },
-      })),
-    };
+      });
+
+      data.resources = {
+        upsert: data.resources.map((resource: Resource) => ({
+          where: {
+            id: resource.id || -1, // -1 is to create a new resource
+          },
+          update: {
+            label: resource.label,
+            link: resource.link,
+          },
+          create: {
+            label: resource.label,
+            link: resource.link,
+          },
+        })),
+      };
+    }
+  } catch (error) {
+    console.error("Error updating resource:", error);
+    return { error: "An unexpected error occurred while updating resource." };
   }
   try {
     const email = await getUserSession();
