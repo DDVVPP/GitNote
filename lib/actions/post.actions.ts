@@ -139,18 +139,28 @@ export async function updatePost(
 ) {
   try {
     if (data && data.resources) {
-      prisma.resource.deleteMany({
+      const resourceIds = data.resources.reduce(
+        (ids: number[], resource: Resource) => {
+          if (resource.id) {
+            ids.push(resource.id);
+          }
+          return ids;
+        },
+        []
+      );
+      // Delete resources not included in the payload
+      await prisma.resource.deleteMany({
         where: {
           postId,
           NOT: {
             id: {
-              in: data.resources.map((resource: Resource) => resource.id),
+              in: resourceIds,
             },
           },
         },
       });
 
-      data.resources = {
+      const upsertResources = {
         upsert: data.resources.map((resource: Resource) => ({
           where: {
             id: resource.id || -1, // -1 is to create a new resource
@@ -165,11 +175,15 @@ export async function updatePost(
           },
         })),
       };
+
+      data.resources = upsertResources;
     }
   } catch (error) {
     console.error("Error updating resource:", error);
     return { error: "An unexpected error occurred while updating resource." };
   }
+
+  // Update post with resource updates
   try {
     const email = await getUserSession();
     if (data) {
