@@ -127,7 +127,7 @@ export async function _getPostById(id: string) {
         resources: true,
       },
     });
-    console.log("resources in getPost", post?.resources);
+
     return post;
   } catch (error) {
     console.error("Error returning posts:", error);
