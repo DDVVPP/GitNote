@@ -5,6 +5,8 @@ import { prisma } from "@/db";
 import { CreateType, Resource, Prisma, Post, User } from "@prisma/client";
 import { IPostSchema } from "../validations/PostSchema";
 import { getUserSession } from ".";
+// eslint-disable-next-line camelcase
+import { unstable_cache, revalidateTag } from "next/cache";
 
 export async function createPost(data: IPostSchema) {
   try {
@@ -115,7 +117,7 @@ export async function getAllPosts({
   }
 }
 
-export async function getPostById(id: string) {
+export async function _getPostById(id: string) {
   try {
     const post = await prisma.post.findUnique({
       where: {
@@ -132,6 +134,10 @@ export async function getPostById(id: string) {
     return { error: "An unexpected error occurred while returning posts." };
   }
 }
+
+export const getPostById = unstable_cache(_getPostById, ["_getPostById"], {
+  tags: ["getPostById"],
+});
 
 export async function updatePost(
   data: Partial<Post & { resources?: any }>,
@@ -201,6 +207,7 @@ export async function updatePost(
         } as any, // TODO: fix this any type problem
       });
 
+      revalidateTag("getPostById");
       return { post, error: null };
     }
   } catch (error) {
