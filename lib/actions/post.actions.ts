@@ -139,52 +139,46 @@ export const getPostById = unstable_cache(_getPostById, ["_getPostById"], {
   tags: ["getPostById"],
 });
 
-const updateResources = async (
-  data: Partial<Post & { resources?: any }>,
-  postId: number
-) => {
+const updateResources = async (resources: Resource[], postId: number) => {
   try {
-    if (data && data.resources) {
-      const resourceIds = data.resources.reduce(
-        (ids: number[], resource: Resource) => {
-          if (resource.id) {
-            ids.push(resource.id);
-          }
-          return ids;
+    const resourceIds = resources.reduce(
+      (ids: number[], resource: Resource) => {
+        if (resource.id) {
+          ids.push(resource.id);
+        }
+        return ids;
+      },
+      []
+    );
+    // Delete resources not included in the payload
+    await prisma.resource.deleteMany({
+      where: {
+        postId,
+        NOT: {
+          id: {
+            in: resourceIds,
+          },
         },
-        []
-      );
-      // Delete resources not included in the payload
-      await prisma.resource.deleteMany({
+      },
+    });
+
+    const upsertResources = {
+      upsert: resources.map((resource: Resource) => ({
         where: {
-          postId,
-          NOT: {
-            id: {
-              in: resourceIds,
-            },
-          },
+          id: resource.id || -1, // -1 is to create a new resource
         },
-      });
+        update: {
+          label: resource.label,
+          link: resource.link,
+        },
+        create: {
+          label: resource.label,
+          link: resource.link,
+        },
+      })),
+    };
 
-      const upsertResources = {
-        upsert: data.resources.map((resource: Resource) => ({
-          where: {
-            id: resource.id || -1, // -1 is to create a new resource
-          },
-          update: {
-            label: resource.label,
-            link: resource.link,
-          },
-          create: {
-            label: resource.label,
-            link: resource.link,
-          },
-        })),
-      };
-
-      data.resources = upsertResources;
-      return data.resources;
-    }
+    return upsertResources;
   } catch (error) {
     console.error("Error updating resource:", error);
     return { error: "An unexpected error occurred while updating resource." };
@@ -195,18 +189,21 @@ export async function updatePost(
   data: Partial<Post & { resources?: any }>,
   postId: number
 ) {
-  await updateResources(data, postId);
-
-  // Update post with post updates including any resource updates
   try {
     const email = await getUserSession();
+
     if (data) {
+      const upsertedResources = await updateResources(data.resources, postId);
+
+      const { resources, ...rest } = data;
+
       const post = await prisma.post.update({
         where: {
           id: postId,
         },
         data: {
-          ...data,
+          ...rest,
+          ...(upsertedResources && { resources: upsertedResources }),
           user: {
             connect: {
               email,
