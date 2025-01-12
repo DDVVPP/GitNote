@@ -139,10 +139,10 @@ export const getPostById = unstable_cache(_getPostById, ["_getPostById"], {
   tags: ["getPostById"],
 });
 
-export async function updatePost(
+const updateResources = async (
   data: Partial<Post & { resources?: any }>,
   postId: number
-) {
+) => {
   try {
     if (data && data.resources) {
       const resourceIds = data.resources.reduce(
@@ -183,13 +183,21 @@ export async function updatePost(
       };
 
       data.resources = upsertResources;
+      return data.resources;
     }
   } catch (error) {
     console.error("Error updating resource:", error);
     return { error: "An unexpected error occurred while updating resource." };
   }
+};
 
-  // Update post with resource updates
+export async function updatePost(
+  data: Partial<Post & { resources?: any }>,
+  postId: number
+) {
+  await updateResources(data, postId);
+
+  // Update post with post updates including any resource updates
   try {
     const email = await getUserSession();
     if (data) {
@@ -214,7 +222,6 @@ export async function updatePost(
     console.error("Error updating post:", error);
     return { error: "An unexpected error occurred while updating post." };
   }
-  return { error: "An unexpected error occurred while updating post." };
 }
 
 export async function findPosts(searchTerm: string | CreateType) {
