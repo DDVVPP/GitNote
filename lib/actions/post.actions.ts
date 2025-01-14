@@ -5,6 +5,8 @@ import { prisma } from "@/db";
 import { CreateType, Resource, Prisma, Post, User } from "@prisma/client";
 import { IPostSchema } from "../validations/PostSchema";
 import { getUserSession } from ".";
+// eslint-disable-next-line camelcase
+import { unstable_cache, revalidateTag } from "next/cache";
 
 export async function createPost(data: IPostSchema) {
   try {
@@ -115,7 +117,7 @@ export async function getAllPosts({
   }
 }
 
-export async function getPostById(id: string) {
+export async function _getPostById(id: string) {
   try {
     const post = await prisma.post.findUnique({
       where: {
@@ -133,15 +135,37 @@ export async function getPostById(id: string) {
   }
 }
 
-export async function updatePost(
-  data: Partial<Post & { resources?: any }>,
-  postId: number
-) {
-  if (data && data.resources) {
-    data.resources = {
-      upsert: data.resources.map((resource: Resource) => ({
+export const getPostById = unstable_cache(_getPostById, ["_getPostById"], {
+  tags: ["getPostById"],
+});
+
+const updateResources = async (resources: Resource[], postId: number) => {
+  try {
+    const resourceIds = resources.reduce(
+      (ids: number[], resource: Resource) => {
+        if (resource.id) {
+          ids.push(resource.id);
+        }
+        return ids;
+      },
+      []
+    );
+    // Delete resources not included in the payload
+    await prisma.resource.deleteMany({
+      where: {
+        postId,
+        NOT: {
+          id: {
+            in: resourceIds,
+          },
+        },
+      },
+    });
+
+    const upsertResources = {
+      upsert: resources.map((resource: Resource) => ({
         where: {
-          id: resource.id || -1,
+          id: resource.id || -1, // -1 is to create a new resource
         },
         update: {
           label: resource.label,
@@ -153,16 +177,33 @@ export async function updatePost(
         },
       })),
     };
+
+    return upsertResources;
+  } catch (error) {
+    console.error("Error updating resource:", error);
+    return { error: "An unexpected error occurred while updating resource." };
   }
+};
+
+export async function updatePost(
+  data: Partial<Post & { resources?: any }>,
+  postId: number
+) {
   try {
     const email = await getUserSession();
+
     if (data) {
+      const upsertedResources = await updateResources(data.resources, postId);
+
+      const { resources, ...rest } = data;
+
       const post = await prisma.post.update({
         where: {
           id: postId,
         },
         data: {
-          ...data,
+          ...rest,
+          ...(upsertedResources && { resources: upsertedResources }),
           user: {
             connect: {
               email,
@@ -171,13 +212,13 @@ export async function updatePost(
         } as any, // TODO: fix this any type problem
       });
 
+      revalidateTag("getPostById");
       return { post, error: null };
     }
   } catch (error) {
     console.error("Error updating post:", error);
     return { error: "An unexpected error occurred while updating post." };
   }
-  return { error: "An unexpected error occurred while updating post." };
 }
 
 export async function findPosts(searchTerm: string | CreateType) {

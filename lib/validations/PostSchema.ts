@@ -22,7 +22,7 @@ export const PostSchema = z
         id: z.number().optional(),
         label: z
           .string()
-          .min(1, { message: "Label must contain at least 3 character" })
+          .min(1, { message: "Label must contain at least 3 characters" })
           .nullable(),
         link: z
           .string()

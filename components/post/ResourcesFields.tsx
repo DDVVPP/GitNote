@@ -14,7 +14,7 @@ type ResourceFieldType = {
   remove: (index: number) => void;
 };
 
-const ResourceFieldsMobile = ({
+const ResourceFields = ({
   errors,
   index,
   register,
@@ -25,30 +25,20 @@ const ResourceFieldsMobile = ({
 
   return (
     <>
-      <div className="flex gap-x-2">
-        <div className="flex w-full flex-col">
-          <input
-            id="label"
-            type="text"
-            className="resources-input-label"
-            placeholder="Label"
-            {...register(`resources.${index}.label`)}
-          />
+      <div className="flex w-full flex-col">
+        <input
+          id="label"
+          type="text"
+          className="resources-input-label"
+          placeholder="Label"
+          {...register(`resources.${index}.label`)}
+        />
 
-          {errors.resources && errors.resources[index]?.label?.message && (
-            <span className="error-message">
-              {errors.resources[index].label.message}
-            </span>
-          )}
-        </div>
-
-        <button
-          type="button"
-          className="resources-x-button"
-          onClick={() => remove(index)}
-        >
-          <X className="resources-x-icon" size={16} />
-        </button>
+        {errors.resources && errors.resources[index]?.label?.message && (
+          <span className="error-message">
+            {errors.resources[index].label.message}
+          </span>
+        )}
       </div>
 
       <div className="flex w-full flex-col">
@@ -65,8 +55,16 @@ const ResourceFieldsMobile = ({
           </span>
         )}
       </div>
+
+      <button
+        type="button"
+        className="resources-x-button"
+        onClick={() => remove(index)}
+      >
+        <X className="resources-x-icon" size={16} />
+      </button>
     </>
   );
 };
 
-export default ResourceFieldsMobile;
+export default ResourceFields;
