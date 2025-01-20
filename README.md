@@ -95,52 +95,52 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 **Home Page**
 
-- [ ] Integrate contributions grid (react-calendar-heatmap)
+🔳 Integrate contributions grid (react-calendar-heatmap)
 
 **Profile Page**
 
-- [ ] Integrate contributions grid (react-calendar-heatmap)
+🔳 Integrate contributions grid (react-calendar-heatmap)
 
 **Edit Profile Page**
 
-- [ ] 'Enter' keyboard event should not trigger form submit
-- [x] Add a 'Cancel' button
-- [ ] Disable 'Update Profile' button if no updates have been made to the inputs
+🔳 'Enter' keyboard event should not trigger form submit\
+✅ Add a 'Cancel' button\
+✅ Disable 'Update Profile' button if no updates have been made to the inputs
 
 **Left Sidebar**
 
-- [ ] Display posts in the 'Posts' section
+🔳 Display posts in the 'Posts' section
 
 **Right Sidebar**
 
-- [ ] Post Details: Determine what indicates a related post, and show related posts
-- [ ] Profile Page: If there are no social media links - move button under section and update text to 'Add social links'
-- [ ] Update social links modal: If there are no updates made to the modal inputs, disable the 'Update Links' button
-- [ ] Create Post: Either remove 'Tags' section, or disable them
-- [ ] Fix red border around profile image
+🔳 Post Details: Determine what indicates a related post, and show related posts\
+🔳 Profile Page: If there are no social media links - move button under section and update text to 'Add social links'\
+🔳 Update social links modal: If there are no updates made to the modal inputs, disable the 'Update Links' button\
+🔳 Create Post: Either remove 'Tags' section, or disable them\
+🔳 Fix red border around profile image\
 
 **Post Details Page**
 
-- [x] Remove 'Resources & Links' section if there is no content
+✅ Remove 'Resources & Links' section if there is no content
 
 **Create / Update Post Pages**
 
-- [ ] Refactor these two components into one
-- [x] Fix padding in Tag input when there are two words
-- [x] Visually indicate which fields are required and/or optional
-- [x] Figure out focus ring order / Fix onEnter key press
-- [x] 'Add checkmark' button should be disabled if the input hasn't yet been filled
-- [x] Add a 'Cancel' button
-- [x] Disable 'Update Post' button if no updates have been made to the inputs
+🔳 Refactor these two components into one\
+✅ Fix padding in Tag input when there are two words\
+✅ Visually indicate which fields are required and/or optional\
+✅ Figure out focus ring order / Fix onEnter key press\
+✅ 'Add checkmark' button should be disabled if the input hasn't yet been filled\
+✅ Add a 'Cancel' button\
+✅ Disable 'Update Post' button if no updates have been made to the inputs
 
 **Miscellaneous Updates**
 
-- [ ] Add mobile responsiveness
-- [x] Add hover states to all clickable items
-- [x] Add loading.tsx files for each route
-- [ ] Add loading spinner on Login button
-- [ ] Add Skeleton loaders
-- [x] Create a seed file
-- [x] Add a Demo User
-- [x] Deploy site
-- [ ] Once a new user is onboarded - create main route with instructions & steps of how to begin - create UI for routes with no information in them
+🔳 Add mobile responsiveness\
+✅ Add hover states to all clickable items\
+✅ Add loading.tsx files for each route\
+🔳 Add loading spinner on Login button\
+🔳 Add Skeleton loaders\
+✅ Create a seed file\
+✅ Add a Demo User\
+✅ Deploy site\
+🔳 Once a new user is onboarded - create main route with instructions & steps of how to begin - create UI for routes with no information in them
