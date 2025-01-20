@@ -46,7 +46,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
   const {
     watch,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isDirty, defaultValues },
   } = useFormHelpers;
   const formData = watch();
 
@@ -82,7 +82,15 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
         </section>
 
         <div className="flex gap-4 max-md:flex-col">
-          <Button color="blue" type="submit" mobileClass="max-md:order-1">
+          <Button
+            color="blue"
+            type="submit"
+            mobileClass="max-md:order-1"
+            disabled={
+              defaultValues?.techStack?.length === formData.techStack.length &&
+              !isDirty
+            }
+          >
             {isSubmitting ? (
               <Loader2 className="animate-spin" />
             ) : (
