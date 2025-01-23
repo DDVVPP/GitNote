@@ -83,6 +83,7 @@ const updateGoals = async (goals: Goals[]) => {
         },
       },
     });
+
     const upsertGoals = {
       upsert: goals.map((goal: Goals) => ({
         where: {
@@ -98,7 +99,6 @@ const updateGoals = async (goals: Goals[]) => {
         },
       })),
     };
-    console.log("upsertGoals", upsertGoals);
 
     return upsertGoals;
   } catch (error) {
@@ -118,6 +118,14 @@ const updateSocialMedia = async (socialMedia: any[]) => {
     const emptyUsernames = socialMedia.filter((social: Social) => {
       return social.username === "";
     });
+    // Delete all socials with empty usernames
+    await prisma.social.deleteMany({
+      where: {
+        id: {
+          in: emptyUsernames.map((socialMedia: Social) => socialMedia.id),
+        },
+      },
+    });
 
     const upsertSocialMedia = {
       upsert: filteredData.map((socialMedia: Social) => ({
@@ -134,10 +142,6 @@ const updateSocialMedia = async (socialMedia: any[]) => {
           type: socialMedia.type,
           link: socialMedia.link,
         },
-      })),
-
-      deleteMany: emptyUsernames.map((socialMedia: Social) => ({
-        id: socialMedia.id,
       })),
     };
 
