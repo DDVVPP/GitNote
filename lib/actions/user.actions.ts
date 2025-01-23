@@ -65,7 +65,6 @@ export async function getUser() {
 }
 
 const updateGoals = async (goals: Goals[]) => {
-  console.log("goals in BE", goals);
   try {
     const goalIds = goals.reduce((ids: number[], goal: Goals) => {
       if (goal.id) {
