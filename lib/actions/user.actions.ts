@@ -65,6 +65,7 @@ export async function getUser() {
 }
 
 const updateGoals = async (goals: Goals[]) => {
+  console.log("goals in BE", goals);
   try {
     const goalIds = goals.reduce((ids: number[], goal: Goals) => {
       if (goal.id) {
@@ -82,7 +83,6 @@ const updateGoals = async (goals: Goals[]) => {
         },
       },
     });
-  } catch (error) {
     const upsertGoals = {
       upsert: goals.map((goal: Goals) => ({
         where: {
@@ -98,8 +98,12 @@ const updateGoals = async (goals: Goals[]) => {
         },
       })),
     };
+    console.log("upsertGoals", upsertGoals);
 
     return upsertGoals;
+  } catch (error) {
+    console.error("Error updating goals:", error);
+    return { error: "An unexpected error occurred while updating goals." };
   }
 };
 
@@ -153,8 +157,9 @@ export async function updateUser(
     const email = await getUserSession();
 
     if (data) {
-      const upsertedGoals = await updateGoals(data.goals);
-      const upsertedSocialMedia = await updateSocialMedia(data.socialMedia);
+      const upsertedGoals = data.goals && (await updateGoals(data.goals));
+      const upsertedSocialMedia =
+        data.socialMedia && (await updateSocialMedia(data.socialMedia));
 
       const { goals, socialMedia, ...rest } = data;
 
