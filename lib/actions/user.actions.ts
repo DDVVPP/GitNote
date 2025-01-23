@@ -64,12 +64,27 @@ export async function getUser() {
   }
 }
 
-export async function updateUser(
-  data: Partial<User & { goals?: any } & { socialMedia?: any }>
-) {
-  if (data && data.goals) {
-    data.goals = {
-      upsert: data.goals.map((goal: Goals) => ({
+const updateGoals = async (goals: Goals[]) => {
+  try {
+    const goalIds = goals.reduce((ids: number[], goal: Goals) => {
+      if (goal.id) {
+        ids.push(goal.id);
+      }
+      return ids;
+    }, []);
+    // Delete goals not included in the payload
+    await prisma.goals.deleteMany({
+      where: {
+        NOT: {
+          id: {
+            in: goalIds,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    const upsertGoals = {
+      upsert: goals.map((goal: Goals) => ({
         where: {
           id: goal.id || -1,
         },
@@ -83,20 +98,24 @@ export async function updateUser(
         },
       })),
     };
-  }
 
-  if (data && data.socialMedia) {
+    return upsertGoals;
+  }
+};
+
+const updateSocialMedia = async (socialMedia: any[]) => {
+  try {
     const filteredData =
-      data.socialMedia &&
-      data.socialMedia.filter((social: { username: string; type: string }) => {
+      socialMedia &&
+      socialMedia.filter((social: { username: string; type: string }) => {
         return social.username.length > 0 && social.type.length > 0;
       });
 
-    const emptyUsernames = data.socialMedia.filter((social: Social) => {
+    const emptyUsernames = socialMedia.filter((social: Social) => {
       return social.username === "";
     });
 
-    data.socialMedia = {
+    const upsertSocialMedia = {
       upsert: filteredData.map((socialMedia: Social) => ({
         where: {
           id: socialMedia.id || -1,
@@ -112,25 +131,48 @@ export async function updateUser(
           link: socialMedia.link,
         },
       })),
+
       deleteMany: emptyUsernames.map((socialMedia: Social) => ({
         id: socialMedia.id,
       })),
     };
-  }
 
+    return upsertSocialMedia;
+  } catch (error) {
+    console.error("Error updating social media:", error);
+    return {
+      error: "An unexpected error occurred while updating social media.",
+    };
+  }
+};
+
+export async function updateUser(
+  data: Partial<User & { goals?: any } & { socialMedia?: any }>
+) {
   try {
     const email = await getUserSession();
+
     if (data) {
+      const upsertedGoals = await updateGoals(data.goals);
+      const upsertedSocialMedia = await updateSocialMedia(data.socialMedia);
+
+      const { goals, socialMedia, ...rest } = data;
+
       const user = await prisma.user.update({
         where: {
           email,
         },
-        data,
+        data: {
+          ...rest,
+          ...(upsertedGoals && { goals: upsertedGoals }),
+          ...(upsertedSocialMedia && { socialMedia: upsertedSocialMedia }),
+        },
         include: {
           goals: true,
           socialMedia: true,
         },
       });
+
       revalidateTag("userData");
       return { user, error: null };
     }
