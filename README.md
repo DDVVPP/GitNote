@@ -104,7 +104,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 **Edit Profile Page**
 
 🔳 'Enter' keyboard event should not trigger form submit\
-🔳 Successfully Delete a 'Learning Goal'\
+✅ Delete a 'Learning Goal'\
 ✅ Add a 'Cancel' button\
 ✅ Disable 'Update Profile' button if no updates have been made to the inputs
 
