@@ -23,15 +23,14 @@ import { socialMediaIconList } from "@/lib/constants/socialMediaList";
 import Button from "../shared/ui/Button";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
 import useEscapeHandler from "@/lib/utils/useEscapeHandler";
-
+import { useSocialMediaModalStateContext } from "@/lib/context/SocialMediaModalState";
 const SocialMediaModal = ({
   user,
-  onClose,
 }: {
   user: User & { socialMedia?: Social[] };
-  onClose: () => void;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const { onClose } = useSocialMediaModalStateContext();
   useOutsideClickHandler(ref, onClose);
   useEscapeHandler(onClose);
 
@@ -59,7 +58,7 @@ const SocialMediaModal = ({
   });
 
   const {
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isDirty },
     control,
     trigger,
     handleSubmit,
@@ -91,6 +90,7 @@ const SocialMediaModal = ({
     <div
       className="bg-black-800 flex rounded-md p-12 max-md:size-[90%] max-md:px-4 max-md:py-8"
       ref={ref}
+      onMouseDown={(e) => e.stopPropagation()}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col">
         <div className="text-white-100 mb-4 flex items-center justify-between">
@@ -175,7 +175,7 @@ const SocialMediaModal = ({
         </section>
 
         <div className="mt-6 max-md:mt-0">
-          <Button color="blue">
+          <Button color="blue" disabled={!isDirty}>
             {isSubmitting ? (
               <Loader2 className="animate-spin" />
             ) : (
