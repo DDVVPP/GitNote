@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
 
 import Button from "../shared/ui/Button";
 import SocialMediaModal from "./SocialMediaModal";
 import { User, Social } from "@prisma/client";
 import SocialMediaLinks from "./SocialMediaLinks";
+import { useSocialMediaModalStateContext } from "@/lib/context/SocialMediaModalState";
 
 const SidebarSocialMedia = ({
   user,
 }: {
   user: User & { socialMedia?: Social[] };
 }) => {
-  const [open, setOpen] = useState(false);
+  const { isOpen, setIsOpen } = useSocialMediaModalStateContext();
 
   return (
     <div className="flex flex-col gap-4">
@@ -19,7 +20,7 @@ const SidebarSocialMedia = ({
         type="button"
         icon="plus"
         color="gray"
-        onClick={() => setOpen(true)}
+        onClick={() => setIsOpen(true)}
       >
         Update social link
       </Button>
@@ -29,7 +30,7 @@ const SidebarSocialMedia = ({
 
       <SocialMediaLinks socialMedia={user.socialMedia} />
 
-      {open &&
+      {isOpen &&
         createPortal(
           <div
             aria-labelledby="social-media-modal"
@@ -37,7 +38,7 @@ const SidebarSocialMedia = ({
             aria-modal="true"
             className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
           >
-            <SocialMediaModal user={user} onClose={() => setOpen(false)} />
+            <SocialMediaModal user={user} />
           </div>,
           document.body
         )}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
 import { Loader2 } from "lucide-react";
 
@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { updateUser } from "@/lib/actions/user.actions";
 import { Goals, User } from "@prisma/client";
 import { IProfileSchema, ProfileSchema } from "@/lib/validations/UserSchema";
+import { useSocialMediaModalStateContext } from "@/lib/context/SocialMediaModalState";
 
 import SocialMediaModal from "../right-sidebar/SocialMediaModal";
 import BasicInformation from "./BasicInformation";
@@ -21,7 +22,8 @@ import Availability from "./Availability";
 import Button from "../shared/ui/Button";
 
 const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
-  const [open, setOpen] = useState(false);
+  const { isOpen, setIsOpen } = useSocialMediaModalStateContext();
+
   const router = useRouter();
   const useFormHelpers = useForm<IProfileSchema>({
     defaultValues: {
@@ -111,7 +113,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             type="button"
             icon="plus"
             color="gray"
-            onClick={() => setOpen(true)}
+            onClick={() => setIsOpen(true)}
             mobileClass="md:hidden max-md:order-2"
           >
             Update social links
@@ -119,7 +121,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
         </div>
       </div>
 
-      {open &&
+      {isOpen &&
         createPortal(
           <div
             aria-labelledby="social-media-modal"
@@ -127,7 +129,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             aria-modal="true"
             className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
           >
-            <SocialMediaModal user={user} onClose={() => setOpen(false)} />
+            <SocialMediaModal user={user} />
           </div>,
           document.body
         )}
