@@ -6,6 +6,7 @@ import RightSidebar from "@/components/right-sidebar/RightSidebar";
 import { getUser } from "@/lib/actions/user.actions";
 import MobileHeader from "@/components/MobileHeader";
 import UserNotFound from "@/components/shared/UserNotFound";
+import { SocialMediaModalStateProvider } from "@/lib/context/SocialMediaModalState";
 
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   const user = (await getUser()) as User;
@@ -16,17 +17,19 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
         <MobileHeader user={user} />
       </header>
 
-      <div className="flex flex-1 flex-col lg:flex-row">
-        <nav className="bg-black-800 hidden w-[290px] lg:block">
-          <LeftNavbar />
-        </nav>
+      <SocialMediaModalStateProvider>
+        <div className="flex flex-1 flex-col lg:flex-row">
+          <nav className="bg-black-800 hidden w-[290px] lg:block">
+            <LeftNavbar />
+          </nav>
 
-        <main className="flex-1 px-7 pt-10">{children}</main>
+          <main className="flex-1 px-7 pt-10">{children}</main>
 
-        <nav className="bg-black-800 hidden w-[290px] lg:block">
-          <RightSidebar user={user} />
-        </nav>
-      </div>
+          <nav className="bg-black-800 hidden w-[290px] lg:block">
+            <RightSidebar user={user} />
+          </nav>
+        </div>
+      </SocialMediaModalStateProvider>
     </div>
   ) : (
     <UserNotFound />
