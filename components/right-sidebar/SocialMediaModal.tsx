@@ -23,14 +23,16 @@ import { socialMediaIconList } from "@/lib/constants/socialMediaList";
 import Button from "../shared/ui/Button";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
 import useEscapeHandler from "@/lib/utils/useEscapeHandler";
-import { useSocialMediaModalStateContext } from "@/lib/context/SocialMediaModalState";
+
 const SocialMediaModal = ({
   user,
+  onClose,
 }: {
   user: User & { socialMedia?: Social[] };
+  onClose: () => void;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { onClose } = useSocialMediaModalStateContext();
+  // const { onClose } = useSocialMediaModalStateContext();
   useOutsideClickHandler(ref, onClose);
   useEscapeHandler(onClose);
 
