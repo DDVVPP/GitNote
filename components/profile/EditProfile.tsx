@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { Loader2 } from "lucide-react";
 
@@ -12,7 +12,6 @@ import toast from "react-hot-toast";
 import { updateUser } from "@/lib/actions/user.actions";
 import { Goals, User } from "@prisma/client";
 import { IProfileSchema, ProfileSchema } from "@/lib/validations/UserSchema";
-import { useSocialMediaModalStateContext } from "@/lib/context/SocialMediaModalState";
 
 import SocialMediaModal from "../right-sidebar/SocialMediaModal";
 import BasicInformation from "./BasicInformation";
@@ -22,7 +21,7 @@ import Availability from "./Availability";
 import Button from "../shared/ui/Button";
 
 const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
-  const { isOpen, setIsOpen } = useSocialMediaModalStateContext();
+  const [isOpen, setIsOpen] = useState(false);
 
   const router = useRouter();
   const useFormHelpers = useForm<IProfileSchema>({
@@ -87,7 +86,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <Button
             color="blue"
             type="submit"
-            mobileClass="max-md:order-1"
+            mobileClass="max-md:order-2"
             disabled={
               defaultValues?.techStack?.length === formData.techStack.length &&
               !isDirty
@@ -114,7 +113,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             icon="plus"
             color="gray"
             onClick={() => setIsOpen(true)}
-            mobileClass="md:hidden max-md:order-2"
+            mobileClass="md:hidden max-md:order-1"
           >
             Update social links
           </Button>
@@ -129,7 +128,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             aria-modal="true"
             className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
           >
-            <SocialMediaModal user={user} />
+            <SocialMediaModal user={user} onClose={() => setIsOpen(false)} />
           </div>,
           document.body
         )}
