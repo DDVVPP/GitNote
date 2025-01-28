@@ -21,7 +21,8 @@ import Availability from "./Availability";
 import Button from "../shared/ui/Button";
 
 const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const router = useRouter();
   const useFormHelpers = useForm<IProfileSchema>({
     defaultValues: {
@@ -85,7 +86,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <Button
             color="blue"
             type="submit"
-            mobileClass="max-md:order-1"
+            mobileClass="max-md:order-2"
             disabled={
               defaultValues?.techStack?.length === formData.techStack.length &&
               !isDirty
@@ -111,15 +112,15 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             type="button"
             icon="plus"
             color="gray"
-            onClick={() => setOpen(true)}
-            mobileClass="md:hidden max-md:order-2"
+            onClick={() => setIsOpen(true)}
+            mobileClass="md:hidden max-md:order-1"
           >
             Update social links
           </Button>
         </div>
       </div>
 
-      {open &&
+      {isOpen &&
         createPortal(
           <div
             aria-labelledby="social-media-modal"
@@ -127,7 +128,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
             aria-modal="true"
             className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
           >
-            <SocialMediaModal user={user} onClose={() => setOpen(false)} />
+            <SocialMediaModal user={user} onClose={() => setIsOpen(false)} />
           </div>,
           document.body
         )}

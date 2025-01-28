@@ -11,7 +11,7 @@ const SidebarSocialMedia = ({
 }: {
   user: User & { socialMedia?: Social[] };
 }) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex flex-col gap-4">
@@ -19,7 +19,7 @@ const SidebarSocialMedia = ({
         type="button"
         icon="plus"
         color="gray"
-        onClick={() => setOpen(true)}
+        onClick={() => setIsOpen(true)}
       >
         Update social link
       </Button>
@@ -29,7 +29,7 @@ const SidebarSocialMedia = ({
 
       <SocialMediaLinks socialMedia={user.socialMedia} />
 
-      {open &&
+      {isOpen &&
         createPortal(
           <div
             aria-labelledby="social-media-modal"
@@ -37,7 +37,7 @@ const SidebarSocialMedia = ({
             aria-modal="true"
             className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
           >
-            <SocialMediaModal user={user} onClose={() => setOpen(false)} />
+            <SocialMediaModal user={user} onClose={() => setIsOpen(false)} />
           </div>,
           document.body
         )}

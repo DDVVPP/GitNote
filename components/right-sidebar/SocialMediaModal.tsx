@@ -59,7 +59,7 @@ const SocialMediaModal = ({
   });
 
   const {
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isDirty },
     control,
     trigger,
     handleSubmit,
@@ -91,6 +91,7 @@ const SocialMediaModal = ({
     <div
       className="bg-black-800 flex rounded-md p-12 max-md:size-[90%] max-md:px-4 max-md:py-8"
       ref={ref}
+      onMouseDown={(e) => e.stopPropagation()}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col">
         <div className="text-white-100 mb-4 flex items-center justify-between">
@@ -175,7 +176,7 @@ const SocialMediaModal = ({
         </section>
 
         <div className="mt-6 max-md:mt-0">
-          <Button color="blue">
+          <Button color="blue" disabled={!isDirty}>
             {isSubmitting ? (
               <Loader2 className="animate-spin" />
             ) : (
