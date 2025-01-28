@@ -147,6 +147,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 ✅ Create a seed file\
 ✅ Add a Demo User\
 ✅ Deploy site\
-🔳 Once a new user is onboarded - create main route with instructions & steps of how to begin - create UI for routes with no information in them
+🔳 Once a new user is onboarded - create main route with instructions & steps of how to begin - create UI for routes with no information in them\
 🔳 Onbboarding - Disable dates before today in Availability\
 🔳 Onbboarding - Disable dates before start date in End Date Availability
