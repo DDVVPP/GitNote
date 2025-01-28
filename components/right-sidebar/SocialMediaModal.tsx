@@ -32,7 +32,6 @@ const SocialMediaModal = ({
   onClose: () => void;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  // const { onClose } = useSocialMediaModalStateContext();
   useOutsideClickHandler(ref, onClose);
   useEscapeHandler(onClose);
 
