@@ -107,8 +107,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 ✅ Delete a 'Learning Goal'\
 ✅ Add a 'Cancel' button\
 ✅ Disable 'Update Profile' button if no updates have been made to the inputs\
-🔳 Disable dates before today in Availability\
-🔳 Disable dates before start date in End Date Availability
+✅ Disable dates before today in Availability\
+✅ Disable dates before start date in End Date Availability
 
 
 **Left Sidebar**
@@ -148,5 +148,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 ✅ Add a Demo User\
 ✅ Deploy site\
 🔳 Once a new user is onboarded - create main route with instructions & steps of how to begin - create UI for routes with no information in them\
-🔳 Onbboarding - Disable dates before today in Availability\
-🔳 Onbboarding - Disable dates before start date in End Date Availability
+✅ Onbboarding - Disable dates before today in Availability\
+✅ Onbboarding - Disable dates before start date in End Date Availability\
+🔳 Ability to cancel onboarding process (reroutes user to sign-in/sign-up page
+🔳 Ability to save mid onboarding process
+
