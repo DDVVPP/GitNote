@@ -119,7 +119,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 🔳 Post Details: Determine what indicates a related post, and show related posts\
 🔳 Profile Page: If there are no social media links - move button under section and update text to 'Add social links'\
-🔳 Update social links modal: If there are no updates made to the modal inputs, disable the 'Update Links' button\
+✅ Update social links modal: If there are no updates made to the modal inputs, disable the 'Update Links' button\
 🔳 Create Post: Either remove 'Tags' section, or disable them\
 🔳 Fix red border around profile image\
 
