@@ -13,6 +13,7 @@ import Search from "../shared/Search";
 import { quickLinks } from "@/lib/constants/quickLinksList";
 import { QuickLinkProps } from "@/types";
 import { createTypeList } from "@/lib/constants/createTypeList";
+import { iconMatch } from "@/lib/utils/constants";
 
 const LeftNavbar = ({ posts }: { posts: Post[] }) => {
   return (
@@ -43,20 +44,13 @@ const LeftNavbar = ({ posts }: { posts: Post[] }) => {
 
       <NavSection title="POSTS">
         {posts.map(({ title, createType, id }) => {
-          const filteredPostType = createTypeList.filter(
-            (type) => type.name === createType
-          )[0];
-          console.log("filteredPostType", filteredPostType);
-          const { icon: Icon } = filteredPostType;
-
           return (
             <Link
               key={id}
               href={`/posts/${id}`}
               className="flex items-center gap-x-3"
             >
-              <Icon size="16px" />
-              <p>{title}</p>
+              {iconMatch(title, createType)}
             </Link>
           );
         })}
