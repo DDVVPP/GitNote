@@ -40,7 +40,7 @@ export async function createPost(data: IPostSchema) {
 export async function getAllPosts({
   page,
   searchTerm,
-  postsToTake = 4,
+  postsToTake = 5,
   term,
   tag,
 }: {

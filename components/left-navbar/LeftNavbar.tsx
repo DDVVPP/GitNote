@@ -5,14 +5,16 @@ import Image from "next/image";
 import gitNoteIcon from "@/public/gitNoteIcon.svg";
 import logoutIcon from "@/public/logoutIcon.svg";
 import Link from "next/link";
+import { Post } from "@prisma/client";
 import QuickLink from "./QuickLink";
 import NavSection from "./NavSection";
 import Button from "../shared/ui/Button";
 import Search from "../shared/Search";
 import { quickLinks } from "@/constants";
 import { QuickLinkProps } from "@/types";
+import { createTypeList } from "@/lib/constants/createTypeList";
 
-const LeftNavbar = () => {
+const LeftNavbar = ({ posts }: { posts: Post[] }) => {
   return (
     <nav className="flex h-screen flex-col px-7 pt-10">
       <section className="border-white-500 flex flex-col justify-start gap-y-12">
@@ -39,7 +41,26 @@ const LeftNavbar = () => {
 
       <hr className="dark:bg-black-700 my-6 h-px w-full border-0" />
 
-      <NavSection title="POSTS"> placeholder for posts</NavSection>
+      <NavSection title="POSTS">
+        {posts.map(({ title, createType, id }) => {
+          const filteredPostType = createTypeList.filter(
+            (type) => type.name === createType
+          )[0];
+          console.log("filteredPostType", filteredPostType);
+          const { icon: Icon } = filteredPostType;
+
+          return (
+            <Link
+              key={id}
+              href={`/posts/${id}`}
+              className="flex items-center gap-x-3"
+            >
+              <Icon size="16px" />
+              <p>{title}</p>
+            </Link>
+          );
+        })}
+      </NavSection>
 
       <hr className="dark:bg-black-700 my-6 h-px w-full border-0" />
 
