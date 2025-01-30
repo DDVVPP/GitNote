@@ -12,7 +12,6 @@ import Button from "../shared/ui/Button";
 import Search from "../shared/Search";
 import { quickLinks } from "@/lib/constants/quickLinksList";
 import { QuickLinkProps } from "@/types";
-import { createTypeList } from "@/lib/constants/createTypeList";
 import { iconMatch } from "@/lib/utils/constants";
 
 const LeftNavbar = ({ posts }: { posts: Post[] }) => {
