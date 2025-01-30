@@ -10,12 +10,10 @@ import shortcutIcon from "@/public/shortcutIcon.svg";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 
-import { CreateType, Post } from "@prisma/client";
+import { Post } from "@prisma/client";
 import { findPosts } from "@/lib/actions/post.actions";
 import urlManager from "@/lib/utils/urlManager";
-import WorkflowIcon from "./icons/WorkflowIcon";
-import ComponentIcon from "./icons/ComponentIcon";
-import KnowledgeIcon from "./icons/KnowledgeIcon";
+import { iconMatch } from "@/lib/utils/constants";
 
 const Search = () => {
   const searchParams = useSearchParams();
@@ -66,31 +64,6 @@ const Search = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  const iconMatch = (post: Post) => {
-    switch (post.createType) {
-      case CreateType.COMPONENT:
-        return (
-          <>
-            <ComponentIcon className="text-purple-500" size={18} />
-            <span>{post.title}</span>
-          </>
-        );
-      case CreateType.WORKFLOW:
-        return (
-          <>
-            <WorkflowIcon className="text-primary-500" size={18} />
-            <span>{post.title}</span>
-          </>
-        );
-      case CreateType.KNOWLEDGE:
-        return (
-          <>
-            <KnowledgeIcon className="text-green-500" size={18} />
-            <span>{post.title}</span>
-          </>
-        );
-    }
-  };
   return (
     <>
       <div
@@ -158,7 +131,7 @@ const Search = () => {
                         className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 p-2 hover:rounded hover:py-2"
                         value={post.title}
                       >
-                        {iconMatch(post)}
+                        {iconMatch(post.title, post.createType)}
                       </Command.Item>
                     </Link>
                   );
