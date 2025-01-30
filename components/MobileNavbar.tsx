@@ -9,7 +9,7 @@ import QuickLink from "./left-navbar/QuickLink";
 import NavSection from "./left-navbar/NavSection";
 import Button from "./shared/ui/Button";
 import Search from "./shared/Search";
-import { quickLinks } from "@/constants";
+import { quickLinks } from "@/lib/constants/quickLinksList";
 import { QuickLinkProps } from "@/types";
 import { User, Social } from "@prisma/client";
 import { Image as LandscapeIcon, X } from "lucide-react";

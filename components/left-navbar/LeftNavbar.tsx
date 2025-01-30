@@ -10,7 +10,7 @@ import QuickLink from "./QuickLink";
 import NavSection from "./NavSection";
 import Button from "../shared/ui/Button";
 import Search from "../shared/Search";
-import { quickLinks } from "@/constants";
+import { quickLinks } from "@/lib/constants/quickLinksList";
 import { QuickLinkProps } from "@/types";
 import { createTypeList } from "@/lib/constants/createTypeList";
 
