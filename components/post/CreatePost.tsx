@@ -46,12 +46,7 @@ const CreatePost = () => {
     formState: { isSubmitting, errors, defaultValues, isDirty },
   } = useFormHelpers;
   const { control } = useFormHelpers;
-  const contentWatch = watch("content");
   const tagsInput = watch("tags");
-
-  useEffect(() => {
-    console.log("contentWatch", contentWatch);
-  }, [contentWatch]);
 
   const onSubmit: SubmitHandler<IPostSchema> = async (data) => {
     try {
