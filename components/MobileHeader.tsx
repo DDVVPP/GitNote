@@ -6,9 +6,9 @@ import Image from "next/image";
 import gitNoteIcon from "@/public/gitNoteIcon.svg";
 import { Menu } from "lucide-react";
 import MobileNavbar from "./MobileNavbar";
-import { User } from "@prisma/client";
+import { Post, User } from "@prisma/client";
 
-const MobileHeader = ({ user }: { user: User }) => {
+const MobileHeader = ({ user, posts }: { user: User; posts: Post[] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -26,7 +26,12 @@ const MobileHeader = ({ user }: { user: User }) => {
         {!isOpen && <Menu />}
       </button>
 
-      <MobileNavbar user={user} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <MobileNavbar
+        user={user}
+        posts={posts}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
     </header>
   );
 };

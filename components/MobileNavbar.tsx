@@ -11,17 +11,20 @@ import Button from "./shared/ui/Button";
 import Search from "./shared/Search";
 import { quickLinks } from "@/lib/constants/quickLinksList";
 import { QuickLinkProps } from "@/types";
-import { User, Social } from "@prisma/client";
+import { User, Social, Post } from "@prisma/client";
 import { Image as LandscapeIcon, X } from "lucide-react";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
 import SocialMediaLinks from "./right-sidebar/SocialMediaLinks";
+import { iconMatch } from "@/lib/utils/constants";
 
 const MobileNavbar = ({
   user,
+  posts,
   isOpen,
   setIsOpen,
 }: {
   user: User & { socialMedia?: Social[] };
+  posts: Post[];
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }) => {
@@ -137,7 +140,19 @@ const MobileNavbar = ({
         {!isProfilePathname && (
           <>
             <hr className="bg-white-500 my-6 h-px border-0" />
-            <NavSection title="POSTS"> placeholder for posts</NavSection>
+            <NavSection title={`POSTS - ${posts.length} MOST RECENT`}>
+              {posts.map(({ title, createType, id }) => {
+                return (
+                  <Link
+                    key={id}
+                    href={`/posts/${id}`}
+                    className="flex items-center gap-x-3"
+                  >
+                    {iconMatch(title, createType)}
+                  </Link>
+                );
+              })}
+            </NavSection>
           </>
         )}
       </menu>
