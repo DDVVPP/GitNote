@@ -41,7 +41,7 @@ const LeftNavbar = ({ posts }: { posts: Post[] }) => {
 
       <hr className="dark:bg-black-700 my-6 h-px w-full border-0" />
 
-      <NavSection title="POSTS">
+      <NavSection title={`POSTS - ${posts.length} MOST RECENT`}>
         {posts.map(({ title, createType, id }) => {
           return (
             <Link
