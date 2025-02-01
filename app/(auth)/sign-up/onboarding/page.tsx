@@ -1,5 +1,3 @@
-import React, { Suspense } from "react";
-
 import { User } from "@prisma/client";
 import Onboarding from "@/components/onboarding/Onboarding";
 import { getUser } from "@/lib/actions/user.actions";
@@ -10,9 +8,7 @@ const OnboardingWrapper = async () => {
 
   return user ? (
     <div className="mx-6">
-      <Suspense>
-        <Onboarding user={user} />
-      </Suspense>
+      <Onboarding user={user} />
     </div>
   ) : (
     <UserNotFound />

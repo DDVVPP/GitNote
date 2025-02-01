@@ -1,5 +1,4 @@
 "use client";
-import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useParams } from "next/navigation";
@@ -24,11 +23,7 @@ const RightSidebar = ({ user }: { user: User }) => {
         `/posts/${params.postId}/update-post`,
       ].includes(pathname)
     ) {
-      return (
-        <Suspense>
-          <SidebarTags />
-        </Suspense>
-      );
+      return <SidebarTags />;
     } else if ([`/posts/${params.postId}`].includes(pathname)) {
       return <SidebarRelatedPosts />;
     } else if (["/profile", "/profile/edit"].includes(pathname)) {

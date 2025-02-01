@@ -1,9 +1,6 @@
-import { Suspense } from 'react'
-
 const Logout = () => {
   return (
-   <Suspense><div>Logout</div></Suspense>
-  )
+   <div>Logout</div>
 }
 
 export default Logout
