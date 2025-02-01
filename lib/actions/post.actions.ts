@@ -28,6 +28,8 @@ export async function createPost(data: IPostSchema) {
           },
         },
       });
+
+      revalidateTag("getAllPosts");
       return { post, error: null };
     }
   } catch (error) {
@@ -37,7 +39,7 @@ export async function createPost(data: IPostSchema) {
   return { error: "An unexpected error occurred while creating post." };
 }
 
-export async function getAllPosts({
+export async function _getAllPosts({
   page,
   searchTerm,
   postsToTake = 5,
@@ -116,6 +118,9 @@ export async function getAllPosts({
     return { error: "An unexpected error occurred while returning posts." };
   }
 }
+export const getAllPosts = unstable_cache(_getAllPosts, ["_getAllPosts"], {
+  tags: ["getAllPosts"],
+});
 
 export async function _getPostById(id: string) {
   try {
@@ -211,7 +216,7 @@ export async function updatePost(
           },
         } as any, // TODO: fix this any type problem
       });
-
+      revalidateTag("getAllPosts");
       revalidateTag("getPostById");
       return { post, error: null };
     }
