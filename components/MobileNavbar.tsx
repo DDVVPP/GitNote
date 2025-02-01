@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, Dispatch } from "react";
+import React, { useRef, Dispatch } from "react";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/actions";
 
@@ -88,9 +88,7 @@ const MobileNavbar = ({
           </header>
 
           {isProfilePathname ? (
-            <Suspense>
-              <SocialMediaLinks socialMedia={user.socialMedia} />
-            </Suspense>
+            <SocialMediaLinks socialMedia={user.socialMedia} />
           ) : (
             <div className="space-y-4">
               <Link href="/posts/create-post">
@@ -102,9 +100,8 @@ const MobileNavbar = ({
                   Create Post
                 </Button>
               </Link>
-              <Suspense>
-                <Search />
-              </Suspense>
+
+              <Search />
             </div>
           )}
         </section>
@@ -140,18 +137,28 @@ const MobileNavbar = ({
         {!isProfilePathname && (
           <>
             <hr className="bg-white-500 my-6 h-px border-0" />
-            <NavSection title={`POSTS - ${posts.length} MOST RECENT`}>
-              {posts.map(({ title, createType, id }) => {
-                return (
-                  <Link
-                    key={id}
-                    href={`/posts/${id}`}
-                    className="flex items-center gap-x-3"
-                  >
-                    {iconMatch(title, createType)}
-                  </Link>
-                );
-              })}
+            <NavSection
+              title={
+                posts.length > 0
+                  ? `POSTS - ${posts.length} MOST RECENT`
+                  : "POSTS"
+              }
+            >
+              {posts && posts.length > 0 ? (
+                posts.map(({ title, createType, id }) => {
+                  return (
+                    <Link
+                      key={id}
+                      href={`/posts/${id}`}
+                      className="flex items-center gap-x-3"
+                    >
+                      {iconMatch(title, createType)}
+                    </Link>
+                  );
+                })
+              ) : (
+                <p>No posts to display!</p>
+              )}
             </NavSection>
           </>
         )}

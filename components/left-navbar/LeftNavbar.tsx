@@ -1,6 +1,4 @@
-import React, { Suspense } from "react";
 import { signOut } from "@/lib/actions";
-
 import Image from "next/image";
 import gitNoteIcon from "@/public/gitNoteIcon.svg";
 import logoutIcon from "@/public/logoutIcon.svg";
@@ -33,26 +31,33 @@ const LeftNavbar = ({ posts }: { posts: Post[] }) => {
               Create Post
             </Button>
           </Link>
-          <Suspense>
-            <Search />
-          </Suspense>
+
+          <Search />
         </div>
       </section>
 
       <hr className="dark:bg-black-700 my-6 h-px w-full border-0" />
 
-      <NavSection title={`POSTS - ${posts.length} MOST RECENT`}>
-        {posts.map(({ title, createType, id }) => {
-          return (
-            <Link
-              key={id}
-              href={`/posts/${id}`}
-              className="flex items-center gap-x-3"
-            >
-              {iconMatch(title, createType)}
-            </Link>
-          );
-        })}
+      <NavSection
+        title={
+          posts.length > 0 ? `POSTS - ${posts.length} MOST RECENT` : "POSTS"
+        }
+      >
+        {posts && posts.length > 0 ? (
+          posts.map(({ title, createType, id }) => {
+            return (
+              <Link
+                key={id}
+                href={`/posts/${id}`}
+                className="flex items-center gap-x-3"
+              >
+                {iconMatch(title, createType)}
+              </Link>
+            );
+          })
+        ) : (
+          <p>No posts to display!</p>
+        )}
       </NavSection>
 
       <hr className="dark:bg-black-700 my-6 h-px w-full border-0" />
