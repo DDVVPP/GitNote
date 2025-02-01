@@ -1,3 +1,4 @@
+import React from "react";
 import { Post, User } from "@prisma/client";
 import LeftNavbar from "@/components/left-navbar/LeftNavbar";
 import RightSidebar from "@/components/right-sidebar/RightSidebar";
