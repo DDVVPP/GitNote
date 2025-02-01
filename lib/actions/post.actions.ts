@@ -260,6 +260,7 @@ export async function findPosts(searchTerm: string | CreateType) {
       },
     });
 
+    revalidateTag("getAllPosts");
     return posts;
   } catch (error) {
     console.error("Error returning posts:", error);
@@ -298,6 +299,8 @@ export async function deletePost(id: number) {
         id,
       },
     });
+
+    revalidateTag("getAllPosts");
     return post;
   } catch (error) {
     console.error("Error deleting post:", error);
