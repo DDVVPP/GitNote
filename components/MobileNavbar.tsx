@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, Dispatch } from "react";
+import React, { useRef, Dispatch } from "react";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/lib/actions";
 
@@ -9,19 +9,22 @@ import QuickLink from "./left-navbar/QuickLink";
 import NavSection from "./left-navbar/NavSection";
 import Button from "./shared/ui/Button";
 import Search from "./shared/Search";
-import { quickLinks } from "@/constants";
+import { quickLinks } from "@/lib/constants/quickLinksList";
 import { QuickLinkProps } from "@/types";
-import { User, Social } from "@prisma/client";
+import { User, Social, Post } from "@prisma/client";
 import { Image as LandscapeIcon, X } from "lucide-react";
 import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
 import SocialMediaLinks from "./right-sidebar/SocialMediaLinks";
+import { iconMatch } from "@/lib/utils/constants";
 
 const MobileNavbar = ({
   user,
+  posts,
   isOpen,
   setIsOpen,
 }: {
   user: User & { socialMedia?: Social[] };
+  posts: Post[];
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
 }) => {
@@ -85,9 +88,7 @@ const MobileNavbar = ({
           </header>
 
           {isProfilePathname ? (
-            <Suspense>
-              <SocialMediaLinks socialMedia={user.socialMedia} />
-            </Suspense>
+            <SocialMediaLinks socialMedia={user.socialMedia} />
           ) : (
             <div className="space-y-4">
               <Link href="/posts/create-post">
@@ -99,9 +100,8 @@ const MobileNavbar = ({
                   Create Post
                 </Button>
               </Link>
-              <Suspense>
-                <Search />
-              </Suspense>
+
+              <Search />
             </div>
           )}
         </section>
@@ -137,7 +137,29 @@ const MobileNavbar = ({
         {!isProfilePathname && (
           <>
             <hr className="bg-white-500 my-6 h-px border-0" />
-            <NavSection title="POSTS"> placeholder for posts</NavSection>
+            <NavSection
+              title={
+                posts.length > 0
+                  ? `POSTS - ${posts.length} MOST RECENT`
+                  : "POSTS"
+              }
+            >
+              {posts && posts.length > 0 ? (
+                posts.map(({ title, createType, id }) => {
+                  return (
+                    <Link
+                      key={id}
+                      href={`/posts/${id}`}
+                      className="flex items-center gap-x-3"
+                    >
+                      {iconMatch(title, createType)}
+                    </Link>
+                  );
+                })
+              ) : (
+                <p>No posts to display!</p>
+              )}
+            </NavSection>
           </>
         )}
       </menu>

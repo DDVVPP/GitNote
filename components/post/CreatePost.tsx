@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Loader2 } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,12 +46,7 @@ const CreatePost = () => {
     formState: { isSubmitting, errors, defaultValues, isDirty },
   } = useFormHelpers;
   const { control } = useFormHelpers;
-  const contentWatch = watch("content");
   const tagsInput = watch("tags");
-
-  useEffect(() => {
-    console.log("contentWatch", contentWatch);
-  }, [contentWatch]);
 
   const onSubmit: SubmitHandler<IPostSchema> = async (data) => {
     try {
