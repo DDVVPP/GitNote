@@ -11,7 +11,7 @@ import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 
 import { Post } from "@prisma/client";
-import { findPosts } from "@/lib/actions/post.actions";
+import { findPosts, getAllPosts } from "@/lib/actions/post.actions";
 import urlManager from "@/lib/utils/urlManager";
 import { iconMatch } from "@/lib/utils/constants";
 
@@ -24,27 +24,36 @@ const Search = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const posts = await findPosts(searchTerm);
-      if (posts) setPosts(posts as Post[]);
+      if (searchTerm) {
+        const posts = await findPosts(searchTerm);
+        if (posts) setPosts(posts as Post[]);
+      } else if (open) {
+        const { somePosts } = await getAllPosts({ page: "1" });
+        setPosts(somePosts);
+      }
     };
 
-    const setParams = async () => {
-      const newParams = urlManager(searchParams.toString(), {
-        page: "1",
-        term: searchTerm,
-      });
-      router.push(`?${newParams}`);
-    };
+    if (searchTerm) {
+      const setParams = () => {
+        const newParams = urlManager(searchParams.toString(), {
+          page: "1",
+          term: searchTerm,
+        });
+        router.push(`?${newParams}`);
+      };
 
-    const timeout = setTimeout(() => {
-      setParams();
+      const timeout = setTimeout(() => {
+        setParams();
+        getPosts();
+      }, 250);
+
+      return () => clearTimeout(timeout);
+    } else if (open) {
       getPosts();
-    }, 250);
+    }
 
-    return () => clearTimeout(timeout);
-    // adding searchParams and router to dependency array was causing pagination to revert back to previous page
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm]);
+  }, [searchTerm, open]);
 
   // Toggle the menu when ⌘K is pressed
   useEffect(() => {
