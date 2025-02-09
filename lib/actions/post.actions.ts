@@ -260,7 +260,6 @@ export async function findPosts(searchTerm: string | CreateType) {
       },
     });
 
-    revalidateTag("getAllPosts");
     return posts;
   } catch (error) {
     console.error("Error returning posts:", error);
