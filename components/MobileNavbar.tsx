@@ -101,7 +101,7 @@ const MobileNavbar = ({
                 </Button>
               </Link>
 
-              <Search />
+              <Search allPosts={posts} />
             </div>
           )}
         </section>

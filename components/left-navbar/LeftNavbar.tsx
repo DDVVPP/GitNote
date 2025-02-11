@@ -32,7 +32,7 @@ const LeftNavbar = ({ posts }: { posts: Post[] }) => {
             </Button>
           </Link>
 
-          <Search />
+          <Search allPosts={posts} />
         </div>
       </section>
 
