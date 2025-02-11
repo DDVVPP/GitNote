@@ -11,11 +11,11 @@ import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 
 import { Post } from "@prisma/client";
-import { findPosts, getAllPosts } from "@/lib/actions/post.actions";
+import { findPosts } from "@/lib/actions/post.actions";
 import urlManager from "@/lib/utils/urlManager";
 import { iconMatch } from "@/lib/utils/constants";
 
-const Search = () => {
+const Search = ({ allPosts }: { allPosts: Post[] }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -23,37 +23,34 @@ const Search = () => {
   const [posts, setPosts] = useState<Post[]>();
 
   useEffect(() => {
+    if (allPosts) setPosts(allPosts);
+  }, [allPosts]);
+
+  useEffect(() => {
     const getPosts = async () => {
-      if (searchTerm) {
-        const posts = await findPosts(searchTerm);
-        if (posts) setPosts(posts as Post[]);
-      } else if (open) {
-        const { somePosts } = await getAllPosts({ page: "1" });
-        setPosts(somePosts);
-      }
+      const posts = await findPosts(searchTerm);
+      if (posts) setPosts(posts as Post[]);
+    };
+
+    const setParams = () => {
+      const newParams = urlManager(searchParams.toString(), {
+        page: "1",
+        term: searchTerm,
+      });
+      router.push(`?${newParams}`);
     };
 
     if (searchTerm) {
-      const setParams = () => {
-        const newParams = urlManager(searchParams.toString(), {
-          page: "1",
-          term: searchTerm,
-        });
-        router.push(`?${newParams}`);
-      };
-
       const timeout = setTimeout(() => {
         setParams();
         getPosts();
       }, 250);
 
       return () => clearTimeout(timeout);
-    } else if (open) {
-      getPosts();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm, open]);
+  }, [searchTerm]);
 
   // Toggle the menu when ⌘K is pressed
   useEffect(() => {
