@@ -113,7 +113,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 **Left Sidebar**
 
-🔳 Display posts in the 'Posts' section
+✅ Display posts in the 'Posts' section\
+✅ Fix Search component to list 5 most recent posts without user input or hard refresh
 
 **Right Sidebar**
 
