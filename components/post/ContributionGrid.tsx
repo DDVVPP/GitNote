@@ -7,14 +7,14 @@ import "react-calendar-heatmap/dist/styles.css";
 const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
   return (
     <>
-      <div className="flex gap-x-2">
+      <div className="flex">
         <ReactCalendarHeatmap
           showOutOfRangeDays
           showWeekdayLabels
-          startDate={new Date("2024-03-01")}
-          endDate={new Date("2025-01-01")}
+          startDate={new Date("2025-01-01")}
+          endDate={new Date("2026-01-01")}
           values={postDates}
-          gutterSize={3}
+          gutterSize={2}
           classForValue={(value) => {
             if (value) {
               if (value.count === 1) return "color-scale-1";
@@ -29,11 +29,11 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
       <div className="text-white-300 paragraph-4-regular flex items-center justify-end gap-x-2">
         <p>Less</p>
         <div className="flex items-center gap-x-1">
-          <div className="bg-black-700 flex h-3 w-3"></div>
-          <div className="flex h-3 w-3 bg-[#0E4429]"></div>
-          <div className="flex h-3 w-3 bg-[#006D32]"></div>
-          <div className="flex h-3 w-3 bg-[#26A641]"></div>
-          <div className="flex h-3 w-3 bg-[#39D353]"></div>
+          <div className="bg-black-700 flex rounded-sm max-lg:size-2.5 max-sm:size-1.5 lg:size-3"></div>
+          <div className="flex rounded-sm border-none bg-[#0E4429] max-lg:size-2.5  max-sm:size-1.5 lg:size-3"></div>
+          <div className="flex rounded-sm bg-[#006D32] max-lg:size-2.5 max-sm:size-1.5 lg:size-3"></div>
+          <div className="flex rounded-sm bg-[#26A641] max-lg:size-2.5 max-sm:size-1.5 lg:size-3"></div>
+          <div className="flex rounded-sm bg-[#39D353] max-lg:size-2.5 max-sm:size-1.5 lg:size-3"></div>
         </div>
         <p>More</p>
       </div>
