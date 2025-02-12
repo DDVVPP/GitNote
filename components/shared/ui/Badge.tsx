@@ -75,7 +75,8 @@ const Badge = ({
       className={`${baseclass} ${textSizeClass} ${
         variant === "outline" ? outlineColorClass : colorClass
       } ${icon !== "dot" ? "gap-1" : "pr-4"} ${
-        hover && "hover:bg-black-600 hover:rounded hover:px-2 hover:py-0.5"
+        hover &&
+        "hover:rounded hover:bg-black-600 hover:px-2 hover:py-0.5 hover:duration-300"
       }`}
     >
       {IconComponent && (

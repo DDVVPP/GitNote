@@ -1,3 +1,6 @@
+import { JSX } from "react";
+import { CreateType, User } from "@prisma/client";
+
 export type TechStackType = {
   icon: ({ size: number }) => JSX.Element;
   name: string;
@@ -20,7 +23,7 @@ export type CreateTypeListItemType = {
 
 export type SearchParams = {
   page: string;
-  type: CreateType | "all";
+  type: CreateType | "all" | "";
   term: string;
   tag: string;
 };
@@ -29,3 +32,12 @@ export type PostDate = {
   date: string;
   count: number;
 };
+export type QuickLinkProps = {
+  groupName: "jsm" | "github";
+  href: string;
+  name: string;
+  icon?: any;
+  onClick?: any;
+};
+
+export type ProfileHeaderItems = Partial<User> & { created: string };

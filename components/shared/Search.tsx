@@ -10,14 +10,12 @@ import shortcutIcon from "@/public/shortcutIcon.svg";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 
-import { CreateType, Post } from "@prisma/client";
+import { Post } from "@prisma/client";
 import { findPosts } from "@/lib/actions/post.actions";
 import urlManager from "@/lib/utils/urlManager";
-import WorkflowIcon from "./icons/WorkflowIcon";
-import ComponentIcon from "./icons/ComponentIcon";
-import KnowledgeIcon from "./icons/KnowledgeIcon";
+import { iconMatch } from "@/lib/utils/constants";
 
-const Search = () => {
+const Search = ({ allPosts }: { allPosts: Post[] }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -25,12 +23,16 @@ const Search = () => {
   const [posts, setPosts] = useState<Post[]>();
 
   useEffect(() => {
+    if (allPosts) setPosts(allPosts);
+  }, [allPosts]);
+
+  useEffect(() => {
     const getPosts = async () => {
       const posts = await findPosts(searchTerm);
       if (posts) setPosts(posts as Post[]);
     };
 
-    const setParams = async () => {
+    const setParams = () => {
       const newParams = urlManager(searchParams.toString(), {
         page: "1",
         term: searchTerm,
@@ -38,12 +40,16 @@ const Search = () => {
       router.push(`?${newParams}`);
     };
 
-    const timeout = setTimeout(() => {
-      setParams();
-      getPosts();
-    }, 250);
+    if (searchTerm) {
+      const timeout = setTimeout(() => {
+        setParams();
+        getPosts();
+      }, 250);
 
-    return () => clearTimeout(timeout);
+      return () => clearTimeout(timeout);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   // Toggle the menu when ⌘K is pressed
@@ -64,36 +70,14 @@ const Search = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  const iconMatch = (post: Post) => {
-    switch (post.createType) {
-      case CreateType.COMPONENT:
-        return (
-          <>
-            <ComponentIcon className="text-purple-500" size={18} />
-            <span>{post.title}</span>
-          </>
-        );
-      case CreateType.WORKFLOW:
-        return (
-          <>
-            <WorkflowIcon className="text-primary-500" size={18} />
-            <span>{post.title}</span>
-          </>
-        );
-      case CreateType.KNOWLEDGE:
-        return (
-          <>
-            <KnowledgeIcon className="text-green-500" size={18} />
-            <span>{post.title}</span>
-          </>
-        );
-    }
-  };
   return (
     <>
       <div
-        className="bg-black-700 paragraph-4-medium flex cursor-pointer items-center justify-between rounded-md p-4"
-        onClick={() => setOpen((open) => !open)}
+        className="paragraph-4-medium bg-black-700 flex cursor-pointer items-center justify-between rounded-md p-4"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((open) => !open);
+        }}
       >
         <div className="flex gap-x-2">
           <Image
@@ -114,7 +98,7 @@ const Search = () => {
         open={open}
         onOpenChange={setOpen}
         label="Global Command Menu"
-        className="fixed inset-0 z-50 flex h-full w-full items-center justify-center backdrop-blur"
+        className="fixed inset-0 z-50 flex size-full items-center justify-center backdrop-blur"
         onClick={(e) => {
           if (e.target === e.currentTarget) setOpen(false);
         }}
@@ -124,10 +108,10 @@ const Search = () => {
             <Command.Input
               value={searchTerm}
               onValueChange={setSearchTerm}
-              className="bg-black-700 paragraph-3-regular text-white-300 placeholder:text-white-300 w-full border-none p-0 py-1"
+              className="paragraph-3-regular bg-black-700 text-white-300 placeholder:text-white-300 w-full border-none p-0 py-1"
               placeholder="Type a command or search..."
             />
-            <div className="bg-black-800 text-white-300 paragraph-4-regular rounded p-1">
+            <div className="paragraph-4-regular bg-black-800 text-white-300 rounded p-1">
               ESC
             </div>
           </div>
@@ -135,7 +119,7 @@ const Search = () => {
             <Command.Empty>No results found.</Command.Empty>
             <Command.Group>
               <Link href="/posts" onClick={() => setOpen((open) => !open)}>
-                <Command.Item className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 px-2 py-2 hover:rounded hover:py-2">
+                <Command.Item className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 p-2 hover:rounded hover:py-2">
                   <Layers size={18} />
                   Explore all posts
                 </Command.Item>
@@ -150,10 +134,10 @@ const Search = () => {
                       onClick={() => setOpen((open) => !open)}
                     >
                       <Command.Item
-                        className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 px-2 py-2 hover:rounded hover:py-2"
+                        className="hover:bg-black-600 flex cursor-pointer items-center gap-x-2 p-2 hover:rounded hover:py-2"
                         value={post.title}
                       >
-                        {iconMatch(post)}
+                        {iconMatch(post.title, post.createType)}
                       </Command.Item>
                     </Link>
                   );

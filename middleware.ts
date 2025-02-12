@@ -10,7 +10,6 @@ export default auth((req) => {
   }
 
   if (pathname === "/profile" && !role) {
-    console.log(req.auth?.user);
     return NextResponse.redirect(`${req.nextUrl.origin}/login`);
   }
   if (pathname === "/profile/edit" && !req.auth?.user) {
@@ -33,6 +32,6 @@ export default auth((req) => {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|login|sign-up|sign-up/onboarding).*)",
+    "/((?!api|_next/static|_next/image|login|sign-up|sign-up/onboarding).*)",
   ],
 };

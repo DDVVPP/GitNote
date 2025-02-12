@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# <a name="introduction">GitNote</a>
 
-## Getting Started
+GitNote is a comprehensive learning tool and an efficient progress tracker for developers. Seamlessly capture and organize knowledge, set and track learning goals, and monitor study habits with ease. Developed as part of the JSM Masterclass, GitNote empowers developers to enhance their productivity and knowledge management skills effortlessly.
 
-First, run the development server:
+&nbsp;
+
+## <a name="features">☀️ Key Features</a>
+
+- **Authentication** - Next auth for secure sign-up, sign-in, and logout functionalities.
+- **Onboarding** – Provides an introduction and walkthrough for new users.
+- **Profile Management** - Easily update profile details and link social media accounts for enhanced connectivity.
+- **Creating Learning Posts** - Document knowledge, components, or workflows effortlessly, enriched with resources and links.
+- **Related Posts**- Connect related content seamlessly for improved information accessibility.
+- **Tagging for Context** - Enhance post context and retrieval efficiency with intuitive tagging.
+- **Contribution Grid** - Track progress visually as the grid dynamically updates with each post similar to Github.
+- **Goals & Experience Tracking** - Monitor and reflect on learning goals conveniently from your profile.
+- **Search & Filter** - Retrieve past notes and tutorials swiftly with global search and filtering.
+- **Post Collection** - Explore content easily with pagination features, witnessing your learning progression firsthand.
+<!-- 👉 **Responsive**: Ensures seamless functionality and aesthetics across all devices and many more, including code architecture and reusability -->
+
+&nbsp;
+
+## <a name="tech-stack">⚙️ Tech Stack</a>
+
+- **TypeScript** - Superset of JavaScript that adds static typing for improved code quality and maintainability.
+- **Next.js** - Framework for building server-side-rendered React applications.
+- **PostgreSQL** - Relational database management system.
+- **Prisma.io** - ORM for interacting with the database.
+- **Supabase** - Backend-as-a-Service for database management.
+- **Tailwind CSS** - Utility-first CSS framework for styling.
+- **TinyMCE** - WYSIWYG HTML editor.
+- **Prism.js** - Lightweight syntax highlighter for code snippets.
+- **React DatePicker** - Flexible date and time picker component for React applications.
+
+&nbsp;
+
+## <a name="quick-start">🚀 Quick Start</a>
+
+Follow these steps to set up the project locally on your machine.
+
+**Prerequisites**\
+Ensure you have the following installed:
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en)
+- [npm](https://www.npmjs.com/) (Node Package Manager)
+
+**Steps**
+
+1. Clone the Repo:
+
+```bash
+git clone https://github.com/[username]/GitNote.git
+cd GitNote
+```
+
+2. Install Dependencies
+
+```bash
+npm install
+```
+
+3. Set Up Environment Variables: Create a `.env` file in the project root:
+
+```env
+DB_URL=""
+DIRECT_URL=""
+
+GITHUB_CLIENT_ID=""
+GITHUB_CLIENT_SECRET=""
+
+NEXTAUTH_SECRET=""
+
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+
+AWS_S3_ACCESS_KEY=""
+AWS_S3_SECRET_ACCESS_KEY=""
+AWS_REGION=""
+
+NEXT_PUBLIC_GOOGLE_PLACES_KEY=""
+```
+
+4. Run the Project
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+&nbsp;
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## <a name="todo">✅ To Do List</a>
 
-## Learn More
+**Home Page**
 
-To learn more about Next.js, take a look at the following resources:
+🔳 Integrate contributions grid (react-calendar-heatmap)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Profile Page**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+🔳 Integrate contributions grid (react-calendar-heatmap)
 
-## Deploy on Vercel
+**Edit Profile Page**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✅ 'Enter' keyboard event should not trigger form submit\
+✅ Delete a 'Learning Goal'\
+✅ Add a 'Cancel' button\
+✅ Disable 'Update Profile' button if no updates have been made to the inputs\
+✅ Disable dates before today in Availability\
+✅ Disable dates before start date in End Date Availability
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+**Left Sidebar**
+
+🔳 Display posts in the 'Posts' section
+
+**Right Sidebar**
+
+🔳 Post Details: Determine what indicates a related post, and show related posts\
+🔳 Profile Page: If there are no social media links - move button under section and update text to 'Add social links'\
+✅ Update social links modal: If there are no updates made to the modal inputs, disable the 'Update Links' button\
+🔳 Create Post: Either remove 'Tags' section, or disable them\
+🔳 Fix red border around profile image\
+
+**Post Details Page**
+
+✅ Remove 'Resources & Links' section if there is no content
+
+**Create / Update Post Pages**
+
+🔳 Refactor these two components into one\
+✅ Fix padding in Tag input when there are two words\
+✅ Visually indicate which fields are required and/or optional\
+✅ Figure out focus ring order / Fix onEnter key press\
+✅ 'Add checkmark' button should be disabled if the input hasn't yet been filled\
+✅ Add a 'Cancel' button\
+✅ Disable 'Update Post' button if no updates have been made to the inputs
+
+**Miscellaneous Updates**
+
+✅ Add mobile responsiveness\
+✅ Add hover states to all clickable items\
+✅ Add loading.tsx files for each route\
+🔳 Add loading spinner on Login button\
+🔳 Add Skeleton loaders\
+✅ Create a seed file\
+✅ Add a Demo User\
+✅ Deploy site\
+🔳 Once a new user is onboarded - create main route with instructions & steps of how to begin - create UI for routes with no information in them\
+✅ Onbboarding - Disable dates before today in Availability\
+✅ Onbboarding - Disable dates before start date in End Date Availability\
+🔳 Ability to cancel onboarding process (reroutes user to sign-in/sign-up page
+🔳 Ability to save mid onboarding process
+

@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -18,10 +19,10 @@ const Posts = ({
 }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const isSelectedTypeAll = "all" === searchParams.get("type");
+  const isSelectedTypeAll = searchParams.get("type") === "all";
 
   let containerStyle = `flex flex-col gap-y-4`;
-  let postStyle = `bg-black-800 rounded-md`;
+  let postStyle = `bg-black-800 hover:bg-black-600 hover:duration-300 rounded-md`;
   if (isTwoCols) {
     containerStyle = "flex flex-wrap gap-x-2 gap-y-4";
     postStyle += " basis-[49%]";
@@ -97,7 +98,7 @@ const Posts = ({
           ))
         ) : (
           <h3
-            className={`paragraph-1-regular text-white-300 flex items-center justify-center p-12 ${postStyle}`}
+            className={`paragraph-1-regular flex w-full items-center justify-center rounded-md bg-black-800 p-12 text-white-300`}
           >
             No posts to display!
           </h3>

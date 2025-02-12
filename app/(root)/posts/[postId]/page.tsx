@@ -1,10 +1,14 @@
 import React from "react";
-import Link from "next/link";
+// import Link from "next/link";
 import { getPostById } from "@/lib/actions/post.actions";
 import PostDetails from "@/components/post/PostDetails";
 import { Resource, Post } from "@prisma/client";
 
-const Post = async ({ params }: { params: { postId: string } }) => {
+const PostDetailsWrapper = async ({
+  params,
+}: {
+  params: { postId: string };
+}) => {
   const post = await getPostById(params.postId);
 
   return (
@@ -20,4 +24,4 @@ const Post = async ({ params }: { params: { postId: string } }) => {
   );
 };
 
-export default Post;
+export default PostDetailsWrapper;

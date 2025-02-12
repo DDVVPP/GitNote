@@ -4,14 +4,14 @@ import { createPortal } from "react-dom";
 import Button from "../shared/ui/Button";
 import SocialMediaModal from "./SocialMediaModal";
 import { User, Social } from "@prisma/client";
-import { socialMediaIconList } from "@/lib/constants/socialMediaList";
+import SocialMediaLinks from "./SocialMediaLinks";
 
 const SidebarSocialMedia = ({
   user,
 }: {
   user: User & { socialMedia?: Social[] };
 }) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex flex-col gap-4">
@@ -19,56 +19,25 @@ const SidebarSocialMedia = ({
         type="button"
         icon="plus"
         color="gray"
-        onClick={() => setOpen(true)}
+        onClick={() => setIsOpen(true)}
       >
         Update social link
       </Button>
-      <h3 className="paragraph-2-bold border-white-500 border-b pb-4 pt-4">
+      <h3 className="paragraph-2-bold border-white-500 border-b py-4">
         Social Media Links
       </h3>
 
-      <div className="mr-1 flex flex-col">
-        {user.socialMedia ? (
-          user.socialMedia.map((social) => {
-            const filtered = socialMediaIconList.filter(
-              (icon) => social.type === icon.type
-            );
-            const { icon: Icon } = filtered[0];
+      <SocialMediaLinks socialMedia={user.socialMedia} />
 
-            return (
-              social.username && (
-                <div
-                  key={social.id}
-                  className="flex flex-wrap items-center justify-start"
-                >
-                  <Icon size={30} />
-                  <a
-                    target="_blank"
-                    href={social.link ?? "No link found"}
-                    className="text-white-300 paragraph-2-regular"
-                  >
-                    @{social.username}
-                  </a>
-                </div>
-              )
-            );
-          })
-        ) : (
-          <p className="text-white-300 paragraph-2-regular">
-            Oops! No socials!
-          </p>
-        )}
-      </div>
-
-      {open &&
+      {isOpen &&
         createPortal(
           <div
             aria-labelledby="social-media-modal"
             role="dialog"
             aria-modal="true"
-            className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-75 backdrop-blur transition-opacity"
+            className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
           >
-            <SocialMediaModal user={user} onClose={() => setOpen(false)} />
+            <SocialMediaModal user={user} onClose={() => setIsOpen(false)} />
           </div>,
           document.body
         )}

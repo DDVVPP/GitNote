@@ -14,7 +14,18 @@ const Availability = ({
 }) => {
   const { register, control, watch } = useFormHelpers;
   const availabilityValue = watch("availability");
+  const startDate = watch("startDate");
   const textColor = availabilityValue ? "text-white-300" : "text-white-500";
+
+  const minMaxTime = (min: number, sec: number) => {
+    return new Date(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate(),
+      min,
+      sec
+    );
+  };
 
   return (
     <div>
@@ -29,7 +40,7 @@ const Availability = ({
       <section className="space-x-2 pb-2">
         <input
           type="checkbox"
-          className="border-white-500 bg-black-700 h-3 w-3 cursor-pointer appearance-none rounded-sm border text-green-400"
+          className="border-white-500 bg-black-700 size-3 cursor-pointer appearance-none rounded-sm border text-green-400"
           {...register("availability")}
         />
         <label className="paragraph-3-regular  text-white-300">
@@ -54,13 +65,20 @@ const Availability = ({
                   showTimeSelect
                   timeFormat="h:mm aa"
                   timeIntervals={15}
-                  timeCaption="time"
+                  timeCaption="Time"
                   dateFormat="MM/dd/yyyy h:mm aa"
                   disabled={!availabilityValue}
                   showIcon
                   icon={
                     <Calendar className="stroke-white-500 !relative !pl-4" />
                   }
+                  minDate={new Date()}
+                  minTime={
+                    field.value.getDate() === new Date().getDate()
+                      ? new Date()
+                      : minMaxTime(0, 0)
+                  }
+                  maxTime={minMaxTime(23, 59)}
                 />
               )}
             />
@@ -84,13 +102,20 @@ const Availability = ({
                   showTimeSelect
                   timeFormat="h:mm aa"
                   timeIntervals={15}
-                  timeCaption="time"
+                  timeCaption="Time"
                   dateFormat="MM/dd/yyyy h:mm aa"
                   disabled={!availabilityValue}
                   showIcon
                   icon={
                     <Calendar className="stroke-white-500 !relative !pl-4" />
                   }
+                  minDate={startDate}
+                  minTime={
+                    startDate.getDate() === field.value.getDate()
+                      ? startDate
+                      : minMaxTime(0, 0)
+                  }
+                  maxTime={minMaxTime(23, 59)}
                 />
               )}
             />

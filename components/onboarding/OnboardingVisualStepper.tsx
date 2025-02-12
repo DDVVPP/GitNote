@@ -27,14 +27,16 @@ const RenderStepPosition = ({ step }: { step: number }) => {
       <React.Fragment key={index}>
         {statusComponent}
         {index < totalSteps && (
-          <hr className={`h-px w-28 border-0 ${borderColor}`} />
+          <hr
+            className={`max-xs-b:w-12 max-xs-a:w-8 h-px w-28 border-0 duration-500 ${borderColor}`}
+          />
         )}
       </React.Fragment>
     );
   };
 
   return (
-    <section className="flex w-full items-center">
+    <section className="flex items-center">
       {[...Array(totalSteps)].map((_, index) => renderStep(index + 1))}
     </section>
   );

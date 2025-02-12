@@ -1,14 +1,15 @@
-import NextAuth from 'next-auth';
-import bcryptjs from 'bcryptjs';
-import GithubProvider from 'next-auth/providers/github';
-import GoogleProvider from 'next-auth/providers/google';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth from "next-auth";
+import bcryptjs from "bcryptjs";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-import { PrismaAdapter } from '@auth/prisma-adapter';
-import { prisma } from '@/db';
-import { Role } from '@prisma/client';
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "@/db";
+import { Role } from "@prisma/client";
 
-declare module 'next-auth' {
+declare module "next-auth" {
+  // eslint-disable-next-line no-unused-vars
   interface User {
     role: Role;
     onboardingStatus: number | null;
@@ -20,14 +21,15 @@ export const {
   auth,
   signIn,
   signOut,
+  // eslint-disable-next-line camelcase
   unstable_update,
 } = NextAuth({
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
   adapter: PrismaAdapter(prisma),
   pages: {
-    newUser: '/sign-up/onboarding',
+    newUser: "/sign-up/onboarding",
   },
   providers: [
     GithubProvider({
@@ -39,17 +41,17 @@ export const {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
-      name: 'credentials',
+      name: "credentials",
       credentials: {
         email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'Provider your email',
+          label: "Email",
+          type: "email",
+          placeholder: "Provider your email",
         },
         password: {
-          label: 'Password',
-          type: 'password',
-          placeholder: 'Provider your password',
+          label: "Password",
+          type: "password",
+          placeholder: "Provider your password",
         },
       },
       async authorize(credentials, request) {
@@ -69,7 +71,7 @@ export const {
           if (passwordCheck) {
             return user;
           } else {
-            throw new Error('Invalid password');
+            throw new Error("Invalid password");
           }
         } else {
           return null;
@@ -79,19 +81,19 @@ export const {
   ],
   callbacks: {
     async jwt({ token, user, trigger }) {
-      //everytime read or write to the token
+      // everytime read or write to the token
 
       if (user) {
         token.role = user.role;
         token.onboardingStatus = user.onboardingStatus;
       }
-      if (trigger === 'update') {
+      if (trigger === "update") {
         token.onboardingStatus = 5;
       }
-      return token; //this token will get passed to session
+      return token; // this token will get passed to session
     },
     async session({ session, token }) {
-      //will run this also in jwt
+      // will run this also in jwt
       if (token) {
         session.user.role = token.role as Role;
         session.user.onboardingStatus = token.onboardingStatus as number;

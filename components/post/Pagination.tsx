@@ -35,7 +35,7 @@ const Pagination = ({
   return (
     <div className="mb-6 flex items-center justify-center gap-x-6">
       <button
-        className="bg-black-700 paragraph-4-medium text-white-100 disabled:bg-black-800 disabled:text-white-500 hover:bg-black-600 p-3"
+        className="paragraph-4-medium bg-black-700 p-3 text-white-100 hover:bg-black-600 disabled:bg-black-800 disabled:text-white-500"
         onClick={prev}
         disabled={Number(page) === 1}
       >
@@ -45,7 +45,7 @@ const Pagination = ({
         {page}/{numberOfPages}
       </p>
       <button
-        className="bg-black-700 paragraph-4-medium text-white-100 hover:bg-black-600 disabled:bg-black-800 disabled:text-white-500 p-3"
+        className="paragraph-4-medium bg-black-700 p-3 text-white-100 hover:bg-black-600 hover:duration-300 disabled:bg-black-800 disabled:text-white-500"
         onClick={next}
         disabled={!hasNextPage}
       >

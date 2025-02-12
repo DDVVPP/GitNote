@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useParams } from "next/navigation";
@@ -16,7 +15,14 @@ const RightSidebar = ({ user }: { user: User }) => {
   const params = useParams();
 
   const renderCorrectSidebar = () => {
-    if (["/", "/posts", "/posts/create-post"].includes(pathname)) {
+    if (
+      [
+        "/",
+        "/posts",
+        "/posts/create-post",
+        `/posts/${params.postId}/update-post`,
+      ].includes(pathname)
+    ) {
       return <SidebarTags />;
     } else if ([`/posts/${params.postId}`].includes(pathname)) {
       return <SidebarRelatedPosts />;
@@ -26,15 +32,23 @@ const RightSidebar = ({ user }: { user: User }) => {
   };
 
   return (
-    <div className=" bg-black-800 flex-2 sticky right-0 top-0 z-20 flex h-screen w-1/5 flex-col gap-10 overflow-y-auto p-8 pt-16">
-      <Link href="/profile" className="flex items-center gap-2">
+    <section className="px-7 pt-10">
+      <Link
+        href="/profile"
+        className="hover:bg-black-600 flex items-center gap-x-2 rounded-md hover:duration-300"
+      >
         {user.image ? (
-          <Image
-            src={user.image as string}
-            width={50}
-            height={50}
-            alt="Profile photo"
-          />
+          <div className="relative size-9">
+            <Image
+              src={user.image}
+              blurDataURL={user.blurImage ?? ""}
+              placeholder="blur"
+              alt="Profile photo"
+              fill
+              style={{ objectFit: "contain" }}
+              className="bg-black-800"
+            />
+          </div>
         ) : (
           <div className="bg-black-700 p-7">
             <LandscapeIcon stroke="rgba(173, 179, 204, 1)" size={18} />
@@ -45,14 +59,14 @@ const RightSidebar = ({ user }: { user: User }) => {
           <p className="paragraph-3-medium">
             {user.name ?? '"(oops! Missing name)"'}
           </p>
-          <p className="text-white-300 paragraph-4-regular">
+          <p className="paragraph-4-regular text-white-300">
             {user.email ?? "(oops! Missing email)"}
           </p>
         </div>
       </Link>
 
-      {renderCorrectSidebar()}
-    </div>
+      <section className="mt-10">{renderCorrectSidebar()}</section>
+    </section>
   );
 };
 

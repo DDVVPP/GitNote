@@ -27,11 +27,11 @@ const LearningGoals = ({
 
       <section className="mb-3">
         {isEditProfile && (
-          <h3 className="paragraph-3-medium text-white-500 mb-5">
+          <h3 className="paragraph-3-medium mb-5 text-white-500">
             LEARNING GOALS
           </h3>
         )}
-        <p className="paragraph-3-regular text-white-300 mb-2">
+        <p className="paragraph-3-regular mb-2 text-white-300">
           Learning goals
         </p>
 
@@ -39,28 +39,31 @@ const LearningGoals = ({
           const goalNameValue = watch(`goals.${index}.name`);
           return (
             <React.Fragment key={field.id}>
-              <div className="bg-black-700 mb-2 flex items-center justify-between px-3 py-1">
+              <div className="mb-2 flex items-center justify-between bg-black-700 px-3 py-1">
                 <input
                   type="checkbox"
                   disabled={!goalNameValue}
-                  className="border-white-500 bg-white-500 h-3 w-3 cursor-pointer appearance-none rounded-sm border text-green-400"
+                  className="size-3 cursor-pointer appearance-none rounded-sm border border-white-500 bg-white-500 text-green-400"
                   {...register(`goals.${index}.isComplete`)}
                 />
                 <input
                   type="text"
-                  className="paragraph-3-regular text-white-100 placeholder:paragraph-3-regular placeholder:text-white-300 bg-black-700 ml-2 w-full rounded-md border-none pl-1 focus:outline-none"
+                  className="paragraph-3-regular placeholder:paragraph-3-regular ml-2 w-full rounded-md border-none bg-black-700 pl-1 text-white-100 placeholder:text-white-300 focus:outline-none"
                   placeholder="Enter a learning goal"
                   {...register(`goals.${index}.name`)}
                 />
                 <button type="button" onClick={() => remove(index)}>
-                  <X className="text-white-500" size={16} />
+                  <X
+                    className="text-white-500 hover:text-white-300 hover:duration-300"
+                    size={16}
+                  />
                 </button>
               </div>
 
               <div>
                 {formState.errors.goals &&
                   formState.errors.goals[index]?.name?.message && (
-                    <span className="text-error-500 paragraph-3-regular">
+                    <span className="error-message">
                       {formState.errors.goals[index].name.message}
                     </span>
                   )}

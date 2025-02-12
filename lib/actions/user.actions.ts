@@ -3,6 +3,7 @@
 import { prisma } from "@/db";
 import { User, Goals, Social } from "@prisma/client";
 import bcryptjs from "bcryptjs";
+// eslint-disable-next-line camelcase
 import { revalidateTag, unstable_cache } from "next/cache";
 import { getUserSession } from ".";
 
@@ -27,9 +28,8 @@ export async function createUser(data: Partial<User>) {
   return { error: "An unexpected error occurred while creating user." };
 }
 
-async function _getUser() {
+async function getUserFromDb(email: string) {
   try {
-    const email = await getUserSession();
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -46,16 +46,45 @@ async function _getUser() {
   }
 }
 
-export const getUser = unstable_cache(_getUser, ["getUser"], {
-  tags: ["userData"],
-});
+export async function getUser() {
+  try {
+    const email = await getUserSession();
+    const getCachedUser = unstable_cache(
+      () => getUserFromDb(email),
+      [`getUser-${email}`],
+      {
+        tags: ["userData"],
+      }
+    );
+    const cachedUser = await getCachedUser();
+    return cachedUser;
+  } catch (error) {
+    console.error("Error in getUser:", error);
+    return null;
+  }
+}
 
-export async function updateUser(
-  data: Partial<User & { goals?: any } & { socialMedia?: any }>
-) {
-  if (data && data.goals) {
-    data.goals = {
-      upsert: data.goals.map((goal: Goals) => ({
+const updateGoals = async (goals: Goals[]) => {
+  try {
+    const goalIds = goals.reduce((ids: number[], goal: Goals) => {
+      if (goal.id) {
+        ids.push(goal.id);
+      }
+      return ids;
+    }, []);
+    // Delete goals not included in the payload
+    await prisma.goals.deleteMany({
+      where: {
+        NOT: {
+          id: {
+            in: goalIds,
+          },
+        },
+      },
+    });
+
+    const upsertGoals = {
+      upsert: goals.map((goal: Goals) => ({
         where: {
           id: goal.id || -1,
         },
@@ -69,20 +98,35 @@ export async function updateUser(
         },
       })),
     };
-  }
 
-  if (data && data.socialMedia) {
+    return upsertGoals;
+  } catch (error) {
+    console.error("Error updating goals:", error);
+    return { error: "An unexpected error occurred while updating goals." };
+  }
+};
+
+const updateSocialMedia = async (socialMedia: any[]) => {
+  try {
     const filteredData =
-      data.socialMedia &&
-      data.socialMedia.filter((social: { username: string; type: string }) => {
-        if (social.username && social.type)
-          return social.username.length > 0 && social.type.length > 0;
+      socialMedia &&
+      socialMedia.filter((social: { username: string; type: string }) => {
+        return social.username.length > 0 && social.type.length > 0;
       });
-    const emptyUsernames = data.socialMedia.filter((social: Social) => {
+
+    const emptyUsernames = socialMedia.filter((social: Social) => {
       return social.username === "";
     });
+    // Delete all socials with empty usernames
+    await prisma.social.deleteMany({
+      where: {
+        id: {
+          in: emptyUsernames.map((socialMedia: Social) => socialMedia.id),
+        },
+      },
+    });
 
-    data.socialMedia = {
+    const upsertSocialMedia = {
       upsert: filteredData.map((socialMedia: Social) => ({
         where: {
           id: socialMedia.id || -1,
@@ -98,25 +142,45 @@ export async function updateUser(
           link: socialMedia.link,
         },
       })),
-      deleteMany: emptyUsernames.map((socialMedia: Social) => ({
-        id: socialMedia.id,
-      })),
+    };
+
+    return upsertSocialMedia;
+  } catch (error) {
+    console.error("Error updating social media:", error);
+    return {
+      error: "An unexpected error occurred while updating social media.",
     };
   }
+};
 
+export async function updateUser(
+  data: Partial<User & { goals?: any } & { socialMedia?: any }>
+) {
   try {
     const email = await getUserSession();
+
     if (data) {
+      const upsertedGoals = data.goals && (await updateGoals(data.goals));
+      const upsertedSocialMedia =
+        data.socialMedia && (await updateSocialMedia(data.socialMedia));
+
+      const { goals, socialMedia, ...rest } = data;
+
       const user = await prisma.user.update({
         where: {
           email,
         },
-        data,
+        data: {
+          ...rest,
+          ...(upsertedGoals && { goals: upsertedGoals }),
+          ...(upsertedSocialMedia && { socialMedia: upsertedSocialMedia }),
+        },
         include: {
           goals: true,
           socialMedia: true,
         },
       });
+
       revalidateTag("userData");
       return { user, error: null };
     }
@@ -136,7 +200,7 @@ export async function deleteUser(id: string) {
     });
     return user;
   } catch (error) {
-    console.error("Error updating user:", error);
-    throw new Error("An unexpected error occurred while updating user.");
+    console.error("Error deleting user:", error);
+    throw new Error("An unexpected error occurred while deleting user.");
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Loader2, X } from "lucide-react";
 import {
   SubmitHandler,
@@ -59,14 +59,14 @@ const SocialMediaModal = ({
   });
 
   const {
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isDirty },
     control,
     trigger,
     handleSubmit,
     register,
   } = useFormHelpers;
 
-  //Added this to include new error property socialFields
+  // Added this to include new error property socialFields
   const formErrors = errors as {
     socialMedia: {
       id?: { message: number | undefined };
@@ -88,27 +88,38 @@ const SocialMediaModal = ({
   };
 
   return (
-    <div className="bg-black-800 flex rounded-md p-12" ref={ref}>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+    <div
+      className="bg-black-800 flex rounded-md p-12 max-md:size-[90%] max-md:px-4 max-md:py-8"
+      ref={ref}
+      onMouseDown={(e) => e.stopPropagation()}
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col">
         <div className="text-white-100 mb-4 flex items-center justify-between">
-          <h1 className="display-1-bold">Social Media Links</h1>
-          <X onClick={onClose} cursor="pointer" />
+          <h1 className="display-1-bold max-md:display-2-bold">
+            Social Media Links
+          </h1>
+          <X
+            onClick={onClose}
+            cursor="pointer"
+            className="hover:text-white-300 hover:duration-300"
+          />
         </div>
 
-        <section className="flex flex-col gap-y-4">
+        <section className="flex w-full flex-col gap-y-4 max-md:overflow-y-auto">
           {socialMediaIconList.map((icon, index) => {
             const { icon: Icon, type } = icon;
             return (
-              <div
-                key={type}
-                className="flex items-start justify-start gap-x-2"
-              >
-                <Icon size={34} className="self-center" />
-                <Controller
-                  control={control}
-                  name={`socialMedia.${index}.username`}
-                  render={({ field: { name, onChange, ...rest } }) => (
-                    <div className="w-48">
+              <div key={type} className="flex gap-x-2">
+                <Icon
+                  size={34}
+                  className="self-center max-md:mt-2 max-md:self-start"
+                />
+
+                <div className="flex w-full gap-2 max-md:flex-col">
+                  <Controller
+                    control={control}
+                    name={`socialMedia.${index}.username`}
+                    render={({ field: { name, onChange, ...rest } }) => (
                       <Input
                         id="username"
                         {...rest}
@@ -123,33 +134,32 @@ const SocialMediaModal = ({
                             ?.message as FieldError & string)
                         }
                       />
-                    </div>
-                  )}
-                />
+                    )}
+                  />
 
-                <Controller
-                  control={control}
-                  name={`socialMedia.${index}.link`}
-                  render={({ field: { name, onChange, ...rest } }) => (
-                    <div className="w-48">
-                      <Input
-                        id="link"
-                        {...rest}
-                        onChange={(event) => {
-                          onChange(event);
-                          trigger(name);
-                        }}
-                        placeholder="Social Link"
-                        errors={
-                          formErrors.socialMedia &&
-                          (formErrors.socialMedia[index]?.link
-                            ?.message as FieldError & string)
-                        }
-                      />
-                    </div>
-                  )}
-                />
-
+                  <Controller
+                    control={control}
+                    name={`socialMedia.${index}.link`}
+                    render={({ field: { name, onChange, ...rest } }) => (
+                      <div className="">
+                        <Input
+                          id="link"
+                          {...rest}
+                          onChange={(event) => {
+                            onChange(event);
+                            trigger(name);
+                          }}
+                          placeholder="Social Link"
+                          errors={
+                            formErrors.socialMedia &&
+                            (formErrors.socialMedia[index]?.link
+                              ?.message as FieldError & string)
+                          }
+                        />
+                      </div>
+                    )}
+                  />
+                </div>
                 <Input
                   id={type}
                   value={type}
@@ -160,13 +170,13 @@ const SocialMediaModal = ({
               </div>
             );
           })}
-          <span className="text-error-500 paragraph-3-regular mt-2 flex justify-center">
+          <span className="error-message flex justify-center">
             {formErrors.socialFields && formErrors.socialFields.message}
           </span>
         </section>
 
-        <div className="mt-6">
-          <Button color="blue">
+        <div className="mt-6 max-md:mt-0">
+          <Button color="blue" disabled={!isDirty}>
             {isSubmitting ? (
               <Loader2 className="animate-spin" />
             ) : (

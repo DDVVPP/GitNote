@@ -2,12 +2,28 @@
 
 import { format as formatDate } from "date-fns";
 import "prismjs/themes/prism-tomorrow.css";
-import { Calendar, Star, Eye, ExternalLink, CheckSquare } from "lucide-react";
+import {
+  Calendar,
+  Star,
+  Eye,
+  ExternalLink,
+  CheckSquare,
+  SquarePen,
+  Trash,
+} from "lucide-react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { createPortal } from "react-dom";
 
 import { CreateType, Post, Resource } from "@prisma/client";
 import Badge from "../shared/ui/Badge";
 import { createTypeList } from "@/lib/constants/createTypeList";
 import RenderedCodeEditor from "./RenderedCodeEditor";
+import VerticalEllipsisIcon from "../shared/icons/VerticalEllipsisIcon";
+import { useRef, useState } from "react";
+import useEscapeHandler from "@/lib/utils/useEscapeHandler";
+import useOutsideClickHandler from "@/lib/utils/useOutsideClickHandler";
+import ConfirmationModal from "./ConfirmationModal";
 
 const PostDetails = ({
   post,
@@ -31,47 +47,91 @@ const PostDetails = ({
   const filteredPostType = createTypeList.filter(
     (type) => type.name === createType
   );
+  const ref = useRef(null);
+  const params = useParams();
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const onClose = () => setIsOpen(false);
+  useOutsideClickHandler(ref, onClose);
+  useEscapeHandler(onClose);
 
   return (
     <section className="flex flex-col space-y-6">
-      <section className="flex items-center justify-between">
-        <h1 className="display-2-bold text-white-100">{title}</h1>
-        <div className="flex gap-x-2">
-          <Badge
-            color={filteredPostType[0].badgeColor}
-            icon={filteredPostType[0].name}
-            size="medium"
-          >
-            {filteredPostType[0].uiName}
-          </Badge>
+      <section className="flex flex-col space-y-5">
+        <header className="max-xs-b:flex-col max-xs-b:items-start flex items-center justify-between gap-y-1">
+          <h1 className="display-2-bold text-white-100 w-fit">{title}</h1>
+
+          <div className="max-xs-b:justify-between max-xs-b:w-full flex h-fit justify-end gap-x-2">
+            <Badge
+              color={filteredPostType[0].badgeColor}
+              icon={filteredPostType[0].name}
+              size="medium"
+            >
+              {filteredPostType[0].uiName}
+            </Badge>
+
+            <div ref={ref}>
+              <button
+                type="button"
+                id="triple-dot-button"
+                className="hover:bg-black-600 rounded-md align-middle hover:duration-300"
+                onClick={() => setIsOpen((prevState) => !prevState)}
+              >
+                <VerticalEllipsisIcon size={30} />
+              </button>
+
+              {isOpen && (
+                <menu className="paragraph-3-medium bg-black-700 text-white-300 absolute right-7 z-10 mt-2 flex w-fit flex-col justify-end text-nowrap rounded-md py-2 lg:right-80">
+                  <Link
+                    href={`/posts/${params.postId}/update-post`}
+                    className="hover:bg-black-600 flex gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
+                  >
+                    <SquarePen size={18} className="" />
+                    <p className="text-white-100">Update Post</p>
+                  </Link>
+
+                  <div
+                    className="hover:bg-black-600 flex cursor-pointer gap-x-2 px-9 py-2 hover:py-2 hover:duration-300"
+                    onClick={() => setModalIsOpen((prevState) => !prevState)}
+                  >
+                    <Trash size={18} />
+                    <p className="text-white-100">Delete Post</p>
+                  </div>
+                </menu>
+              )}
+            </div>
+          </div>
+        </header>
+
+        <p className="paragraph-3-regular text-white-300">{description}</p>
+
+        <section className="flex gap-x-4">
+          <div className="flex items-center gap-x-1">
+            <Calendar size={16} className="text-white-500 shrink-0" />
+            <p className="paragraph-3-regular text-white-300">
+              {createdAtDate}
+            </p>
+          </div>
+          <div className="flex items-center gap-x-1">
+            <Star size={16} className="text-white-500" />
+            <p className="paragraph-3-regular text-white-300">stars</p>
+          </div>
+          <div className="flex items-center gap-x-1">
+            <Eye size={16} className="text-white-500" />
+            <p className="paragraph-3-regular text-white-300">views</p>
+          </div>
+        </section>
+
+        <div className="flex flex-wrap gap-3">
+          {tags &&
+            tags.map((tag) => (
+              <Badge key={tag} size="medium">
+                {tag}
+              </Badge>
+            ))}
         </div>
       </section>
-
-      <p className="paragraph-3-regular text-white-300">{description}</p>
-
-      <div className="flex gap-x-4">
-        <div className="flex items-center gap-x-1">
-          <Calendar size={16} className="text-white-500" />
-          <p className="paragraph-3-regular text-white-300">{createdAtDate}</p>
-        </div>
-        <div className="flex items-center gap-x-1">
-          <Star size={16} className="text-white-500" />
-          <p className="paragraph-3-regular text-white-300">stars</p>
-        </div>
-        <div className="flex items-center gap-x-1">
-          <Eye size={16} className="text-white-500" />
-          <p className="paragraph-3-regular text-white-300">views</p>
-        </div>
-      </div>
-
-      <div className="flex gap-x-3">
-        {tags &&
-          tags.map((tag) => (
-            <Badge key={tag} size="medium">
-              {tag}
-            </Badge>
-          ))}
-      </div>
 
       <hr className="dark:bg-black-700 h-px w-full border-0" />
 
@@ -88,8 +148,11 @@ const PostDetails = ({
           {learnings &&
             learnings.map((item) => {
               return (
-                <div className="flex items-center space-x-2">
-                  <CheckSquare className="text-green-400" size={16} />
+                <div className="flex items-start space-x-2" key={item}>
+                  <CheckSquare
+                    className="m-1 shrink-0 text-green-400"
+                    size={16}
+                  />
                   <p className="paragraph-2-regular text-white-300">{item}</p>
                 </div>
               );
@@ -108,9 +171,9 @@ const PostDetails = ({
                 <div key={step} className="my-1 flex items-center gap-2">
                   <input
                     type="checkbox"
-                    className="border-white-500 bg-black-800 checked:border-white-500 h-4.5 w-4.5 cursor-pointer appearance-none rounded-sm border-2 checked:bg-transparent"
+                    className="h-4.5 w-4.5 border-white-500 bg-black-800 checked:border-white-500 cursor-pointer appearance-none rounded-sm border-2 checked:bg-transparent"
                   />
-                  <p className="text-white-300 paragraph-2-regular">{step}</p>
+                  <p className="paragraph-2-regular text-white-300">{step}</p>
                 </div>
               );
             })}
@@ -128,16 +191,19 @@ const PostDetails = ({
         </>
       )}
 
-      {resources && (
+      {resources && resources.length > 0 && (
         <section>
           <p className="paragraph-2-bold text-white-100">Resources & Links</p>
           {resources.map((resource) => {
             return (
               <div
-                key={resource && resource.id}
-                className="text-white-300  mb-3 mt-3 flex items-center gap-x-2"
+                key={resource?.id}
+                className="text-white-300 hover:text-primary-500 my-3  flex items-center gap-x-2 hover:duration-300"
               >
-                <CheckSquare size={16} className="flex text-green-400" />
+                <CheckSquare
+                  size={16}
+                  className="flex shrink-0 text-green-400"
+                />
                 <a
                   target="_blank"
                   href={resource?.link ?? "/"}
@@ -151,6 +217,22 @@ const PostDetails = ({
           })}
         </section>
       )}
+
+      {modalIsOpen &&
+        createPortal(
+          <div
+            aria-labelledby="confirmation-modal"
+            role="dialog"
+            aria-modal="true"
+            className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
+          >
+            <ConfirmationModal
+              onClose={() => setModalIsOpen(false)}
+              postId={post.id}
+            />
+          </div>,
+          document.body
+        )}
     </section>
   );
 };

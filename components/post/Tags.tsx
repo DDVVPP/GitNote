@@ -3,13 +3,19 @@
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
-const Tags = ({ setValue }: { setValue: any }) => {
+const Tags = ({
+  setValue,
+  defaultValueTags = [],
+}: {
+  setValue: any;
+  defaultValueTags?: string[];
+}) => {
   const [tagInput, setTagInput] = useState("");
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(defaultValueTags);
 
   useEffect(() => {
     setValue("tags", tags);
-  }, [tags]);
+  }, [setValue, tags]);
 
   useEffect(() => {
     const onEnter = (event: KeyboardEvent) => {
@@ -69,21 +75,24 @@ const Tags = ({ setValue }: { setValue: any }) => {
     <section className="space-y-6">
       <div className="text-white-300 flex flex-col">
         <label className="paragraph-3-medium mb-2">Tags</label>
-        <div className="bg-black-700 relative flex w-full items-center gap-2 rounded-md border-none px-2 focus:ring-1">
+        <div className="bg-black-700 relative flex w-full flex-wrap items-center gap-2 rounded-md border-none p-3 focus:ring-1">
           {tags.length > 0 &&
             tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="bg-black-600 paragraph-3-medium flex items-center gap-2 rounded-md px-2"
+                className="paragraph-3-medium bg-black-600 flex items-center gap-2 text-nowrap rounded-md px-2"
               >
                 {tag}
                 <button type="button" onClick={() => handleDelete(tag)}>
-                  <X className="text-white-500" size={16} />
+                  <X
+                    className="text-white-500 hover:text-white-300 hover:duration-300"
+                    size={16}
+                  />
                 </button>
               </span>
             ))}
           <input
-            className="paragraph-3-regular flex w-full border-none bg-transparent px-1 py-3 focus:ring-0"
+            className="paragraph-3-regular flex min-w-[70px] grow basis-[70px] border-none bg-transparent px-1 py-0 focus:ring-0"
             type="text"
             id="tags"
             onChange={(event) => setTagInput(event.target.value)}

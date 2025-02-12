@@ -1,4 +1,5 @@
-import { forwardRef } from "react";
+import useInputBlurHandler from "@/lib/utils/useInputBlurHandler";
+import React, { forwardRef } from "react";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   id: string;
@@ -8,10 +9,17 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, id, placeholder, required = true, errors, ...rest }, ref) => {
+  ({ label, id, placeholder, required = false, errors, ...rest }, ref) => {
+    useInputBlurHandler(id);
+
     return (
       <div className=" text-white-300 flex flex-col">
-        {label && <label className="paragraph-3-medium mb-2">{label}</label>}
+        {label && (
+          <label className="paragraph-3-medium mb-2">
+            {label}
+            {required && <span className="font-light"> (required)</span>}
+          </label>
+        )}
         <input
           className="paragraph-3-regular bg-black-700 rounded-md border-none p-3"
           type="text"
@@ -20,13 +28,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           {...rest}
           ref={ref}
         />
-        {errors && (
-          <span className="text-error-500 paragraph-3-regular mt-2">
-            {errors}
-          </span>
-        )}
+        {errors && <span className="error-message">{errors}</span>}
       </div>
     );
   }
 );
+
+Input.displayName = "Input";
 export default Input;

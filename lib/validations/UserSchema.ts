@@ -2,7 +2,6 @@ import { z } from "zod";
 
 import { urlMatch } from "../utils/constants";
 
-export type IUserSchema = z.infer<typeof UserSchema>;
 export const UserSchema = z.object({
   name: z
     .string()
@@ -12,6 +11,7 @@ export const UserSchema = z.object({
     .string()
     .min(4, { message: "Password must contain at least 4 characters" }),
   image: z.string().optional(),
+  blurImage: z.string().optional(),
   location: z.string(),
   portfolio: z.string().refine((value) => {
     if (!value) return true;
@@ -57,35 +57,36 @@ export const UserSchema = z.object({
   startDate: z.date(),
   endDate: z.date(),
 });
-//-------------------------------
+export type IUserSchema = z.infer<typeof UserSchema>;
+// -------------------------------
 
-export type IUserLoginSchema = z.infer<typeof UserLoginSchema>;
 export const UserLoginSchema = UserSchema.pick({ email: true, password: true });
-//-------------------------------
+export type IUserLoginSchema = z.infer<typeof UserLoginSchema>;
+// -------------------------------
 
-export type IUserSignUpSchema = z.infer<typeof UserSignUpSchema>;
 export const UserSignUpSchema = UserSchema.pick({
   name: true,
   email: true,
   password: true,
 });
-//-------------------------------
+export type IUserSignUpSchema = z.infer<typeof UserSignUpSchema>;
+// -------------------------------
 
-export type IOnboardingSchema = z.infer<typeof OnboardingSchema>;
 export const OnboardingSchema = UserSchema.omit({
   email: true,
   password: true,
   socialMedia: true,
 });
-//-------------------------------
+export type IOnboardingSchema = z.infer<typeof OnboardingSchema>;
+// -------------------------------
 
-export type IProfileSchema = z.infer<typeof ProfileSchema>;
 export const ProfileSchema = UserSchema.omit({
   password: true,
   socialMedia: true,
 });
-//-------------------------------s
-export type ISocialMediaSchema = z.infer<typeof SocialMediaSchema>;
+export type IProfileSchema = z.infer<typeof ProfileSchema>;
+// -------------------------------s
+
 export const SocialMediaSchema = UserSchema.pick({
   socialMedia: true,
 }).refine(
@@ -103,4 +104,5 @@ export const SocialMediaSchema = UserSchema.pick({
     path: ["socialFields"],
   }
 );
-//-------------------------------
+export type ISocialMediaSchema = z.infer<typeof SocialMediaSchema>;
+// -------------------------------

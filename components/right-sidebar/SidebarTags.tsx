@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import { getUniqueTags } from "@/lib/actions/post.actions";
 import React, { useEffect, useState } from "react";
 import { Badge } from "../shared";
@@ -28,11 +27,13 @@ const SidebarTags = () => {
       router.push(`?${newParams}`);
     };
     setParams();
+    // adding searchParams and router to dependency array was causing pagination to revert back to previous page
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tagTerm]);
 
   return (
     <div className="flex flex-col justify-start gap-4">
-      <h3 className="text-white-100 paragraph-3-bold">Tags</h3>
+      <h3 className="paragraph-3-bold text-white-100">Tags</h3>
       {tagList &&
         tagList.map((tag) => {
           const isSelected = tag === searchParams.get("tag");

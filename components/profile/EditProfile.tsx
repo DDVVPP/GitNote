@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { Loader2 } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +13,7 @@ import { updateUser } from "@/lib/actions/user.actions";
 import { Goals, User } from "@prisma/client";
 import { IProfileSchema, ProfileSchema } from "@/lib/validations/UserSchema";
 
+import SocialMediaModal from "../right-sidebar/SocialMediaModal";
 import BasicInformation from "./BasicInformation";
 import LearningGoals from "./LearningGoals";
 import KnowledgeLevel from "./KnowledgeLevel";
@@ -19,20 +21,26 @@ import Availability from "./Availability";
 import Button from "../shared/ui/Button";
 
 const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const router = useRouter();
   const useFormHelpers = useForm<IProfileSchema>({
     defaultValues: {
       name: user?.name ?? "",
       email: user?.email ?? "",
       image: user?.image ?? "",
+      blurImage: user?.blurImage ?? "",
       location: "",
       portfolio: user?.portfolio ?? "",
       goals: user?.goals ?? [],
       knowledgeLevel: user?.knowledgeLevel ?? [],
       techStack: user?.techStack ?? [],
       availability: user?.availability ?? false,
-      startDate: new Date(user?.startDate as Date),
-      endDate: new Date(user?.endDate as Date),
+      startDate:
+        user?.startDate && user?.startDate > new Date()
+          ? new Date(user?.startDate as Date)
+          : new Date(),
+      endDate: user?.endDate ? new Date(user?.endDate as Date) : new Date(),
     },
     resolver: zodResolver(ProfileSchema),
   });
@@ -40,7 +48,7 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
   const {
     watch,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isDirty, defaultValues },
   } = useFormHelpers;
   const formData = watch();
 
@@ -75,14 +83,56 @@ const EditProfile = ({ user }: { user: User & { goals?: Goals[] } }) => {
           <Availability useFormHelpers={useFormHelpers} isEditProfile />
         </section>
 
-        <Button color="blue" type="submit">
-          {isSubmitting ? (
-            <Loader2 className="animate-spin" />
-          ) : (
-            "Update Profile"
-          )}
-        </Button>
+        <div className="flex gap-4 max-md:flex-col">
+          <Button
+            color="blue"
+            type="submit"
+            mobileClass="max-md:order-2"
+            disabled={
+              defaultValues?.techStack?.length === formData.techStack.length &&
+              !isDirty
+            }
+          >
+            {isSubmitting ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              "Update Profile"
+            )}
+          </Button>
+
+          <Button
+            color="gray"
+            type="button"
+            onClick={() => router.push("/profile")}
+            mobileClass="max-md:order-3"
+          >
+            Cancel
+          </Button>
+
+          <Button
+            type="button"
+            icon="plus"
+            color="gray"
+            onClick={() => setIsOpen(true)}
+            mobileClass="md:hidden max-md:order-1"
+          >
+            Update social links
+          </Button>
+        </div>
       </div>
+
+      {isOpen &&
+        createPortal(
+          <div
+            aria-labelledby="social-media-modal"
+            role="dialog"
+            aria-modal="true"
+            className="bg-opacity/75 fixed inset-0 z-50 flex items-center justify-center backdrop-blur transition-opacity"
+          >
+            <SocialMediaModal user={user} onClose={() => setIsOpen(false)} />
+          </div>,
+          document.body
+        )}
     </form>
   );
 };

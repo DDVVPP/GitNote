@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Image as LandscapeIcon, UploadCloud } from "lucide-react";
 import Image from "next/image";
 import { Controller } from "react-hook-form";
 
 import { UploadFile } from "@/lib/actions/s3.actions";
 import { Input } from "@/components/shared/ui";
+import getBlurDataURL from "@/lib/utils/getBlurDataURL";
 
 const BasicInformation = ({
   useFormHelpers,
@@ -28,9 +29,11 @@ const BasicInformation = ({
     if (!file) return;
     newFormData.append("file", file);
     const url = await UploadFile(newFormData);
+    const blurDataURL = await getBlurDataURL(url);
 
     setImage(URL.createObjectURL(file as Blob | MediaSource));
     setValue("image", url);
+    setValue("blurImage", blurDataURL);
   };
 
   return (
@@ -43,18 +46,28 @@ const BasicInformation = ({
 
       <div className="flex items-center space-x-6">
         {image ? (
-          <Image src={image} alt="profileImage" width={120} height={120} />
+          <div className="relative size-24">
+            <Image
+              src={image}
+              blurDataURL={formData.blurImage ?? ""}
+              placeholder="blur"
+              alt="profileImage"
+              fill
+              style={{ objectFit: "contain" }}
+              className="bg-black-800"
+            />
+          </div>
         ) : (
           <div className="bg-black-700 p-7">
             <LandscapeIcon stroke="rgba(173, 179, 204, 1)" size={18} />
           </div>
         )}
 
-        <div className="bg-black-700 flex items-center space-x-2 p-1.5">
+        <div className="bg-black-700 group flex cursor-pointer items-center space-x-2 rounded-sm p-1.5 hover:bg-[#4d567a] hover:duration-300">
           <UploadCloud stroke="rgba(173, 179, 204, 1)" size={18} />
           <label
             htmlFor="image"
-            className="paragraph-3-medium bg-black-700 text-white-300 flex cursor-pointer justify-center"
+            className="paragraph-3-medium  text-white-300 group-hover:text-white-100 flex cursor-pointer  justify-center group-hover:duration-300"
           >
             Upload Profile Photo
             <input

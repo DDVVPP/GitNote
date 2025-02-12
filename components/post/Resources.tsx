@@ -1,7 +1,10 @@
-import React from "react";
-import { X } from "lucide-react";
+import React, { useState } from "react";
 
 import { Button } from "../shared";
+import ResourceFieldsMobile from "./ResourceFieldsMobile";
+import useInputBlurHandler from "@/lib/utils/useInputBlurHandler";
+import ResourceFields from "./ResourcesFields";
+import useMediaQuery from "@/lib/utils/useMediaQuery";
 
 const Resources = ({
   useFieldArray,
@@ -18,6 +21,11 @@ const Resources = ({
     name: "resources",
     control,
   });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useInputBlurHandler("label");
+  useInputBlurHandler("link");
+  useMediaQuery(setIsMobile);
 
   return (
     <section>
@@ -28,46 +36,27 @@ const Resources = ({
       <section className="mt-6">
         {fields.map((field: { id: number }, index: number) => {
           return (
-            <React.Fragment key={field.id}>
-              <div className="mb-2 flex gap-x-2">
-                <div className="flex w-full flex-col">
-                  <input
-                    type="text"
-                    className="placeholder:text-white-500 paragraph-3-regular bg-black-700 w-full rounded-md border-none p-3 focus:outline-none"
-                    placeholder="Label"
-                    {...register(`resources.${index}.label`)}
+            <div key={field.id} className="mb-2 flex gap-x-2">
+              {isMobile ? (
+                <div className="flex w-full flex-col gap-y-2">
+                  <ResourceFieldsMobile
+                    errors={errors}
+                    index={index}
+                    register={register}
+                    remove={remove}
                   />
-
-                  {errors.resources &&
-                    errors.resources[index]?.label?.message && (
-                      <span className="text-error-500 paragraph-3-regular">
-                        {errors.resources[index].label.message}
-                      </span>
-                    )}
                 </div>
-                <div className="flex w-full flex-col">
-                  <input
-                    type="text"
-                    className="placeholder:text-white-500 paragraph-3-regular bg-black-700 w-full rounded-md border-none p-3 focus:outline-none"
-                    placeholder="Resource Link"
-                    {...register(`resources.${index}.link`)}
+              ) : (
+                <div className="flex w-full gap-x-2">
+                  <ResourceFields
+                    errors={errors}
+                    index={index}
+                    register={register}
+                    remove={remove}
                   />
-                  {errors.resources &&
-                    errors.resources[index]?.link?.message && (
-                      <span className="text-error-500 paragraph-3-regular">
-                        {errors.resources[index].link.message}
-                      </span>
-                    )}
                 </div>
-                <button
-                  type="button"
-                  className="bg-black-700 h-11 rounded px-3"
-                  onClick={() => remove(index)}
-                >
-                  <X className="text-white-500" size={16} />
-                </button>
-              </div>
-            </React.Fragment>
+              )}
+            </div>
           );
         })}
       </section>

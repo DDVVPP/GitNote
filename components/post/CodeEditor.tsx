@@ -10,9 +10,11 @@ import CodeIcon from "../shared/icons/CodeIcon";
 const CodeEditor = ({
   onChange,
   codeContent,
+  errors,
 }: {
   onChange: (value: string) => void;
   codeContent: string;
+  errors: string;
 }) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [numberOfEditorLines, setNumberOfEditorLines] = useState(0);
@@ -27,8 +29,8 @@ const CodeEditor = ({
   }, [codeContent, isPreview]);
 
   return (
-    <section className="text-white-300 flex flex-col space-y-2">
-      <div className="paragraph-3-medium flex rounded-md border-none">
+    <section className="flex flex-col space-y-2 text-white-300">
+      <div className="paragraph-3-medium flex items-center rounded-md border-none">
         <button
           type="button"
           className={`${
@@ -50,6 +52,7 @@ const CodeEditor = ({
           <EyeIcon size={20} />
           Preview
         </button>
+        <p className="ml-2 font-light">(required)</p>
       </div>
 
       {isPreview ? (
@@ -57,7 +60,7 @@ const CodeEditor = ({
           <code className="!text-wrap">{codeContent}</code>
         </pre>
       ) : (
-        <div className="bg-black-700 relative flex h-96 overflow-y-auto">
+        <div className="relative flex h-96 overflow-y-auto bg-black-700">
           <div className="editorLineNumbers absolute left-0 top-0 flex flex-col pt-2">
             {[...Array(numberOfEditorLines)].map((_, idx) => (
               <span key={idx}>{idx + 1}</span>
@@ -67,12 +70,14 @@ const CodeEditor = ({
             id="code-text-area"
             spellCheck={false}
             ref={textAreaRef}
-            className="codeTextArea bg-black-700 no-scrollbar w-full rounded-md border-none pt-2 focus:ring-0"
+            className="codeTextArea no-scrollbar w-full rounded-md border-none bg-black-700 pt-2 focus:ring-0"
             onChange={(e) => onChange(e.target.value)}
             value={codeContent}
           />
         </div>
       )}
+
+      {errors && <span className="error-message">{errors}</span>}
     </section>
   );
 };
