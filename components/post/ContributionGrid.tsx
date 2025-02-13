@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import ReactCalendarHeatmap from "react-calendar-heatmap";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-calendar-heatmap/dist/styles.css";
@@ -8,6 +9,13 @@ import { format as formatDate } from "date-fns";
 import { PostDate } from "@/types";
 
 const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
+  useEffect(() => {
+    const heatmap = document.querySelector(".react-calendar-heatmap");
+    if (heatmap) {
+      heatmap.setAttribute("viewBox", "0 0 664 108");
+    }
+  }, []);
+
   const getTooltipDataAttrs = (value: PostDate) => {
     if (!value || !value.date)
       return {
