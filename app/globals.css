@@ -164,6 +164,7 @@
   rx: 2px !important;
   ry: 2px !important;
 }
+
 .react-calendar-heatmap .color-scale-1 {
   fill: #0e4429;
   rx: 2px !important;
@@ -187,6 +188,14 @@
 .less-more-rectangles {
   @apply flex rounded-sm max-lg:size-2.5 max-sm:size-1.5 lg:size-3;
 }
+
+/* React Tooltip */
+
+.react-tooltip {
+  background-color: #10121e !important;
+  color: #adb3cc !important;
+}
+
 /* For inputs when clicking on an existing value in autofill browser menu */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

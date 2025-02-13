@@ -2,15 +2,28 @@
 
 import { PostDate } from "@/types";
 import ReactCalendarHeatmap from "react-calendar-heatmap";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-calendar-heatmap/dist/styles.css";
+import "react-tooltip/dist/react-tooltip.css";
 
 const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
-  const getTooltipDataAttrs = (value: { date: any; count: any }) => {
-    if (!value || !value.date) return null;
-    console.log("date", value.date);
-    return {
-      "data-tip": ` has count: ${value.count}`,
-    };
+  const getTooltipDataAttrs = (value: PostDate) => {
+    if (!value || !value.date)
+      return {
+        "data-tooltip-id": "heatmap-tooltip",
+        "data-tooltip-content": `No posts on this date`,
+        "data-tooltip-place": "top",
+      };
+
+    if (value.date && value.count) {
+      return {
+        "data-tooltip-id": "heatmap-tooltip",
+        "data-tooltip-content": `${value.count} ${
+          value.count > 1 ? "posts" : "post"
+        } on ${value.date}`,
+        "data-tooltip-place": "top",
+      };
+    }
   };
 
   return (
@@ -34,8 +47,9 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
           }}
           tooltipDataAttrs={getTooltipDataAttrs}
         />
+        <ReactTooltip id="heatmap-tooltip" />
       </div>
-      {/* <div className=" flex items-center justify-end gap-x-2"> */}
+
       <div className="text-white-300 paragraph-4-regular flex h-fit items-center justify-end gap-x-1">
         <p className="">Less</p>
         <div className="bg-black-700 less-more-rectangles"></div>
@@ -45,7 +59,6 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
         <div className="less-more-rectangles bg-[#39D353]"></div>
         <p className="">More</p>
       </div>
-      {/* </div> */}
     </>
   );
 };
