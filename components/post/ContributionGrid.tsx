@@ -5,6 +5,14 @@ import ReactCalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 
 const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
+  const getTooltipDataAttrs = (value: { date: any; count: any }) => {
+    if (!value || !value.date) return null;
+    console.log("date", value.date);
+    return {
+      "data-tip": ` has count: ${value.count}`,
+    };
+  };
+
   return (
     <>
       <div className="flex">
@@ -24,19 +32,20 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
             }
             return "color-empty";
           }}
+          tooltipDataAttrs={getTooltipDataAttrs}
         />
       </div>
-      <div className="text-white-300 paragraph-4-regular flex items-center justify-end gap-x-2">
-        <p>Less</p>
-        <div className="flex items-center gap-x-1">
-          <div className="bg-black-700 flex rounded-sm max-lg:size-2.5 max-sm:size-1.5 lg:size-3"></div>
-          <div className="flex rounded-sm border-none bg-[#0E4429] max-lg:size-2.5  max-sm:size-1.5 lg:size-3"></div>
-          <div className="flex rounded-sm bg-[#006D32] max-lg:size-2.5 max-sm:size-1.5 lg:size-3"></div>
-          <div className="flex rounded-sm bg-[#26A641] max-lg:size-2.5 max-sm:size-1.5 lg:size-3"></div>
-          <div className="flex rounded-sm bg-[#39D353] max-lg:size-2.5 max-sm:size-1.5 lg:size-3"></div>
-        </div>
-        <p>More</p>
+      {/* <div className=" flex items-center justify-end gap-x-2"> */}
+      <div className="text-white-300 paragraph-4-regular flex h-fit items-center justify-end gap-x-1">
+        <p className="">Less</p>
+        <div className="bg-black-700 less-more-rectangles"></div>
+        <div className="less-more-rectangles bg-[#0E4429]"></div>
+        <div className="less-more-rectangles bg-[#006D32]"></div>
+        <div className="less-more-rectangles bg-[#26A641]"></div>
+        <div className="less-more-rectangles bg-[#39D353]"></div>
+        <p className="">More</p>
       </div>
+      {/* </div> */}
     </>
   );
 };
