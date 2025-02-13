@@ -1,10 +1,11 @@
 "use client";
 
-import { PostDate } from "@/types";
 import ReactCalendarHeatmap from "react-calendar-heatmap";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-calendar-heatmap/dist/styles.css";
 import "react-tooltip/dist/react-tooltip.css";
+import { format as formatDate } from "date-fns";
+import { PostDate } from "@/types";
 
 const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
   const getTooltipDataAttrs = (value: PostDate) => {
@@ -16,19 +17,20 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
       };
 
     if (value.date && value.count) {
+      const formattedDate = formatDate(new Date(value.date), "MMMM do");
       return {
         "data-tooltip-id": "heatmap-tooltip",
         "data-tooltip-content": `${value.count} ${
           value.count > 1 ? "posts" : "post"
-        } on ${value.date}`,
+        } on ${formattedDate}`,
         "data-tooltip-place": "top",
       };
     }
   };
 
   return (
-    <>
-      <div className="flex">
+    <div className="flex max-w-full flex-col overflow-x-auto overflow-y-hidden">
+      <div className="min-w-[800px]">
         <ReactCalendarHeatmap
           showOutOfRangeDays
           showWeekdayLabels
@@ -59,7 +61,7 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
         <div className="less-more-rectangles bg-[#39D353]"></div>
         <p className="">More</p>
       </div>
-    </>
+    </div>
   );
 };
 
