@@ -12,7 +12,7 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
   useEffect(() => {
     const heatmap = document.querySelector(".react-calendar-heatmap");
     if (heatmap) {
-      heatmap.setAttribute("viewBox", "0 0 664 108");
+      heatmap.setAttribute("viewBox", "0 0 664 105");
     }
   }, []);
 
@@ -37,37 +37,42 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
   };
 
   return (
-    <div className="border-black-700 flex max-w-full flex-col overflow-x-auto overflow-y-hidden rounded-md border p-6">
-      <div className="min-w-[800px]">
-        <ReactCalendarHeatmap
-          showOutOfRangeDays
-          showWeekdayLabels
-          startDate={new Date("2025-01-01")}
-          endDate={new Date("2026-01-01")}
-          values={postDates}
-          gutterSize={2}
-          classForValue={(value) => {
-            if (value) {
-              if (value.count === 1) return "color-scale-1";
-              if (value.count >= 2 && value.count <= 3) return "color-scale-2";
-              if (value.count >= 4 && value.count <= 7) return "color-scale-3";
-              if (value.count >= 8) return "color-scale-4";
-            }
-            return "color-empty";
-          }}
-          tooltipDataAttrs={getTooltipDataAttrs}
-        />
-        <ReactTooltip id="heatmap-tooltip" />
-      </div>
+    <div className="border-black-700 flex rounded-md border p-6">
+      <div className="flex w-full flex-col overflow-x-auto overflow-y-hidden">
+        <div className="min-w-[700px]">
+          <ReactCalendarHeatmap
+            showOutOfRangeDays
+            showWeekdayLabels
+            startDate={new Date("2025-01-01")}
+            endDate={new Date("2026-01-01")}
+            values={postDates}
+            gutterSize={2}
+            classForValue={(value) => {
+              if (value) {
+                if (value.count === 1) return "color-scale-1";
+                if (value.count >= 2 && value.count <= 3)
+                  return "color-scale-2";
+                if (value.count >= 4 && value.count <= 7)
+                  return "color-scale-3";
+                if (value.count >= 8) return "color-scale-4";
+              }
+              return "color-empty";
+            }}
+            tooltipDataAttrs={getTooltipDataAttrs}
+          />
 
-      <div className="text-white-300 paragraph-4-regular flex h-fit items-center justify-end gap-x-1">
-        <p className="">Less</p>
-        <div className="bg-black-700 less-more-rectangles"></div>
-        <div className="less-more-rectangles bg-[#0E4429]"></div>
-        <div className="less-more-rectangles bg-[#006D32]"></div>
-        <div className="less-more-rectangles bg-[#26A641]"></div>
-        <div className="less-more-rectangles bg-[#39D353]"></div>
-        <p className="">More</p>
+          <ReactTooltip id="heatmap-tooltip" />
+
+          <div className="text-white-300 paragraph-4-regular flex h-fit items-center justify-end gap-x-1">
+            <p className="">Less</p>
+            <div className="bg-black-700 less-more-rectangles"></div>
+            <div className="less-more-rectangles bg-[#0E4429]"></div>
+            <div className="less-more-rectangles bg-[#006D32]"></div>
+            <div className="less-more-rectangles bg-[#26A641]"></div>
+            <div className="less-more-rectangles bg-[#39D353]"></div>
+            <p className="">More</p>
+          </div>
+        </div>
       </div>
     </div>
   );
