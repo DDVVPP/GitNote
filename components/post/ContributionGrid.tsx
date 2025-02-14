@@ -37,7 +37,7 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
   };
 
   return (
-    <div className="flex max-w-full flex-col overflow-x-auto overflow-y-hidden">
+    <div className="border-black-700 flex max-w-full flex-col overflow-x-auto overflow-y-hidden rounded-md border p-6">
       <div className="min-w-[800px]">
         <ReactCalendarHeatmap
           showOutOfRangeDays

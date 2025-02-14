@@ -76,9 +76,10 @@ const Profile = ({
         <div className="mt-20 flex flex-col gap-y-2">
           <h3 className="paragraph-1-bold">Contribution Grid</h3>
           <ContributionGrid postDates={postDates as PostDate[]} />
+          <hr className="dark:bg-black-700 my-8 h-px w-full border-0" />
         </div>
 
-        <div className="mt-20 flex flex-col gap-y-2">
+        <div className="flex flex-col gap-y-2">
           <h3 className="paragraph-1-bold">Learning Goals</h3>
           {goals && goals?.length > 0 ? (
             goals.map((goal) => {
