@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactCalendarHeatmap from "react-calendar-heatmap";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-calendar-heatmap/dist/styles.css";
@@ -9,6 +9,9 @@ import { format as formatDate } from "date-fns";
 import { PostDate } from "@/types";
 
 const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
+  // add a useEffect to setInterval of checking date every 24hrs if I want it to automatically update every year without a refresh
+  const [year] = useState(new Date().getFullYear());
+
   useEffect(() => {
     const heatmap = document.querySelector(".react-calendar-heatmap");
     if (heatmap) {
@@ -43,8 +46,8 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
           <ReactCalendarHeatmap
             showOutOfRangeDays
             showWeekdayLabels
-            startDate={new Date("2025-01-01")}
-            endDate={new Date("2026-01-01")}
+            startDate={new Date(year, 0, 1)}
+            endDate={new Date(year + 1, 0, 1)}
             values={postDates}
             gutterSize={2}
             classForValue={(value) => {
