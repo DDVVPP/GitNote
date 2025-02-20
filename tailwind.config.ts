@@ -43,9 +43,9 @@ const config: Config = {
           900: "#9542FF1A",
         },
         green: {
-          400: "#68D1BF",
-          500: "#42FF77",
-          900: "#42FF771A",
+          lighter: "#68D1BF",
+          lime: "#42FF77",
+          dark: "#42FF771A",
         },
       },
     },
