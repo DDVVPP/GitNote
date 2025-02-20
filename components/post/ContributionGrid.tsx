@@ -20,24 +20,21 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
     }
   }, []);
 
-  const getTooltipDataAttrs = (value: PostDate) => {
-    if (!value || !value.date)
-      return {
-        "data-tooltip-id": "heatmap-tooltip",
-        "data-tooltip-content": `No posts on this date`,
-        "data-tooltip-place": "top",
-      };
+  const getTooltipDataAttrs = (value?: PostDate) => {
+    const formattedDate = value?.date
+      ? formatDate(new Date(value.date), "MMMM do")
+      : "this date";
 
-    if (value.date && value.count) {
-      const formattedDate = formatDate(new Date(value.date), "MMMM do");
-      return {
-        "data-tooltip-id": "heatmap-tooltip",
-        "data-tooltip-content": `${value.count} ${
-          value.count > 1 ? "posts" : "post"
-        } on ${formattedDate}`,
-        "data-tooltip-place": "top",
-      };
-    }
+    const count = value?.count ?? 0; // Default to 0 if no count exists
+
+    return {
+      "data-tooltip-id": "heatmap-tooltip",
+      "data-tooltip-content":
+        count > 0
+          ? `${count} ${count === 1 ? "post" : "posts"} on ${formattedDate}`
+          : `No posts on ${formattedDate}`,
+      "data-tooltip-place": "top",
+    };
   };
 
   return (
