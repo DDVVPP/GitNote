@@ -16,7 +16,7 @@ const colorClassMap = {
   blue: "bg-primary-900 text-primary-500",
   orange: "bg-orange-100 text-orange-900",
   red: "bg-red-100 text-red-900",
-  green: "bg-green-900 text-green-500",
+  green: "bg-green-dark text-green-lime",
   gray: "bg-gray-100 text-gray-900",
   purple: "bg-purple-900 text-purple-500",
   default: "bg-black-700 text-white-300",
@@ -26,8 +26,8 @@ const outlineColorClassMap = {
   blue: "border border-blue-200 text-blue-800",
   orange: "border border-orange-200 text-orange-900",
   red: "border border-red-200 text-red-900",
-  green: "border border-green-500 text-green-800",
-  purple: "border border-green-500 text-green-800",
+  green: "border border-green-lime text-green-800",
+  purple: "border border-green-lime text-green-800",
   gray: "border border-gray-100/20 text-gray-600",
   default: "border border-gray-100/20 text-gray-600",
 };
@@ -76,7 +76,7 @@ const Badge = ({
         variant === "outline" ? outlineColorClass : colorClass
       } ${icon !== "dot" ? "gap-1" : "pr-4"} ${
         hover &&
-        "hover:rounded hover:bg-black-600 hover:px-2 hover:py-0.5 hover:duration-300"
+        "hover:bg-black-600 hover:rounded hover:px-2 hover:py-0.5 hover:duration-300"
       }`}
     >
       {IconComponent && (

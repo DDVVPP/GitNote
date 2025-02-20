@@ -25,7 +25,7 @@ export const iconMatch = (title: string, createType: CreateType) => {
     case CreateType.KNOWLEDGE:
       return (
         <>
-          <KnowledgeIcon className="text-green-500" size={18} />
+          <KnowledgeIcon className="text-green-lime" size={18} />
           <span>{title}</span>
         </>
       );
