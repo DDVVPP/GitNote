@@ -16,6 +16,7 @@ const config: Config = {
       screens: {
         "xs-a": "322px",
         "xs-b": "580px",
+        "lg-a": "1340px",
       },
       colors: {
         primary: {
