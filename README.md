@@ -4,7 +4,7 @@ GitNote is a comprehensive learning tool and an efficient progress tracker for d
 
 &nbsp;
 
-## <a name="features">☀️ Key Features</a>
+## <a name="features ">☀️ Key Features</a>
 
 - **Authentication** - Next auth for secure sign-up, sign-in, and logout functionalities.
 - **Onboarding** – Provides an introduction and walkthrough for new users.
@@ -110,7 +110,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 ✅ Disable dates before today in Availability\
 ✅ Disable dates before start date in End Date Availability
 
-
 **Left Sidebar**
 
 🔳 Display posts in the 'Posts' section
@@ -152,4 +151,3 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 ✅ Onbboarding - Disable dates before start date in End Date Availability\
 🔳 Ability to cancel onboarding process (reroutes user to sign-in/sign-up page
 🔳 Ability to save mid onboarding process
-
