@@ -164,6 +164,7 @@
   fill: #1d2032 !important;
   rx: 2px !important;
   ry: 2px !important;
+  outline: none !important;
 }
 
 .react-calendar-heatmap .color-scale-1 {
