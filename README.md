@@ -4,7 +4,7 @@ GitNote is a comprehensive learning tool and an efficient progress tracker for d
 
 &nbsp;
 
-## <a name="features ">☀️ Key Features</a>
+## <a name="features">☀️ Key Features</a>
 
 - **Authentication** - Next auth for secure sign-up, sign-in, and logout functionalities.
 - **Onboarding** – Provides an introduction and walkthrough for new users.
