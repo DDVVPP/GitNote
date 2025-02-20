@@ -15,7 +15,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   const { somePosts } = posts;
 
   return user && somePosts ? (
-    <div className="flex h-screen flex-col">
+    <div className="lg-a:items-center flex h-screen flex-col">
       <header className="max-lg-a:block hidden">
         <MobileHeader user={user} posts={somePosts as Post[]} />
       </header>
