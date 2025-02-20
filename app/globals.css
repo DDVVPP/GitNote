@@ -187,7 +187,7 @@
   ry: 2px !important;
 }
 .less-more-rectangles {
-  @apply flex rounded-sm max-lg:size-2.5 max-sm:size-1.5 lg:size-3;
+  @apply flex rounded-sm max-lg:size-2.5 lg:size-3;
 }
 
 /* React Tooltip */
