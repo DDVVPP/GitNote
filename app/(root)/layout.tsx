@@ -16,18 +16,18 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
 
   return user && somePosts ? (
     <div className="flex h-screen flex-col">
-      <header className="max-[1220px]:block lg:hidden">
+      <header className="max-lg-a:block hidden">
         <MobileHeader user={user} posts={somePosts as Post[]} />
       </header>
 
-      <div className="flex flex-1 flex-col lg:flex-row">
-        <nav className="bg-black-800 hidden w-[290px] lg:block">
+      <div className="lg-a:flex-row flex flex-1 flex-col">
+        <nav className="bg-black-800 lg-a:block hidden w-[290px] min-w-[260px]">
           <LeftNavbar posts={somePosts as Post[]} />
         </nav>
 
         <main className="flex-1 px-7 pt-10">{children}</main>
 
-        <nav className="bg-black-800 hidden w-[290px] lg:block">
+        <nav className="bg-black-800 lg-a:block hidden w-[290px] min-w-[260px]">
           <RightSidebar user={user} />
         </nav>
       </div>

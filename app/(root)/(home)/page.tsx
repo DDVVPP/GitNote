@@ -1,10 +1,11 @@
 import { getUser } from "@/lib/actions/user.actions";
-import { getAllPosts } from "@/lib/actions/post.actions";
+import { getAllPosts, getPostDates } from "@/lib/actions/post.actions";
 
 import { CreateType, Post, User } from "@prisma/client";
-import { SearchParams } from "@/types";
+import { PostDate, SearchParams } from "@/types";
 import Posts from "../../../components/post/Posts";
 import Pagination from "@/components/post/Pagination";
+import ContributionGrid from "@/components/post/ContributionGrid";
 import UserNotFound from "@/components/shared/UserNotFound";
 
 export default async function Home({
@@ -21,6 +22,7 @@ export default async function Home({
     tag: searchParams.tag ?? "",
   });
   const { somePosts, hasNextPage, numberOfPages } = posts;
+  const { reducedDates } = await getPostDates();
 
   return user ? (
     <section className="flex flex-col">
@@ -29,8 +31,8 @@ export default async function Home({
         <p className="paragraph-1-regular text-white-300">
           Time to jot down your latest learnings today!
         </p>
-        <div className="bg-black-800 h-52 w-full content-center">
-          <p className="paragraph-3-regular text-white-500 p-3 text-center">{`[placeholder for contribution grid]`}</p>
+        <div>
+          <ContributionGrid postDates={reducedDates as PostDate[]} />
         </div>
       </section>
       {somePosts && (

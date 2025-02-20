@@ -28,6 +28,11 @@ export type SearchParams = {
   tag: string;
 };
 
+export type PostDate = {
+  date: string;
+  count: number;
+};
+
 export type QuickLinkProps = {
   groupName: "jsm" | "github";
   href: string;

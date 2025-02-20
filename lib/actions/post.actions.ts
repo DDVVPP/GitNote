@@ -291,6 +291,43 @@ export async function getUniqueTags() {
   }
 }
 
+export async function getPostDates() {
+  try {
+    const userEmail = await getUserSession();
+    const dates = await prisma.post.findMany({
+      where: {
+        userEmail,
+      },
+      select: {
+        createdAt: true,
+      },
+    });
+
+    const reducedDates = dates.reduce(
+      (acc: { date: string; count: number }[], date) => {
+        const splitDate = date.createdAt.toISOString().split("T")[0];
+        const indexOfDate = acc.findIndex(
+          (item: { date: string; count: number }) => item.date === splitDate
+        );
+
+        if (indexOfDate === -1) {
+          acc.push({ date: splitDate, count: 1 });
+        } else {
+          acc[indexOfDate].count += 1;
+        }
+
+        return acc;
+      },
+      []
+    );
+
+    return { reducedDates, error: null };
+  } catch (error) {
+    console.error("Error returning dates:", error);
+    return { error: "An unexpected error occurred while returning dates." };
+  }
+}
+
 export async function deletePost(id: number) {
   try {
     const post = prisma.post.delete({

@@ -12,7 +12,7 @@ const MobileHeader = ({ user, posts }: { user: User; posts: Post[] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-black-800 flex justify-between p-6 lg:hidden">
+    <header className="bg-black-800 flex justify-between p-6">
       <Link href="/">
         <div className="flex items-center gap-x-2">
           <Image src={gitNoteIcon} alt="Git Note Icon" />

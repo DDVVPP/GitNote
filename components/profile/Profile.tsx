@@ -7,11 +7,18 @@ import { format as formatDate } from "date-fns";
 
 import { User, Goals } from "@prisma/client";
 import { techStackList } from "@/lib/constants/techStackList";
-import { ProfileHeaderItems, TechStackType } from "@/types";
+import { PostDate, ProfileHeaderItems, TechStackType } from "@/types";
 import MobileProfileHeader from "./MobileProfileHeader";
 import ProfileHeader from "./ProfileHeader";
+import ContributionGrid from "../post/ContributionGrid";
 
-const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
+const Profile = ({
+  user,
+  postDates,
+}: {
+  user: User & { goals?: Goals[] };
+  postDates: PostDate[];
+}) => {
   const {
     name,
     image,
@@ -67,6 +74,12 @@ const Profile = ({ user }: { user: User & { goals?: Goals[] } }) => {
 
       <section>
         <div className="mt-20 flex flex-col gap-y-2">
+          <h3 className="paragraph-1-bold">Contribution Grid</h3>
+          <ContributionGrid postDates={postDates as PostDate[]} />
+          <hr className="dark:bg-black-700 my-8 h-px w-full border-0" />
+        </div>
+
+        <div className="flex flex-col gap-y-2">
           <h3 className="paragraph-1-bold">Learning Goals</h3>
           {goals && goals?.length > 0 ? (
             goals.map((goal) => {
