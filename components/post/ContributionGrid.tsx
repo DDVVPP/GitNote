@@ -7,6 +7,7 @@ import "react-calendar-heatmap/dist/styles.css";
 import "react-tooltip/dist/react-tooltip.css";
 import { format as formatDate } from "date-fns";
 import { PostDate } from "@/types";
+import { gridColorScale } from "@/lib/constants/gridColorScale";
 
 const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
   // add a useEffect to setInterval of checking date every 24hrs if I want it to automatically update every year without a refresh
@@ -67,13 +68,11 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
           <ReactTooltip id="heatmap-tooltip" />
 
           <div className="text-white-300 paragraph-4-regular flex h-fit items-center justify-end gap-x-1">
-            <p className="">Less</p>
-            <div className="bg-black-700 less-more-rectangles"></div>
-            <div className="less-more-rectangles bg-[#0E4429]"></div>
-            <div className="less-more-rectangles bg-[#006D32]"></div>
-            <div className="less-more-rectangles bg-[#26A641]"></div>
-            <div className="less-more-rectangles bg-[#39D353]"></div>
-            <p className="">More</p>
+            <p className="pt-0.5">Less</p>
+            {gridColorScale.map((color) => (
+              <div className={`${color} less-more-rectangles`}></div>
+            ))}
+            <p className="pt-0.5">More</p>
           </div>
         </div>
       </div>
