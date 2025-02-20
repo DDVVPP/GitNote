@@ -40,7 +40,7 @@ const Availability = ({
       <section className="space-x-2 pb-2">
         <input
           type="checkbox"
-          className="border-white-500 bg-black-700 size-3 cursor-pointer appearance-none rounded-sm border text-green-400"
+          className="border-white-500 bg-black-700 text-green-lighter size-3 cursor-pointer appearance-none rounded-sm border"
           {...register("availability")}
         />
         <label className="paragraph-3-regular  text-white-300">

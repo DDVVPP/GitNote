@@ -89,7 +89,7 @@ const Profile = ({
                     type="checkbox"
                     disabled
                     checked={goal.isComplete}
-                    className="border-white-500 bg-white-500 size-3 appearance-none rounded-sm border text-green-400"
+                    className="border-white-500 bg-white-500 text-green-lighter size-3 appearance-none rounded-sm border"
                   />
                   <p className="paragraph-2-regular text-white-300">
                     {goal.name}
@@ -154,13 +154,13 @@ const Profile = ({
           {availability ? (
             <div className="flex flex-col gap-y-2">
               <div className="flex items-center gap-2">
-                <UserCheck className="shrink-0 text-green-400" size={16} />
+                <UserCheck className="text-green-lighter shrink-0" size={16} />
                 <p className="paragraph-2-regular text-white-300">
                   Available for a new project
                 </p>
               </div>
               <div className="flex items-center gap-2 max-md:items-start">
-                <Clock className="mt-1 shrink-0 text-green-400" size={16} />
+                <Clock className="text-green-lighter mt-1 shrink-0" size={16} />
                 <p className="paragraph-2-regular text-white-300 ">
                   Available from {start ?? "(oops! Missing start date)"} to{" "}
                   {end ?? "(oops! Missing end date)"}

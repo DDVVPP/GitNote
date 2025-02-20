@@ -17,7 +17,7 @@ export const createTypeList: CreateTypeListItemType[] = [
     name: CreateType.KNOWLEDGE,
     uiName: "Knowledge",
     badgeColor: "green",
-    color: "text-green-500",
+    color: "text-green-lime",
   },
   {
     icon: ComponentIcon,

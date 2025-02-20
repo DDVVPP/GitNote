@@ -150,7 +150,7 @@ const PostDetails = ({
               return (
                 <div className="flex items-start space-x-2" key={item}>
                   <CheckSquare
-                    className="m-1 shrink-0 text-green-400"
+                    className="text-green-lighter m-1 shrink-0"
                     size={16}
                   />
                   <p className="paragraph-2-regular text-white-300">{item}</p>
@@ -202,7 +202,7 @@ const PostDetails = ({
               >
                 <CheckSquare
                   size={16}
-                  className="flex shrink-0 text-green-400"
+                  className="text-green-lighter flex shrink-0"
                 />
                 <a
                   target="_blank"
