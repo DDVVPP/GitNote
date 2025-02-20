@@ -70,7 +70,10 @@ const ContributionGrid = ({ postDates }: { postDates: PostDate[] }) => {
           <div className="text-white-300 paragraph-4-regular flex h-fit items-center justify-end gap-x-1">
             <p className="pt-0.5">Less</p>
             {gridColorScale.map((color) => (
-              <div className={`${color} less-more-rectangles`}></div>
+              <div
+                key={color}
+                className={`${color} less-more-rectangles`}
+              ></div>
             ))}
             <p className="pt-0.5">More</p>
           </div>
