@@ -2,6 +2,8 @@
 
 GitNote is a comprehensive learning tool and an efficient progress tracker for developers. Seamlessly capture and organize knowledge, set and track learning goals, and monitor study habits with ease. Developed as part of the JSM Masterclass, GitNote empowers developers to enhance their productivity and knowledge management skills effortlessly.
 
+Follow my dev journey at [#darshingitnote](https://www.linkedin.com/search/results/all/?keywords=%23darshingitnote&origin=GLOBAL_SEARCH_HEADER&sid=%3B6e)
+
 &nbsp;
 
 ## <a name="features">☀️ Key Features</a>
